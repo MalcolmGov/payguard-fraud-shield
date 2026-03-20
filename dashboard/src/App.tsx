@@ -43,10 +43,14 @@ import Settings from './pages/Settings';
 import Clients from './pages/Clients';
 import Invoices from './pages/Invoices';
 import LegalPage from './pages/LegalPage';
+import CaseQueue from './pages/CaseQueue';
+import UserProfile from './pages/UserProfile';
 
 const ANALYST_NAV = [
   { to: '/overview',       label: '\u{1F4CA} Overview' },
-  { to: '/transactions',   label: '\u{1F4CB} Transactions' },
+  { to: '/case-queue',     label: '\u{1F4CB} Case Queue' },
+  { to: '/transactions',   label: '\u{1F4B3} Transactions' },
+  { to: '/user-profile',   label: '\u{1F50D} User 360°' },
   { to: '/network',        label: '\u{1F578}\uFE0F Fraud Network' },
   { to: '/accounts',       label: '\u{1F464} Accounts' },
   { to: '/devices',        label: '\u{1F4F1} Device Binding' },
@@ -189,6 +193,8 @@ export default function App() {
         <Route path="/clusters"         element={dash(<FraudClusterPage />)} />
         <Route path="/trajectory"       element={dash(<TrajectoryPage />)} />
         <Route path="/audit"            element={dash(<AuditLog />)} />
+        <Route path="/case-queue"       element={dash(<CaseQueue />)} />
+        <Route path="/user-profile"     element={dash(<UserProfile />)} />
         <Route path="/settings"         element={dash(<Settings />)} />
         <Route path="/clients"          element={dash(<Clients />)} />
         <Route path="/invoices"         element={dash(<Invoices />)} />
