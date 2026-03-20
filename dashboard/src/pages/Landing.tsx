@@ -83,12 +83,12 @@ const COMPARISONS = [
 ];
 
 const WHO_FOR = [
-  { name: 'Banks', icon: '🏦', desc: 'Retail & commercial banks protecting customer deposits' },
-  { name: 'Telcos', icon: '📡', desc: 'Mobile operators securing airtime and mobile money' },
-  { name: 'Fintechs', icon: '💳', desc: 'Digital-first financial services and neobanks' },
-  { name: 'PSPs', icon: '🔄', desc: 'Payment service providers and switches' },
-  { name: 'Wallets', icon: '📱', desc: 'Digital wallets and mobile money platforms' },
-  { name: 'Insurance', icon: '🛡️', desc: 'Insurers preventing claims fraud and identity theft' },
+  { name: 'Banks', icon: '🏦', desc: 'Retail & commercial banks protecting customer deposits', tags: 'EFT · Card · RTP', color: '#3B82F6' },
+  { name: 'Telcos', icon: '📡', desc: 'Mobile operators securing airtime and mobile money', tags: 'Airtime · USSD · MoMo', color: '#8B5CF6' },
+  { name: 'Fintechs', icon: '💳', desc: 'Digital-first financial services and neobanks', tags: 'Wallets · P2P · Lending', color: '#00D4AA' },
+  { name: 'PSPs', icon: '🔄', desc: 'Payment service providers and switches', tags: 'Gateway · Switch · Acquirer', color: '#F59E0B' },
+  { name: 'Wallets', icon: '📱', desc: 'Digital wallets and mobile money platforms', tags: 'Mobile · QR · NFC', color: '#EC4899' },
+  { name: 'Insurance', icon: '🛡️', desc: 'Insurers preventing claims fraud and identity theft', tags: 'Claims · KYC · Identity', color: '#06B6D4' },
 ];
 
 /* ── Nav ───────────────────────────────────────────────────────── */
@@ -250,19 +250,42 @@ export default function Landing() {
             </h2>
             <p style={{ fontSize: 17, color: '#94A3B8', maxWidth: 600, margin: '0 auto', lineHeight: 1.8 }}>From social engineering and SIM swap to AI deepfakes and mule networks — PayGuard covers every attack vector.</p>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 18 }}>
             {PRODUCTS.map((p, i) => (
-              <Reveal key={i} delay={i * 60}>
+              <Reveal key={i} delay={i * 70}>
                 <div onClick={() => navigate('/products')} style={{
                   borderRadius: 16, cursor: 'pointer', overflow: 'hidden', height: '100%',
-                  background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)',
-                  padding: '28px 24px', transition: 'all 0.3s cubic-bezier(0.4,0,0.2,1)',
+                  background: 'linear-gradient(135deg, rgba(15,26,46,0.8), rgba(15,26,46,0.95))',
+                  border: '1px solid rgba(255,255,255,0.06)',
+                  padding: '32px 28px', transition: 'all 0.3s cubic-bezier(0.4,0,0.2,1)',
+                  position: 'relative',
+                  boxShadow: '0 1px 3px rgba(0,0,0,0.2), 0 1px 2px rgba(0,0,0,0.15)',
+                  backdropFilter: 'blur(12px)',
                 }}
-                  onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-6px)'; e.currentTarget.style.boxShadow = `0 20px 60px ${p.color}15`; e.currentTarget.style.borderColor = `${p.color}30`; }}
-                  onMouseLeave={e => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = ''; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)'; }}>
-                  <div style={{ fontSize: 32, marginBottom: 14 }}>{p.icon}</div>
-                  <h3 style={{ fontSize: 16, fontWeight: 700, fontFamily: "'Plus Jakarta Sans', sans-serif", color: '#F0F6FF', marginBottom: 10 }}>{p.name}</h3>
-                  <p style={{ fontSize: 14, color: '#8899B0', lineHeight: 1.7, margin: 0 }}>{p.desc}</p>
+                  onMouseEnter={e => {
+                    e.currentTarget.style.transform = 'translateY(-4px)';
+                    e.currentTarget.style.boxShadow = `0 8px 32px ${p.color}20, 0 0 60px ${p.color}08`;
+                    e.currentTarget.style.borderColor = `${p.color}35`;
+                    const glow = e.currentTarget.querySelector('.card-glow') as HTMLElement;
+                    if (glow) glow.style.opacity = '0.18';
+                  }}
+                  onMouseLeave={e => {
+                    e.currentTarget.style.transform = '';
+                    e.currentTarget.style.boxShadow = '0 1px 3px rgba(0,0,0,0.2), 0 1px 2px rgba(0,0,0,0.15)';
+                    e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)';
+                    const glow = e.currentTarget.querySelector('.card-glow') as HTMLElement;
+                    if (glow) glow.style.opacity = '0.08';
+                  }}>
+                  {/* Gradient top border */}
+                  <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 3, background: `linear-gradient(90deg, ${p.color}, ${p.color}60, transparent)`, borderRadius: '16px 16px 0 0' }} />
+                  {/* Corner glow */}
+                  <div className="card-glow" style={{ position: 'absolute', top: -40, left: -40, width: 140, height: 140, borderRadius: '50%', background: p.color, opacity: 0.08, filter: 'blur(40px)', transition: 'opacity 0.3s', pointerEvents: 'none' }} />
+                  {/* Icon wrapper with glow */}
+                  <div style={{ width: 48, height: 48, borderRadius: 12, background: `${p.color}12`, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 20, boxShadow: `0 0 24px ${p.color}15`, border: `1px solid ${p.color}20`, fontSize: 24, position: 'relative' }}>
+                    {p.icon}
+                  </div>
+                  <h3 style={{ fontSize: 18, fontWeight: 600, fontFamily: "'Plus Jakarta Sans', sans-serif", color: '#F0F6FF', marginBottom: 10, position: 'relative' }}>{p.name}</h3>
+                  <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.6)', lineHeight: 1.7, margin: 0, position: 'relative' }}>{p.desc}</p>
                 </div>
               </Reveal>
             ))}
@@ -363,22 +386,39 @@ when (decision.action) {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 20 }}>
             {COMPARISONS.map((c, i) => (
               <Reveal key={i} delay={i * 80}>
-                <div style={{ borderRadius: 16, overflow: 'hidden', background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', transition: 'all 0.3s' }}
-                  onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 16px 48px rgba(0,0,0,0.3)'; }}
-                  onMouseLeave={e => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = ''; }}>
-                  <div style={{ padding: '24px 24px 20px' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
-                      <span style={{ fontSize: 24 }}>{c.icon}</span>
-                      <h3 style={{ fontSize: 17, fontWeight: 700, fontFamily: "'Plus Jakarta Sans', sans-serif", color: '#F0F6FF', margin: 0 }}>{c.title}</h3>
+                <div style={{
+                  borderRadius: 16, overflow: 'hidden',
+                  background: 'linear-gradient(135deg, rgba(15,26,46,0.7), rgba(15,26,46,0.95))',
+                  border: '1px solid rgba(255,255,255,0.06)',
+                  transition: 'all 0.3s cubic-bezier(0.4,0,0.2,1)',
+                  boxShadow: '0 1px 3px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.03)',
+                  backdropFilter: 'blur(12px)',
+                }}
+                  onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = `0 16px 48px rgba(0,0,0,0.3), 0 0 40px ${c.color}08`; e.currentTarget.style.borderColor = `${c.color}25`; }}
+                  onMouseLeave={e => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = '0 1px 3px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.03)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)'; }}>
+                  <div style={{ padding: '28px 28px 24px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20 }}>
+                      <div style={{ width: 40, height: 40, borderRadius: 10, background: `${c.color}12`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20, boxShadow: `0 0 20px ${c.color}10` }}>{c.icon}</div>
+                      <h3 style={{ fontSize: 18, fontWeight: 700, fontFamily: "'Plus Jakarta Sans', sans-serif", color: '#F0F6FF', margin: 0 }}>{c.title}</h3>
                     </div>
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
-                      <div style={{ padding: '16px', borderRadius: 12, background: 'rgba(239,68,68,0.04)', border: '1px solid rgba(239,68,68,0.1)' }}>
-                        <div style={{ fontSize: 9, fontWeight: 800, letterSpacing: '0.1em', color: '#EF4444', marginBottom: 8 }}>⛔ WITHOUT PAYGUARD</div>
-                        <p style={{ fontSize: 12, color: '#64748B', lineHeight: 1.7, margin: 0 }}>{c.without}</p>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr auto 1fr', gap: 0 }}>
+                      {/* Danger side */}
+                      <div style={{ padding: '18px', borderRadius: 12, background: 'linear-gradient(135deg, rgba(239,68,68,0.06), rgba(239,68,68,0.02))', borderLeft: '3px solid #EF4444' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 10 }}>
+                          <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#EF4444', boxShadow: '0 0 8px rgba(239,68,68,0.5)', display: 'inline-block', animation: 'pulse 2s infinite' }} />
+                          <span style={{ fontSize: 9, fontWeight: 800, letterSpacing: '0.1em', color: '#EF4444' }}>WITHOUT PAYGUARD</span>
+                        </div>
+                        <p style={{ fontSize: 13, color: 'rgba(248,180,180,0.7)', lineHeight: 1.7, margin: 0 }}>{c.without}</p>
                       </div>
-                      <div style={{ padding: '16px', borderRadius: 12, background: 'rgba(16,185,129,0.04)', border: '1px solid rgba(16,185,129,0.1)' }}>
-                        <div style={{ fontSize: 9, fontWeight: 800, letterSpacing: '0.1em', color: '#10B981', marginBottom: 8 }}>🛡️ WITH PAYGUARD</div>
-                        <p style={{ fontSize: 12, color: '#94A3B8', lineHeight: 1.7, margin: 0, fontWeight: 500 }}>{c.withPG}</p>
+                      {/* Divider */}
+                      <div style={{ width: 1, margin: '8px 10px', background: 'linear-gradient(180deg, #EF4444, rgba(255,255,255,0.06), #10B981)' }} />
+                      {/* Safe side */}
+                      <div style={{ padding: '18px', borderRadius: 12, background: 'linear-gradient(135deg, rgba(16,185,129,0.06), rgba(16,185,129,0.02))', borderLeft: '3px solid #10B981' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 10 }}>
+                          <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#10B981', boxShadow: '0 0 8px rgba(16,185,129,0.4)', display: 'inline-block' }} />
+                          <span style={{ fontSize: 9, fontWeight: 800, letterSpacing: '0.1em', color: '#10B981' }}>WITH PAYGUARD</span>
+                        </div>
+                        <p style={{ fontSize: 13, color: 'rgba(167,243,208,0.8)', lineHeight: 1.7, margin: 0, fontWeight: 500 }}>{c.withPG}</p>
                       </div>
                     </div>
                   </div>
@@ -410,15 +450,41 @@ when (decision.action) {
               <h2 style={{ fontFamily: "'Plus Jakarta Sans', 'Outfit', sans-serif", fontSize: 40, fontWeight: 800, letterSpacing: '-0.02em', color: '#F0F6FF' }}>Built for Every Payment Provider.</h2>
             </div>
           </Reveal>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 18 }}>
             {WHO_FOR.map((w, i) => (
-              <Reveal key={i} delay={i * 60}>
-                <div style={{ padding: '28px 24px', borderRadius: 16, background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', transition: 'all 0.3s', textAlign: 'center' }}
-                  onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(59,130,246,0.2)'; e.currentTarget.style.transform = 'translateY(-3px)'; }}
-                  onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)'; e.currentTarget.style.transform = ''; }}>
-                  <div style={{ fontSize: 32, marginBottom: 12 }}>{w.icon}</div>
-                  <div style={{ fontSize: 16, fontWeight: 700, color: '#F0F6FF', marginBottom: 6, fontFamily: "'Plus Jakarta Sans', sans-serif" }}>{w.name}</div>
-                  <div style={{ fontSize: 13, color: '#64748B', lineHeight: 1.6 }}>{w.desc}</div>
+              <Reveal key={i} delay={i * 70}>
+                <div style={{
+                  padding: '28px 28px', borderRadius: 16,
+                  background: 'linear-gradient(135deg, rgba(15,26,46,0.7), rgba(15,26,46,0.95))',
+                  border: '1px solid rgba(255,255,255,0.06)',
+                  transition: 'all 0.3s cubic-bezier(0.4,0,0.2,1)',
+                  display: 'flex', alignItems: 'center', gap: 20,
+                  boxShadow: '0 1px 3px rgba(0,0,0,0.2)',
+                  backdropFilter: 'blur(12px)', position: 'relative', overflow: 'hidden',
+                }}
+                  onMouseEnter={e => {
+                    e.currentTarget.style.borderColor = `${w.color}30`;
+                    e.currentTarget.style.transform = 'translateY(-3px)';
+                    e.currentTarget.style.boxShadow = `0 8px 30px ${w.color}12`;
+                    const topGlow = e.currentTarget.querySelector('.top-glow') as HTMLElement;
+                    if (topGlow) topGlow.style.opacity = '1';
+                  }}
+                  onMouseLeave={e => {
+                    e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)';
+                    e.currentTarget.style.transform = '';
+                    e.currentTarget.style.boxShadow = '0 1px 3px rgba(0,0,0,0.2)';
+                    const topGlow = e.currentTarget.querySelector('.top-glow') as HTMLElement;
+                    if (topGlow) topGlow.style.opacity = '0.4';
+                  }}>
+                  {/* Top edge glow */}
+                  <div className="top-glow" style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 2, background: `linear-gradient(90deg, ${w.color}, ${w.color}50, transparent)`, opacity: 0.4, transition: 'opacity 0.3s' }} />
+                  {/* Frosted icon */}
+                  <div style={{ width: 56, height: 56, borderRadius: 14, background: `${w.color}10`, border: `1px solid ${w.color}18`, backdropFilter: 'blur(10px)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 28, flexShrink: 0, boxShadow: `0 0 20px ${w.color}10` }}>{w.icon}</div>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontSize: 17, fontWeight: 700, color: '#F0F6FF', marginBottom: 4, fontFamily: "'Plus Jakarta Sans', sans-serif" }}>{w.name}</div>
+                    <div style={{ fontSize: 14, color: 'rgba(255,255,255,0.55)', lineHeight: 1.6, marginBottom: 8 }}>{w.desc}</div>
+                    <div style={{ fontSize: 11, fontWeight: 600, color: w.color, letterSpacing: '0.04em', fontFamily: 'JetBrains Mono, monospace' }}>{w.tags}</div>
+                  </div>
                 </div>
               </Reveal>
             ))}
@@ -428,20 +494,29 @@ when (decision.action) {
 
       {/* ═══ TRUST BADGES ═══ */}
       <Reveal>
-        <section style={{ padding: '64px 48px', maxWidth: 1000, margin: '0 auto' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16, textAlign: 'center' }}>
-            {[
-              { icon: '🔒', title: 'SOC 2 Type II', desc: 'Certified compliant' },
-              { icon: '🔐', title: 'AES-256-GCM', desc: 'Military-grade encryption' },
-              { icon: '⚡', title: '99.99% SLA', desc: 'Platform uptime guarantee' },
-              { icon: '🌍', title: 'Africa-First', desc: 'Local infrastructure (af-south-1)' },
-            ].map((b, i) => (
-              <div key={i} style={{ padding: '24px 16px', borderRadius: 14, background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}>
-                <div style={{ fontSize: 28, marginBottom: 10 }}>{b.icon}</div>
-                <div style={{ fontSize: 14, fontWeight: 700, color: '#F0F6FF', marginBottom: 4, fontFamily: "'Plus Jakarta Sans', sans-serif" }}>{b.title}</div>
-                <div style={{ fontSize: 12, color: '#475569' }}>{b.desc}</div>
-              </div>
-            ))}
+        <section style={{ padding: '64px 48px' }}>
+          <div style={{ maxWidth: 1000, margin: '0 auto', background: 'rgba(255,255,255,0.02)', borderRadius: 16, border: '1px solid rgba(255,255,255,0.05)', padding: '40px 0', position: 'relative', overflow: 'hidden' }}>
+            {/* Shimmer sweep animation on load */}
+            <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.03), transparent)', backgroundSize: '200% 100%', animation: 'shimmerSweep 3s ease-in-out', pointerEvents: 'none' }} />
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+              {[
+                { svg: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00D4AA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>', title: 'SOC 2 TYPE II', desc: 'Certified compliant' },
+                { svg: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00D4AA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>', title: 'AES-256-GCM', desc: 'Military-grade encryption' },
+                { svg: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00D4AA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>', title: '99.99% SLA', desc: 'Platform uptime guarantee' },
+                { svg: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00D4AA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>', title: 'AFRICA-FIRST', desc: 'Local infra (af-south-1)' },
+              ].map((b, i) => (
+                <div key={i} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, padding: '0 40px', borderRight: i < 3 ? '1px solid rgba(255,255,255,0.06)' : 'none', position: 'relative' }}>
+                  {/* Double-ring icon container */}
+                  <div style={{ width: 52, height: 52, borderRadius: '50%', border: '1.5px solid rgba(0,212,170,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
+                    <div style={{ width: 40, height: 40, borderRadius: '50%', border: '1px dashed rgba(0,212,170,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <div dangerouslySetInnerHTML={{ __html: b.svg }} />
+                    </div>
+                  </div>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: '#F0F6FF', letterSpacing: '0.08em', fontFamily: "'Plus Jakarta Sans', sans-serif" }}>{b.title}</div>
+                  <div style={{ fontSize: 12, color: '#475569' }}>{b.desc}</div>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
       </Reveal>

@@ -8,6 +8,18 @@
   66% { transform: translate(-20px, 20px) scale(0.95); }
 }
 
+/* ── Trust Badge Shimmer ── */
+@keyframes shimmerSweep {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ── Danger Dot Pulse ── */
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 4px rgba(239,68,68,0.4); }
+  50% { box-shadow: 0 0 12px rgba(239,68,68,0.7); }
+}
+
 /* ── Website Design Tokens ── */
 :root {
   --w-bg:          #080808;
