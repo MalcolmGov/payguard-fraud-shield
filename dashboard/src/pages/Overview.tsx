@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { mockTransactions, mockRules } from '../data/mock';
+import { api, type HealthResponse } from '../lib/api';
 
 // ── Animated counter hook ─────────────────────────────────────────────────────
 function useCounter(target: number, duration = 1200) {
@@ -89,6 +90,28 @@ export default function Overview() {
   const [liveEvents, setLiveEvents] = useState(() => Array.from({ length: 8 }, generateLiveEvent));
   const eventRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
+  // ── API Health State ────────────────────────────────────────────────────────
+  const [apiHealth, setApiHealth] = useState<HealthResponse | null>(null);
+  const [apiLatency, setApiLatency] = useState<number | null>(null);
+  const [apiOnline, setApiOnline] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    const checkHealth = async () => {
+      const start = performance.now();
+      try {
+        const h = await api.health();
+        setApiHealth(h);
+        setApiLatency(Math.round(performance.now() - start));
+        setApiOnline(true);
+      } catch {
+        setApiOnline(false);
+      }
+    };
+    checkHealth();
+    const hInterval = setInterval(checkHealth, 30000); // Check every 30s
+    return () => clearInterval(hInterval);
+  }, []);
+
   // Compute stats
   const totalTxn = 12847;
   const blocked = 342;
@@ -152,6 +175,21 @@ export default function Overview() {
           <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
             <div style={{ width: 8, height: 8, borderRadius: 4, background: '#10F5A0', animation: 'pulse 2s infinite' }} />
             <span style={{ fontSize: 11, color: '#10F5A0', fontWeight: 600 }}>LIVE</span>
+          </div>
+          {/* API Engine Status */}
+          <div style={{
+            display: 'flex', alignItems: 'center', gap: 6,
+            padding: '4px 10px', borderRadius: 8,
+            background: apiOnline === true ? 'rgba(16,245,160,0.06)' : apiOnline === false ? 'rgba(239,68,68,0.06)' : 'rgba(255,255,255,0.03)',
+            border: `1px solid ${apiOnline === true ? 'rgba(16,245,160,0.2)' : apiOnline === false ? 'rgba(239,68,68,0.2)' : 'rgba(255,255,255,0.06)'}`,
+          }}>
+            <div style={{
+              width: 6, height: 6, borderRadius: 3,
+              background: apiOnline === true ? '#10F5A0' : apiOnline === false ? '#EF4444' : '#475569',
+            }} />
+            <span style={{ fontSize: 10, fontWeight: 600, color: apiOnline === true ? '#10F5A0' : apiOnline === false ? '#EF4444' : '#475569', fontFamily: 'JetBrains Mono, monospace' }}>
+              {apiOnline === null ? 'CHECKING…' : apiOnline ? `ENGINE v${apiHealth?.version || '?'} · ${apiLatency}ms` : 'ENGINE OFFLINE'}
+            </span>
           </div>
         </div>
       </div>
