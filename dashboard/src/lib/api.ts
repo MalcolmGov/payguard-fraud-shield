@@ -21,7 +21,6 @@ class PayGuardAPI {
   private baseUrl: string;
   private apiKey: string;
   private isOnline: boolean = true;
-  private lastCheck: number = 0;
 
   constructor(baseUrl: string, apiKey: string) {
     this.baseUrl = baseUrl;
@@ -52,13 +51,11 @@ class PayGuardAPI {
       }
 
       this.isOnline = true;
-      this.lastCheck = Date.now();
       return response.json();
     } catch (err) {
       clearTimeout(timer);
       if (err instanceof ApiError) throw err;
       this.isOnline = false;
-      this.lastCheck = Date.now();
       throw new ApiError(0, `API unreachable: ${(err as Error).message}`);
     }
   }
