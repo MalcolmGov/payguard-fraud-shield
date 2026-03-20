@@ -155,42 +155,73 @@ function Nav() {
 export default function Landing() {
   const navigate = useNavigate();
   const [showSales, setShowSales] = useState(false);
+  const [isMobile, setIsMobile] = useState(typeof window !== 'undefined' && window.innerWidth <= 768);
+
+  useEffect(() => {
+    const onResize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
 
   return (
     <div style={{ minHeight: '100vh', background: '#0A1628', overflowY: 'auto', overflowX: 'hidden', fontFamily: 'Inter, sans-serif', color: '#F0F6FF' }}>
       <Nav />
 
       {/* ═══ HERO ═══ */}
-      <section className="landing-hero" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '120px 48px 80px', position: 'relative', overflow: 'hidden', background: 'linear-gradient(180deg, #0B1121 0%, #0A1628 50%, #0D1B2A 100%)' }}>
+      <section className="landing-hero" style={{
+        width: '100%',
+        maxWidth: '100%',
+        boxSizing: 'border-box',
+        minHeight: isMobile ? 'auto' : '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: isMobile ? 'stretch' : 'center',
+        justifyContent: 'center',
+        padding: isMobile ? '100px 24px 48px' : '120px 48px 80px',
+        position: 'relative',
+        overflow: 'hidden',
+        background: 'linear-gradient(180deg, #0B1121 0%, #0A1628 50%, #0D1B2A 100%)',
+      }}>
         {/* Animated gradient mesh + grid texture */}
         <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
           <div style={{ position: 'absolute', top: '-20%', right: '-10%', width: 900, height: 900, borderRadius: '50%', background: 'radial-gradient(circle, rgba(59,130,246,0.15) 0%, rgba(0,212,170,0.06) 40%, transparent 70%)', filter: 'blur(60px)', animation: 'meshFloat 12s ease-in-out infinite' }} />
           <div style={{ position: 'absolute', bottom: '-15%', left: '-10%', width: 800, height: 800, borderRadius: '50%', background: 'radial-gradient(circle, rgba(139,92,246,0.1) 0%, rgba(59,130,246,0.04) 50%, transparent 70%)', filter: 'blur(60px)', animation: 'meshFloat 15s ease-in-out infinite reverse' }} />
           <div style={{ position: 'absolute', top: '20%', left: '30%', width: 500, height: 500, borderRadius: '50%', background: 'radial-gradient(circle, rgba(0,212,170,0.06) 0%, transparent 60%)', filter: 'blur(80px)', animation: 'meshFloat 20s ease-in-out infinite' }} />
           <div style={{ position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(rgba(59,130,246,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.06) 1px, transparent 1px)', backgroundSize: '48px 48px', maskImage: 'radial-gradient(ellipse 90% 70% at 50% 40%, black 20%, transparent 65%)', WebkitMaskImage: 'radial-gradient(ellipse 90% 70% at 50% 40%, black 20%, transparent 65%)' }} />
-          {/* Subtle noise overlay */}
           <div style={{ position: 'absolute', inset: 0, opacity: 0.015, backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%270 0 256 256%27 xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cfilter id=%27noise%27%3E%3CfeTurbulence type=%27fractalNoise%27 baseFrequency=%270.9%27 numOctaves=%274%27 stitchTiles=%27stitch%27/%3E%3C/filter%3E%3Crect width=%27100%25%27 height=%27100%25%27 filter=%27url(%23noise)%27/%3E%3C/svg%3E")', backgroundRepeat: 'repeat', backgroundSize: '128px 128px' }} />
         </div>
 
-        <div className="hero-content" style={{ maxWidth: 1200, width: '100%', position: 'relative', zIndex: 1, display: 'flex', alignItems: 'center', gap: 48, flexWrap: 'wrap' }}>
+        {/* Hero content — flex row on desktop, column on mobile */}
+        <div className="hero-content" style={{
+          maxWidth: isMobile ? '100%' : 1200,
+          width: '100%',
+          boxSizing: 'border-box',
+          position: 'relative',
+          zIndex: 1,
+          display: 'flex',
+          flexDirection: isMobile ? 'column' : 'row',
+          alignItems: isMobile ? 'stretch' : 'center',
+          textAlign: isMobile ? 'center' : 'left',
+          gap: isMobile ? 32 : 48,
+        }}>
           {/* Left side — copy */}
-          <div style={{ flex: 1, minWidth: 0 }}>
+          <div style={{ width: '100%', flex: isMobile ? 'none' : 1, minWidth: 0 }}>
             <Reveal>
-              <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, fontSize: 12, fontWeight: 600, letterSpacing: '0.08em', color: '#3B82F6', background: 'rgba(59,130,246,0.08)', border: '1px solid rgba(59,130,246,0.2)', borderRadius: 99, padding: '6px 18px', marginBottom: 32 }}>
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, fontSize: 12, fontWeight: 600, letterSpacing: '0.08em', color: '#3B82F6', background: 'rgba(59,130,246,0.08)', border: '1px solid rgba(59,130,246,0.2)', borderRadius: 99, padding: '6px 18px', marginBottom: 32, ...(isMobile ? { marginLeft: 'auto', marginRight: 'auto' } : {}) }}>
                 <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#10B981', display: 'inline-block', animation: 'pulse 2s infinite' }} />
                 REAL-TIME FRAUD PREVENTION FOR AFRICA
               </div>
             </Reveal>
 
             <Reveal delay={100}>
-              <h1 style={{ fontFamily: "'Plus Jakarta Sans', 'Outfit', sans-serif", fontSize: 56, fontWeight: 800, lineHeight: 1.08, marginBottom: 24, letterSpacing: '-0.03em' }}>
+              <h1 style={{ fontFamily: "'Plus Jakarta Sans', 'Outfit', sans-serif", fontSize: isMobile ? 32 : 56, fontWeight: 800, lineHeight: 1.08, marginBottom: 24, letterSpacing: '-0.03em' }}>
                 Stop Fraud Before{' '}
                 <span style={{ background: 'linear-gradient(135deg, #3B82F6, #00D4AA)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>the Money Moves.</span>
               </h1>
             </Reveal>
 
             <Reveal delay={200}>
-              <p style={{ fontSize: 17, color: '#94A3B8', lineHeight: 1.8, maxWidth: 540, marginBottom: 16, fontWeight: 400 }}>
+              <p style={{ fontSize: isMobile ? 15 : 17, color: '#94A3B8', lineHeight: 1.8, maxWidth: isMobile ? '100%' : 540, marginBottom: 16, fontWeight: 400 }}>
                 Real-time fraud prevention for banks, telcos, fintechs, and payment providers.
                 35 rules across social engineering, device intelligence, and{' '}
                 <strong style={{ color: '#00D4AA' }}>AI-powered deepfake detection</strong> — all in under 100ms.
@@ -198,17 +229,35 @@ export default function Landing() {
             </Reveal>
 
             <Reveal delay={250}>
-              <p style={{ fontSize: 13, color: '#475569', lineHeight: 1.8, maxWidth: 480, marginBottom: 40, fontWeight: 500, fontFamily: 'JetBrains Mono, monospace' }}>
+              <p style={{ fontSize: 13, color: '#475569', lineHeight: 1.8, maxWidth: isMobile ? '100%' : 480, marginBottom: isMobile ? 24 : 40, fontWeight: 500, fontFamily: 'JetBrains Mono, monospace' }}>
                 One SDK. Any payment rail. Any app. Any market.
               </p>
             </Reveal>
 
             <Reveal delay={300}>
-              <div className="hero-cta-row" style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}>
-                <button onClick={() => setShowSales(true)} style={{ padding: '14px 32px', fontSize: 15, fontWeight: 700, background: 'linear-gradient(135deg,#3B82F6,#2563EB)', color: '#fff', border: 'none', borderRadius: 10, cursor: 'pointer', boxShadow: '0 4px 24px rgba(59,130,246,0.4)', transition: 'all 0.2s' }}
+              <div style={{
+                display: 'flex',
+                flexDirection: isMobile ? 'column' : 'row',
+                alignItems: isMobile ? 'center' : 'flex-start',
+                gap: isMobile ? 12 : 14,
+                width: '100%',
+              }}>
+                <button onClick={() => setShowSales(true)} style={{
+                  padding: '14px 32px', fontSize: 15, fontWeight: 700,
+                  background: 'linear-gradient(135deg,#3B82F6,#2563EB)', color: '#fff',
+                  border: 'none', borderRadius: 10, cursor: 'pointer',
+                  boxShadow: '0 4px 24px rgba(59,130,246,0.4)', transition: 'all 0.2s',
+                  width: isMobile ? '100%' : 'auto', maxWidth: isMobile ? 280 : 'none',
+                }}
                   onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 8px 32px rgba(59,130,246,0.5)'; }}
                   onMouseLeave={e => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = '0 4px 24px rgba(59,130,246,0.4)'; }}>Book a Demo</button>
-                <button onClick={() => navigate('/developers')} style={{ padding: '14px 32px', fontSize: 15, fontWeight: 600, background: 'transparent', color: '#94A3B8', border: '1px solid rgba(148,163,184,0.2)', borderRadius: 10, cursor: 'pointer', transition: 'all 0.2s' }}
+                <button onClick={() => navigate('/developers')} style={{
+                  padding: '14px 32px', fontSize: 15, fontWeight: 600,
+                  background: 'transparent', color: '#94A3B8',
+                  border: '1px solid rgba(148,163,184,0.2)', borderRadius: 10,
+                  cursor: 'pointer', transition: 'all 0.2s',
+                  width: isMobile ? '100%' : 'auto', maxWidth: isMobile ? 280 : 'none',
+                }}
                   onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(59,130,246,0.4)'; e.currentTarget.style.color = '#F0F6FF'; }}
                   onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(148,163,184,0.2)'; e.currentTarget.style.color = '#94A3B8'; }}>View SDK Docs →</button>
               </div>
@@ -217,20 +266,41 @@ export default function Landing() {
 
           {/* Right side — Africa Shield 3D image */}
           <Reveal delay={200}>
-            <div style={{ flex: '1 1 400px', position: 'relative', maxWidth: 520, margin: '0 auto' }}>
+            <div style={{ flex: isMobile ? 'none' : '1 1 400px', position: 'relative', maxWidth: isMobile ? 280 : 520, margin: '0 auto', width: '100%' }}>
               <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', width: 400, height: 400, borderRadius: '50%', background: 'radial-gradient(circle, rgba(0,212,170,0.12) 0%, rgba(59,130,246,0.06) 40%, transparent 70%)', filter: 'blur(40px)', pointerEvents: 'none' }} />
-              <img src="/hero-africa-shield.png" alt="PayGuard protects Africa's payment infrastructure" style={{ width: '100%', maxWidth: 520, height: 'auto', display: 'block', position: 'relative', animation: 'heroFloat 6s ease-in-out infinite', filter: 'drop-shadow(0 20px 60px rgba(0,212,170,0.15))' }} />
+              <img src="/hero-africa-shield.png" alt="PayGuard protects Africa's payment infrastructure" style={{ width: '100%', maxWidth: isMobile ? 280 : 520, height: 'auto', display: 'block', position: 'relative', animation: 'heroFloat 6s ease-in-out infinite', filter: 'drop-shadow(0 20px 60px rgba(0,212,170,0.15))' }} />
             </div>
           </Reveal>
         </div>
 
-        {/* Stats bar — glassmorphism — full width below the split */}
-        <div style={{ position: 'relative', zIndex: 1, maxWidth: 1200, width: '100%', marginTop: 64 }}>
+        {/* Stats bar — full width below the split */}
+        <div style={{ position: 'relative', zIndex: 1, maxWidth: isMobile ? '100%' : 1200, width: '100%', marginTop: isMobile ? 32 : 64, boxSizing: 'border-box' }}>
           <Reveal delay={400}>
-            <div className="stats-bar-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 2, borderRadius: 20, overflow: 'hidden', border: '1px solid rgba(59,130,246,0.1)' }}>
+            <div className="stats-bar-grid" style={{
+              display: isMobile ? 'flex' : 'grid',
+              flexDirection: isMobile ? 'column' : undefined,
+              gridTemplateColumns: isMobile ? undefined : 'repeat(4, 1fr)',
+              gap: isMobile ? 0 : 2,
+              borderRadius: isMobile ? 16 : 20,
+              overflow: 'hidden',
+              border: '1px solid rgba(59,130,246,0.1)',
+              width: '100%',
+            }}>
               {STATS.map((s, i) => (
-                <div key={i} style={{ background: 'rgba(255,255,255,0.03)', backdropFilter: 'blur(16px)', padding: '28px 16px', textAlign: 'center', borderLeft: i > 0 ? '1px solid rgba(255,255,255,0.04)' : 'none' }}>
-                  <div style={{ fontSize: 36, fontWeight: 900, fontFamily: "'Plus Jakarta Sans', 'Outfit', sans-serif", letterSpacing: '-0.04em', color: s.color, marginBottom: 8 }}>
+                <div key={i} style={{
+                  background: 'rgba(255,255,255,0.03)',
+                  backdropFilter: 'blur(16px)',
+                  padding: isMobile ? '16px 20px' : '28px 16px',
+                  textAlign: isMobile ? 'left' as const : 'center' as const,
+                  borderLeft: !isMobile && i > 0 ? '1px solid rgba(255,255,255,0.04)' : 'none',
+                  borderBottom: isMobile && i < STATS.length - 1 ? '1px solid rgba(255,255,255,0.04)' : 'none',
+                  display: isMobile ? 'flex' : 'block',
+                  alignItems: isMobile ? 'center' : undefined,
+                  gap: isMobile ? 12 : undefined,
+                  width: '100%',
+                  boxSizing: 'border-box' as const,
+                }}>
+                  <div style={{ fontSize: isMobile ? 24 : 36, fontWeight: 900, fontFamily: "'Plus Jakarta Sans', 'Outfit', sans-serif", letterSpacing: '-0.04em', color: s.color, marginBottom: isMobile ? 0 : 8, flexShrink: 0, minWidth: isMobile ? 80 : undefined }}>
                     <Counter target={s.value} suffix={s.suffix} prefix={s.prefix} />
                   </div>
                   <div style={{ fontSize: 12, color: '#64748B', lineHeight: 1.5 }}>{s.label}</div>
