@@ -161,7 +161,7 @@ export default function Landing() {
       <Nav />
 
       {/* ═══ HERO ═══ */}
-      <section style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '120px 48px 80px', position: 'relative', overflow: 'hidden', background: 'linear-gradient(180deg, #0B1121 0%, #0A1628 50%, #0D1B2A 100%)' }}>
+      <section className="landing-hero" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '120px 48px 80px', position: 'relative', overflow: 'hidden', background: 'linear-gradient(180deg, #0B1121 0%, #0A1628 50%, #0D1B2A 100%)' }}>
         {/* Animated gradient mesh + grid texture */}
         <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
           <div style={{ position: 'absolute', top: '-20%', right: '-10%', width: 900, height: 900, borderRadius: '50%', background: 'radial-gradient(circle, rgba(59,130,246,0.15) 0%, rgba(0,212,170,0.06) 40%, transparent 70%)', filter: 'blur(60px)', animation: 'meshFloat 12s ease-in-out infinite' }} />
@@ -172,7 +172,7 @@ export default function Landing() {
           <div style={{ position: 'absolute', inset: 0, opacity: 0.015, backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%270 0 256 256%27 xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cfilter id=%27noise%27%3E%3CfeTurbulence type=%27fractalNoise%27 baseFrequency=%270.9%27 numOctaves=%274%27 stitchTiles=%27stitch%27/%3E%3C/filter%3E%3Crect width=%27100%25%27 height=%27100%25%27 filter=%27url(%23noise)%27/%3E%3C/svg%3E")', backgroundRepeat: 'repeat', backgroundSize: '128px 128px' }} />
         </div>
 
-        <div style={{ maxWidth: 1200, width: '100%', position: 'relative', zIndex: 1, display: 'flex', alignItems: 'center', gap: 48 }}>
+        <div className="hero-content" style={{ maxWidth: 1200, width: '100%', position: 'relative', zIndex: 1, display: 'flex', alignItems: 'center', gap: 48, flexWrap: 'wrap' }}>
           {/* Left side — copy */}
           <div style={{ flex: 1, minWidth: 0 }}>
             <Reveal>
@@ -217,7 +217,7 @@ export default function Landing() {
 
           {/* Right side — Africa Shield 3D image */}
           <Reveal delay={200}>
-            <div style={{ flex: '0 0 500px', position: 'relative' }}>
+            <div style={{ flex: '1 1 400px', position: 'relative', maxWidth: 520, margin: '0 auto' }}>
               <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', width: 400, height: 400, borderRadius: '50%', background: 'radial-gradient(circle, rgba(0,212,170,0.12) 0%, rgba(59,130,246,0.06) 40%, transparent 70%)', filter: 'blur(40px)', pointerEvents: 'none' }} />
               <img src="/hero-africa-shield.png" alt="PayGuard protects Africa's payment infrastructure" style={{ width: '100%', maxWidth: 520, height: 'auto', display: 'block', position: 'relative', animation: 'heroFloat 6s ease-in-out infinite', filter: 'drop-shadow(0 20px 60px rgba(0,212,170,0.15))' }} />
             </div>
@@ -227,7 +227,7 @@ export default function Landing() {
         {/* Stats bar — glassmorphism — full width below the split */}
         <div style={{ position: 'relative', zIndex: 1, maxWidth: 1200, width: '100%', marginTop: 64 }}>
           <Reveal delay={400}>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 2, borderRadius: 20, overflow: 'hidden', border: '1px solid rgba(59,130,246,0.1)' }}>
+            <div className="stats-bar-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 2, borderRadius: 20, overflow: 'hidden', border: '1px solid rgba(59,130,246,0.1)' }}>
               {STATS.map((s, i) => (
                 <div key={i} style={{ background: 'rgba(255,255,255,0.03)', backdropFilter: 'blur(16px)', padding: '28px 16px', textAlign: 'center', borderLeft: i > 0 ? '1px solid rgba(255,255,255,0.04)' : 'none' }}>
                   <div style={{ fontSize: 36, fontWeight: 900, fontFamily: "'Plus Jakarta Sans', 'Outfit', sans-serif", letterSpacing: '-0.04em', color: s.color, marginBottom: 8 }}>
@@ -263,7 +263,7 @@ export default function Landing() {
             </h2>
             <p style={{ fontSize: 17, color: '#94A3B8', maxWidth: 600, margin: '0 auto', lineHeight: 1.8 }}>From social engineering and SIM swap to AI deepfakes and mule networks — PayGuard covers every attack vector.</p>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 18 }}>
+          <div className="product-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 18 }}>
             {PRODUCTS.map((p, i) => (
               <Reveal key={i} delay={i * 70}>
                 <div onClick={() => navigate('/products')} style={{
@@ -316,7 +316,7 @@ export default function Landing() {
               <p style={{ fontSize: 16, color: '#64748B', maxWidth: 540, margin: '16px auto 0', lineHeight: 1.8 }}>PayGuard evaluates every transaction before the customer taps Confirm. No delays. No friction.</p>
             </div>
           </Reveal>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 0, position: 'relative' }}>
+          <div className="how-works-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 0, position: 'relative' }}>
             <div style={{ position: 'absolute', top: 36, left: '12%', right: '12%', height: 2, background: 'linear-gradient(90deg, #3B82F6, #8B5CF6, #F59E0B, #10B981)', opacity: 0.3, zIndex: 0 }} />
             {HOW_WORKS.map((s, i) => (
               <Reveal key={i} delay={i * 100}>
@@ -336,7 +336,7 @@ export default function Landing() {
       {/* ═══ DEVELOPER TEASER ═══ */}
       <Reveal>
         <section style={{ padding: '100px 48px', maxWidth: 1100, margin: '0 auto' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'center' }}>
+          <div className="dev-teaser-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'center' }}>
             <div>
               <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.14em', color: '#10B981', marginBottom: 12 }}>DEVELOPER EXPERIENCE</div>
               <h2 style={{ fontFamily: "'Plus Jakarta Sans', 'Outfit', sans-serif", fontSize: 40, fontWeight: 800, letterSpacing: '-0.02em', marginBottom: 16, color: '#F0F6FF', lineHeight: 1.15 }}>
@@ -396,7 +396,7 @@ when (decision.action) {
               <p style={{ fontSize: 16, color: '#64748B', maxWidth: 520, margin: '16px auto 0', lineHeight: 1.8 }}>From classic vishing to AI deepfake attacks — see how PayGuard transforms each scenario.</p>
             </div>
           </Reveal>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 20 }}>
+          <div className="comparison-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 20 }}>
             {COMPARISONS.map((c, i) => (
               <Reveal key={i} delay={i * 80}>
                 <div style={{
@@ -414,7 +414,7 @@ when (decision.action) {
                       <div style={{ width: 40, height: 40, borderRadius: 10, background: `${c.color}12`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20, boxShadow: `0 0 20px ${c.color}10` }}>{c.icon}</div>
                       <h3 style={{ fontSize: 18, fontWeight: 700, fontFamily: "'Plus Jakarta Sans', sans-serif", color: '#F0F6FF', margin: 0 }}>{c.title}</h3>
                     </div>
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr auto 1fr', gap: 0 }}>
+                    <div className="comparison-inner" style={{ display: 'grid', gridTemplateColumns: '1fr auto 1fr', gap: 0 }}>
                       {/* Danger side */}
                       <div style={{ padding: '18px', borderRadius: 12, background: 'linear-gradient(135deg, rgba(239,68,68,0.06), rgba(239,68,68,0.02))', borderLeft: '3px solid #EF4444' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 10 }}>
@@ -463,7 +463,7 @@ when (decision.action) {
               <h2 style={{ fontFamily: "'Plus Jakarta Sans', 'Outfit', sans-serif", fontSize: 40, fontWeight: 800, letterSpacing: '-0.02em', color: '#F0F6FF' }}>Built for Every Payment Provider.</h2>
             </div>
           </Reveal>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 18 }}>
+          <div className="who-for-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 18 }}>
             {WHO_FOR.map((w, i) => (
               <Reveal key={i} delay={i * 70}>
                 <div style={{
@@ -562,7 +562,7 @@ when (decision.action) {
       {/* ═══ FOOTER ═══ */}
       <footer style={{ borderTop: '1px solid rgba(255,255,255,0.06)', padding: '64px 48px 40px', background: '#080F1E' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr 1fr', gap: 40, marginBottom: 56 }}>
+          <div className="footer-grid" style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr 1fr', gap: 40, marginBottom: 56 }}>
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
                 <img src="/payguard-logo.png" alt="PayGuard" style={{ width: 36, height: 36, borderRadius: 10, objectFit: 'cover', boxShadow: '0 0 20px rgba(59,130,246,0.3)' }} />
@@ -589,7 +589,7 @@ when (decision.action) {
             ))}
           </div>
           <div style={{ height: 1, background: 'linear-gradient(90deg, transparent, rgba(59,130,246,0.2), transparent)', marginBottom: 24 }} />
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 12, color: '#1E293B' }}>
+          <div className="footer-bottom" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 12, color: '#1E293B' }}>
             <span>© 2026 Swifter Technologies. All rights reserved.</span>
             <div style={{ display: 'flex', gap: 24, color: '#334155' }}>
               <span>🔒 SOC 2 Type II</span>

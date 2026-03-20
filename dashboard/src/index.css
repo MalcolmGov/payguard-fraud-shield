@@ -833,20 +833,61 @@ input:focus, select:focus { border-color: var(--accent-blue); }
   /* Nav padding */
   .web-nav, nav[style] { padding: 0 24px !important; }
 
-  /* 4-col grids → 2-col */
+  /* 4-col grids → 2-col (doubled class for specificity 0,2,0) */
+  .stats-bar-grid.stats-bar-grid,
+  .product-grid.product-grid,
+  .how-works-grid.how-works-grid,
   div[style*="repeat(4, 1fr)"] { grid-template-columns: repeat(2, 1fr) !important; }
 
   /* Footer grid → 3-col */
-  .footer-grid { grid-template-columns: 1fr 1fr 1fr !important; gap: 24px !important; }
+  .footer-grid.footer-grid { grid-template-columns: 1fr 1fr 1fr !important; gap: 24px !important; }
 
   /* Section padding reduce */
   section[style*="padding: '0 48px"] { padding-left: 24px !important; padding-right: 24px !important; }
 
   .grid-3 { grid-template-columns: 1fr 1fr; }
+
+  /* Stats bar mobile — reduce counter + padding */
+  .stats-bar-grid.stats-bar-grid > div {
+    padding: 20px 12px !important;
+  }
+  .stats-bar-grid.stats-bar-grid > div > div:first-child {
+    font-size: 28px !important;
+  }
 }
 
 /* ── Tablet / Mobile  (≤ 768px) ──────────────────────────── */
 @media (max-width: 768px) {
+
+  /* ── Hero content split → stack ── */
+  .hero-content {
+    flex-direction: column !important;
+    text-align: center !important;
+    gap: 32px !important;
+  }
+  .hero-content h1 {
+    font-size: 36px !important;
+  }
+  .hero-content p {
+    max-width: 100% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+  .hero-content > div:first-child div[style*="gap: 14"] {
+    justify-content: center !important;
+  }
+  .hero-content > div:first-child div[style*="inline-flex"] {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  /* Code blocks — prevent overflow */
+  pre, code, .terminal-block, .terminal-body {
+    overflow-x: auto !important;
+    max-width: 100% !important;
+    white-space: pre-wrap !important;
+    word-break: break-word !important;
+  }
 
   /* ── Navigation ── */
   .web-nav, nav[style] {
@@ -860,7 +901,14 @@ input:focus, select:focus { border-color: var(--accent-blue); }
   .nav-desktop-ctas  { display: none !important; }
   .hamburger-btn     { display: flex !important; }
 
-  /* ── Hero sections ── */
+  /* ── Landing Hero — reduced padding on mobile ── */
+  .landing-hero {
+    padding: 100px 20px 48px !important;
+    min-height: auto !important;
+    align-items: stretch !important;
+  }
+
+  /* ── Hero sections (other pages) ── */
   section[style*="padding: '140px 48px"],
   section[style*="padding: '120px 48px"],
   section.mesh-bg {
@@ -890,11 +938,64 @@ input:focus, select:focus { border-color: var(--accent-blue); }
     align-items: stretch !important;
   }
 
-  /* ── Grids → 1 column ── */
+  /* ══════════════════════════════════════════════════════════
+     Landing page class-based grids (doubled class for 0,2,0
+     specificity — beats attribute selectors at 0,1,1)
+     ══════════════════════════════════════════════════════════ */
+
+  /* Stats bar — 2 columns on mobile (not 1) */
+  .stats-bar-grid.stats-bar-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    width: 100% !important;
+  }
+  .stats-bar-grid.stats-bar-grid > div {
+    padding: 16px 10px !important;
+    border-left: none !important;
+    border-bottom: 1px solid rgba(255,255,255,0.04) !important;
+  }
+  .stats-bar-grid.stats-bar-grid > div > div:first-child {
+    font-size: 24px !important;
+  }
+  .stats-bar-grid.stats-bar-grid > div > div:last-child {
+    font-size: 11px !important;
+  }
+
+  /* Product, how-works, comparison, who-for, dev-teaser — 1 col */
+  .product-grid.product-grid,
+  .how-works-grid.how-works-grid,
+  .comparison-grid.comparison-grid,
+  .who-for-grid.who-for-grid,
+  .dev-teaser-grid.dev-teaser-grid {
+    grid-template-columns: 1fr !important;
+    width: 100% !important;
+  }
+
+  /* Fallback attribute selectors for other pages */
   div[style*="repeat(4, 1fr)"],
   div[style*="repeat(3, 1fr)"],
   div[style*="1fr 1fr"] {
     grid-template-columns: 1fr !important;
+  }
+
+  /* Dev teaser — gap reduce on mobile */
+  .dev-teaser-grid.dev-teaser-grid { gap: 32px !important; }
+
+  /* ── Comparison inner layout (Without vs With) → stack ── */
+  .comparison-inner.comparison-inner {
+    grid-template-columns: 1fr !important;
+    gap: 0 !important;
+  }
+  /* Vertical divider → horizontal on mobile */
+  .comparison-inner.comparison-inner > div:nth-child(2) {
+    width: 100% !important;
+    height: 1px !important;
+    margin: 0 !important;
+    background: linear-gradient(90deg, #EF4444, rgba(255,255,255,0.06), #10B981) !important;
+  }
+
+  /* How-it-works — hide the horizontal pipeline connector on mobile */
+  .how-works-grid > div:first-child {
+    display: none !important;
   }
 
   /* ── Footer ── */
@@ -914,6 +1015,10 @@ input:focus, select:focus { border-color: var(--accent-blue); }
     flex-direction: column !important;
     text-align: center !important;
     gap: 12px !important;
+  }
+  .footer-bottom > div {
+    flex-wrap: wrap !important;
+    justify-content: center !important;
   }
 
   /* ── Landing page hero split layout ── */
@@ -1087,6 +1192,7 @@ input:focus, select:focus { border-color: var(--accent-blue); }
   }
 
   .stats-grid { grid-template-columns: 1fr; }
+  .stats-bar-grid { grid-template-columns: 1fr !important; }
 
   /* Section labels */
   .section-label {
@@ -1109,6 +1215,12 @@ input:focus, select:focus { border-color: var(--accent-blue); }
   div[style*="width: 200"], div[style*="width: 100"] {
     width: 80px !important;
     font-size: 10px !important;
+  }
+
+  /* Trust badges — stack on small mobile */
+  section .trust-badges-row {
+    flex-direction: column !important;
+    gap: 24px !important;
   }
 }
 
