@@ -98,7 +98,7 @@
 }
 .glass-nav {
   background: rgba(11,17,33,0.88);
-  border-bottom: 1px solid rgba(255,23,68,0.12);
+  border-bottom: 1px solid rgba(59,130,246,0.12);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
 }
@@ -206,10 +206,10 @@
 
 
 /* ── Glow borders ── */
-.glow-blue   { box-shadow: 0 0 0 1px rgba(255,23,68,0.4),   0 0 40px rgba(255,23,68,0.20); }
-.glow-green  { box-shadow: 0 0 0 1px rgba(255,68,85,0.35),  0 0 40px rgba(255,68,85,0.15); }
-.glow-purple { box-shadow: 0 0 0 1px rgba(198,40,40,0.4),   0 0 40px rgba(198,40,40,0.15); }
-.glow-red    { box-shadow: 0 0 0 1px rgba(255,23,68,0.5),   0 0 60px rgba(255,23,68,0.25); }
+.glow-blue   { box-shadow: 0 0 0 1px rgba(59,130,246,0.4),   0 0 40px rgba(59,130,246,0.20); }
+.glow-green  { box-shadow: 0 0 0 1px rgba(0,212,170,0.35),  0 0 40px rgba(0,212,170,0.15); }
+.glow-purple { box-shadow: 0 0 0 1px rgba(139,92,246,0.4),   0 0 40px rgba(139,92,246,0.15); }
+.glow-red    { box-shadow: 0 0 0 1px rgba(59,130,246,0.5),   0 0 60px rgba(59,130,246,0.25); }
 
 /* ── Animated Mesh Gradient Background ── */
 @keyframes meshShift {
@@ -218,10 +218,10 @@
   100% { background-position: 0% 50%; }
 }
 .mesh-bg {
-  background: radial-gradient(ellipse 80% 60% at 20% 10%, rgba(255,23,68,0.14) 0%, transparent 70%),
-              radial-gradient(ellipse 60% 80% at 80% 80%, rgba(198,40,40,0.10) 0%, transparent 70%),
-              radial-gradient(ellipse 50% 50% at 50% 50%, rgba(255,68,85,0.06) 0%, transparent 70%),
-              #080808;
+  background: radial-gradient(ellipse 80% 60% at 20% 10%, rgba(59,130,246,0.12) 0%, transparent 70%),
+              radial-gradient(ellipse 60% 80% at 80% 80%, rgba(0,212,170,0.08) 0%, transparent 70%),
+              radial-gradient(ellipse 50% 50% at 50% 50%, rgba(14,165,233,0.05) 0%, transparent 70%),
+              #0B1121;
 }
 
 /* ── Floating orbs ── */
@@ -322,9 +322,9 @@
 .terminal-dot { width: 10px; height: 10px; border-radius: 50%; }
 .terminal-body { padding: 16px 20px; color: #8B949E; line-height: 2; }
 .terminal-body .cmd  { color: #0EA5E9; }
-.terminal-body .str  { color: #FF6B6B; }
+.terminal-body .str  { color: #14B8A6; }
 .terminal-body .cmt  { color: #484F58; }
-.terminal-body .key  { color: #FF8A80; }
+.terminal-body .key  { color: #38BDF8; }
 
 /* ── Section label ── */
 .section-label {
@@ -498,7 +498,7 @@ html, body, #root {
 }
 
 .sidebar-nav a:hover { background: var(--bg-hover); color: var(--text-primary); }
-.sidebar-nav a.active { background: rgba(255,23,68,0.12); color: #FF4455; border-left: 2px solid #FF1744; }
+.sidebar-nav a.active { background: rgba(0,212,170,0.12); color: #00D4AA; border-left: 2px solid #00D4AA; }
 
 /* ── Main Content ── */
 .main-content {
@@ -710,7 +710,7 @@ tbody tr:hover { background: var(--bg-hover); cursor: pointer; }
   transition: all 0.15s ease;
 }
 
-.btn-primary { background: linear-gradient(135deg, #FF1744, #C62828); color: white; box-shadow: 0 0 20px rgba(255,23,68,0.3); }
+.btn-primary { background: linear-gradient(135deg, #3B82F6, #2563EB); color: white; box-shadow: 0 0 20px rgba(59,130,246,0.3); }
 .btn-primary:hover { filter: brightness(1.1); }
 .btn-ghost { background: transparent; color: var(--text-secondary); border: 1px solid var(--border); }
 .btn-ghost:hover { background: var(--bg-hover); color: var(--text-primary); }
