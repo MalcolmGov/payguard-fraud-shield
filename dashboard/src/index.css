@@ -20,6 +20,12 @@
   50% { box-shadow: 0 0 12px rgba(239,68,68,0.7); }
 }
 
+/* ── Hero Image Float ── */
+@keyframes heroFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
 /* ── Website Design Tokens ── */
 :root {
   --w-bg:          #080808;
