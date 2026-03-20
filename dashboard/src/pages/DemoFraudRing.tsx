@@ -1,4 +1,4 @@
-﻿﻿import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 // ── Data ──────────────────────────────────────────────────────────────────────
@@ -223,7 +223,7 @@ export default function DemoFraudRing() {
           <div style={{ fontSize: 15, fontWeight: 700, color: 'var(--text-primary)' }}>🕸️ Demo 4 of 4 — Fraud Ring Investigation</div>
           <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>Graph Engine · Connected Accounts · Mule Wallets · Bulk Block</div>
         </div>
-        {isLast && <button className="btn btn-primary" onClick={() => navigate('/overview')} style={{ fontSize: 12 }}>Open Analyst Dashboard →</button>}
+        {isLast && <button className="btn btn-primary" onClick={() => navigate('/dashboard')} style={{ fontSize: 12 }}>Open Analyst Dashboard →</button>}
       </div>
 
       {/* Stage bar */}

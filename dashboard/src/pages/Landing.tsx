@@ -183,7 +183,7 @@ function Nav() {
         <div className="nav-desktop-ctas" style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <button onClick={() => go('/sandbox')} className="w-btn-secondary" style={{ padding: '9px 20px', fontSize: 13 }}>Try Sandbox</button>
           <button onClick={() => go('/demo')} className="w-btn-secondary" style={{ padding: '9px 20px', fontSize: 13 }}>▶ Live Demo</button>
-          <button onClick={() => go('/overview')} style={{ padding: '9px 20px', fontSize: 13, fontWeight: 700, background: 'linear-gradient(135deg,#FF1744,#0369A1)', color: '#fff', border: 'none', borderRadius: 8, cursor: 'pointer', boxShadow: '0 2px 16px #FF174440', transition: 'opacity 0.2s' }}
+          <button onClick={() => go('/dashboard')} style={{ padding: '9px 20px', fontSize: 13, fontWeight: 700, background: 'linear-gradient(135deg,#FF1744,#0369A1)', color: '#fff', border: 'none', borderRadius: 8, cursor: 'pointer', boxShadow: '0 2px 16px #FF174440', transition: 'opacity 0.2s' }}
             onMouseEnter={e => (e.currentTarget as HTMLButtonElement).style.opacity = '0.85'}
             onMouseLeave={e => (e.currentTarget as HTMLButtonElement).style.opacity = '1'}>🔐 Sign In</button>
         </div>
@@ -202,7 +202,7 @@ function Nav() {
           ))}
           <div style={{ height: 1, background: 'rgba(255,255,255,0.07)', margin: '8px 0' }} />
           <button onClick={() => go('/demo')} className="w-btn-secondary" style={{ width: '100%', justifyContent: 'center', padding: '12px', fontSize: 14 }}>▶ Live Demo</button>
-          <button onClick={() => go('/overview')} style={{ width: '100%', padding: '13px', borderRadius: 10, cursor: 'pointer', fontWeight: 700, fontSize: 14, background: 'linear-gradient(135deg,#FF1744,#0369A1)', color: '#fff', border: 'none' }}>🔐 Sign In</button>
+          <button onClick={() => go('/dashboard')} style={{ width: '100%', padding: '13px', borderRadius: 10, cursor: 'pointer', fontWeight: 700, fontSize: 14, background: 'linear-gradient(135deg,#FF1744,#0369A1)', color: '#fff', border: 'none' }}>🔐 Sign In</button>
         </div>
       </div>
     </>
@@ -557,7 +557,7 @@ export default function Landing() {
               <div style={{ marginTop: 16, fontSize: 11, color: '#334155', fontFamily: 'JetBrains Mono' }}>© 2026 Swifter</div>
             </div>
             {[
-              { title: 'Product', links: [['Products', '/products'], ['Architecture', '/architecture'], ['Interactive Demo', '/demo'], ['Dashboard', '/overview']] },
+              { title: 'Product', links: [['Products', '/products'], ['Architecture', '/architecture'], ['Interactive Demo', '/demo'], ['Dashboard', '/dashboard']] },
               { title: 'Developers', links: [['SDK Docs', '/developers'], ['API Reference', '/developers#api'], ['Sandbox', '/sandbox']] },
               { title: 'Company', links: [['About Us', '/about'], ['Mission', '/about#mission'], ['Contact', '/about#contact']] },
               { title: 'Legal', links: [['Privacy Policy', '/legal/privacy'], ['Security', '/legal/security'], ['Terms of Service', '/legal/terms'], ['SOC 2 Type II', '/legal/soc2']] },

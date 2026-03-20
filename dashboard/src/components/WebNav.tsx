@@ -114,7 +114,7 @@ export function WebFooter() {
             </div>
             {/* Columns */}
             {[
-              { title: 'Product', links: [['Products', '/products'], ['Architecture', '/architecture'], ['Interactive Demo', '/demo'], ['Dashboard', '/overview']] },
+              { title: 'Product', links: [['Products', '/products'], ['Architecture', '/architecture'], ['Interactive Demo', '/demo'], ['Dashboard', '/dashboard']] },
               { title: 'Developers', links: [['SDK Docs', '/developers'], ['API Reference', '/developers#api'], ['Sandbox', '/sandbox'], ['GitHub', '#']] },
               { title: 'Company', links: [['About Us', '/about'], ['Contact', '/contact'], ['Careers', '#'], ['Press', '/about#press']] },
               { title: 'Legal', links: [['Privacy', '#'], ['Security', '#'], ['Terms', '#'], ['SOC 2 Type II', '#']] },

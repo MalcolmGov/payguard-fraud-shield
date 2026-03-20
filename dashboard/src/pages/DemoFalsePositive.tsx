@@ -1,4 +1,4 @@
-﻿﻿﻿import { useState, useEffect, useCallback } from 'react';
+﻿﻿import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 interface FPStep {
@@ -198,7 +198,7 @@ export default function DemoFalsePositive() {
           <div style={{ fontSize:15, fontWeight:700, color:'var(--text-primary)' }}>? Demo 6 of 6 � False Positive Proof</div>
           <div style={{ fontSize:11, color:'var(--text-muted)' }}>Genuine Customer � Zero Friction � Score: 3/100 ? ALLOW</div>
         </div>
-        {isLast && <button className="btn btn-primary" onClick={() => navigate('/overview')} style={{ fontSize:12 }}>Open Analyst Dashboard ?</button>}
+        {isLast && <button className="btn btn-primary" onClick={() => navigate('/dashboard')} style={{ fontSize:12 }}>Open Analyst Dashboard ?</button>}
       </div>
 
       {/* Step bar */}

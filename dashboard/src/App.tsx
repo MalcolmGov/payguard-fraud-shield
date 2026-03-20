@@ -47,7 +47,7 @@ import CaseQueue from './pages/CaseQueue';
 import UserProfile from './pages/UserProfile';
 
 const ANALYST_NAV = [
-  { to: '/overview',       label: '\u{1F4CA} Overview' },
+  { to: '/dashboard',      label: '\u{1F4CA} Overview' },
   { to: '/case-queue',     label: '\u{1F4CB} Case Queue' },
   { to: '/transactions',   label: '\u{1F4B3} Transactions' },
   { to: '/user-profile',   label: '\u{1F50D} User 360°' },
@@ -179,7 +179,7 @@ export default function App() {
         <Route path="/legal/:type"  element={<LegalPage />} />
 
         {/* ── Analyst dashboard routes (auth required) ──────────────────── */}
-        <Route path="/overview"         element={dash(<Overview />)} />
+        <Route path="/dashboard"        element={dash(<Overview />)} />
         <Route path="/transactions"     element={dash(<Transactions />)} />
         <Route path="/transactions/:id" element={dash(<TransactionDetail />)} />
         <Route path="/network"          element={dash(<FraudNetwork />)} />
