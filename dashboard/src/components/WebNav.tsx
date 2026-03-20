@@ -36,12 +36,10 @@ export default function WebNav() {
       }}>
         {/* Logo */}
         <div onClick={() => navigate('/')} style={{ display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer' }}>
-          <div style={{
-            width: 36, height: 36, borderRadius: 10,
-            background: 'linear-gradient(135deg, #3B82F6, #2563EB)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontSize: 16, boxShadow: '0 0 20px rgba(59,130,246,0.3)',
-          }}>{'\uD83D\uDEE1\uFE0F'}</div>
+          <img src="/payguard-logo.png" alt="PayGuard" style={{
+            width: 36, height: 36, borderRadius: 10, objectFit: 'cover',
+            boxShadow: '0 0 20px rgba(59,130,246,0.3)',
+          }} />
           <div>
             <div style={{ fontSize: 16, fontWeight: 800, color: '#F0F6FF', fontFamily: 'Outfit, sans-serif', letterSpacing: '-0.02em' }}>PayGuard</div>
             <div style={{ fontSize: 8, fontWeight: 600, color: '#475569', letterSpacing: '0.1em', textTransform: 'uppercase' as const }}>Powered by Swifter</div>
@@ -93,11 +91,10 @@ export function WebFooter() {
             {/* Brand */}
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
-                <div style={{
-                  width: 28, height: 28, borderRadius: 8,
-                  background: 'linear-gradient(135deg, #3B82F6, #2563EB)',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12,
-                }}>{'\uD83D\uDEE1\uFE0F'}</div>
+                <img src="/payguard-logo.png" alt="PayGuard" style={{
+                  width: 28, height: 28, borderRadius: 8, objectFit: 'cover',
+                  boxShadow: '0 0 12px rgba(59,130,246,0.2)',
+                }} />
                 <span style={{ fontSize: 14, fontWeight: 700, color: '#F0F6FF', letterSpacing: '-0.02em', fontFamily: 'Outfit, sans-serif' }}>PayGuard</span>
               </div>
               <p style={{ fontSize: 14, color: '#94A3B8', lineHeight: 1.8, maxWidth: 280, fontWeight: 500, marginBottom: 16 }}>Real-Time Fraud Prevention Infrastructure for Modern Payments.</p>
