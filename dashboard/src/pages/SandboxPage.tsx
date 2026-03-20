@@ -360,9 +360,9 @@ function SignalSimulator() {
               <div>
                 <div style={{ fontSize: 14, fontWeight: 800, color: riskColor(result.risk_score as number) }}>{result.risk_level as string}</div>
                 <div style={{ fontSize: 12, color: '#94A3B8', marginTop: 2 }}>Action: <b style={{ color: (result.recommended_action as string) === 'BLOCK' ? '#EF4444' : '#FBBF24' }}>{result.recommended_action as string}</b></div>
-                {result.warning_message && (
+                {typeof result.warning_message === 'string' && result.warning_message && (
                   <div style={{ fontSize: 11, color: '#FBBF24', marginTop: 6, maxWidth: 300, lineHeight: 1.5 }}>
-                    ⚠️ {String(result.warning_message)}
+                    ⚠️ {result.warning_message}
                   </div>
                 )}
               </div>
