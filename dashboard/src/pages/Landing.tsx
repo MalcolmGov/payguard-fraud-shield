@@ -204,7 +204,7 @@ export default function Landing() {
             </Reveal>
 
             <Reveal delay={300}>
-              <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}>
+              <div className="hero-cta-row" style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}>
                 <button onClick={() => setShowSales(true)} style={{ padding: '14px 32px', fontSize: 15, fontWeight: 700, background: 'linear-gradient(135deg,#3B82F6,#2563EB)', color: '#fff', border: 'none', borderRadius: 10, cursor: 'pointer', boxShadow: '0 4px 24px rgba(59,130,246,0.4)', transition: 'all 0.2s' }}
                   onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 8px 32px rgba(59,130,246,0.5)'; }}
                   onMouseLeave={e => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = '0 4px 24px rgba(59,130,246,0.4)'; }}>Book a Demo</button>

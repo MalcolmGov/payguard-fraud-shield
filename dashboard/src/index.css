@@ -859,27 +859,128 @@ input:focus, select:focus { border-color: var(--accent-blue); }
 /* ── Tablet / Mobile  (≤ 768px) ──────────────────────────── */
 @media (max-width: 768px) {
 
-  /* ── Hero content split → stack ── */
+  /* ═══════════════════════════════════════════════════════════
+     HERO SECTION — Full mobile responsive rewrite
+     ═══════════════════════════════════════════════════════════ */
+
+  /* Hero wrapper/section */
+  .landing-hero {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+    box-sizing: border-box !important;
+    padding: 100px 24px 48px !important;
+    min-height: auto !important;
+    align-items: stretch !important;
+  }
+
+  /* All hero child containers — full width, box-sizing */
+  .landing-hero > * {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Hero content flex container — stack vertically */
   .hero-content {
     flex-direction: column !important;
     text-align: center !important;
     gap: 32px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
   }
+
+  /* Hero content children — full width */
+  .hero-content > div {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    flex: none !important;
+    min-width: 0 !important;
+  }
+
+  /* Hero heading */
   .hero-content h1 {
-    font-size: 36px !important;
+    font-size: 32px !important;
+    text-align: center !important;
+    width: 100% !important;
   }
+
+  /* Hero paragraphs — full width, centered */
   .hero-content p {
     max-width: 100% !important;
+    width: 100% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: center !important;
+  }
+
+  /* Hero badge — centered */
+  .hero-content div[style*="inline-flex"] {
     margin-left: auto !important;
     margin-right: auto !important;
   }
-  .hero-content > div:first-child div[style*="gap: 14"] {
-    justify-content: center !important;
+
+  /* Hero image container — constrain to viewport */
+  .hero-content > div:last-child {
+    max-width: 300px !important;
+    margin: 0 auto !important;
   }
-  .hero-content > div:first-child div[style*="inline-flex"] {
-    margin-left: auto !important;
-    margin-right: auto !important;
+
+  /* ── CTA Buttons — column stack, centered ── */
+  .hero-cta-row {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 12px !important;
+    width: 100% !important;
   }
+  .hero-cta-row > button {
+    width: 100% !important;
+    max-width: 280px !important;
+    box-sizing: border-box !important;
+  }
+
+  /* ── Stats bar — vertical stack, full width ── */
+  .stats-bar-grid.stats-bar-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    border-radius: 16px !important;
+    overflow: visible !important;
+  }
+  .stats-bar-grid.stats-bar-grid > div {
+    width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 16px 20px !important;
+    border-left: none !important;
+    border-bottom: 1px solid rgba(255,255,255,0.04) !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    text-align: left !important;
+  }
+  .stats-bar-grid.stats-bar-grid > div:last-child {
+    border-bottom: none !important;
+  }
+  .stats-bar-grid.stats-bar-grid > div > div:first-child {
+    font-size: 24px !important;
+    margin-bottom: 0 !important;
+    flex-shrink: 0 !important;
+    min-width: 80px !important;
+  }
+  .stats-bar-grid.stats-bar-grid > div > div:last-child {
+    font-size: 12px !important;
+    text-align: left !important;
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     NAVIGATION, CODE BLOCKS, AND GENERAL RULES
+     ═══════════════════════════════════════════════════════════ */
 
   /* Code blocks — prevent overflow */
   pre, code, .terminal-block, .terminal-body {
@@ -900,13 +1001,6 @@ input:focus, select:focus { border-color: var(--accent-blue); }
   .nav-desktop-links { display: none !important; }
   .nav-desktop-ctas  { display: none !important; }
   .hamburger-btn     { display: flex !important; }
-
-  /* ── Landing Hero — reduced padding on mobile ── */
-  .landing-hero {
-    padding: 100px 20px 48px !important;
-    min-height: auto !important;
-    align-items: stretch !important;
-  }
 
   /* ── Hero sections (other pages) ── */
   section[style*="padding: '140px 48px"],
@@ -930,34 +1024,12 @@ input:focus, select:focus { border-color: var(--accent-blue); }
     max-width: 100% !important;
   }
 
-  /* ── CTA button rows ── */
+  /* ── CTA button rows (non-hero) ── */
   div[style*="gap: 14"][style*="justifyContent: 'center'"],
   div[style*="gap: 12"][style*="justifyContent: 'center'"],
   div[style*="gap: 14"][style*="justify-content: center"] {
     flex-direction: column !important;
     align-items: stretch !important;
-  }
-
-  /* ══════════════════════════════════════════════════════════
-     Landing page class-based grids (doubled class for 0,2,0
-     specificity — beats attribute selectors at 0,1,1)
-     ══════════════════════════════════════════════════════════ */
-
-  /* Stats bar — 2 columns on mobile (not 1) */
-  .stats-bar-grid.stats-bar-grid {
-    grid-template-columns: repeat(2, 1fr) !important;
-    width: 100% !important;
-  }
-  .stats-bar-grid.stats-bar-grid > div {
-    padding: 16px 10px !important;
-    border-left: none !important;
-    border-bottom: 1px solid rgba(255,255,255,0.04) !important;
-  }
-  .stats-bar-grid.stats-bar-grid > div > div:first-child {
-    font-size: 24px !important;
-  }
-  .stats-bar-grid.stats-bar-grid > div > div:last-child {
-    font-size: 11px !important;
   }
 
   /* Product, how-works, comparison, who-for, dev-teaser — 1 col */
