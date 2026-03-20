@@ -1,0 +1,45 @@
+# PayGuard
+
+> PayGuard is Africa's purpose-built social engineering fraud prevention SDK for mobile money operators, banks, fintechs, and telcos. Built by Swifter Technologies.
+
+PayGuard detects vishing, SIM swap, OTP interception, and account takeover attacks in real-time during payment flows — sub-50ms decision latency, zero UX disruption for legitimate users.
+
+## Product Suite
+
+- [Transaction Guard](https://payguard.africa/products): Real-time risk scoring on every outbound payment — mobile money, bank transfers, wallet disbursements, and PSP rails. Sub-50ms decision. Signals: call state, paste detection, velocity, recipient graph.
+- [OtpGuard](https://payguard.africa/products): Detects when an OTP entry screen is open during an active call — the hallmark of OTP phishing. Applies screen-recording block and fires a full-screen fraud warning. Signals: screen state, call detection, FLAG_SECURE, CXCallObserver.
+- [SIM Swap Defender](https://payguard.africa/products): Detects SIM port and account takeover events. Automatically freezes outbound transactions when a new device fingerprint appears within 48h of a SIM change — regardless of the underlying payment rail. Signals: SIM fingerprint, device hash, carrier event, geolocation delta.
+- [Fraud Ring Intel](https://payguard.africa/products): Neo4j-powered fraud graph linking accounts, devices, and wallets across your entire customer base. Detects mule networks and enables one-click bulk-block of connected entities. Works across multiple institutions via API. Signals: device graph, bullet tracing, IP clustering, behavioural similarity.
+
+## Key Facts
+
+- Detection accuracy: 97% across social engineering attack vectors
+- Decision latency: <100ms, zero UX disruption
+- Addressable fraud market: $485B+ lost globally to payment fraud annually
+- Phone call correlation: 68% of authorised push payment fraud involves a phone call
+- Integration: Native Android and iOS SDKs — 4 lines of code to full protection
+- Deployment targets: Mobile money operators, banks, telcos, fintechs, PSPs, neobanks, digital wallets
+- Geography: Africa-first — built for African mobile money and payment infrastructure
+
+## How It Works
+
+1. Signal capture: SDK captures 40+ real-time device and behavioural signals during payment initiation
+2. Risk engine: Signals are scored against 14 fraud rules in <100ms
+3. Decision: Block, warn, or allow — with full audit trail
+4. Graph update: Transaction and device metadata fed into fraud graph for network detection
+
+## Pages
+
+- [Home](https://payguard.africa): Overview, stats, product suite preview
+- [Products](https://payguard.africa/products): Full product suite with signal details
+- [Architecture](https://payguard.africa/architecture): Technical architecture — SDK, risk engine, fraud graph, dashboard
+- [Interactive Demo](https://payguard.africa/demo): Live simulation of 6 fraud attack vectors
+- [Sandbox](https://payguard.africa/sandbox): Test the PayGuard API with live keys
+- [Developers](https://payguard.africa/developers): SDK integration guides for Android and iOS
+
+## Company
+
+PayGuard is a product of Swifter Technologies. Swifter is Africa's financial operating system, delivering cross-border payments (Swifter Send), enterprise ERP (Swifter ERP), fraud prevention (PayGuard), and digital identity (Swifter ID) under one platform.
+
+- Main platform: https://swifter.digital
+- Contact: https://payguard.africa/contact

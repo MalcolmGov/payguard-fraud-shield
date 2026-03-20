@@ -1,0 +1,487 @@
+openapi: "3.1.0"
+info:
+  title: PayGuard — Device Binding Service API
+  description: |
+    Production API for registering, validating, and managing device bindings.
+    Used by Android and iOS SDKs to bind user accounts to trusted devices
+    and detect suspicious device changes (SIM swap, ATO, fraud rings).
+
+    ## Authentication
+    All endpoints require an `x-api-key` header.
+
+    ## Rate Limits
+    - Register: 5 requests / minute per IP+key
+    - Validate: 60 requests / minute per IP+key
+    - OTP: 5 requests / 15 minutes per IP+key
+    - USSD Push: 3 requests / 15 minutes per IP+key
+
+  version: "1.1.0"
+  contact:
+    name: Swifter Engineering
+    email: engineering@swifter.io
+  license:
+    name: Proprietary
+
+servers:
+  - url: https://devices.fraudshield.swifter.io
+    description: Production
+  - url: https://devices-staging.fraudshield.swifter.io
+    description: Staging
+  - url: http://localhost:3002
+    description: Local development
+
+security:
+  - ApiKeyAuth: []
+
+tags:
+  - name: Device Management
+    description: Register, validate, and blacklist devices
+  - name: Step-Up Verification
+    description: Multi-channel step-up — OTP SMS, USSD push, and biometric
+  - name: Reputation
+    description: Query device trust signals and history
+
+paths:
+  /health:
+    get:
+      summary: Health check
+      tags: [Device Management]
+      security: []
+      responses:
+        "200":
+          description: Service healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthResponse"
+
+  /metrics:
+    get:
+      summary: Prometheus metrics
+      tags: [Device Management]
+      security: []
+      responses:
+        "200":
+          description: Prometheus exposition format text
+
+  /device/register:
+    post:
+      summary: Register or update a device binding
+      description: |
+        Called by the SDK on first launch or after reinstall.
+        Generates a device fingerprint from signals, issues a device token,
+        and creates a binding between the device and the user account.
+
+        On subsequent calls with the same fingerprint, returns the existing token.
+      tags: [Device Management]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RegisterRequest"
+            example:
+              user_id: "+27821234567"
+              signals:
+                device_model: "Samsung Galaxy S24"
+                os_version: "Android 14"
+                app_version: "2.1.0"
+                screen_resolution: "2340x1080"
+                app_install_id: "install_abc123"
+                sim_country: "ZA"
+                carrier: "MTN"
+                ip_address: "197.88.1.1"
+                timezone: "Africa/Johannesburg"
+                locale: "en_ZA"
+                is_rooted: false
+                is_emulator: false
+                is_jailbroken: false
+                app_hash: "sha256_of_apk_or_ipa"
+      responses:
+        "200":
+          description: Device registered or already known
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RegisterResponse"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "429":
+          $ref: "#/components/responses/RateLimit"
+
+  /device/validate:
+    post:
+      summary: Validate a device token on login or transaction
+      description: |
+        Called by the SDK on every sensitive action (login, transaction initiation).
+        Validates the JWT device token, checks fingerprint consistency, queries
+        the blacklist, and computes a risk delta to feed into the Risk Engine.
+
+        If the token is within the sliding renewal window (< 6h from expiry), a
+        `rotated_token` is returned. The SDK must store and use the new token.
+      tags: [Device Management]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ValidateRequest"
+      responses:
+        "200":
+          description: Validation result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidateResponse"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+  /device/{fingerprint}/reputation:
+    get:
+      summary: Get device reputation and history
+      tags: [Reputation]
+      parameters:
+        - in: path
+          name: fingerprint
+          required: true
+          schema:
+            type: string
+            minLength: 64
+            maxLength: 64
+          description: SHA-256 device fingerprint (hex)
+      responses:
+        "200":
+          description: Device reputation record
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReputationResponse"
+        "404":
+          description: Device not found
+
+  /device/step-up/request:
+    post:
+      summary: Request an OTP for step-up verification
+      description: |
+        Initiates OTP-based (SMS) step-up verification for unrecognized or suspicious devices.
+        Sends a 6-digit OTP to the user's registered phone number.
+        Rate limited: 5 requests / 15 minutes per IP.
+      tags: [Step-Up Verification]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OtpRequestBody"
+      responses:
+        "200":
+          description: OTP sent
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:     { type: string, example: otp_sent }
+                  channel:    { type: string, example: otp_sms }
+                  expires_at: { type: integer, description: Unix timestamp when OTP expires }
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "429":
+          $ref: "#/components/responses/RateLimit"
+
+  /device/step-up/verify:
+    post:
+      summary: Verify the OTP and promote device to trusted
+      description: |
+        Verifies the OTP submitted by the user.
+        On success, updates the device trust status to `trusted` and returns a confirmation.
+        Maximum 3 attempts before the OTP is invalidated.
+      tags: [Step-Up Verification]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OtpVerifyBody"
+      responses:
+        "200":
+          description: OTP verified — device promoted to trusted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:       { type: boolean, example: true }
+                  channel:       { type: string, example: otp_sms }
+                  device_status: { type: string, example: trusted }
+                  message:       { type: string }
+        "401":
+          description: Invalid OTP, expired OTP, or max attempts exceeded
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OtpError"
+
+  /device/step-up/ussd/push:
+    post:
+      summary: Initiate a USSD push for device authorisation
+      description: |
+        Triggers a USSD push notification to the subscriber's handset via the MTN USSD
+        Gateway or Africa's Talking. The subscriber sees:
+
+        ```
+        PayGuard Security Alert
+        A new device is requesting access to your account.
+        Press 1 to Allow
+        Press 2 to Deny
+        ```
+
+        **Flow:**
+        1. App calls this endpoint → USSD push delivered to subscriber's phone
+        2. Subscriber presses 1 (Allow) or 2 (Deny) — no internet required
+        3. Carrier POSTs the response to `/device/step-up/ussd/callback`
+        4. App polls `/device/step-up/ussd/status?session_id=...` every 3s
+        5. On `confirmed` → device is promoted to `trusted`
+
+        Works on **any handset** — smartphone not required.
+        Rate limited: 3 requests / 15 minutes per IP.
+      tags: [Step-Up Verification]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UssdPushRequest"
+            example:
+              user_id: "+27821234567"
+              phone_number: "+27821234567"
+              device_fingerprint: "a1b2c3d4e5f6..."
+      responses:
+        "200":
+          description: USSD push initiated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UssdPushResponse"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "429":
+          $ref: "#/components/responses/RateLimit"
+
+  /device/step-up/ussd/status:
+    get:
+      summary: Poll the status of a USSD push authorisation session
+      description: |
+        Poll this endpoint every 3 seconds after initiating a USSD push.
+        Returns `pending` until the subscriber responds or the session expires (5 minutes).
+
+        Possible statuses:
+        - `pending` — awaiting subscriber response
+        - `confirmed` — subscriber pressed 1 (Allow); device promoted to `trusted`
+        - `denied` — subscriber pressed 2 (Deny); do not trust device
+        - `expired` — session timed out after 5 minutes
+      tags: [Step-Up Verification]
+      parameters:
+        - in: query
+          name: session_id
+          required: true
+          schema:
+            type: string
+          description: Session ID returned by the USSD push endpoint
+      responses:
+        "200":
+          description: Current session status
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UssdStatusResponse"
+        "404":
+          description: Session not found or expired
+
+  /device/step-up/ussd/callback:
+    post:
+      summary: USSD Gateway webhook — subscriber response
+      description: |
+        Called by the MTN USSD Gateway or Africa's Talking when the subscriber
+        completes the USSD menu (presses 1 or 2).
+
+        **This endpoint is NOT protected by API key authentication.**
+        It validates requests via HMAC-SHA256 signature in the `x-ussd-signature` header.
+
+        Do not call this endpoint directly — it is for carrier gateway use only.
+      tags: [Step-Up Verification]
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                session_id:    { type: string }
+                response_code: { type: string, enum: ['1', '2'], description: "1=Allow, 2=Deny" }
+                msisdn:        { type: string, description: Subscriber MSISDN }
+      responses:
+        "200":
+          description: Acknowledged
+
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+
+  responses:
+    BadRequest:
+      description: Invalid request body
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error: { type: string }
+              details: { type: array, items: { type: object } }
+    Unauthorized:
+      description: Missing or invalid API key
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error: { type: string, example: "Missing or invalid API key" }
+    RateLimit:
+      description: Rate limit exceeded
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error: { type: string, example: "Too many requests" }
+              retry_after: { type: integer }
+
+  schemas:
+    HealthResponse:
+      type: object
+      properties:
+        status: { type: string, example: ok }
+        service: { type: string, example: device-binding-service }
+        version: { type: string, example: "1.0.0" }
+
+    RegisterRequest:
+      type: object
+      required: [user_id, signals]
+      properties:
+        user_id:
+          type: string
+          description: User phone number or UUID
+        signals:
+          type: object
+          required: [device_model, os_version, app_version]
+          properties:
+            device_model:      { type: string }
+            os_version:        { type: string }
+            app_version:       { type: string }
+            screen_resolution: { type: string }
+            app_install_id:    { type: string }
+            sim_country:       { type: string }
+            carrier:           { type: string }
+            ip_address:        { type: string, format: ipv4 }
+            timezone:          { type: string }
+            locale:            { type: string }
+            is_rooted:         { type: boolean, default: false }
+            is_emulator:       { type: boolean, default: false }
+            is_jailbroken:     { type: boolean, default: false }
+            app_hash:          { type: string }
+
+    RegisterResponse:
+      type: object
+      properties:
+        device_token:    { type: string, description: JWT device token (store securely) }
+        device_status:   { type: string, enum: [trusted, new_device, suspicious_device, blacklisted] }
+        device_id:       { type: string, format: uuid }
+        required_action: { type: string, enum: [none, otp_verification, ussd_push, biometric], nullable: true }
+
+    ValidateRequest:
+      type: object
+      required: [user_id, device_token, device_fingerprint]
+      properties:
+        user_id:            { type: string }
+        device_token:       { type: string, description: JWT issued during registration }
+        device_fingerprint: { type: string, minLength: 64, maxLength: 64 }
+        ip_address:         { type: string, format: ipv4 }
+        sim_country:        { type: string, description: ISO 3166-1 alpha-2 SIM country code }
+
+    ValidateResponse:
+      type: object
+      properties:
+        device_status:   { type: string, enum: [trusted, new_device, suspicious_device, blacklisted] }
+        risk_delta:      { type: integer, minimum: 0, maximum: 100, description: Score delta to add to transaction risk }
+        triggered_rules: { type: array, items: { type: string }, example: [RULE_015, RULE_019] }
+        classification:  { type: string, example: known_device }
+        required_action: { type: string, enum: [otp_verification, ussd_push, biometric], nullable: true }
+        rotated_token:   { type: string, description: New device token if sliding renewal was triggered, nullable: true }
+
+    ReputationResponse:
+      type: object
+      properties:
+        fingerprint:    { type: string }
+        classification: { type: string }
+        risk_score:     { type: integer }
+        trust_status:   { type: string }
+        ip_history:     { type: array, items: { type: object, properties: { ip: { type: string }, country_code: { type: string }, seen_at: { type: string, format: date-time } } } }
+        linked_accounts:{ type: integer }
+        is_rooted:      { type: boolean }
+        is_emulator:    { type: boolean }
+        first_seen_at:  { type: string, format: date-time }
+        last_seen_at:   { type: string, format: date-time }
+
+    OtpRequestBody:
+      type: object
+      required: [user_id, phone_number]
+      properties:
+        user_id:      { type: string }
+        phone_number: { type: string, example: "+27821234567" }
+
+    OtpVerifyBody:
+      type: object
+      required: [user_id, device_fingerprint, otp]
+      properties:
+        user_id:            { type: string }
+        device_fingerprint: { type: string }
+        otp:                { type: string, minLength: 6, maxLength: 6, example: "483920" }
+
+    OtpError:
+      type: object
+      properties:
+        error:  { type: string }
+        reason: { type: string, enum: [invalid_otp, expired_otp, max_attempts_exceeded] }
+
+    UssdPushRequest:
+      type: object
+      required: [user_id, phone_number, device_fingerprint]
+      properties:
+        user_id:            { type: string, description: User phone number or UUID }
+        phone_number:       { type: string, example: "+27821234567", description: MSISDN to send USSD push to }
+        device_fingerprint: { type: string, minLength: 8, description: SHA-256 device fingerprint }
+
+    UssdPushResponse:
+      type: object
+      properties:
+        session_id:  { type: string, description: Unique session ID — use to poll status }
+        status:      { type: string, example: ussd_push_sent }
+        expires_at:  { type: integer, description: Unix timestamp — session expires in 5 minutes }
+        message:     { type: string, example: "A USSD notification has been sent to your handset." }
+        poll_url:    { type: string, description: URL to poll for session status }
+
+    UssdStatusResponse:
+      type: object
+      properties:
+        session_id:    { type: string }
+        status:        { type: string, enum: [pending, confirmed, denied, expired] }
+        expires_at:    { type: integer }
+        device_status: { type: string, enum: [trusted], nullable: true, description: Set to 'trusted' when status is confirmed }

@@ -1,0 +1,712 @@
+﻿import { useState, useEffect, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+// -- Types --------------------------------------------------------------------
+
+interface Signal {
+  id: string;
+  rule: string;
+  label: string;
+  delta: number;
+  severity: 'low' | 'medium' | 'high';
+  icon: string;
+  timestamp: string;
+}
+
+interface DemoStep {
+  id: number;
+  title: string;
+  subtitle: string;
+  phoneScreen: 'home' | 'call' | 'send_money' | 'recipient' | 'amount' | 'review' | 'scanning' | 'alert' | 'protected';
+  callActive: boolean;
+  signalsToFire: Signal[];
+  riskScoreTarget: number;
+  narration: string;
+}
+
+// -- Demo Script ---------------------------------------------------------------
+
+const STEPS: DemoStep[] = [
+  {
+    id: 0,
+    title: 'Customer on mobile wallet',
+    subtitle: 'Normal app session. No threats detected.',
+    phoneScreen: 'home',
+    callActive: false,
+    signalsToFire: [],
+    riskScoreTarget: 0,
+    narration: 'Sipho Dlamini opens his MTN mobile wallet app. The PayGuard SDK initialises silently in the background � collecting a device baseline.',
+  },
+  {
+    id: 1,
+    title: 'Unknown Caller',
+    subtitle: 'Scammer calls, posing as an MTN agent.',
+    phoneScreen: 'call',
+    callActive: true,
+    signalsToFire: [],
+    riskScoreTarget: 0,
+    narration: '"Congratulations! Your MTN number has won R50,000. To claim your prize, you need to send a R500 processing fee to verify your wallet." � The scam begins.',
+  },
+  {
+    id: 2,
+    title: 'Opens Send Money (while on call)',
+    subtitle: 'SDK detects: active call + payment flow opened.',
+    phoneScreen: 'send_money',
+    callActive: true,
+    signalsToFire: [
+      { id: 's1', rule: 'RULE_002', label: 'Active call during payment session', delta: 40, severity: 'high', icon: '??', timestamp: '' },
+    ],
+    riskScoreTarget: 40,
+    narration: 'Sipho navigates to Send Money while still on the call. The SDK fires its first signal � on-call during a payment session is a primary social engineering indicator.',
+  },
+  {
+    id: 3,
+    title: 'Pastes Recipient Number',
+    subtitle: 'Scammer dictates a wallet number. Sipho copies & pastes it.',
+    phoneScreen: 'recipient',
+    callActive: true,
+    signalsToFire: [
+      { id: 's2', rule: 'RULE_004', label: 'Paste event detected on recipient field', delta: 20, severity: 'medium', icon: '??', timestamp: '' },
+      { id: 's3', rule: 'RULE_002', label: 'Recipient not in contacts', delta: 40, severity: 'high', icon: '??', timestamp: '' },
+    ],
+    riskScoreTarget: 75,
+    narration: 'Sipho pastes the scammer\'s wallet number. The SDK detects the paste event (clipboard injection pattern) and confirms the recipient is unknown � not in his contacts.',
+  },
+  {
+    id: 4,
+    title: 'Enters R2,500 � Above His Average',
+    subtitle: 'Amount is 7� his typical transaction average.',
+    phoneScreen: 'amount',
+    callActive: true,
+    signalsToFire: [
+      { id: 's4', rule: 'RULE_001', label: 'On call + new recipient + high amount', delta: 75, severity: 'high', icon: '??', timestamp: '' },
+      { id: 's5', rule: 'RULE_005', label: 'Amount 7� above user average (R350)', delta: 35, severity: 'high', icon: '??', timestamp: '' },
+    ],
+    riskScoreTarget: 92,
+    narration: 'Sipho types R2,500 � far above his R350 average. The highest-weight rule fires: on-call + new recipient + high amount. Risk score crosses the BLOCK threshold.',
+  },
+  {
+    id: 5,
+    title: 'PayGuard Analysing�',
+    subtitle: 'Risk engine evaluating all collected signals.',
+    phoneScreen: 'scanning',
+    callActive: true,
+    signalsToFire: [],
+    riskScoreTarget: 92,
+    narration: 'Sipho taps Review. The SDK sends the encrypted signal payload to the PayGuard risk engine. The score is computed in 42ms. Decision: BLOCK.',
+  },
+  {
+    id: 6,
+    title: '?? Scam Alert Triggered',
+    subtitle: 'App surfaces warning before transaction confirms.',
+    phoneScreen: 'alert',
+    callActive: true,
+    signalsToFire: [],
+    riskScoreTarget: 92,
+    narration: 'The mobile wallet app surfaces the fraud alert. Sipho reads it and realises he\'s been targeted. He hangs up the call and cancels the transaction. R2,500 saved.',
+  },
+  {
+    id: 7,
+    title: '? Customer Protected',
+    subtitle: 'Transaction blocked. Fraud chain recorded for investigation.',
+    phoneScreen: 'protected',
+    callActive: false,
+    signalsToFire: [],
+    riskScoreTarget: 92,
+    narration: 'The full fraud signal payload is written to the analyst dashboard. The fraud ring � the device, the wallet, and the IP � is added to the graph engine for pattern detection.',
+  },
+];
+
+// -- Phone Screen Components ---------------------------------------------------
+
+function MoMoHome({ callActive }: { callActive: boolean }) {
+  return (
+    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#FFCC00', position: 'relative' }}>
+      {callActive && <CallBar />}
+      <div style={{ background: '#FFCC00', padding: '20px 16px 12px', flexShrink: 0 }}>
+        <div style={{ fontSize: 10, color: '#666', fontWeight: 600 }}>mobile wallet</div>
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#1A1A1A' }}>Good morning, Sipho ??</div>
+        <div style={{ marginTop: 4, background: '#fff3', borderRadius: 8, padding: '6px 10px' }}>
+          <div style={{ fontSize: 10, color: '#555' }}>Wallet Balance</div>
+          <div style={{ fontSize: 20, fontWeight: 800, color: '#1A1A1A' }}>R 4,820.00</div>
+        </div>
+      </div>
+      <div style={{ flex: 1, background: '#fff', borderRadius: '12px 12px 0 0', padding: 14 }}>
+        <div style={{ fontSize: 10, fontWeight: 700, color: '#333', marginBottom: 12 }}>QUICK ACTIONS</div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 8 }}>
+          {[['??', 'Send'], ['??', 'Receive'], ['??', 'Airtime'], ['??', 'Bills'], ['??', 'Bank'], ['?', 'More']].map(([icon, label]) => (
+            <div key={label} style={{ background: '#F5F5F5', borderRadius: 8, padding: '10px 6px', textAlign: 'center' }}>
+              <div style={{ fontSize: 18 }}>{icon}</div>
+              <div style={{ fontSize: 9, color: '#444', marginTop: 2 }}>{label}</div>
+            </div>
+          ))}
+        </div>
+        <div style={{ marginTop: 12 }}>
+          <div style={{ fontSize: 10, fontWeight: 700, color: '#333', marginBottom: 8 }}>RECENT</div>
+          {[{ name: 'Nomsa K.', amount: '-R350', time: '2d ago' }, { name: 'Thabo M.', amount: '-R120', time: '5d ago' }].map(tx => (
+            <div key={tx.name} style={{ display: 'flex', justifyContent: 'space-between', padding: '6px 0', borderBottom: '1px solid #eee', fontSize: 10 }}>
+              <span style={{ color: '#333' }}>{tx.name}</span>
+              <span style={{ color: '#E53935', fontWeight: 600 }}>{tx.amount}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function IncomingCall() {
+  const [ringing, setRinging] = useState(true);
+  useEffect(() => { setTimeout(() => setRinging(false), 1500); }, []);
+  return (
+    <div style={{ height: '100%', background: 'linear-gradient(180deg, #1A1A2E 0%, #16213E 100%)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between', padding: '32px 20px' }}>
+      <div style={{ textAlign: 'center' }}>
+        <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.5)', letterSpacing: '0.1em', marginBottom: 8 }}>INCOMING CALL</div>
+        <div style={{
+          width: 72, height: 72, borderRadius: '50%', background: '#E53935',
+          margin: '0 auto 12px', display: 'flex', alignItems: 'center', justifyContent: 'center',
+          fontSize: 28, animation: ringing ? 'phonePulse 0.5s ease-in-out infinite' : 'phonePulse 1.5s ease-in-out infinite',
+          boxShadow: '0 0 0 0 rgba(229,57,53,0.4)',
+        }}>??</div>
+        <div style={{ fontSize: 16, fontWeight: 700, color: 'white', marginBottom: 4 }}>+27 84 555 0001</div>
+        <div style={{ fontSize: 11, color: '#F44336', fontWeight: 600 }}>? Unknown Number</div>
+        <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.4)', marginTop: 4 }}>Not in your contacts</div>
+      </div>
+      <div style={{ textAlign: 'center', padding: '12px 16px', background: 'rgba(255,255,255,0.05)', borderRadius: 10, width: '100%' }}>
+        <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.6)', lineHeight: 1.7 }}>
+          "Congratulations! Your MTN number won R50,000. Send R500 to verify your wallet to claim your prize."
+        </div>
+      </div>
+      <div style={{ display: 'flex', gap: 32 }}>
+        <div style={{ textAlign: 'center' }}>
+          <div style={{ width: 52, height: 52, borderRadius: '50%', background: '#E53935', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22, margin: '0 auto 6px' }}>??</div>
+          <div style={{ fontSize: 9, color: 'rgba(255,255,255,0.5)' }}>Decline</div>
+        </div>
+        <div style={{ textAlign: 'center' }}>
+          <div style={{ width: 52, height: 52, borderRadius: '50%', background: '#4CAF50', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22, margin: '0 auto 6px' }}>??</div>
+          <div style={{ fontSize: 9, color: 'rgba(255,255,255,0.5)' }}>Answer</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function CallBar() {
+  const [secs, setSecs] = useState(0);
+  useEffect(() => { const t = setInterval(() => setSecs(s => s + 1), 1000); return () => clearInterval(t); }, []);
+  return (
+    <div style={{ background: '#4CAF50', padding: '4px 10px', display: 'flex', alignItems: 'center', gap: 6, flexShrink: 0 }}>
+      <span style={{ fontSize: 10, color: 'white', fontWeight: 600 }}>?? Unknown +27 84 555 0001</span>
+      <span style={{ fontSize: 9, color: 'rgba(255,255,255,0.8)', marginLeft: 'auto', fontFamily: 'monospace' }}>
+        {String(Math.floor(secs / 60)).padStart(2, '0')}:{String(secs % 60).padStart(2, '0')}
+      </span>
+    </div>
+  );
+}
+
+function SendMoneyScreen({ callActive }: { callActive: boolean }) {
+  return (
+    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#fff' }}>
+      {callActive && <CallBar />}
+      <div style={{ background: '#FFCC00', padding: '12px 14px' }}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: '#1A1A1A' }}>? Send Money</div>
+      </div>
+      <div style={{ padding: 14, flex: 1 }}>
+        <div style={{ fontSize: 10, color: '#888', marginBottom: 12, padding: '6px 10px', background: '#FFF3E0', borderRadius: 6, border: '1px solid #FFB94C' }}>
+          ? PayGuard SDK active � monitoring session
+        </div>
+        <div style={{ fontSize: 10, color: '#333', marginBottom: 4 }}>Recipient Phone / Wallet</div>
+        <div style={{ border: '2px solid #FFCC00', borderRadius: 8, padding: '8px 10px', fontSize: 12, color: '#ccc', background: '#fafafa' }}>Enter number�</div>
+        <div style={{ fontSize: 10, color: '#333', marginTop: 12, marginBottom: 4 }}>Amount (ZAR)</div>
+        <div style={{ border: '1px solid #ddd', borderRadius: 8, padding: '8px 10px', fontSize: 12, color: '#ccc', background: '#fafafa' }}>R 0.00</div>
+        <div style={{ marginTop: 16, background: '#F5F5F5', borderRadius: 8, padding: 10 }}>
+          <div style={{ fontSize: 10, color: '#666' }}>Your average send: <strong style={{ color: '#333' }}>R350</strong></div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function RecipientScreen({ callActive }: { callActive: boolean }) {
+  return (
+    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#fff' }}>
+      {callActive && <CallBar />}
+      <div style={{ background: '#FFCC00', padding: '12px 14px' }}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: '#1A1A1A' }}>? Send Money</div>
+      </div>
+      <div style={{ padding: 14, flex: 1 }}>
+        <div style={{ fontSize: 10, color: '#333', marginBottom: 4 }}>Recipient Phone / Wallet</div>
+        <div style={{ border: '2px solid #F44336', borderRadius: 8, padding: '8px 10px', fontSize: 11, color: '#333', background: '#fff8f8', display: 'flex', alignItems: 'center', gap: 6 }}>
+          <span>??</span> +27 82 100 0010
+        </div>
+        <div style={{ fontSize: 9, color: '#F44336', marginTop: 4 }}>? Not in contacts � paste detected</div>
+        <div style={{ marginTop: 12, padding: '8px 10px', background: '#FFF3E0', borderRadius: 6, border: '1px solid #FFB94C' }}>
+          <div style={{ fontSize: 9, color: '#E65100', fontWeight: 600 }}>?? PayGuard Signal Fired</div>
+          <div style={{ fontSize: 9, color: '#666', marginTop: 2 }}>Paste event on recipient field (+20 pts)</div>
+          <div style={{ fontSize: 9, color: '#666' }}>Unknown recipient not in contacts (+40 pts)</div>
+        </div>
+        <div style={{ marginTop: 12, fontSize: 10, color: '#333', marginBottom: 4 }}>Amount (ZAR)</div>
+        <div style={{ border: '1px solid #ddd', borderRadius: 8, padding: '8px 10px', fontSize: 12, color: '#ccc', background: '#fafafa' }}>R 0.00</div>
+      </div>
+    </div>
+  );
+}
+
+function AmountScreen({ callActive }: { callActive: boolean }) {
+  return (
+    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#fff' }}>
+      {callActive && <CallBar />}
+      <div style={{ background: '#FFCC00', padding: '12px 14px' }}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: '#1A1A1A' }}>? Send Money</div>
+      </div>
+      <div style={{ padding: 14, flex: 1 }}>
+        <div style={{ fontSize: 10, color: '#333', marginBottom: 4 }}>Recipient</div>
+        <div style={{ fontSize: 11, fontWeight: 600, color: '#333', marginBottom: 12 }}>+27 82 100 0010 (Unknown)</div>
+        <div style={{ fontSize: 10, color: '#333', marginBottom: 4 }}>Amount (ZAR)</div>
+        <div style={{ border: '2px solid #F44336', borderRadius: 8, padding: '10px 12px', fontSize: 18, fontWeight: 700, color: '#E53935', background: '#fff8f8' }}>
+          R 2,500.00
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 6, fontSize: 9 }}>
+          <span style={{ color: '#F44336', fontWeight: 600 }}>? 7� above your average (R350)</span>
+        </div>
+        <div style={{ marginTop: 12, padding: '8px 10px', background: '#FFEBEE', borderRadius: 6, border: '1px solid #FFCDD2' }}>
+          <div style={{ fontSize: 9, color: '#C62828', fontWeight: 600 }}>?? HIGH RISK Signals Active</div>
+          <div style={{ fontSize: 9, color: '#666', marginTop: 2 }}>On-call + new recipient + high amount (+75 pts)</div>
+          <div style={{ fontSize: 9, color: '#666' }}>Amount 7� user average (+35 pts)</div>
+        </div>
+        <button style={{ width: '100%', marginTop: 16, background: '#FFCC00', border: 'none', borderRadius: 8, padding: '10px', fontSize: 12, fontWeight: 700, color: '#1A1A1A', cursor: 'pointer' }}>
+          Review ?
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function ScanningScreen() {
+  const [dots, setDots] = useState('');
+  useEffect(() => {
+    const t = setInterval(() => setDots(d => d.length >= 3 ? '' : d + '.'), 400);
+    return () => clearInterval(t);
+  }, []);
+  return (
+    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: '#0D1117', gap: 16, padding: 20 }}>
+      <div style={{ fontSize: 40, animation: 'spin 1s linear infinite' }}>???</div>
+      <div style={{ fontSize: 13, fontWeight: 700, color: '#58A6FF' }}>PayGuard Analysing{dots}</div>
+      <div style={{ fontSize: 10, color: '#8B949E', textAlign: 'center', lineHeight: 1.8 }}>
+        Evaluating 10 fraud rules<br />Cross-referencing device graph<br />Computing risk score
+      </div>
+      <div style={{ width: '100%', background: '#30363D', borderRadius: 999, height: 6, overflow: 'hidden' }}>
+        <div style={{ height: '100%', background: 'linear-gradient(90deg, #58A6FF, #F85149)', borderRadius: 999, animation: 'scanProgress 1.5s ease-in-out' }} />
+      </div>
+      <div style={{ fontFamily: 'monospace', fontSize: 10, color: '#3FB950' }}>42ms � decision computed</div>
+    </div>
+  );
+}
+
+function AlertScreen() {
+  return (
+    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#fff', position: 'relative', overflow: 'hidden' }}>
+      <div style={{ background: '#FFCC00', padding: '12px 14px' }}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: '#1A1A1A' }}>Send Money</div>
+      </div>
+      {/* Overlay */}
+      <div style={{
+        position: 'absolute', inset: 0, top: 36,
+        background: 'rgba(0,0,0,0.75)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 10,
+      }}>
+        <div style={{ background: '#1C2333', border: '2px solid #F85149', borderRadius: 14, padding: 16, margin: 10, boxShadow: '0 0 30px rgba(248,81,73,0.5)' }}>
+          <div style={{ fontSize: 28, textAlign: 'center', marginBottom: 8 }}>??</div>
+          <div style={{ fontSize: 13, fontWeight: 800, color: '#F85149', textAlign: 'center', marginBottom: 6 }}>
+            Possible Scam Detected
+          </div>
+          <div style={{ fontSize: 10, color: '#8B949E', textAlign: 'center', lineHeight: 1.6, marginBottom: 10 }}>
+            Risk Score: <strong style={{ color: '#F85149' }}>92/100 � HIGH</strong><br />
+            You are on an active call with an unknown number.<br />
+            Scammers often impersonate MTN agents.
+          </div>
+          <div style={{ fontSize: 9, color: '#D29922', background: 'rgba(210,153,34,0.1)', border: '1px solid rgba(210,153,34,0.3)', borderRadius: 6, padding: '6px 8px', marginBottom: 10 }}>
+            ? MTN will NEVER ask you to send money to claim a prize.
+          </div>
+          <div style={{ display: 'flex', gap: 6 }}>
+            <button style={{ flex: 1, background: '#238636', border: 'none', borderRadius: 6, padding: '8px 4px', fontSize: 10, fontWeight: 700, color: 'white', cursor: 'pointer' }}>
+              ? Cancel Transfer
+            </button>
+            <button style={{ flex: 1, background: 'transparent', border: '1px solid #444', borderRadius: 6, padding: '8px 4px', fontSize: 10, color: '#888', cursor: 'pointer' }}>
+              Send Anyway
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ProtectedScreen() {
+  return (
+    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: '#0D1117', gap: 12, padding: 20 }}>
+      <div style={{ fontSize: 52 }}>?</div>
+      <div style={{ fontSize: 14, fontWeight: 800, color: '#3FB950', textAlign: 'center' }}>Transaction Cancelled</div>
+      <div style={{ fontSize: 10, color: '#8B949E', textAlign: 'center', lineHeight: 1.8 }}>
+        R2,500 protected<br />
+        Fraud event logged<br />
+        Analyst alerted
+      </div>
+      <div style={{ width: '100%', background: 'rgba(63,185,80,0.1)', border: '1px solid rgba(63,185,80,0.3)', borderRadius: 8, padding: '10px 12px', marginTop: 8 }}>
+        <div style={{ fontSize: 9, color: '#3FB950', fontWeight: 600, marginBottom: 4 }}>?? PayGuard Protected You</div>
+        <div style={{ fontSize: 9, color: '#8B949E', lineHeight: 1.6 }}>
+          � Fraud ring flagged in graph<br />
+          � Device added to watchlist<br />
+          � Analyst dashboard updated
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function PhoneScreen({ screen, callActive }: { screen: DemoStep['phoneScreen']; callActive: boolean }) {
+  switch (screen) {
+    case 'home':       return <MoMoHome callActive={callActive} />;
+    case 'call':       return <IncomingCall />;
+    case 'send_money': return <SendMoneyScreen callActive={callActive} />;
+    case 'recipient':  return <RecipientScreen callActive={callActive} />;
+    case 'amount':     return <AmountScreen callActive={callActive} />;
+    case 'scanning':   return <ScanningScreen />;
+    case 'alert':      return <AlertScreen />;
+    case 'protected':  return <ProtectedScreen />;
+    default:           return <MoMoHome callActive={callActive} />;
+  }
+}
+
+// -- Risk Meter ----------------------------------------------------------------
+
+function RiskMeter({ score }: { score: number }) {
+  const color = score >= 80 ? '#F85149' : score >= 45 ? '#D29922' : '#3FB950';
+  const label = score >= 80 ? 'HIGH' : score >= 45 ? 'MEDIUM' : 'LOW';
+  const action = score >= 80 ? 'BLOCK' : score >= 45 ? 'WARN_USER' : 'ALLOW';
+
+  return (
+    <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 14, padding: 20 }}>
+      <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-secondary)', marginBottom: 16 }}>REAL-TIME RISK SCORE</div>
+
+      {/* Big score */}
+      <div style={{ display: 'flex', alignItems: 'flex-end', gap: 8, marginBottom: 12 }}>
+        <div style={{
+          fontSize: 56, fontWeight: 800, color, lineHeight: 1,
+          fontFamily: 'JetBrains Mono, monospace',
+          transition: 'color 0.5s ease',
+        }}>{score}</div>
+        <div style={{ fontSize: 14, color: 'var(--text-muted)', paddingBottom: 6 }}>/100</div>
+        <div style={{ marginLeft: 'auto' }}>
+          <div style={{ fontSize: 11, fontWeight: 700, color, background: `${color}22`, border: `1px solid ${color}44`, borderRadius: 99, padding: '4px 12px' }}>{label}</div>
+        </div>
+      </div>
+
+      {/* Progress bar */}
+      <div style={{ background: 'var(--border)', borderRadius: 999, height: 10, overflow: 'hidden', marginBottom: 10 }}>
+        <div style={{
+          height: '100%', borderRadius: 999, width: `${score}%`,
+          background: score >= 80 ? 'linear-gradient(90deg, #D29922, #F85149)' : score >= 45 ? '#D29922' : '#3FB950',
+          transition: 'width 1s cubic-bezier(0.34, 1.56, 0.64, 1)',
+          boxShadow: `0 0 8px ${color}88`,
+        }} />
+      </div>
+
+      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 9, color: 'var(--text-muted)' }}>
+        <span>0 � ALLOW</span><span>45 � WARN</span><span>80 � BLOCK</span>
+      </div>
+
+      {/* Recommended Action */}
+      {score > 0 && (
+        <div style={{
+          marginTop: 14, padding: '10px 14px', borderRadius: 8,
+          background: `${color}15`, border: `1px solid ${color}40`,
+          display: 'flex', alignItems: 'center', gap: 10,
+        }}>
+          <span style={{ fontSize: 18 }}>{score >= 80 ? '??' : score >= 45 ? '??' : '?'}</span>
+          <div>
+            <div style={{ fontSize: 10, color: 'var(--text-muted)' }}>Recommended Action</div>
+            <div style={{ fontSize: 13, fontWeight: 700, color }}>{action}</div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// -- Signal Feed ---------------------------------------------------------------
+
+function SignalFeed({ signals }: { signals: Signal[] }) {
+  return (
+    <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 14, padding: 20, flex: 1 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
+        <span className="live-dot" />
+        <span style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-secondary)' }}>LIVE SIGNAL FEED</span>
+      </div>
+      {signals.length === 0 ? (
+        <div style={{ textAlign: 'center', color: 'var(--text-muted)', fontSize: 12, padding: '24px 0' }}>
+          No signals yet � session clean ?
+        </div>
+      ) : (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {signals.map((sig) => {
+            const c = sig.severity === 'high' ? '#F85149' : sig.severity === 'medium' ? '#D29922' : '#3FB950';
+            return (
+              <div key={sig.id} style={{
+                background: `${c}0D`, border: `1px solid ${c}33`, borderRadius: 8, padding: '10px 12px',
+                animation: 'signalIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)',
+              }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                  <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+                    <span style={{ fontSize: 16 }}>{sig.icon}</span>
+                    <div>
+                      <div style={{ fontSize: 11, fontWeight: 600, color: 'var(--text-primary)' }}>{sig.label}</div>
+                      <div style={{ fontSize: 10, color: 'var(--text-muted)' }}>{sig.rule} � {sig.timestamp}</div>
+                    </div>
+                  </div>
+                  <span style={{ fontSize: 12, fontWeight: 700, color: c, flexShrink: 0 }}>+{sig.delta} pts</span>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// -- Main Demo Component -------------------------------------------------------
+
+export default function DemoTransaction() {
+  const navigate = useNavigate();
+  const [stepIdx, setStepIdx] = useState(0);
+  const [signals, setSignals] = useState<Signal[]>([]);
+  const [riskScore, setRiskScore] = useState(0);
+  const [autoPlay, setAutoPlay] = useState(false);
+  const [signalAnimating, setSignalAnimating] = useState(false);
+
+  const step = STEPS[stepIdx];
+  const isFirst = stepIdx === 0;
+  const isLast = stepIdx === STEPS.length - 1;
+
+  const advanceStep = useCallback(() => {
+    if (signalAnimating || stepIdx >= STEPS.length - 1) return;
+    const next = STEPS[stepIdx + 1];
+
+    // Fire signals one by one with delay
+    if (next.signalsToFire.length > 0) {
+      setSignalAnimating(true);
+      next.signalsToFire.forEach((sig, i) => {
+        setTimeout(() => {
+          const fired = { ...sig, timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }) };
+          setSignals(prev => [fired, ...prev]);
+          if (i === next.signalsToFire.length - 1) {
+            setSignalAnimating(false);
+          }
+        }, i * 600);
+      });
+    }
+
+    setStepIdx(stepIdx + 1);
+    setRiskScore(next.riskScoreTarget);
+  }, [stepIdx, signalAnimating]);
+
+  const retreat = () => {
+    if (stepIdx <= 0) return;
+    setStepIdx(stepIdx - 1);
+    const prev = STEPS[stepIdx - 1];
+    // Rebuild signals up to this step
+    const allSigs: Signal[] = [];
+    for (let i = 0; i <= stepIdx - 1; i++) {
+      STEPS[i].signalsToFire.forEach(s => allSigs.unshift({ ...s, timestamp: '�' }));
+    }
+    setSignals(allSigs);
+    setRiskScore(prev.riskScoreTarget);
+  };
+
+  const reset = () => {
+    setStepIdx(0);
+    setSignals([]);
+    setRiskScore(0);
+    setAutoPlay(false);
+  };
+
+  // Auto-play
+  useEffect(() => {
+    if (!autoPlay) return;
+    if (isLast) { setAutoPlay(false); return; }
+    const t = setTimeout(() => advanceStep(), 2200);
+    return () => clearTimeout(t);
+  }, [autoPlay, stepIdx, isLast, advanceStep]);
+
+  return (
+    <div style={{ minHeight: '100vh', background: 'var(--bg-primary)', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+      {/* Topbar */}
+      <div style={{
+        display: 'flex', alignItems: 'center', gap: 12, padding: '0 24px', height: 56,
+        borderBottom: '1px solid var(--border)', background: 'var(--bg-secondary)',
+        flexShrink: 0,
+      }}>
+        <button className="btn btn-ghost" onClick={() => navigate('/demo')} style={{ fontSize: 12, padding: '6px 12px' }}>? All Demos</button>
+        <div style={{ flex: 1 }}>
+          <div style={{ fontSize: 15, fontWeight: 700, color: 'var(--text-primary)' }}>
+            ?? Demo 1 of 2 � Real-Time Transaction Fraud
+          </div>
+          <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>mobile wallet Social Engineering � Vishing � Mule Account Transfer</div>
+        </div>
+        {isLast && (
+          <button className="btn btn-primary" onClick={() => navigate('/transactions')} style={{ fontSize: 12 }}>
+            View Analyst Dashboard ?
+          </button>
+        )}
+      </div>
+
+      {/* Step Progress Bar */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 0, padding: '0 24px', background: 'var(--bg-secondary)', borderBottom: '1px solid var(--border)', overflowX: 'auto', flexShrink: 0 }}>
+        {STEPS.map((s, i) => {
+          const isActive = i === stepIdx;
+          const isDone = i < stepIdx;
+          return (
+            <button
+              key={s.id}
+              onClick={() => {
+                if (i > stepIdx) { for (let j = stepIdx; j < i; j++) advanceStep(); }
+                else { setStepIdx(i); setRiskScore(STEPS[i].riskScoreTarget); const allSigs: Signal[] = []; for (let j = 0; j < i; j++) STEPS[j].signalsToFire.forEach(sig => allSigs.unshift({ ...sig, timestamp: '�' })); setSignals(allSigs); }
+              }}
+              style={{
+                padding: '10px 14px', border: 'none', cursor: 'pointer', whiteSpace: 'nowrap',
+                background: 'transparent', borderBottom: isActive ? '2px solid #58A6FF' : isDone ? '2px solid #3FB950' : '2px solid transparent',
+                color: isActive ? '#58A6FF' : isDone ? '#3FB950' : 'var(--text-muted)',
+                fontSize: 11, fontWeight: isActive ? 700 : 400, fontFamily: 'Inter, sans-serif',
+                transition: 'all 0.2s',
+              }}
+            >
+              {isDone ? '?' : `${i + 1}.`} {s.title.split(' ').slice(0, 3).join(' ')}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Main Content */}
+      <div style={{ flex: 1, display: 'grid', gridTemplateColumns: '1fr 340px 1fr', gap: 20, padding: 24, overflow: 'hidden' }}>
+
+        {/* Left: Narration + Controls */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+          {/* Step Info */}
+          <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 14, padding: 24 }}>
+            <div style={{ fontSize: 11, fontWeight: 600, color: 'var(--accent-blue)', letterSpacing: '0.08em', marginBottom: 6 }}>
+              STEP {stepIdx + 1} OF {STEPS.length}
+            </div>
+            <h2 style={{ fontSize: 22, marginBottom: 8, color: 'var(--text-primary)', lineHeight: 1.2 }}>{step.title}</h2>
+            <div style={{ fontSize: 13, color: 'var(--accent-orange)', fontWeight: 500, marginBottom: 14 }}>{step.subtitle}</div>
+            <p style={{ fontSize: 13, color: 'var(--text-secondary)', lineHeight: 1.8 }}>{step.narration}</p>
+          </div>
+
+          {/* Controls */}
+          <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+            <button className="btn btn-ghost" onClick={retreat} disabled={isFirst} style={{ flex: 1, fontSize: 13 }}>? Back</button>
+            <button
+              className={`btn ${isLast ? 'btn-ghost' : 'btn-primary'}`}
+              onClick={advanceStep}
+              disabled={isLast || signalAnimating}
+              style={{ flex: 2, fontSize: 13, fontWeight: 700 }}
+            >
+              {isLast ? '? End of Demo' : signalAnimating ? 'Detecting signals�' : 'Next Step ?'}
+            </button>
+          </div>
+
+          <div style={{ display: 'flex', gap: 10 }}>
+            <button
+              className={`btn ${autoPlay ? 'btn-danger' : 'btn-ghost'}`}
+              onClick={() => { setAutoPlay(a => !a); }}
+              style={{ flex: 1, fontSize: 12 }}
+            >
+              {autoPlay ? '? Pause Auto-Play' : '? Auto-Play'}
+            </button>
+            <button className="btn btn-ghost" onClick={reset} style={{ flex: 1, fontSize: 12 }}>? Reset</button>
+          </div>
+
+          {/* Risk Signal Feed */}
+          <SignalFeed signals={signals} />
+        </div>
+
+        {/* Centre: Phone Mockup */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div style={{
+            width: 280, height: 560,
+            background: '#1A1A1A',
+            borderRadius: 36,
+            padding: 12,
+            boxShadow: '0 0 60px rgba(0,0,0,0.8), inset 0 0 0 1px rgba(255,255,255,0.08)',
+            position: 'relative',
+            flexShrink: 0,
+          }}>
+            {/* Notch */}
+            <div style={{ width: 80, height: 20, background: '#111', borderRadius: '0 0 12px 12px', margin: '0 auto 8px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}>
+              <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#333' }} />
+              <div style={{ width: 40, height: 6, borderRadius: 3, background: '#222' }} />
+            </div>
+            {/* Screen */}
+            <div style={{ borderRadius: 24, overflow: 'hidden', height: 470, background: '#f5f5f5' }}>
+              <PhoneScreen screen={step.phoneScreen} callActive={step.callActive} />
+            </div>
+            {/* Home bar */}
+            <div style={{ width: 80, height: 4, background: '#333', borderRadius: 2, margin: '8px auto 0' }} />
+          </div>
+        </div>
+
+        {/* Right: Risk Score */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+          <RiskMeter score={riskScore} />
+
+          {/* Rule breakdown */}
+          <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 14, padding: 20, flex: 1 }}>
+            <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-secondary)', marginBottom: 14 }}>FRAUD RULE ENGINE</div>
+            {[
+              { id: 'RULE_001', label: 'Call + new recipient + high amt', delta: 75, fired: riskScore >= 80 },
+              { id: 'RULE_002', label: 'Call + recipient not in contacts', delta: 40, fired: riskScore >= 40 },
+              { id: 'RULE_004', label: 'Paste detected on recipient field', delta: 20, fired: riskScore >= 55 },
+              { id: 'RULE_005', label: 'Amount > 2� user average', delta: 35, fired: riskScore >= 80 },
+              { id: 'RULE_003', label: 'Transaction < 10s of session', delta: 30, fired: false },
+              { id: 'RULE_006', label: 'SIM swap detected', delta: 50, fired: false },
+              { id: 'RULE_007', label: 'Device on > 3 accounts', delta: 60, fired: false },
+              { id: 'RULE_008', label: 'SMS fraud keywords', delta: 25, fired: false },
+              { id: 'RULE_009', label: 'Rooted/jailbroken device', delta: 20, fired: false },
+              { id: 'RULE_010', label: 'VPN/proxy active', delta: 15, fired: false },
+            ].map(r => (
+              <div key={r.id} style={{
+                display: 'flex', alignItems: 'center', gap: 8, padding: '5px 0',
+                borderBottom: '1px solid var(--border-subtle)', opacity: r.fired ? 1 : 0.35,
+                transition: 'opacity 0.5s',
+              }}>
+                <span style={{ fontSize: 10, width: 6, height: 6, borderRadius: '50%', background: r.fired ? '#F85149' : '#484F58', flexShrink: 0 }} />
+                <span style={{ fontSize: 10, color: r.fired ? 'var(--text-primary)' : 'var(--text-muted)', flex: 1, fontFamily: 'JetBrains Mono, monospace' }}>{r.id}</span>
+                <span style={{ fontSize: 10, color: 'var(--text-secondary)', flex: 2 }}>{r.label}</span>
+                <span style={{ fontSize: 10, fontWeight: 600, color: r.fired ? '#F85149' : 'var(--text-muted)', fontFamily: 'JetBrains Mono, monospace' }}>+{r.delta}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <style>{`
+        @keyframes signalIn {
+          from { opacity: 0; transform: translateY(-8px) scale(0.97); }
+          to   { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        @keyframes phonePulse {
+          0%, 100% { box-shadow: 0 0 0 0 rgba(229,57,53,0.4); }
+          70% { box-shadow: 0 0 0 10px rgba(229,57,53,0); }
+        }
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to   { transform: rotate(360deg); }
+        }
+        @keyframes scanProgress {
+          from { width: 0%; }
+          to   { width: 100%; }
+        }
+      `}</style>
+    </div>
+  );
+}
+

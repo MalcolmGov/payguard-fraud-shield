@@ -1,0 +1,315 @@
+openapi: "3.1.0"
+info:
+  title: PayGuard — Signal API (fraud-shield-api)
+  description: |
+    The Signal API receives encrypted fraud signals from Android and iOS SDKs
+    and publishes them to the Kafka stream for async processing by the Risk Engine.
+
+    ## Authentication
+    All `/v1/` endpoints require an `x-api-key` header. Keys are scoped per MTN
+    business unit and rotated every 90 days.
+
+    ## Encryption
+    Request bodies are optionally AES-256-GCM encrypted. Set `X-Encrypted: true`
+    and the body will be decrypted using the shared key derived from the API key.
+
+    ## Rate Limits
+    - Global: 300 requests / minute per IP
+    - Per-key: 1000 requests / minute
+
+  version: "1.0.0"
+  contact:
+    name: Swifter Engineering
+    email: engineering@swifter.io
+
+servers:
+  - url: https://api.fraudshield.swifter.io
+    description: Production
+  - url: https://api-staging.fraudshield.swifter.io
+    description: Staging
+  - url: http://localhost:4000
+    description: Local development
+
+security:
+  - ApiKeyAuth: []
+
+tags:
+  - name: Signals
+    description: Ingest fraud signals from SDK
+  - name: Decisions
+    description: Query risk scoring decisions
+  - name: Transactions
+    description: Transaction-level risk data
+  - name: Health
+    description: Operational endpoints
+
+paths:
+  /health:
+    get:
+      summary: Health check
+      tags: [Health]
+      security: []
+      responses:
+        "200":
+          description: Service healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:  { type: string, example: ok }
+                  service: { type: string, example: fraud-shield-api }
+                  version: { type: string, example: "1.0.0" }
+
+  /metrics:
+    get:
+      summary: Prometheus metrics
+      description: Prometheus exposition format. Scraped by Grafana/Prometheus stack.
+      tags: [Health]
+      security: []
+      responses:
+        "200":
+          description: Prometheus text exposition format
+
+  /v1/signals:
+    post:
+      summary: Ingest a fraud signal from the SDK
+      description: |
+        Accepts a full fraud signal payload from the mobile SDK.
+        Publishes asynchronously to the `fraud.signals.raw` Kafka topic.
+        Returns `202 Accepted` immediately — processing is async.
+
+        The body is validated with Zod. Required fields: `user_id`, `session_id`,
+        `timestamp`, `transaction`, `device`, `network`, `behavioral`, `call`.
+      tags: [Signals]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SignalPayload"
+      responses:
+        "202":
+          description: Signal accepted for async processing
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:     { type: string, example: accepted }
+                  payload_id: { type: string, format: uuid }
+                  warning:    { type: string, nullable: true, description: Set if Kafka was unavailable }
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "429":
+          $ref: "#/components/responses/RateLimit"
+
+  /v1/evaluate:
+    post:
+      summary: Synchronous risk evaluation (direct scoring)
+      description: |
+        Sends a signal payload directly to the Risk Engine for synchronous scoring.
+        Use for low-latency scenarios where immediate risk decision is required.
+        Target latency: < 100ms (P95).
+      tags: [Signals]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SignalPayload"
+      responses:
+        "200":
+          description: Risk decision
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RiskDecision"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+  /v1/decisions/{transaction_id}:
+    get:
+      summary: Get a risk decision by transaction ID
+      tags: [Decisions]
+      parameters:
+        - in: path
+          name: transaction_id
+          required: true
+          schema: { type: string }
+      responses:
+        "200":
+          description: Risk decision record
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RiskDecision"
+        "404":
+          description: Decision not found
+
+  /v1/transactions:
+    get:
+      summary: List recent transactions with risk scores
+      tags: [Transactions]
+      parameters:
+        - in: query
+          name: user_id
+          schema: { type: string }
+        - in: query
+          name: risk_level
+          schema: { type: string, enum: [LOW, MEDIUM, HIGH, CRITICAL] }
+        - in: query
+          name: limit
+          schema: { type: integer, default: 50, maximum: 500 }
+        - in: query
+          name: offset
+          schema: { type: integer, default: 0 }
+      responses:
+        "200":
+          description: Paginated transaction list
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  transactions: { type: array, items: { $ref: "#/components/schemas/TransactionSummary" } }
+                  total:        { type: integer }
+                  offset:       { type: integer }
+
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+
+  responses:
+    BadRequest:
+      description: Invalid request body
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:   { type: string }
+              details: { type: array, items: { type: object } }
+    Unauthorized:
+      description: Missing or invalid API key
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error: { type: string, example: "Missing or invalid API key" }
+    RateLimit:
+      description: Rate limit exceeded
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:       { type: string }
+              retry_after: { type: integer }
+
+  schemas:
+    SignalPayload:
+      type: object
+      required: [user_id, session_id, timestamp, transaction, device, network, behavioral, call]
+      properties:
+        payload_id:  { type: string, format: uuid, description: Auto-generated if not provided }
+        user_id:     { type: string }
+        session_id:  { type: string }
+        timestamp:   { type: integer, description: Unix epoch milliseconds }
+        transaction:
+          type: object
+          required: [recipient_phone, amount, currency]
+          properties:
+            recipient_phone: { type: string }
+            amount:          { type: number, minimum: 0.01 }
+            currency:        { type: string, example: ZAR }
+            note:            { type: string, nullable: true }
+        device:
+          type: object
+          required: [device_id, manufacturer, model, os_version]
+          properties:
+            device_id:        { type: string }
+            manufacturer:     { type: string }
+            model:            { type: string }
+            os_version:       { type: string }
+            is_rooted:        { type: boolean, default: false }
+            is_emulator:      { type: boolean, default: false }
+            is_app_tampered:  { type: boolean, default: false }
+            is_jailbroken:    { type: boolean, default: false }
+            is_simulator:     { type: boolean, default: false }
+        network:
+          type: object
+          required: [ip_address]
+          properties:
+            ip_address:       { type: string, format: ipv4 }
+            is_vpn:           { type: boolean, default: false }
+            is_proxy:         { type: boolean, default: false }
+            connection_type:  { type: string, default: UNKNOWN }
+            latitude:         { type: number, nullable: true }
+            longitude:        { type: number, nullable: true }
+        behavioral:
+          type: object
+          properties:
+            session_duration_ms:        { type: integer }
+            keystroke_count:            { type: integer }
+            avg_keystroke_interval_ms:  { type: integer }
+            paste_detected:             { type: boolean }
+            pasted_fields:              { type: array, items: { type: string } }
+            recipient_changed_count:    { type: integer }
+            transaction_creation_ms:    { type: integer }
+            typing_speed_score:         { type: number, minimum: 0, maximum: 1 }
+        call:
+          type: object
+          properties:
+            is_on_active_call:     { type: boolean }
+            call_type:             { type: string, enum: [IDLE, INCOMING, OUTGOING] }
+            is_caller_in_contacts: { type: boolean }
+        sms:
+          type: object
+          nullable: true
+          properties:
+            has_fraud_keywords:  { type: boolean }
+            fraud_keywords_found:{ type: array, items: { type: string } }
+            recent_sms_count:    { type: integer }
+            unknown_sender_count:{ type: integer }
+        sim:
+          type: object
+          nullable: true
+          properties:
+            operator_name:     { type: string }
+            sim_serial_hash:   { type: string }
+            country_iso:       { type: string }
+            sim_swap_detected: { type: boolean }
+            is_dual_sim:       { type: boolean }
+        recipient_in_contacts: { type: boolean, default: true }
+
+    RiskDecision:
+      type: object
+      properties:
+        payload_id:      { type: string, format: uuid }
+        risk_score:      { type: integer, minimum: 0, maximum: 100 }
+        risk_level:      { type: string, enum: [LOW, MEDIUM, HIGH, CRITICAL] }
+        triggered_rules: { type: array, items: { type: string }, example: [RULE_001, RULE_011] }
+        recommended_action: { type: string, enum: [ALLOW, STEP_UP, BLOCK] }
+        explanation:     { type: string }
+        scored_at:       { type: string, format: date-time }
+
+    TransactionSummary:
+      type: object
+      properties:
+        id:              { type: string }
+        user_id:         { type: string }
+        amount:          { type: number }
+        currency:        { type: string }
+        risk_score:      { type: integer }
+        risk_level:      { type: string }
+        status:          { type: string }
+        created_at:      { type: string, format: date-time }

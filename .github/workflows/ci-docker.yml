@@ -1,0 +1,95 @@
+# ────────────────────────────────────────────────────────────────────────────────
+# Swifter Fraud Shield — Docker Build Pipeline
+# ────────────────────────────────────────────────────────────────────────────────
+# Builds and tags Docker images for all 4 services.
+# Pushes to GitHub Container Registry on merge to main.
+
+name: CI — Docker Build
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'services/**'
+      - 'infra/docker-compose.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'services/**'
+      - 'infra/docker-compose.yml'
+
+concurrency:
+  group: docker-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_PREFIX: ${{ github.repository_owner }}/fraud-shield
+
+jobs:
+  build-images:
+    name: Build ${{ matrix.service }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    strategy:
+      fail-fast: false
+      matrix:
+        service: [api, risk-engine, graph-engine, device-binding]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GitHub Container Registry
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_PREFIX }}/${{ matrix.service }}
+          tags: |
+            type=sha,prefix=
+            type=ref,event=branch
+            type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
+
+      - name: Build & Push
+        uses: docker/build-push-action@v5
+        with:
+          context: services/${{ matrix.service }}
+          push: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  # ── Validate docker-compose.yml ──────────────────────────────────────────────
+  compose-validation:
+    name: Validate docker-compose
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate compose config
+        working-directory: infra
+        run: |
+          # Create minimal .env files for validation
+          echo "POSTGRES_PASSWORD=test" > .env.infra
+          echo "NEO4J_AUTH=neo4j/test" >> .env.infra
+          echo "REDIS_PASSWORD=test" >> .env.infra
+          echo "DATABASE_URL=postgres://localhost" > .env.services
+          echo "API_KEYS=test" >> .env.services
+          echo "DEVICE_TOKEN_SECRET=test" >> .env.services
+          echo "GRAPH_ENGINE_API_KEY=test" >> .env.services
+          docker compose config --quiet

@@ -1,0 +1,39 @@
+# ── Node.js ────────────────────────────────────────────────
+node_modules/
+dist/
+*.tsbuildinfo
+
+# ── Python ─────────────────────────────────────────────────
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+*.egg-info/
+.venv/
+venv/
+
+# ── Environment / Secrets ──────────────────────────────────
+.env
+.env.local
+.env.production
+.env.*.local
+*.pem
+*.key
+
+# ── Logs ───────────────────────────────────────────────────
+logs/
+*.log
+
+# ── IDE ────────────────────────────────────────────────────
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# ── OS ─────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ── Docker volumes ─────────────────────────────────────────
+data/

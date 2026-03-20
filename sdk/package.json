@@ -1,0 +1,30 @@
+{
+  "name": "@payguard/sdk",
+  "version": "1.0.0",
+  "description": "PayGuard Fraud Detection SDK — Real-time fraud prevention for payments",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": ["dist", "README.md", "LICENSE"],
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts --clean",
+    "dev": "tsup src/index.ts --format cjs,esm --dts --watch",
+    "test": "node test/test.mjs",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": ["fraud", "detection", "payguard", "payment", "security", "sdk", "fintech", "africa"],
+  "author": "Swifter Technologies (Pty) Ltd <support@swifter.co.za>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/swifter-tech/payguard-sdk"
+  },
+  "homepage": "https://payguard.africa/developers",
+  "devDependencies": {
+    "tsup": "^8.0.0",
+    "typescript": "^5.4.0"
+  },
+  "engines": {
+    "node": ">=16"
+  }
+}

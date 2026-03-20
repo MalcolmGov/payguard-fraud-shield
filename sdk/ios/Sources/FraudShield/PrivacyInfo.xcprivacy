@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  PrivacyInfo.xcprivacy — FraudShield iOS SDK
+  
+  Declares all privacy-sensitive APIs used by the SDK as required by Apple's
+  App Store Review policy (effective March 2024 for all third-party SDKs).
+  
+  Required categories for FraudShield:
+  - Device signals (model, OS version, screen resolution) → Required Reason: 0A2B.1
+  - File timestamp APIs → Required Reason: C617.1
+  - System boot time → Required Reason: 35F9.1
+  - Active keyboard list → Required Reason: 54BD.1
+  - User defaults → Required Reason: CA92.1
+  
+  Collected Data:
+  - Device identifiers (anonymised fingerprint — not linked to user)
+  - Crash data (optional, only if crash reporting is enabled)
+  - No contact info, health data, financial data, or location is collected by the SDK itself.
+-->
+<plist version="1.0">
+<dict>
+  <!-- ── Required Reason APIs ───────────────────────────────────────────── -->
+  <key>NSPrivacyAccessedAPITypes</key>
+  <array>
+    <!-- File timestamp APIs (used for app installation time signal) -->
+    <dict>
+      <key>NSPrivacyAccessedAPIType</key>
+      <string>NSPrivacyAccessedAPICategoryFileTimestamp</string>
+      <key>NSPrivacyAccessedAPITypeReasons</key>
+      <array>
+        <string>C617.1</string>
+      </array>
+    </dict>
+
+    <!-- System boot time (used as device age signal for risk scoring) -->
+    <dict>
+      <key>NSPrivacyAccessedAPIType</key>
+      <string>NSPrivacyAccessedAPICategorySystemBootTime</string>
+      <key>NSPrivacyAccessedAPITypeReasons</key>
+      <array>
+        <string>35F9.1</string>
+      </array>
+    </dict>
+
+    <!-- Active keyboard list (detect unusual keyboards — fraud signal) -->
+    <dict>
+      <key>NSPrivacyAccessedAPIType</key>
+      <string>NSPrivacyAccessedAPICategoryActiveKeyboards</string>
+      <key>NSPrivacyAccessedAPITypeReasons</key>
+      <array>
+        <string>54BD.1</string>
+      </array>
+    </dict>
+
+    <!-- User defaults (store device binding state and SDK configuration) -->
+    <dict>
+      <key>NSPrivacyAccessedAPIType</key>
+      <string>NSPrivacyAccessedAPICategoryUserDefaults</string>
+      <key>NSPrivacyAccessedAPITypeReasons</key>
+      <array>
+        <string>CA92.1</string>
+      </array>
+    </dict>
+
+    <!-- Disk space APIs (low storage is a fraud signal for mule devices) -->
+    <dict>
+      <key>NSPrivacyAccessedAPIType</key>
+      <string>NSPrivacyAccessedAPICategoryDiskSpace</string>
+      <key>NSPrivacyAccessedAPITypeReasons</key>
+      <array>
+        <string>85F4.1</string>
+      </array>
+    </dict>
+  </array>
+
+  <!-- ── Tracking ────────────────────────────────────────────────────────── -->
+  <!-- SDK does NOT use data to track users across apps or websites -->
+  <key>NSPrivacyTracking</key>
+  <false/>
+
+  <!-- No tracking domains used by this SDK -->
+  <key>NSPrivacyTrackingDomains</key>
+  <array/>
+
+  <!-- ── Collected Data Types ───────────────────────────────────────────── -->
+  <key>NSPrivacyCollectedDataTypes</key>
+  <array>
+
+    <!-- Device ID: anonymised fingerprint hash (NOT IDFA/iDFV) -->
+    <dict>
+      <key>NSPrivacyCollectedDataType</key>
+      <string>NSPrivacyCollectedDataTypeDeviceID</string>
+      <key>NSPrivacyCollectedDataTypeLinked</key>
+      <false/>   <!-- NOT linked to user identity in SDK analytics -->
+      <key>NSPrivacyCollectedDataTypeTracking</key>
+      <false/>
+      <key>NSPrivacyCollectedDataTypePurposes</key>
+      <array>
+        <string>NSPrivacyCollectedDataTypePurposeAppFunctionality</string>
+        <string>NSPrivacyCollectedDataTypePurposeFraudPreventionSecurityAndCompliance</string>
+      </array>
+    </dict>
+
+    <!-- Crash data (optional, only when crash reporting is enabled by the app) -->
+    <dict>
+      <key>NSPrivacyCollectedDataType</key>
+      <string>NSPrivacyCollectedDataTypeCrashData</string>
+      <key>NSPrivacyCollectedDataTypeLinked</key>
+      <false/>
+      <key>NSPrivacyCollectedDataTypeTracking</key>
+      <false/>
+      <key>NSPrivacyCollectedDataTypePurposes</key>
+      <array>
+        <string>NSPrivacyCollectedDataTypePurposeFraudPreventionSecurityAndCompliance</string>
+      </array>
+    </dict>
+
+    <!-- Performance data: response times, battery state (fraud signals) -->
+    <dict>
+      <key>NSPrivacyCollectedDataType</key>
+      <string>NSPrivacyCollectedDataTypePerformanceData</string>
+      <key>NSPrivacyCollectedDataTypeLinked</key>
+      <false/>
+      <key>NSPrivacyCollectedDataTypeTracking</key>
+      <false/>
+      <key>NSPrivacyCollectedDataTypePurposes</key>
+      <array>
+        <string>NSPrivacyCollectedDataTypePurposeAppFunctionality</string>
+        <string>NSPrivacyCollectedDataTypePurposeFraudPreventionSecurityAndCompliance</string>
+      </array>
+    </dict>
+
+    <!-- Other diagnostic data: device model, OS version, locale -->
+    <dict>
+      <key>NSPrivacyCollectedDataType</key>
+      <string>NSPrivacyCollectedDataTypeOtherDiagnosticData</string>
+      <key>NSPrivacyCollectedDataTypeLinked</key>
+      <false/>
+      <key>NSPrivacyCollectedDataTypeTracking</key>
+      <false/>
+      <key>NSPrivacyCollectedDataTypePurposes</key>
+      <array>
+        <string>NSPrivacyCollectedDataTypePurposeAppFunctionality</string>
+        <string>NSPrivacyCollectedDataTypePurposeFraudPreventionSecurityAndCompliance</string>
+      </array>
+    </dict>
+
+  </array>
+</dict>
+</plist>

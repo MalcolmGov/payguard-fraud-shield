@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--
+        Fraud Shield SDK — Required Permissions
+
+        STRONGLY RECOMMENDED (core signals):
+        - READ_PHONE_STATE: Detect active call state (THE key social engineering signal)
+        - READ_CONTACTS: Check if transaction recipient is in user's contacts
+        - ACCESS_NETWORK_STATE: Detect VPN, connection type
+
+        OPTIONAL (enhanced signals, gracefully degraded if not granted):
+        - READ_SMS: Scan recent messages for fraud keywords
+        - ACCESS_COARSE_LOCATION: Location anomaly detection
+        - READ_CALL_LOG: Detect recent calls from unknown numbers
+    -->
+
+    <!-- Required: Call state detection (social engineering signal #1) -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <!-- Required: Recipient contact lookup -->
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
+    <!-- Required: Network/VPN detection -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- Optional: SMS fraud keyword scanning -->
+    <uses-permission android:name="android.permission.READ_SMS"
+        android:maxSdkVersion="29" />
+
+    <!-- Optional: Location anomaly -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <!-- Optional: SIM info (for SIM swap detection) -->
+    <uses-permission android:name="android.permission.READ_PRIVILEGED_PHONE_STATE"
+        tools:ignore="ProtectedPermissions" />
+
+</manifest>

@@ -1,0 +1,116 @@
+# ────────────────────────────────────────────────────────────────────────────────
+# Swifter Fraud Shield — CI Test Pipeline
+# ────────────────────────────────────────────────────────────────────────────────
+# Runs all test suites on every push and PR to main/develop.
+# Matrix strategy tests Node + Python services in parallel.
+
+name: CI — Tests
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+concurrency:
+  group: ci-tests-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # ── Signal API (Node.js / TypeScript) ─────────────────────────────────────────
+  api-tests:
+    name: Signal API Tests
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: services/api
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: services/api/package-lock.json
+
+      - run: npm ci
+      - run: npm run build
+      - run: npm test -- --forceExit --ci
+        env:
+          SKIP_DECRYPTION: 'true'
+          API_KEYS: 'ci-test-key-001,ci-test-key-002'
+
+  # ── Risk Engine (Python / FastAPI) ────────────────────────────────────────────
+  risk-engine-tests:
+    name: Risk Engine Tests
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: services/risk-engine
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - run: pip install -r requirements.txt
+      - run: pip install pytest pytest-asyncio
+      - run: python -m pytest tests/ -v --tb=short
+
+  # ── Graph Engine (Python / FastAPI + Neo4j) ──────────────────────────────────
+  graph-engine-tests:
+    name: Graph Engine Tests
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: services/graph-engine
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - run: pip install -r requirements.txt
+      - run: pip install pytest httpx
+      - run: python -m pytest tests/ -v --tb=short
+        env:
+          GRAPH_ENGINE_API_KEY: ci-test-key
+          NEO4J_URI: bolt://localhost:7687
+          CORS_ORIGINS: http://localhost:3000
+
+  # ── Lint & Type Check ────────────────────────────────────────────────────────
+  lint:
+    name: Lint & Type Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: services/api/package-lock.json
+
+      - name: TypeScript compile check (API)
+        working-directory: services/api
+        run: |
+          npm ci
+          npx tsc --noEmit
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Python lint (Risk Engine)
+        working-directory: services/risk-engine
+        run: |
+          pip install ruff
+          ruff check app/ --select E,W,F --ignore E501
