@@ -4,12 +4,16 @@ API Key Authentication Middleware
 Validates Bearer tokens on protected endpoints.
 Keys are loaded from the PAYGUARD_API_KEYS environment variable (comma-separated).
 
+IMPORTANT: Uses JSONResponse instead of HTTPException because
+Starlette's BaseHTTPMiddleware doesn't handle raised exceptions properly.
+
 Public endpoints (/health, /metrics, /docs, /openapi.json) bypass auth.
 """
 import os
 import time
 import hashlib
-from fastapi import Request, HTTPException
+from fastapi import Request
+from fastapi.responses import JSONResponse
 from starlette.middleware.base import BaseHTTPMiddleware
 
 # ── Configuration ─────────────────────────────────────────────────────────────
@@ -35,9 +39,9 @@ class APIKeyAuthMiddleware(BaseHTTPMiddleware):
         # Extract Bearer token
         auth_header = request.headers.get("authorization", "")
         if not auth_header.startswith("Bearer "):
-            raise HTTPException(
+            return JSONResponse(
                 status_code=401,
-                detail={
+                content={
                     "error": "authentication_required",
                     "message": "Missing API key. Include 'Authorization: Bearer <your_api_key>' header.",
                     "docs": "https://payguard.africa/developers",
@@ -47,9 +51,9 @@ class APIKeyAuthMiddleware(BaseHTTPMiddleware):
         api_key = auth_header[7:].strip()
 
         if api_key not in VALID_API_KEYS:
-            raise HTTPException(
+            return JSONResponse(
                 status_code=401,
-                detail={
+                content={
                     "error": "invalid_api_key",
                     "message": "The provided API key is not valid.",
                 },
