@@ -830,113 +830,213 @@ input:focus, select:focus { border-color: var(--accent-blue); }
 
 /* ── Tablet  (≤ 1024px) ─────────────────────────────────── */
 @media (max-width: 1024px) {
-  /* Public website nav */
-  nav[style] { padding: 0 24px !important; }
+  /* Nav padding */
+  .web-nav, nav[style] { padding: 0 24px !important; }
 
-  /* Stats 4-col → 2-col */
-  div[style*="grid-template-columns: repeat(4, 1fr)"] {
-    grid-template-columns: repeat(2, 1fr) !important;
-  }
+  /* 4-col grids → 2-col */
+  div[style*="repeat(4, 1fr)"] { grid-template-columns: repeat(2, 1fr) !important; }
 
-  /* How-it-works 4-col → 2-col */
-  div[style*="repeat(4, 1fr)"] {
-    grid-template-columns: repeat(2, 1fr) !important;
-  }
+  /* Footer grid → 3-col */
+  .footer-grid { grid-template-columns: 1fr 1fr 1fr !important; gap: 24px !important; }
 
-  /* Products 2-col stays, footer 5-col → 3-col */
-  div[style*="grid-template-columns: 2fr 1fr 1fr 1fr 1fr"] {
-    grid-template-columns: 1fr 1fr 1fr !important;
-    gap: 24px !important;
-  }
-
-  /* Dashboard sidebar narrower */
-  :root { --sidebar-width: 200px; }
+  /* Section padding reduce */
+  section[style*="padding: '0 48px"] { padding-left: 24px !important; padding-right: 24px !important; }
 
   .grid-3 { grid-template-columns: 1fr 1fr; }
 }
 
-/* ── Mobile  (≤ 768px) ──────────────────────────────────── */
+/* ── Tablet / Mobile  (≤ 768px) ──────────────────────────── */
 @media (max-width: 768px) {
 
-  /* ── Public site nav ── */
-  nav[style*="height: 68px"] {
+  /* ── Navigation ── */
+  .web-nav, nav[style] {
     height: auto !important;
+    min-height: 60px !important;
     padding: 12px 20px !important;
+    flex-wrap: wrap !important;
   }
 
-  /* Hide desktop nav links and CTAs */
   .nav-desktop-links { display: none !important; }
   .nav-desktop-ctas  { display: none !important; }
+  .hamburger-btn     { display: flex !important; }
 
-  /* Show hamburger */
-  .hamburger-btn { display: flex !important; }
-
-  /* Mobile menu only shows when open (handled by maxHeight in JSX) */
-
-  /* ── Hero ── */
-  section[style*="min-height: '100vh'"],
+  /* ── Hero sections ── */
+  section[style*="padding: '140px 48px"],
+  section[style*="padding: '120px 48px"],
   section.mesh-bg {
-    padding: 100px 20px 60px !important;
+    padding: 100px 20px 48px !important;
   }
 
-  h1[style*="font-size: 72px"] {
-    font-size: 38px !important;
-    letter-spacing: -0.02em !important;
+  /* All sections with 48px side padding */
+  section[style*="48px"] {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
   }
 
-  p[style*="font-size: 19px"] {
-    font-size: 15px !important;
+  /* Headings — responsive sizing */
+  h1 { font-size: 32px !important; }
+  h2 { font-size: 26px !important; }
+
+  /* Body text */
+  p[style*="maxWidth: 6"], p[style*="max-width: 6"] {
+    max-width: 100% !important;
   }
 
-  /* CTAs stack vertically */
-  div[style*="display: 'flex'"][style*="gap: 14"],
-  .fade-in-up[style*="display: 'flex'"] {
+  /* ── CTA button rows ── */
+  div[style*="gap: 14"][style*="justifyContent: 'center'"],
+  div[style*="gap: 12"][style*="justifyContent: 'center'"],
+  div[style*="gap: 14"][style*="justify-content: center"] {
     flex-direction: column !important;
     align-items: stretch !important;
-    width: 100% !important;
   }
 
-  /* ── All multi-col grids → 1-col ── */
-  div[style*="grid-template-columns: repeat(4, 1fr)"],
+  /* ── Grids → 1 column ── */
   div[style*="repeat(4, 1fr)"],
-  div[style*="repeat(3, 1fr)"] {
+  div[style*="repeat(3, 1fr)"],
+  div[style*="1fr 1fr"] {
     grid-template-columns: 1fr !important;
-  }
-
-  div[style*="grid-template-columns: 1fr 1fr"] {
-    grid-template-columns: 1fr !important;
-  }
-
-  div[style*="grid-template-columns: 2fr 1fr 1fr 1fr 1fr"] {
-    grid-template-columns: 1fr 1fr !important;
-    gap: 20px !important;
-  }
-
-  /* ── Demo page 3-col grid → 1-col ── */
-  div[style*="gridTemplateColumns:'repeat(3, 1fr)'"],
-  div[style*="grid-template-columns: repeat(3, 1fr)"],
-  div[style*="repeat(3, 1fr)"] {
-    grid-template-columns: 1fr !important;
-  }
-
-  /* ── Stats section padding ── */
-  section[style*="padding: '96px 48px'"],
-  section[style*="padding: '0 48px 96px'"] {
-    padding: 48px 20px !important;
   }
 
   /* ── Footer ── */
-  footer[style] {
+  .web-footer, footer[style] {
     padding: 40px 20px 24px !important;
   }
+  .footer-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 32px !important;
+  }
+  .footer-contact-bar {
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 12px !important;
+  }
+  .footer-bottom {
+    flex-direction: column !important;
+    text-align: center !important;
+    gap: 12px !important;
+  }
 
-  /* ── Dashboard — hide sidebar, full-width layout ── */
+  /* ── Landing page hero split layout ── */
+  div[style*="display: flex"][style*="maxWidth: 1200"] {
+    flex-direction: column !important;
+    text-align: center !important;
+  }
+
+  /* ── Landing page stats row ── */
+  div[style*="display: flex"][style*="gap: 32"][style*="justifyContent: 'center'"] {
+    flex-wrap: wrap !important;
+    gap: 16px !important;
+  }
+
+  /* ── How It Works timeline ── */
+  div[style*="gap: 0"][style*="flexDirection: 'column'"] > div[style*="display: flex"][style*="gap: 24"] {
+    flex-direction: column !important;
+  }
+
+  /* Hide vertical timeline line on mobile */
+  div[style*="position: absolute"][style*="left: 32"][style*="width: 2"] {
+    display: none !important;
+  }
+
+  /* ── Architecture layer selector tabs ── */
+  div[style*="gap: 12"][style*="justifyContent: 'center'"][style*="flexWrap: 'wrap'"] {
+    gap: 8px !important;
+  }
+  div[style*="gap: 12"][style*="justifyContent: 'center'"] > button {
+    padding: 12px 16px !important;
+    font-size: 12px !important;
+  }
+
+  /* Architecture component grid 2-col → 1-col */
+  div[style*="repeat(2, 1fr)"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ── Latency waterfall layout ── */
+  div[style*="width: 200"] {
+    width: 100px !important;
+    font-size: 11px !important;
+  }
+
+  /* ── Products page comparison table ── */
+  div[style*="gridTemplateColumns: '2fr 1fr 1fr'"],
+  div[style*="grid-template-columns: 2fr 1fr 1fr"] {
+    grid-template-columns: 2fr 1fr 1fr !important;
+    font-size: 12px !important;
+  }
+
+  /* ── Developer Portal sidebar + content ── */
+  div[style*="gridTemplateColumns: '240px 1fr'"],
+  div[style*="grid-template-columns: 240px 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Dev portal sidebar → horizontal scroll */
+  aside[style*="position: sticky"] {
+    position: relative !important;
+    height: auto !important;
+    max-height: none !important;
+    border-right: none !important;
+    border-bottom: 1px solid rgba(255,255,255,0.06) !important;
+    padding: 12px 0 !important;
+    display: flex !important;
+    overflow-x: auto !important;
+    gap: 0 !important;
+  }
+  aside[style*="position: sticky"] > button {
+    white-space: nowrap !important;
+    padding: 8px 16px !important;
+    font-size: 12px !important;
+  }
+  aside[style*="position: sticky"] > div {
+    display: none !important;
+  }
+
+  /* Dev portal endpoint list */
+  div[style*="gridTemplateColumns: '260px 1fr'"],
+  div[style*="grid-template-columns: 260px 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ── Sandbox split pane ── */
+  div[style*="gridTemplateColumns: '280px 1fr'"],
+  div[style*="grid-template-columns: 280px 1fr"],
+  div[style*="gridTemplateColumns: '1fr 1fr'"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ── About page 2-col mission → 1-col ── */
+  div[style*="gridTemplateColumns: '1fr 1fr'"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ── Contact page form ── */
+  div[style*="gridTemplateColumns: '1fr 1fr 1fr'"],
+  div[style*="grid-template-columns: 1fr 1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ── Scenario comparison cards ── */
+  div[style*="gridTemplateColumns: '1fr 1fr'"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ── Max-width containers ── */
+  div[style*="maxWidth: 1200"],
+  div[style*="maxWidth: 1100"],
+  div[style*="max-width: 1200"],
+  div[style*="max-width: 1100"] {
+    max-width: 100% !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+
+  /* ── Dashboard layout ── */
   .app-layout {
     flex-direction: column;
     height: auto;
     overflow: auto;
   }
-
   .sidebar {
     width: 100% !important;
     min-width: 100% !important;
@@ -946,7 +1046,6 @@ input:focus, select:focus { border-color: var(--accent-blue); }
     border-right: none;
     border-bottom: 1px solid var(--border);
   }
-
   .sidebar-logo {
     display: flex;
     align-items: center;
@@ -954,39 +1053,19 @@ input:focus, select:focus { border-color: var(--accent-blue); }
     border-bottom: none;
     min-width: max-content;
   }
-
   .sidebar-logo p { display: none; }
-
   .sidebar-nav { display: none; }
-
   .main-content {
     height: calc(100vh - 56px);
     overflow-y: auto;
   }
-
   .page-content { padding: 16px; }
-
-  .stats-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-
+  .stats-grid { grid-template-columns: 1fr 1fr; }
   .grid-2, .grid-3 { grid-template-columns: 1fr; }
 
-  /* ── USSD demo — stack phone + flow ── */
-  div[style*="display: 'flex'"][style*="gap: 32"],
-  div[style*='gap: 32'][style*='alignItems: '] {
-    flex-direction: column !important;
-    align-items: center !important;
-  }
-
-  /* ── Products / Architecture pages padding ── */
-  div[style*="padding: '80px 48px'"],
-  div[style*="padding: '64px 48px'"] {
-    padding: 40px 16px !important;
-  }
-
-  /* ── Terminal preview block — full width ── */
+  /* ── Terminal / code blocks ── */
   .glass-card { max-width: 100% !important; }
+  pre { font-size: 11px !important; }
 
   /* ── Partner logos — wrap ── */
   div[style*="justifyContent: 'center'"][style*="alignItems: 'center'"] {
@@ -996,9 +1075,9 @@ input:focus, select:focus { border-color: var(--accent-blue); }
 
 /* ── Small mobile  (≤ 480px) ────────────────────────────── */
 @media (max-width: 480px) {
-  h1[style*="font-size: 72px"] { font-size: 30px !important; }
-  h1[style*="font-size: 52px"] { font-size: 28px !important; }
-  h2[style*="font-size: 44px"] { font-size: 24px !important; }
+  h1 { font-size: 26px !important; }
+  h2 { font-size: 22px !important; }
+  h3 { font-size: 18px !important; }
 
   .w-btn-primary, .w-btn-secondary {
     width: 100%;
@@ -1009,13 +1088,27 @@ input:focus, select:focus { border-color: var(--accent-blue); }
 
   .stats-grid { grid-template-columns: 1fr; }
 
-  nav[style*="height: 68px"] > div:nth-child(3) {
-    flex-direction: column !important;
+  /* Section labels */
+  .section-label {
+    font-size: 10px !important;
+    padding: 3px 10px !important;
   }
 
-  /* Dashboard access card — stack vertically */
-  div[style*="border: '1px solid rgba(14,165,233,0.25)'"] {
+  /* Footer grid → 1 col */
+  .footer-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Architecture layer tabs — stack */
+  div[style*="gap: 12"][style*="justifyContent: 'center'"] {
     flex-direction: column !important;
-    text-align: center !important;
+    align-items: stretch !important;
+  }
+
+  /* Latency labels */
+  div[style*="width: 200"], div[style*="width: 100"] {
+    width: 80px !important;
+    font-size: 10px !important;
   }
 }
+
