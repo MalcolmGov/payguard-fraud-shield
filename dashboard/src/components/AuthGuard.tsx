@@ -57,11 +57,11 @@ const ROLE_PERMISSIONS: Record<Role, Permission> = {
 
 // ── User registry (sha-256 of password) ──────────────────────────────────────
 const USERS: Record<string, { role: Role; displayName: string; hash: string }> = {
-  admin: {
+  'malcolm@payguard.africa': {
     role: 'admin',
-    displayName: 'Admin User',
-    // SHA-256 of "admin"
-    hash: '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918',
+    displayName: 'Malcolm Govender',
+    // SHA-256 of "Nedbank24@"
+    hash: '26966253b68a0c56be770a444ab83db705eace25fec84c8cd550dd5fe6d65e09',
   },
   analyst: {
     role: 'analyst',
