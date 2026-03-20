@@ -43,10 +43,10 @@ function Reveal({ children, delay = 0 }: { children: React.ReactNode; delay?: nu
 
 /* ── Data ──────────────────────────────────────────────────────── */
 const STATS = [
-  { value: 485, suffix: 'B+', prefix: '$', label: 'Lost globally to payment fraud annually', color: '#EF4444' },
-  { value: 68, suffix: '%', prefix: '', label: 'Of APP fraud involves a phone call', color: '#F97316' },
-  { value: 97, suffix: '%', prefix: '', label: 'Fraud detection accuracy', color: '#10B981' },
-  { value: 100, suffix: 'ms', prefix: '<', label: 'End-to-end decision latency', color: '#3B82F6' },
+  { value: 485, suffix: 'B+', prefix: '$', label: 'Lost globally to payment fraud annually', color: '#F59E0B' },
+  { value: 68, suffix: '%', prefix: '', label: 'Of APP fraud involves a phone call', color: '#F59E0B' },
+  { value: 97, suffix: '%', prefix: '', label: 'Fraud detection accuracy', color: '#00D4AA' },
+  { value: 100, suffix: 'ms', prefix: '<', label: 'End-to-end decision latency', color: '#00D4AA' },
 ];
 
 const PRODUCTS = [
@@ -162,11 +162,14 @@ export default function Landing() {
 
       {/* ═══ HERO ═══ */}
       <section style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '120px 48px 80px', position: 'relative', overflow: 'hidden', background: 'linear-gradient(180deg, #0B1121 0%, #0A1628 50%, #0D1B2A 100%)' }}>
-        {/* Animated gradient mesh */}
+        {/* Animated gradient mesh + grid texture */}
         <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
-          <div className="hero-mesh-1" style={{ position: 'absolute', top: '-20%', right: '-10%', width: 800, height: 800, borderRadius: '50%', background: 'radial-gradient(circle, rgba(59,130,246,0.12) 0%, transparent 70%)', filter: 'blur(80px)', animation: 'meshFloat 12s ease-in-out infinite' }} />
-          <div className="hero-mesh-2" style={{ position: 'absolute', bottom: '-20%', left: '-10%', width: 700, height: 700, borderRadius: '50%', background: 'radial-gradient(circle, rgba(139,92,246,0.08) 0%, transparent 70%)', filter: 'blur(80px)', animation: 'meshFloat 15s ease-in-out infinite reverse' }} />
-          <div style={{ position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(rgba(59,130,246,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.04) 1px, transparent 1px)', backgroundSize: '60px 60px', maskImage: 'radial-gradient(ellipse 80% 60% at 50% 40%, black 20%, transparent 70%)', WebkitMaskImage: 'radial-gradient(ellipse 80% 60% at 50% 40%, black 20%, transparent 70%)' }} />
+          <div style={{ position: 'absolute', top: '-20%', right: '-10%', width: 900, height: 900, borderRadius: '50%', background: 'radial-gradient(circle, rgba(59,130,246,0.15) 0%, rgba(0,212,170,0.06) 40%, transparent 70%)', filter: 'blur(60px)', animation: 'meshFloat 12s ease-in-out infinite' }} />
+          <div style={{ position: 'absolute', bottom: '-15%', left: '-10%', width: 800, height: 800, borderRadius: '50%', background: 'radial-gradient(circle, rgba(139,92,246,0.1) 0%, rgba(59,130,246,0.04) 50%, transparent 70%)', filter: 'blur(60px)', animation: 'meshFloat 15s ease-in-out infinite reverse' }} />
+          <div style={{ position: 'absolute', top: '20%', left: '30%', width: 500, height: 500, borderRadius: '50%', background: 'radial-gradient(circle, rgba(0,212,170,0.06) 0%, transparent 60%)', filter: 'blur(80px)', animation: 'meshFloat 20s ease-in-out infinite' }} />
+          <div style={{ position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(rgba(59,130,246,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.06) 1px, transparent 1px)', backgroundSize: '48px 48px', maskImage: 'radial-gradient(ellipse 90% 70% at 50% 40%, black 20%, transparent 65%)', WebkitMaskImage: 'radial-gradient(ellipse 90% 70% at 50% 40%, black 20%, transparent 65%)' }} />
+          {/* Subtle noise overlay */}
+          <div style={{ position: 'absolute', inset: 0, opacity: 0.015, backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%270 0 256 256%27 xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cfilter id=%27noise%27%3E%3CfeTurbulence type=%27fractalNoise%27 baseFrequency=%270.9%27 numOctaves=%274%27 stitchTiles=%27stitch%27/%3E%3C/filter%3E%3Crect width=%27100%25%27 height=%27100%25%27 filter=%27url(%23noise)%27/%3E%3C/svg%3E")', backgroundRepeat: 'repeat', backgroundSize: '128px 128px' }} />
         </div>
 
         <div style={{ maxWidth: 900, textAlign: 'center', position: 'relative', zIndex: 1 }}>
@@ -259,7 +262,7 @@ export default function Landing() {
                   onMouseLeave={e => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = ''; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)'; }}>
                   <div style={{ fontSize: 32, marginBottom: 14 }}>{p.icon}</div>
                   <h3 style={{ fontSize: 16, fontWeight: 700, fontFamily: "'Plus Jakarta Sans', sans-serif", color: '#F0F6FF', marginBottom: 10 }}>{p.name}</h3>
-                  <p style={{ fontSize: 13, color: '#64748B', lineHeight: 1.7, margin: 0 }}>{p.desc}</p>
+                  <p style={{ fontSize: 14, color: '#8899B0', lineHeight: 1.7, margin: 0 }}>{p.desc}</p>
                 </div>
               </Reveal>
             ))}
