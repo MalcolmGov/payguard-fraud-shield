@@ -32,6 +32,8 @@ from app.scoring.aggregator import score_payload
 from app.scoring.ussd_aggregator import score_ussd_payload
 from app.db.postgres import get_db, fetch_user_baseline, record_decision
 from app.cache.redis_client import get_cache, set_cache
+from app.middleware.auth import APIKeyAuthMiddleware
+from app.middleware.rate_limiter import RateLimitMiddleware
 
 import structlog
 
@@ -40,16 +42,25 @@ logger = get_logger("risk-engine.main")
 app = FastAPI(
     title="Swifter Fraud Shield — Risk Engine",
     description="Real-time fraud risk scoring for mobile apps (SDK) and USSD/feature phone channels (API)",
-    version="1.1.0",
+    version="1.2.0",
 )
 
 app.add_middleware(GZipMiddleware, minimum_size=1000)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:4000", "https://api.fraudshield.swifter.io"],
+    allow_origins=[
+        "http://localhost:4000",
+        "http://localhost:5173",
+        "https://api.fraudshield.swifter.io",
+        "https://payguard.africa",
+    ],
     allow_methods=["POST", "GET"],
     allow_headers=["*"],
 )
+# Rate limiter runs BEFORE auth so it can use the api_key_hash set by auth
+app.add_middleware(RateLimitMiddleware)
+# Auth middleware runs first (outermost = added last)
+app.add_middleware(APIKeyAuthMiddleware)
 
 
 # ── Request ID middleware ─────────────────────────────────────────────────────
@@ -66,7 +77,7 @@ async def add_request_id(request, call_next):
 # ── Health ─────────────────────────────────────────────────────────────────────
 @app.get("/health")
 async def health_check():
-    return {"status": "ok", "service": "risk-engine", "version": "1.1.0", "channels": ["sdk", "ussd"]}
+    return {"status": "ok", "service": "risk-engine", "version": "1.2.0", "channels": ["sdk", "ussd"], "auth": "api_key", "rate_limit": "100/s"}
 
 
 # ── Prometheus metrics endpoint ────────────────────────────────────────────────
