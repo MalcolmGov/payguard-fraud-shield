@@ -5,7 +5,7 @@ import TalkToSalesModal from '../components/TalkToSalesModal';
 
 const LAYERS = [
   {
-    id: 0, num: '01', color: '#FF4455', icon: '\uD83D\uDCF1', title: 'Customer Device Layer',
+    id: 0, num: '01', color: '#3B82F6', icon: '\uD83D\uDCF1', title: 'Customer Device Layer',
     subtitle: 'Android \u2022 iOS \u2022 React Native',
     desc: 'The PayGuard SDK runs entirely on the customer\'s device. Four signal collectors run asynchronously during the payment flow, capturing call state, paste events, keystroke cadence, and device telemetry. All signals are AES-256 encrypted before leaving the device.',
     components: [
@@ -16,7 +16,7 @@ const LAYERS = [
     ],
   },
   {
-    id: 1, num: '02', color: '#FF1744', icon: '\uD83D\uDCE1', title: 'Signal Ingestion Layer',
+    id: 1, num: '02', color: '#0EA5E9', icon: '\uD83D\uDCE1', title: 'Signal Ingestion Layer',
     subtitle: 'Kafka \u2022 gRPC \u2022 Redis Streams',
     desc: 'Encrypted signal payloads are streamed to a Kafka cluster hosted in AWS af-south-1. A gRPC gateway validates, deduplicates, and routes events to the risk engine and graph database in parallel.',
     components: [
@@ -27,7 +27,7 @@ const LAYERS = [
     ],
   },
   {
-    id: 2, num: '03', color: '#C62828', icon: '\u26A1', title: 'Risk Engine Layer',
+    id: 2, num: '03', color: '#00D4AA', icon: '\u26A1', title: 'Risk Engine Layer',
     subtitle: 'Rust \u2022 35 Rules \u2022 Sub-50ms',
     desc: 'The risk engine evaluates all 35 fraud rules in parallel. Each rule returns a score; the aggregation layer computes a final risk verdict (ALLOW, WARN, BLOCK) and returns it before the customer taps Confirm.',
     components: [
@@ -38,7 +38,7 @@ const LAYERS = [
     ],
   },
   {
-    id: 3, num: '04', color: '#F97316', icon: '\uD83D\uDD78\uFE0F', title: 'Graph & Analytics Layer',
+    id: 3, num: '04', color: '#14B8A6', icon: '\uD83D\uDD78\uFE0F', title: 'Graph & Analytics Layer',
     subtitle: 'Neo4j \u2022 React Dashboard \u2022 REST API',
     desc: 'A Neo4j-powered fraud graph links accounts, devices, and wallets across your entire customer base. The analyst dashboard provides the investigation UI, bulk block actions, and live rule tuning.',
     components: [
@@ -51,21 +51,21 @@ const LAYERS = [
 ];
 
 const SPECS = [
-  { label: 'Decision Latency (p99)',  value: '< 100ms', icon: '\u23F1\uFE0F', color: '#FF4455' },
-  { label: 'SDK Size (Android)',       value: '0.8 MB',  icon: '\uD83D\uDCE6', color: '#FF1744' },
-  { label: 'Signal Encryption',       value: 'AES-256', icon: '\uD83D\uDD10', color: '#C62828' },
-  { label: 'Availability SLA',        value: '99.99%',  icon: '\u2705', color: '#F97316' },
-  { label: 'Data Residency',          value: 'South Africa', icon: '\uD83C\uDF0D', color: '#FF4455' },
-  { label: 'Hosting',                 value: 'AWS af-south-1', icon: '\u2601\uFE0F', color: '#FF1744' },
-  { label: 'Compliance',              value: 'POPIA \u2022 FSCA \u2022 SARB', icon: '\uD83D\uDCDC', color: '#C62828' },
-  { label: 'TLS Version',             value: 'TLS 1.3', icon: '\uD83D\uDD12', color: '#F97316' },
+  { label: 'Decision Latency (p99)',  value: '< 100ms', icon: '\u23F1\uFE0F', color: '#3B82F6' },
+  { label: 'SDK Size (Android)',       value: '0.8 MB',  icon: '\uD83D\uDCE6', color: '#0EA5E9' },
+  { label: 'Signal Encryption',       value: 'AES-256', icon: '\uD83D\uDD10', color: '#00D4AA' },
+  { label: 'Availability SLA',        value: '99.99%',  icon: '\u2705', color: '#14B8A6' },
+  { label: 'Data Residency',          value: 'South Africa', icon: '\uD83C\uDF0D', color: '#3B82F6' },
+  { label: 'Hosting',                 value: 'AWS af-south-1', icon: '\u2601\uFE0F', color: '#0EA5E9' },
+  { label: 'Compliance',              value: 'POPIA \u2022 FSCA \u2022 SARB', icon: '\uD83D\uDCDC', color: '#00D4AA' },
+  { label: 'TLS Version',             value: 'TLS 1.3', icon: '\uD83D\uDD12', color: '#14B8A6' },
 ];
 
 const LATENCY = [
-  { step: 'Signal capture (on-device)', ms: '~12ms', width: '12', color: '#FF4455' },
-  { step: 'Encrypted transit',          ms: '~18ms', width: '18', color: '#FF1744' },
-  { step: 'Rule evaluation (35 rules)', ms: '~42ms', width: '42', color: '#C62828' },
-  { step: 'Response + enforcement',     ms: '~8ms',  width: '8',  color: '#F97316' },
+  { step: 'Signal capture (on-device)', ms: '~12ms', width: '12', color: '#3B82F6' },
+  { step: 'Encrypted transit',          ms: '~18ms', width: '18', color: '#0EA5E9' },
+  { step: 'Rule evaluation (35 rules)', ms: '~42ms', width: '42', color: '#00D4AA' },
+  { step: 'Response + enforcement',     ms: '~8ms',  width: '8',  color: '#14B8A6' },
 ];
 
 export default function ArchitecturePage() {
@@ -75,7 +75,7 @@ export default function ArchitecturePage() {
   const layer = LAYERS[activeLayer];
 
   return (
-    <div style={{ minHeight: '100vh', background: '#080808', fontFamily: 'Inter, sans-serif', color: '#F0F6FF', overflowX: 'hidden' }}>
+    <div style={{ minHeight: '100vh', background: '#0B1121', fontFamily: 'Inter, sans-serif', color: '#F0F6FF', overflowX: 'hidden' }}>
       <WebNav />
 
       {/* Hero */}
@@ -171,7 +171,7 @@ export default function ArchitecturePage() {
 
         <div style={{ marginTop: 20, paddingTop: 16, borderTop: '1px solid rgba(255,255,255,0.08)', display: 'flex', justifyContent: 'center', gap: 8, alignItems: 'center' }}>
           <span style={{ fontSize: 13, color: '#64748B' }}>Total end-to-end (p50)</span>
-          <span style={{ fontSize: 20, fontWeight: 800, color: '#FF4455', fontFamily: 'Outfit' }}>~80ms</span>
+          <span style={{ fontSize: 20, fontWeight: 800, color: '#00D4AA', fontFamily: 'Outfit' }}>~80ms</span>
         </div>
       </section>
 

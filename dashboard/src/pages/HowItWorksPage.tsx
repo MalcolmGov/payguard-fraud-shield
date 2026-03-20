@@ -6,7 +6,7 @@ import TalkToSalesModal from '../components/TalkToSalesModal';
 const STEPS = [
   {
     num: '01',
-    color: '#FF4455',
+    color: '#3B82F6',
     title: 'SDK Embedded at Checkout',
     desc: 'PayGuard\'s lightweight SDK (0.8 MB) is embedded into your banking or fintech app. It activates automatically when a customer initiates a payment or transfer \u2014 no user action required.',
     detail: 'Supports Android, iOS, and React Native. Drop-in integration with 12 lines of code. Works with any payment rail: EFT, mobile money, card, wallet.',
@@ -14,7 +14,7 @@ const STEPS = [
   },
   {
     num: '02',
-    color: '#FF1744',
+    color: '#0EA5E9',
     title: 'Real-Time Signal Collection',
     desc: 'The moment a transaction begins, four signal collectors activate in parallel \u2014 checking for active phone calls, clipboard paste events, keystroke anomalies, and device fingerprint changes.',
     detail: 'All signals are captured on-device in under 12ms. Data is AES-256 encrypted before transmission. Zero impact on user experience.',
@@ -22,7 +22,7 @@ const STEPS = [
   },
   {
     num: '03',
-    color: '#C62828',
+    color: '#00D4AA',
     title: 'AI Risk Engine Evaluates',
     desc: '35 fraud rules evaluate simultaneously in our Rust-based risk engine. Each rule scores the transaction across dimensions: behavioral, device, network, and transactional.',
     detail: 'The engine runs in AWS af-south-1 (Cape Town). P99 latency is under 50ms. Scores are aggregated into a single risk verdict: ALLOW, WARN, or BLOCK.',
@@ -30,7 +30,7 @@ const STEPS = [
   },
   {
     num: '04',
-    color: '#F97316',
+    color: '#14B8A6',
     title: 'Instant Decision & Action',
     desc: 'Before the customer taps "Confirm", PayGuard returns a verdict. Fraudulent transactions are blocked or flagged. Legitimate ones flow through without friction.',
     detail: 'Total end-to-end latency: ~80ms. False positive rate: < 0.3%. Blocked transactions trigger full-screen warnings explaining the risk to the customer.',
@@ -38,7 +38,7 @@ const STEPS = [
   },
   {
     num: '05',
-    color: '#7C3AED',
+    color: '#8B5CF6',
     title: 'Graph Intelligence & Learning',
     desc: 'Every transaction feeds into PayGuard\'s Neo4j fraud graph, linking accounts, devices, and wallets. The system continuously learns and adapts to new fraud patterns.',
     detail: 'Mule networks are detected automatically. Analysts can bulk-block connected accounts with one click. ML models retrain weekly on African payment data.',
@@ -50,21 +50,21 @@ const SCENARIOS = [
   {
     title: 'Social Engineering Call',
     icon: '\uD83D\uDCDE',
-    color: '#FF4455',
+    color: '#3B82F6',
     without: 'Customer is manipulated into transferring funds while on a call with a scammer. Bank only discovers the fraud days later.',
     with: 'PayGuard detects the active call during payment. Transaction is blocked instantly. Customer sees a full-screen fraud warning.',
   },
   {
     title: 'SIM Swap Attack',
     icon: '\uD83D\uDCF1',
-    color: '#FF1744',
+    color: '#0EA5E9',
     without: 'Fraudster ports victim\'s SIM, resets banking credentials, and drains account within hours.',
     with: 'PayGuard detects new device fingerprint within 48h of SIM change. All outbound transactions are frozen automatically.',
   },
   {
     title: 'Mule Account Network',
     icon: '\uD83D\uDD78\uFE0F',
-    color: '#C62828',
+    color: '#00D4AA',
     without: 'Stolen funds are laundered through dozens of connected accounts across banks. Investigation takes weeks.',
     with: 'PayGuard\'s fraud graph links shared devices, IPs, and behavioural patterns. One-click bulk-block across the entire ring.',
   },
@@ -81,7 +81,7 @@ export default function HowItWorksPage() {
   const [showSales, setShowSales] = useState(false);
 
   return (
-    <div style={{ minHeight: '100vh', background: '#050505', fontFamily: 'Inter, sans-serif', color: '#F0F6FF', overflowX: 'hidden' }}>
+    <div style={{ minHeight: '100vh', background: '#0B1121', fontFamily: 'Inter, sans-serif', color: '#F0F6FF', overflowX: 'hidden' }}>
       <WebNav />
 
       {/* Hero */}
@@ -89,7 +89,7 @@ export default function HowItWorksPage() {
         <div className="section-label">How It Works</div>
         <h1 className="w-heading" style={{ fontSize: 56, fontWeight: 900, letterSpacing: '-0.03em', lineHeight: 1.1, marginBottom: 20 }}>
           From Payment to Protection<br />
-          <span style={{ background: 'linear-gradient(135deg, #FF1744, #FF4455)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>in Under 80ms.</span>
+          <span style={{ background: 'linear-gradient(135deg, #3B82F6, #00D4AA)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>in Under 80ms.</span>
         </h1>
         <p style={{ fontSize: 18, color: '#94A3B8', maxWidth: 620, margin: '0 auto 40px', lineHeight: 1.8 }}>
           PayGuard works invisibly inside your app. No customer friction. No manual reviews. Every transaction is scored in real-time before money moves.
@@ -112,7 +112,7 @@ export default function HowItWorksPage() {
           {/* Vertical line */}
           <div style={{
             position: 'absolute', left: 32, top: 0, bottom: 0, width: 2,
-            background: 'linear-gradient(180deg, #FF4455, #C62828, #F97316, #7C3AED)',
+            background: 'linear-gradient(180deg, #3B82F6, #0EA5E9, #00D4AA, #8B5CF6)',
             opacity: 0.3,
           }} />
 
@@ -137,7 +137,7 @@ export default function HowItWorksPage() {
 
               {/* Content card */}
               <div style={{
-                flex: 1, background: '#0c0f1a',
+                flex: 1, background: '#0F1A2E',
                 border: '1px solid rgba(255,255,255,0.08)',
                 borderRadius: 20, padding: '32px 36px',
                 position: 'relative', overflow: 'hidden',
@@ -206,7 +206,7 @@ export default function HowItWorksPage() {
                   background: 'rgba(248,81,73,0.04)', padding: '28px 32px',
                   borderRight: '1px solid rgba(255,255,255,0.06)',
                 }}>
-                  <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.12em', color: '#F85149', marginBottom: 12 }}>WITHOUT PAYGUARD</div>
+                  <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.12em', color: '#EF4444', marginBottom: 12 }}>WITHOUT PAYGUARD</div>
                   <p style={{ fontSize: 14, color: '#94A3B8', lineHeight: 1.75 }}>{s.without}</p>
                 </div>
 
@@ -234,20 +234,20 @@ export default function HowItWorksPage() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20 }}>
           {INTEGRATION_STEPS.map((s, i) => (
             <div key={i} style={{
-              background: '#0c0f1a', borderRadius: 20,
+              background: '#0F1A2E', borderRadius: 20,
               border: '1px solid rgba(255,255,255,0.08)',
               padding: '36px 28px', textAlign: 'center',
               position: 'relative', overflow: 'hidden',
             }}>
-              <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 2, background: 'linear-gradient(90deg, #FF1744, transparent)' }} />
+              <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 2, background: 'linear-gradient(90deg, #00D4AA, transparent)' }} />
               <div style={{
                 width: 56, height: 56, borderRadius: '50%', margin: '0 auto 20px',
-                background: 'rgba(255,23,68,0.1)', border: '2px solid rgba(255,23,68,0.3)',
+                background: 'rgba(0,212,170,0.1)', border: '2px solid rgba(0,212,170,0.3)',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
-                fontSize: 22, fontWeight: 900, color: '#FF4455',
+                fontSize: 22, fontWeight: 900, color: '#00D4AA',
                 fontFamily: 'JetBrains Mono, monospace',
               }}>{s.num}</div>
-              <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.1em', color: '#FF4455', marginBottom: 10 }}>{s.time}</div>
+              <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.1em', color: '#00D4AA', marginBottom: 10 }}>{s.time}</div>
               <h3 style={{ fontSize: 18, fontWeight: 800, color: '#F0F6FF', fontFamily: 'Outfit, sans-serif', marginBottom: 10 }}>{s.title}</h3>
               <p style={{ fontSize: 13, color: '#64748B', lineHeight: 1.7 }}>{s.desc}</p>
             </div>
@@ -262,10 +262,10 @@ export default function HowItWorksPage() {
       }}>
         <div style={{ maxWidth: 1000, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 24 }}>
           {[
-            { value: '~80ms', label: 'End-to-end decision', color: '#FF4455' },
-            { value: '< 0.3%', label: 'False positive rate', color: '#FF1744' },
-            { value: '35', label: 'Parallel fraud rules', color: '#C62828' },
-            { value: '99.99%', label: 'Platform uptime SLA', color: '#F97316' },
+            { value: '~80ms', label: 'End-to-end decision', color: '#3B82F6' },
+            { value: '< 0.3%', label: 'False positive rate', color: '#00D4AA' },
+            { value: '35', label: 'Parallel fraud rules', color: '#0EA5E9' },
+            { value: '99.99%', label: 'Platform uptime SLA', color: '#14B8A6' },
           ].map((s, i) => (
             <div key={i} style={{ textAlign: 'center' }}>
               <div style={{ fontSize: 36, fontWeight: 900, fontFamily: 'Outfit, sans-serif', color: s.color, marginBottom: 8 }}>{s.value}</div>

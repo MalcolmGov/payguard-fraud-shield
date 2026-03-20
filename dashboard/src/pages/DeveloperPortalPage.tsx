@@ -560,7 +560,7 @@ export default function DeveloperPortalPage() {
   };
 
   return (
-    <div style={{ minHeight: '100vh', background: '#05080F', fontFamily: 'Inter, sans-serif', color: '#F0F6FF', overflowX: 'hidden' }}>
+    <div style={{ minHeight: '100vh', background: '#0B1121', fontFamily: 'Inter, sans-serif', color: '#F0F6FF', overflowX: 'hidden' }}>
       <WebNav />
 
       {/* Hero */}

@@ -412,7 +412,7 @@ export default function SandboxPage() {
   const filteredEps = ENDPOINTS.filter(e => e.label.toLowerCase().includes(search.toLowerCase()) || e.path.toLowerCase().includes(search.toLowerCase()));
 
   return (
-    <div style={{ minHeight: '100vh', background: '#080808', fontFamily: 'Inter, sans-serif', color: '#F0F6FF', overflowX: 'hidden' }}>
+    <div style={{ minHeight: '100vh', background: '#0B1121', fontFamily: 'Inter, sans-serif', color: '#F0F6FF', overflowX: 'hidden' }}>
       <WebNav />
 
       {/* Hero */}

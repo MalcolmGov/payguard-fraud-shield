@@ -84,7 +84,7 @@ export default function AboutPage() {
     (e.target.style.borderColor = 'rgba(255,255,255,0.09)');
 
   return (
-    <div style={{ minHeight: '100vh', background: '#05080F', fontFamily: 'Inter, sans-serif', color: '#F0F6FF', overflowX: 'hidden' }}>
+    <div style={{ minHeight: '100vh', background: '#0B1121', fontFamily: 'Inter, sans-serif', color: '#F0F6FF', overflowX: 'hidden' }}>
       <WebNav />
 
       {/* Hero */}
@@ -112,7 +112,7 @@ export default function AboutPage() {
               Make Digital Payments Safe. Everywhere.
             </h2>
             <p style={{ fontSize: 15, color: '#64748B', lineHeight: 1.9, marginBottom: 20 }}>
-              The global payments ecosystem processes over <strong style={{ color: '#F0F6FF' }}>$10 trillion</strong> in digital transactions annually. Social engineering fraud — vishing, smishing, SIM swap, OTP phishing — costs institutions and customers over <strong style={{ color: '#F85149' }}>$485 billion</strong> every year.
+              The global payments ecosystem processes over <strong style={{ color: '#F0F6FF' }}>$10 trillion</strong> in digital transactions annually. Social engineering fraud — vishing, smishing, SIM swap, OTP phishing — costs institutions and customers over <strong style={{ color: '#F59E0B' }}>$485 billion</strong> every year.
             </p>
             <p style={{ fontSize: 15, color: '#64748B', lineHeight: 1.9 }}>
               The tools to stop it already existed (call state APIs, device fingerprinting, graph databases) — but no one had assembled them into a coherent, institution-grade SDK. We did.

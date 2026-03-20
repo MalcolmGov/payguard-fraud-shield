@@ -75,17 +75,17 @@ export default function ContactPage() {
     (e.target.style.borderColor = 'rgba(255,255,255,0.09)');
 
   return (
-    <div style={{ minHeight: '100vh', background: '#05080F', fontFamily: 'Inter, sans-serif', color: '#F0F6FF', overflowX: 'hidden' }}>
+    <div style={{ minHeight: '100vh', background: '#0B1121', fontFamily: 'Inter, sans-serif', color: '#F0F6FF', overflowX: 'hidden' }}>
       <WebNav />
 
       {/* Hero */}
       <section className="mesh-bg" style={{ padding: '140px 48px 64px', position: 'relative', overflow: 'hidden' }}>
-        <div className="orb" style={{ width: 500, height: 500, background: 'rgba(255,23,68,0.08)', top: -80, right: -100, '--orb-dur': '14s' } as React.CSSProperties} />
+        <div className="orb" style={{ width: 500, height: 500, background: 'rgba(0,212,170,0.08)', top: -80, right: -100, '--orb-dur': '14s' } as React.CSSProperties} />
         <div style={{ position: 'relative', zIndex: 1, maxWidth: 720, margin: '0 auto', textAlign: 'center' }}>
           <div className="section-label">Contact Us</div>
           <h1 className="w-heading" style={{ fontSize: 56, fontWeight: 900, letterSpacing: '-0.03em', lineHeight: 1.1, marginBottom: 20 }}>
             <span className="grad-white-blue">Let's Talk</span> About<br />
-            <span style={{ background: 'linear-gradient(135deg, #FF1744, #FF4455)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Fraud Prevention.</span>
+            <span style={{ background: 'linear-gradient(135deg, #3B82F6, #00D4AA)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Fraud Prevention.</span>
           </h1>
           <p style={{ fontSize: 18, color: '#94A3B8', lineHeight: 1.8, maxWidth: 580, margin: '0 auto' }}>
             Whether you're a bank, telco, fintech, or PSP — tell us about your fraud challenges and we'll show you exactly how PayGuard fits your stack.

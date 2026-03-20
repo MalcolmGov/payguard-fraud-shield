@@ -5,7 +5,7 @@ import TalkToSalesModal from '../components/TalkToSalesModal';
 
 const PRODUCTS = [
   {
-    id: 'transaction-guard', icon: '\uD83D\uDEE1\uFE0F', color: '#FF1744', glyph: '01',
+    id: 'transaction-guard', icon: '\uD83D\uDEE1\uFE0F', color: '#3B82F6', glyph: '01',
     name: 'Transaction Guard', tag: 'Core \u2022 Always-On',
     tagline: 'Block fraud at the point of payment.',
     desc: 'The foundational layer. Transaction Guard evaluates every send-money event against 35 fraud rules in parallel. Verdicts (ALLOW, WARN, BLOCK) return before the customer taps Confirm.',
@@ -65,7 +65,7 @@ const PRODUCTS = [
     ],
   },
   {
-    id: 'device-trust', icon: '\uD83D\uDD12', color: '#FF3D00', glyph: '06',
+    id: 'device-trust', icon: '\uD83D\uDD12', color: '#06B6D4', glyph: '06',
     name: 'Device Trust & Binding', tag: 'Hardware \u2022 Identity',
     tagline: 'One device, one identity. Always verified.',
     desc: 'Device Trust generates a 64-byte SHA-256 fingerprint from 13 hardware and OS signals. Trusted devices are bound to accounts. Blacklisted devices are blocked at the perimeter. Token rotation uses a 6-hour sliding window.',
@@ -100,7 +100,7 @@ export default function ProductsPage() {
   const product = PRODUCTS.find(p => p.id === activeProduct) || PRODUCTS[0];
 
   return (
-    <div style={{ minHeight: '100vh', background: '#080808', fontFamily: 'Inter, sans-serif', color: '#F0F6FF', overflowX: 'hidden' }}>
+    <div style={{ minHeight: '100vh', background: '#0B1121', fontFamily: 'Inter, sans-serif', color: '#F0F6FF', overflowX: 'hidden' }}>
       <WebNav />
 
       {/* Hero */}
@@ -189,7 +189,7 @@ export default function ProductsPage() {
           {/* Header */}
           <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', padding: '16px 24px', borderBottom: '1px solid rgba(255,255,255,0.08)', background: 'rgba(255,255,255,0.02)' }}>
             <div style={{ fontSize: 11, fontWeight: 700, color: '#475569' }}>FEATURE</div>
-            <div style={{ fontSize: 11, fontWeight: 700, color: '#FF4455', textAlign: 'center' }}>PAYGUARD</div>
+            <div style={{ fontSize: 11, fontWeight: 700, color: '#00D4AA', textAlign: 'center' }}>PAYGUARD</div>
             <div style={{ fontSize: 11, fontWeight: 700, color: '#475569', textAlign: 'center' }}>RULE-BASED LEGACY</div>
           </div>
 
@@ -197,10 +197,10 @@ export default function ProductsPage() {
           {COMPARE.map((row, i) => (
             <div key={row.feature} style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', padding: '14px 24px', borderBottom: i < COMPARE.length - 1 ? '1px solid rgba(255,255,255,0.04)' : 'none', alignItems: 'center' }}>
               <div style={{ fontSize: 14, color: '#94A3B8' }}>{row.feature}</div>
-              <div style={{ textAlign: 'center', fontSize: 14, color: typeof row.fs === 'boolean' ? '#FF4455' : '#FF4455', fontWeight: 600 }}>
+              <div style={{ textAlign: 'center', fontSize: 14, color: typeof row.fs === 'boolean' ? '#00D4AA' : '#00D4AA', fontWeight: 600 }}>
                 {typeof row.fs === 'boolean' ? (row.fs ? '\u2705' : '\u274C') : row.fs}
               </div>
-              <div style={{ textAlign: 'center', fontSize: 14, color: typeof row.legacy === 'boolean' ? (row.legacy ? '#FF4455' : '#F85149') : '#D29922', fontWeight: 600 }}>
+              <div style={{ textAlign: 'center', fontSize: 14, color: typeof row.legacy === 'boolean' ? (row.legacy ? '#00D4AA' : '#EF4444') : '#D29922', fontWeight: 600 }}>
                 {typeof row.legacy === 'boolean' ? (row.legacy ? '\u2705' : '\u274C') : row.legacy}
               </div>
             </div>

@@ -29,7 +29,7 @@ export default function WebNav() {
         position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
         height: 68, display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         padding: '0 48px',
-        background: scrolled ? 'rgba(5,5,5,0.92)' : 'transparent',
+        background: scrolled ? 'rgba(11,17,33,0.92)' : 'transparent',
         borderBottom: scrolled ? '1px solid rgba(255,255,255,0.06)' : '1px solid transparent',
         backdropFilter: scrolled ? 'blur(16px)' : 'none',
         transition: 'background 0.3s, border-color 0.3s, backdrop-filter 0.3s',
@@ -38,9 +38,9 @@ export default function WebNav() {
         <div onClick={() => navigate('/')} style={{ display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer' }}>
           <div style={{
             width: 36, height: 36, borderRadius: 10,
-            background: 'linear-gradient(135deg, #FF1744, #C62828)',
+            background: 'linear-gradient(135deg, #3B82F6, #2563EB)',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontSize: 16, boxShadow: '0 0 20px rgba(255,23,68,0.3)',
+            fontSize: 16, boxShadow: '0 0 20px rgba(59,130,246,0.3)',
           }}>{'\uD83D\uDEE1\uFE0F'}</div>
           <div>
             <div style={{ fontSize: 16, fontWeight: 800, color: '#F0F6FF', fontFamily: 'Outfit, sans-serif', letterSpacing: '-0.02em' }}>PayGuard</div>
@@ -66,9 +66,9 @@ export default function WebNav() {
           <button onClick={() => navigate('/sandbox')} className="w-btn-secondary" style={{ padding: '9px 20px', fontSize: 13 }}>Try Sandbox</button>
           <button onClick={() => setShowSales(true)} style={{
             padding: '9px 20px', fontSize: 13, fontWeight: 700,
-            background: 'linear-gradient(135deg,#FF1744,#C62828)', color: '#fff',
+            background: 'linear-gradient(135deg,#3B82F6,#2563EB)', color: '#fff',
             border: 'none', borderRadius: 8, cursor: 'pointer',
-            boxShadow: '0 2px 16px rgba(255,23,68,0.35)',
+            boxShadow: '0 2px 16px rgba(59,130,246,0.35)',
             transition: 'opacity 0.2s', display: 'flex', alignItems: 'center', gap: 6,
           }}
             onMouseEnter={e => (e.currentTarget as HTMLButtonElement).style.opacity = '0.85'}
@@ -95,16 +95,16 @@ export function WebFooter() {
               <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
                 <div style={{
                   width: 28, height: 28, borderRadius: 8,
-                  background: 'linear-gradient(135deg, #FF1744, #C62828)',
+                  background: 'linear-gradient(135deg, #3B82F6, #2563EB)',
                   display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12,
                 }}>{'\uD83D\uDEE1\uFE0F'}</div>
                 <span style={{ fontSize: 14, fontWeight: 700, color: '#F0F6FF', letterSpacing: '-0.02em', fontFamily: 'Outfit, sans-serif' }}>PayGuard</span>
               </div>
               <p style={{ fontSize: 14, color: '#94A3B8', lineHeight: 1.8, maxWidth: 280, fontWeight: 500, marginBottom: 16 }}>Real-Time Fraud Prevention Infrastructure for Modern Payments.</p>
               <button onClick={() => setShowSales(true)} style={{
-                background: 'linear-gradient(135deg,#FF1744,#C62828)', border: 'none',
+                background: 'linear-gradient(135deg,#3B82F6,#2563EB)', border: 'none',
                 borderRadius: 8, padding: '9px 18px', fontSize: 12, fontWeight: 700,
-                color: '#fff', cursor: 'pointer', boxShadow: '0 2px 12px rgba(255,23,68,0.3)',
+                color: '#fff', cursor: 'pointer', boxShadow: '0 2px 12px rgba(59,130,246,0.3)',
                 transition: 'opacity 0.2s', display: 'flex', alignItems: 'center', gap: 6,
               }}
                 onMouseEnter={e => (e.currentTarget as HTMLButtonElement).style.opacity = '0.85'}
@@ -120,7 +120,7 @@ export function WebFooter() {
               { title: 'Legal', links: [['Privacy', '#'], ['Security', '#'], ['Terms', '#'], ['SOC 2 Type II', '#']] },
             ].map(col => (
               <div key={col.title}>
-                <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', color: '#FF1744', textTransform: 'uppercase', marginBottom: 16 }}>{col.title}</div>
+                <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', color: '#00D4AA', textTransform: 'uppercase', marginBottom: 16 }}>{col.title}</div>
                 {col.links.map(([label, path]) => (
                   <div key={label} onClick={() => { if (path !== '#') navigate(path); }} style={{ fontSize: 13, color: '#475569', marginBottom: 10, cursor: 'pointer', transition: 'color 0.15s' }}
                     onMouseEnter={e => (e.currentTarget as HTMLDivElement).style.color = '#94A3B8'}
