@@ -117,28 +117,103 @@ function JsonView({ data, status }: { data: Record<string, unknown> | null; stat
   );
 }
 
-// -- Signal Simulator ----------------------------------------------------------
-function SignalSimulator() {
-  const [callActive, setCallActive] = useState(true);
-  const [paste, setPaste] = useState(false);
-  const [keystroke, setKeystroke] = useState(0.12);
-  const [simSwap, setSimSwap] = useState(false);
-  const [result, setResult] = useState<Record<string, unknown> | null>(null);
+// -- Signal Simulator (LIVE — hits Railway risk engine) -----------------------
+const LIVE_API = 'https://risk-engine-production-e2b3.up.railway.app';
+const LIVE_KEY = 'pk_sandbox_demo';
 
-  const run = () => {
-    const score = (callActive ? 55 : 0) + (paste ? 20 : 0) + Math.round(keystroke * 50) + (simSwap ? 70 : 0);
-    const rules: { rule: string; score: number }[] = [];
-    if (callActive) rules.push({ rule: 'CALL_ACTIVE_DURING_PAYMENT', score: 55 });
-    if (paste) rules.push({ rule: 'PASTE_INTO_AMOUNT', score: 20 });
-    if (keystroke > 0.3) rules.push({ rule: 'KEYSTROKE_ANOMALY', score: Math.round(keystroke * 50) });
-    if (simSwap) rules.push({ rule: 'SIM_SWAP_48H', score: 70 });
-    setResult({
-      risk_score: Math.min(score, 100),
-      action: score >= 80 ? 'BLOCK' : score >= 45 ? 'WARN_USER' : 'ALLOW',
-      rules_fired: rules,
-      signal_count: [callActive, paste, keystroke > 0.3, simSwap].filter(Boolean).length,
-      latency_ms: 38 + Math.round(Math.random() * 20),
-    });
+function SignalSimulator() {
+  // Signal toggles
+  const [callActive, setCallActive] = useState(false);
+  const [callerHidden, setCallerHidden] = useState(false);
+  const [paste, setPaste] = useState(false);
+  const [simSwap, setSimSwap] = useState(false);
+  const [emulator, setEmulator] = useState(false);
+  const [rooted, setRooted] = useState(false);
+  const [vpn, setVpn] = useState(false);
+  const [screenShare, setScreenShare] = useState(false);
+  const [smsKeywords, setSmsKeywords] = useState(false);
+  const [fastTxn, setFastTxn] = useState(false);
+
+  // Transaction details
+  const [amount, setAmount] = useState(5000);
+  const [recipient, setRecipient] = useState('+27821000010');
+  const [recipientKnown, setRecipientKnown] = useState(false);
+
+  // Response state
+  const [result, setResult] = useState<Record<string, unknown> | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [latency, setLatency] = useState<number | null>(null);
+  const [apiStatus, setApiStatus] = useState<'idle' | 'live' | 'error'>('idle');
+
+  const run = async () => {
+    setLoading(true);
+    setResult(null);
+    const start = performance.now();
+
+    const payload = {
+      payload_id: `sandbox-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
+      user_id: 'sandbox_user_001',
+      session_id: `ses_${Date.now()}`,
+      timestamp: Math.floor(Date.now() / 1000),
+      transaction: { recipient_phone: recipient, amount, currency: 'ZAR' },
+      device: {
+        device_id: 'sandbox_device_001',
+        manufacturer: emulator ? 'Google' : 'Samsung',
+        model: emulator ? 'Pixel Emulator' : 'Galaxy S24',
+        os_version: '14',
+        is_emulator: emulator,
+        is_rooted: rooted,
+        is_screen_shared: screenShare,
+        is_remote_controlled: screenShare,
+      },
+      network: {
+        ip_address: '196.25.1.82',
+        is_vpn: vpn,
+        is_proxy: false,
+      },
+      behavioral: {
+        transaction_creation_ms: fastTxn ? 2000 : 45000,
+        paste_detected: paste,
+        pasted_fields: paste ? ['recipient_phone'] : [],
+      },
+      call: {
+        is_on_active_call: callActive,
+        call_duration_seconds: callActive ? 180 : 0,
+        caller_id_visible: callActive ? !callerHidden : true,
+        caller_in_contacts: callActive ? false : true,
+      },
+      recipient_in_contacts: recipientKnown,
+      sim: {
+        sim_swap_detected: simSwap,
+        sim_age_days: simSwap ? 1 : 730,
+        country_iso: 'ZA',
+      },
+      sms: {
+        has_fraud_keywords: smsKeywords,
+        fraud_keywords_found: smsKeywords ? ['OTP', 'PIN', 'verify'] : [],
+      },
+    };
+
+    try {
+      const res = await fetch(`${LIVE_API}/score`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${LIVE_KEY}`,
+        },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+      const ms = Math.round(performance.now() - start);
+      setLatency(ms);
+      setResult({ ...data, _latency_ms: ms, _source: 'LIVE Railway Engine' });
+      setApiStatus('live');
+    } catch (err) {
+      setLatency(null);
+      setResult({ error: 'connection_failed', message: `Could not reach risk engine: ${(err as Error).message}`, _source: 'ERROR' });
+      setApiStatus('error');
+    }
+    setLoading(false);
   };
 
   const toggleStyle = (on: boolean): React.CSSProperties => ({
@@ -151,29 +226,151 @@ function SignalSimulator() {
     position: 'absolute', top: 3, left: on ? 23 : 3, transition: 'left 0.2s',
   });
 
+  const signals = [
+    { label: '📞 On active call during payment', value: callActive, set: setCallActive },
+    { label: '🙈 Caller ID hidden', value: callerHidden, set: setCallerHidden },
+    { label: '📋 Pasted recipient number', value: paste, set: setPaste },
+    { label: '🔄 SIM swapped recently', value: simSwap, set: setSimSwap },
+    { label: '💻 Running on emulator', value: emulator, set: setEmulator },
+    { label: '🔓 Device rooted/jailbroken', value: rooted, set: setRooted },
+    { label: '🌐 VPN / proxy active', value: vpn, set: setVpn },
+    { label: '🖥️ Screen sharing / remote access', value: screenShare, set: setScreenShare },
+    { label: '📩 SMS with fraud keywords', value: smsKeywords, set: setSmsKeywords },
+    { label: '⚡ Fast transaction (< 3s)', value: fastTxn, set: setFastTxn },
+  ];
+
+  // Presets
+  const loadPreset = (preset: 'vishing' | 'fraudfarm' | 'legit') => {
+    if (preset === 'vishing') {
+      setCallActive(true); setCallerHidden(true); setPaste(false); setSimSwap(false);
+      setEmulator(false); setRooted(false); setVpn(false); setScreenShare(false);
+      setSmsKeywords(false); setFastTxn(true); setAmount(15000); setRecipientKnown(false);
+    } else if (preset === 'fraudfarm') {
+      setCallActive(false); setCallerHidden(false); setPaste(true); setSimSwap(true);
+      setEmulator(true); setRooted(true); setVpn(true); setScreenShare(false);
+      setSmsKeywords(true); setFastTxn(true); setAmount(8500); setRecipientKnown(false);
+    } else {
+      setCallActive(false); setCallerHidden(false); setPaste(false); setSimSwap(false);
+      setEmulator(false); setRooted(false); setVpn(false); setScreenShare(false);
+      setSmsKeywords(false); setFastTxn(false); setAmount(250); setRecipientKnown(true);
+    }
+    setResult(null);
+  };
+
+  const riskColor = (score: number) => score >= 80 ? '#EF4444' : score >= 50 ? '#FBBF24' : '#10F5A0';
+
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
-      <div>
-        <div style={{ fontSize: 13, fontWeight: 700, color: '#F0F6FF', marginBottom: 20 }}>Signal Controls</div>
-        {[
-          { label: 'Call active during payment', value: callActive, set: setCallActive },
-          { label: 'Paste into amount field', value: paste, set: setPaste },
-          { label: 'SIM swap detected (48h)', value: simSwap, set: setSimSwap },
-        ].map(s => (
-          <div key={s.label} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 0', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-            <span style={{ fontSize: 13, color: '#94A3B8' }}>{s.label}</span>
-            <button style={toggleStyle(s.value)} onClick={() => s.set(!s.value)}><div style={dotStyle(s.value)} /></button>
-          </div>
-        ))}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 0', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-          <span style={{ fontSize: 13, color: '#94A3B8' }}>Keystroke anomaly ({keystroke.toFixed(2)})</span>
-          <input type="range" min="0" max="1" step="0.01" value={keystroke} onChange={e => setKeystroke(Number(e.target.value))} style={{ width: 120, accentColor: '#FF4455' }} />
-        </div>
-        <button onClick={run} className="w-btn-primary" style={{ marginTop: 20, width: '100%' }}>Run Evaluation</button>
+    <div>
+      {/* Live API indicator */}
+      <div style={{
+        display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20,
+        padding: '10px 16px', borderRadius: 10,
+        background: apiStatus === 'live' ? 'rgba(16,245,160,0.06)' : apiStatus === 'error' ? 'rgba(239,68,68,0.06)' : 'rgba(255,255,255,0.03)',
+        border: `1px solid ${apiStatus === 'live' ? 'rgba(16,245,160,0.2)' : apiStatus === 'error' ? 'rgba(239,68,68,0.2)' : 'rgba(255,255,255,0.06)'}`,
+      }}>
+        <div style={{ width: 8, height: 8, borderRadius: 4, background: apiStatus === 'live' ? '#10F5A0' : apiStatus === 'error' ? '#EF4444' : '#475569', animation: apiStatus === 'live' ? 'pulse 2s infinite' : undefined }} />
+        <span style={{ fontSize: 11, fontWeight: 700, color: apiStatus === 'live' ? '#10F5A0' : apiStatus === 'error' ? '#EF4444' : '#64748B', fontFamily: 'JetBrains Mono, monospace' }}>
+          {apiStatus === 'idle' ? 'Ready — requests go to LIVE engine' : apiStatus === 'live' ? `LIVE · ${latency}ms from Railway` : 'Engine unreachable'}
+        </span>
+        <span style={{ marginLeft: 'auto', fontSize: 10, color: '#475569', fontFamily: 'JetBrains Mono, monospace' }}>{LIVE_API}</span>
       </div>
-      <div style={{ background: 'rgba(0,0,0,0.4)', borderRadius: 14, border: '1px solid rgba(255,255,255,0.06)', overflow: 'hidden' }}>
-        <div style={{ padding: '10px 16px', borderBottom: '1px solid rgba(255,255,255,0.06)', fontSize: 11, fontWeight: 700, color: '#475569', letterSpacing: '0.08em' }}>RESULT</div>
-        {result ? <JsonView data={result} status={200} /> : <div style={{ padding: 20, color: '#475569', fontStyle: 'italic', fontSize: 13 }}>Configure signals and run evaluation.</div>}
+
+      {/* Preset buttons */}
+      <div style={{ display: 'flex', gap: 8, marginBottom: 20 }}>
+        <span style={{ fontSize: 11, fontWeight: 700, color: '#475569', alignSelf: 'center', marginRight: 4 }}>PRESETS:</span>
+        {([
+          { id: 'vishing' as const, label: '🔴 Vishing Attack', color: '#EF4444' },
+          { id: 'fraudfarm' as const, label: '🔴 Fraud Farm', color: '#F97316' },
+          { id: 'legit' as const, label: '🟢 Legitimate', color: '#10F5A0' },
+        ]).map(p => (
+          <button key={p.id} onClick={() => loadPreset(p.id)} style={{
+            padding: '6px 14px', borderRadius: 8, fontSize: 11, fontWeight: 600,
+            border: `1px solid ${p.color}30`, background: `${p.color}10`, color: p.color,
+            cursor: 'pointer', transition: 'all 0.2s',
+          }}>{p.label}</button>
+        ))}
+      </div>
+
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
+        {/* Left: Signal controls */}
+        <div>
+          <div style={{ fontSize: 13, fontWeight: 700, color: '#F0F6FF', marginBottom: 16 }}>Signal Controls</div>
+
+          {/* Transaction inputs */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 16 }}>
+            <div>
+              <label style={{ fontSize: 10, fontWeight: 700, color: '#475569', letterSpacing: '0.08em' }}>AMOUNT (ZAR)</label>
+              <input type="number" value={amount} onChange={e => setAmount(Number(e.target.value))} style={{
+                width: '100%', padding: '8px 12px', borderRadius: 8, fontSize: 14, marginTop: 4, boxSizing: 'border-box',
+                background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.1)', color: '#F0F6FF',
+                fontFamily: 'JetBrains Mono, monospace', fontWeight: 700,
+              }} />
+            </div>
+            <div>
+              <label style={{ fontSize: 10, fontWeight: 700, color: '#475569', letterSpacing: '0.08em' }}>RECIPIENT</label>
+              <input value={recipient} onChange={e => setRecipient(e.target.value)} style={{
+                width: '100%', padding: '8px 12px', borderRadius: 8, fontSize: 12, marginTop: 4, boxSizing: 'border-box',
+                background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.1)', color: '#A5D6FF',
+                fontFamily: 'JetBrains Mono, monospace',
+              }} />
+            </div>
+          </div>
+
+          {/* Signal toggles */}
+          {signals.map(s => (
+            <div key={s.label} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 0', borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
+              <span style={{ fontSize: 13, color: s.value ? '#F0F6FF' : '#64748B', transition: 'color 0.2s' }}>{s.label}</span>
+              <button style={toggleStyle(s.value)} onClick={() => s.set(!s.value)}><div style={dotStyle(s.value)} /></button>
+            </div>
+          ))}
+
+          {/* Recipient known toggle */}
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 0', borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
+            <span style={{ fontSize: 13, color: recipientKnown ? '#10F5A0' : '#64748B' }}>✅ Recipient in contacts</span>
+            <button style={{ ...toggleStyle(recipientKnown), background: recipientKnown ? '#10F5A0' : 'rgba(255,255,255,0.1)' }} onClick={() => setRecipientKnown(!recipientKnown)}><div style={dotStyle(recipientKnown)} /></button>
+          </div>
+
+          <button onClick={run} disabled={loading} className="w-btn-primary" style={{
+            marginTop: 20, width: '100%', opacity: loading ? 0.6 : 1, fontSize: 14, padding: '12px',
+            position: 'relative', overflow: 'hidden',
+          }}>
+            {loading ? '⏳ Scoring against live engine...' : '🚀 Run Live Evaluation'}
+          </button>
+        </div>
+
+        {/* Right: Response */}
+        <div style={{ background: 'rgba(0,0,0,0.4)', borderRadius: 14, border: '1px solid rgba(255,255,255,0.06)', overflow: 'hidden' }}>
+          <div style={{ padding: '10px 16px', borderBottom: '1px solid rgba(255,255,255,0.06)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <span style={{ fontSize: 11, fontWeight: 700, color: '#475569', letterSpacing: '0.08em' }}>LIVE ENGINE RESPONSE</span>
+            {latency && <span style={{ fontSize: 11, color: '#10F5A0', fontFamily: 'JetBrains Mono, monospace' }}>{latency}ms</span>}
+          </div>
+
+          {/* Risk Score Gauge */}
+          {result && typeof result.risk_score === 'number' && (
+            <div style={{ padding: '20px 20px 0', display: 'flex', alignItems: 'center', gap: 16 }}>
+              <div style={{
+                width: 72, height: 72, borderRadius: 36, display: 'flex', alignItems: 'center', justifyContent: 'center',
+                background: `${riskColor(result.risk_score as number)}15`,
+                border: `3px solid ${riskColor(result.risk_score as number)}`,
+              }}>
+                <span style={{ fontSize: 24, fontWeight: 900, color: riskColor(result.risk_score as number), fontFamily: 'Outfit, sans-serif' }}>
+                  {result.risk_score}
+                </span>
+              </div>
+              <div>
+                <div style={{ fontSize: 14, fontWeight: 800, color: riskColor(result.risk_score as number) }}>{result.risk_level as string}</div>
+                <div style={{ fontSize: 12, color: '#94A3B8', marginTop: 2 }}>Action: <b style={{ color: (result.recommended_action as string) === 'BLOCK' ? '#EF4444' : '#FBBF24' }}>{result.recommended_action as string}</b></div>
+                {result.warning_message && (
+                  <div style={{ fontSize: 11, color: '#FBBF24', marginTop: 6, maxWidth: 300, lineHeight: 1.5 }}>
+                    ⚠️ {String(result.warning_message)}
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          <JsonView data={result} status={result ? (result.error ? 500 : 200) : null} />
+        </div>
       </div>
     </div>
   );
