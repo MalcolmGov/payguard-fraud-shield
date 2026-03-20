@@ -109,7 +109,7 @@ function Nav() {
 
   return (
     <>
-      <nav style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 200, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 48px', height: 72, background: navBg, borderBottom: scrolled ? '1px solid rgba(59,130,246,0.15)' : '1px solid transparent', backdropFilter: scrolled ? 'blur(24px)' : 'none', transition: 'all 0.3s' }}>
+      <nav className="web-nav" style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 200, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 48px', height: 72, background: navBg, borderBottom: scrolled ? '1px solid rgba(59,130,246,0.15)' : '1px solid transparent', backdropFilter: scrolled ? 'blur(24px)' : 'none', transition: 'all 0.3s' }}>
         <div onClick={() => go('/')} style={{ display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer', zIndex: 201 }}>
           <img src="/payguard-logo.png" alt="PayGuard" style={{ width: 40, height: 40, borderRadius: 10, objectFit: 'cover', boxShadow: '0 0 24px rgba(59,130,246,0.4)' }} />
           <div style={{ fontFamily: "'Plus Jakarta Sans', 'Outfit', sans-serif", fontSize: 18, fontWeight: 800, color: '#F0F6FF', letterSpacing: '-0.02em' }}>PayGuard</div>
