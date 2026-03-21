@@ -2,9 +2,7 @@ import { useState, useEffect } from 'react';
 
 export default function ThemeToggle() {
   const [theme, setTheme] = useState<'dark' | 'light'>(() => {
-    if (typeof window !== 'undefined') {
-      return (localStorage.getItem('payguard-theme') as 'dark' | 'light') || 'dark';
-    }
+    // Always default to dark — light mode is WIP
     return 'dark';
   });
 
