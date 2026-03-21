@@ -75,7 +75,7 @@ export default function ArchitecturePage() {
   const layer = LAYERS[activeLayer];
 
   return (
-    <div style={{ minHeight: '100vh', background: '#0B1121', fontFamily: 'Inter, sans-serif', color: '#F0F6FF', overflowX: 'hidden' }}>
+    <div style={{ minHeight: '100vh', background: 'var(--w-bg)', fontFamily: 'Inter, sans-serif', color: 'var(--w-text-1)', overflowX: 'hidden' }}>
       <WebNav />
 
       {/* Hero */}
@@ -83,9 +83,9 @@ export default function ArchitecturePage() {
         <div className="section-label">System Architecture</div>
         <h1 className="w-heading" style={{ fontSize: 56, fontWeight: 900, letterSpacing: '-0.03em', lineHeight: 1.1, marginBottom: 20 }}>
           <span className="grad-white-blue">Four Layers.</span><br />
-          <span style={{ color: '#F0F6FF' }}>Zero Single Points of Failure.</span>
+          <span style={{ color: 'var(--w-text-1)' }}>Zero Single Points of Failure.</span>
         </h1>
-        <p style={{ fontSize: 18, color: '#94A3B8', maxWidth: 600, margin: '0 auto 40px', lineHeight: 1.8 }}>
+        <p style={{ fontSize: 18, color: 'var(--w-text-2)', maxWidth: 600, margin: '0 auto 40px', lineHeight: 1.8 }}>
           From device SDK to graph engine &mdash; every component is independently scalable, encrypted end-to-end, and hosted in South Africa.
         </p>
         <div style={{ display: 'flex', gap: 14, justifyContent: 'center' }}>
@@ -129,21 +129,21 @@ export default function ArchitecturePage() {
             <span style={{ fontSize: 36 }}>{layer.icon}</span>
             <div>
               <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.12em', color: layer.color, marginBottom: 4 }}>LAYER {layer.num}</div>
-              <h2 style={{ fontSize: 28, fontWeight: 800, fontFamily: 'Outfit, sans-serif', color: '#F0F6FF' }}>{layer.title}</h2>
+              <h2 style={{ fontSize: 28, fontWeight: 800, fontFamily: 'Outfit, sans-serif', color: 'var(--w-text-1)' }}>{layer.title}</h2>
             </div>
           </div>
           <div style={{ fontSize: 12, color: layer.color, marginBottom: 16, fontFamily: 'JetBrains Mono, monospace', letterSpacing: '0.04em' }}>{layer.subtitle}</div>
-          <p style={{ fontSize: 15, color: '#94A3B8', lineHeight: 1.85, marginBottom: 32, maxWidth: 700 }}>{layer.desc}</p>
+          <p style={{ fontSize: 15, color: 'var(--w-text-2)', lineHeight: 1.85, marginBottom: 32, maxWidth: 700 }}>{layer.desc}</p>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
             {layer.components.map((c, i) => (
               <div key={i} style={{
-                background: 'rgba(255,255,255,0.03)',
-                border: '1px solid rgba(255,255,255,0.06)',
+                background: 'var(--w-card)',
+                border: '1px solid var(--w-card-border)',
                 borderRadius: 14, padding: '20px 24px',
               }}>
-                <div style={{ fontSize: 14, fontWeight: 700, color: '#F0F6FF', marginBottom: 6 }}>{c.name}</div>
-                <div style={{ fontSize: 13, color: '#64748B', lineHeight: 1.6 }}>{c.desc}</div>
+                <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--w-text-1)', marginBottom: 6 }}>{c.name}</div>
+                <div style={{ fontSize: 13, color: 'var(--w-text-3)', lineHeight: 1.6 }}>{c.desc}</div>
               </div>
             ))}
           </div>
@@ -160,8 +160,8 @@ export default function ArchitecturePage() {
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
           {LATENCY.map((r, i) => (
             <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-              <div style={{ width: 200, fontSize: 13, color: '#94A3B8', textAlign: 'right', flexShrink: 0 }}>{r.step}</div>
-              <div style={{ flex: 1, height: 28, background: 'rgba(255,255,255,0.04)', borderRadius: 99, overflow: 'hidden', position: 'relative' }}>
+              <div style={{ width: 200, fontSize: 13, color: 'var(--w-text-2)', textAlign: 'right', flexShrink: 0 }}>{r.step}</div>
+              <div style={{ flex: 1, height: 28, background: 'var(--w-card)', borderRadius: 99, overflow: 'hidden', position: 'relative' }}>
                 <div style={{ height: '100%', width: `${r.width}%`, background: r.color, borderRadius: 99, boxShadow: `0 0 8px ${r.color}50`, minWidth: 40 }} />
               </div>
               <div style={{ width: 60, fontSize: 13, fontWeight: 700, color: r.color, fontFamily: 'JetBrains Mono, monospace', flexShrink: 0 }}>{r.ms}</div>
@@ -170,7 +170,7 @@ export default function ArchitecturePage() {
         </div>
 
         <div style={{ marginTop: 20, paddingTop: 16, borderTop: '1px solid rgba(255,255,255,0.08)', display: 'flex', justifyContent: 'center', gap: 8, alignItems: 'center' }}>
-          <span style={{ fontSize: 13, color: '#64748B' }}>Total end-to-end (p50)</span>
+          <span style={{ fontSize: 13, color: 'var(--w-text-3)' }}>Total end-to-end (p50)</span>
           <span style={{ fontSize: 20, fontWeight: 800, color: '#00D4AA', fontFamily: 'Outfit' }}>~80ms</span>
         </div>
       </section>
@@ -197,8 +197,8 @@ export default function ArchitecturePage() {
               <div style={{ display: 'inline-flex', width: 44, height: 44, borderRadius: 12, background: `${s.color}15`, border: `1px solid ${s.color}30`, alignItems: 'center', justifyContent: 'center', fontSize: 20, marginBottom: 14 }}>
                 {s.icon}
               </div>
-              <div style={{ fontSize: 22, fontWeight: 800, fontFamily: 'Outfit, sans-serif', color: '#F0F6FF', marginBottom: 6 }}>{s.value}</div>
-              <div style={{ fontSize: 12, color: '#64748B' }}>{s.label}</div>
+              <div style={{ fontSize: 22, fontWeight: 800, fontFamily: 'Outfit, sans-serif', color: 'var(--w-text-1)', marginBottom: 6 }}>{s.value}</div>
+              <div style={{ fontSize: 12, color: 'var(--w-text-3)' }}>{s.label}</div>
             </div>
           ))}
         </div>
@@ -210,7 +210,7 @@ export default function ArchitecturePage() {
         <h2 className="w-heading" style={{ fontSize: 36, fontWeight: 800, letterSpacing: '-0.02em', marginBottom: 16 }}>
           <span className="grad-blue-green">Ready to Deploy PayGuard?</span>
         </h2>
-        <p style={{ fontSize: 16, color: '#64748B', marginBottom: 32 }}>Talk to our team about integrating PayGuard into your infrastructure, or explore our SDK documentation.</p>
+        <p style={{ fontSize: 16, color: 'var(--w-text-3)', marginBottom: 32 }}>Talk to our team about integrating PayGuard into your infrastructure, or explore our SDK documentation.</p>
         <div style={{ display: 'flex', gap: 14, justifyContent: 'center' }}>
           <button className="w-btn-primary" onClick={() => setShowSales(true)} style={{ fontSize: 15, padding: '14px 32px' }}>🤝 Talk to Sales</button>
           <button className="w-btn-secondary" onClick={() => navigate('/developers')}>SDK Documentation</button>

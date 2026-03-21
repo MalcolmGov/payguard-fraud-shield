@@ -66,7 +66,7 @@ export default function Settings() {
   );
 
   return (
-    <div style={{ padding: '24px 28px', fontFamily: 'Inter, sans-serif', color: '#F0F6FF', minHeight: '100vh' }}>
+    <div style={{ padding: '24px 28px', fontFamily: 'Inter, sans-serif', color: 'var(--w-text-1)', minHeight: '100vh' }}>
       {/* Toast stack */}
       <div style={{ position: 'fixed', top: 20, right: 20, zIndex: 9999, display: 'flex', flexDirection: 'column', gap: 8, width: 340 }}>
         {toasts.map(t => (
@@ -91,11 +91,11 @@ export default function Settings() {
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
 
         {/* ── Risk Thresholds ── */}
-        <div style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 14, padding: 24 }}>
+        <div style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid var(--w-card-border)', borderRadius: 14, padding: 24 }}>
           <SectionHeader icon="🎚️" title="RISK THRESHOLDS" sub="Configure risk scoring boundaries and auto-block trigger" />
 
           {/* Visual threshold bars */}
-          <div style={{ marginBottom: 24, padding: '16px', background: 'rgba(255,255,255,0.03)', borderRadius: 12 }}>
+          <div style={{ marginBottom: 24, padding: '16px', background: 'var(--w-card)', borderRadius: 12 }}>
             <div style={{ display: 'flex', height: 24, borderRadius: 8, overflow: 'hidden', marginBottom: 12 }}>
               <div style={{ width: `${lowMax}%`, background: 'rgba(16,245,160,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <span style={{ fontSize: 9, fontWeight: 700, color: '#10F5A0' }}>LOW 0–{lowMax}</span>
@@ -107,7 +107,7 @@ export default function Settings() {
                 <span style={{ fontSize: 9, fontWeight: 700, color: '#EF4444' }}>HIGH {medMax}–100</span>
               </div>
             </div>
-            <div style={{ height: 2, background: 'rgba(255,255,255,0.06)', borderRadius: 1, position: 'relative' }}>
+            <div style={{ height: 2, background: 'var(--w-card)', borderRadius: 1, position: 'relative' }}>
               <div style={{ position: 'absolute', left: `${autoBlock}%`, top: -6, width: 2, height: 14, background: '#EF4444' }} />
               <div style={{ position: 'absolute', left: `${autoBlock - 2}%`, top: 10, fontSize: 8, color: '#EF4444', fontWeight: 700 }}>AUTO-BLOCK: {autoBlock}</div>
             </div>
@@ -120,7 +120,7 @@ export default function Settings() {
           ].map(s => (
             <div key={s.label} style={{ marginBottom: 16 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
-                <label style={{ fontSize: 12, color: '#94A3B8', fontWeight: 500 }}>{s.label}</label>
+                <label style={{ fontSize: 12, color: 'var(--w-text-2)', fontWeight: 500 }}>{s.label}</label>
                 <span style={{ fontSize: 12, fontWeight: 700, color: s.color, fontFamily: 'JetBrains Mono, monospace' }}>{s.value}</span>
               </div>
               <input type="range" min={s.min} max={s.max} value={s.value}
@@ -138,7 +138,7 @@ export default function Settings() {
         </div>
 
         {/* ── Notifications ── */}
-        <div style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 14, padding: 24 }}>
+        <div style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid var(--w-card-border)', borderRadius: 14, padding: 24 }}>
           <SectionHeader icon="🔔" title="NOTIFICATIONS" sub="Alert channels for fraud events and system changes" />
 
           {/* Channel toggles */}
@@ -149,7 +149,7 @@ export default function Settings() {
           ].map(ch => (
             <div key={ch.label} style={{
               display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-              padding: '12px 0', borderBottom: '1px solid rgba(255,255,255,0.04)',
+              padding: '12px 0', borderBottom: '1px solid var(--w-card-border)',
             }}>
               <div>
                 <span style={{ fontSize: 13, fontWeight: 600, color: ch.on ? '#F0F6FF' : '#475569' }}>{ch.label}</span>
@@ -173,7 +173,7 @@ export default function Settings() {
                 <input value={f.value} onChange={e => f.setter(e.target.value)} disabled={f.disabled} style={{
                   width: '100%', padding: '10px 14px', borderRadius: 10, fontSize: 12, boxSizing: 'border-box',
                   background: f.disabled ? 'rgba(255,255,255,0.02)' : 'rgba(255,255,255,0.04)',
-                  border: '1px solid rgba(255,255,255,0.08)', color: f.disabled ? '#334155' : '#F0F6FF',
+                  border: '1px solid var(--w-card-border)', color: f.disabled ? '#334155' : '#F0F6FF',
                   fontFamily: 'JetBrains Mono, monospace', opacity: f.disabled ? 0.5 : 1,
                 }} />
               </div>
@@ -188,21 +188,21 @@ export default function Settings() {
         </div>
 
         {/* ── Geolocation Settings ── */}
-        <div style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 14, padding: 24 }}>
+        <div style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid var(--w-card-border)', borderRadius: 14, padding: 24 }}>
           <SectionHeader icon="📍" title="GEOLOCATION & DEVICE INTELLIGENCE" sub="GPS tracking, anomaly detection, and VPN enforcement" />
 
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 0', borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 0', borderBottom: '1px solid var(--w-card-border)' }}>
             <span style={{ fontSize: 13, fontWeight: 600, color: geoEnabled ? '#F0F6FF' : '#475569' }}>GPS Location Tracking</span>
             <ToggleSwitch on={geoEnabled} onToggle={() => setGeoEnabled(!geoEnabled)} />
           </div>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 0', borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 0', borderBottom: '1px solid var(--w-card-border)' }}>
             <span style={{ fontSize: 13, fontWeight: 600, color: vpnDetection ? '#F0F6FF' : '#475569' }}>VPN / Proxy Detection</span>
             <ToggleSwitch on={vpnDetection} onToggle={() => setVpnDetection(!vpnDetection)} />
           </div>
 
           <div style={{ marginTop: 16, marginBottom: 16 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
-              <label style={{ fontSize: 12, color: '#94A3B8' }}>Anomaly Distance Threshold (km)</label>
+              <label style={{ fontSize: 12, color: 'var(--w-text-2)' }}>Anomaly Distance Threshold (km)</label>
               <span style={{ fontSize: 12, fontWeight: 700, color: '#F97316', fontFamily: 'JetBrains Mono, monospace' }}>{anomalyThreshold}km</span>
             </div>
             <input type="range" min={50} max={2000} step={50} value={anomalyThreshold}
@@ -222,7 +222,7 @@ export default function Settings() {
         </div>
 
         {/* ── Session & Security ── */}
-        <div style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 14, padding: 24 }}>
+        <div style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid var(--w-card-border)', borderRadius: 14, padding: 24 }}>
           <SectionHeader icon="🔐" title="SESSION & SECURITY" sub="Login policies, session timeouts, and lockout configuration" />
 
           {[
@@ -234,7 +234,7 @@ export default function Settings() {
               <label style={{ display: 'block', fontSize: 10, fontWeight: 700, color: '#475569', letterSpacing: '0.08em', marginBottom: 6 }}>{f.label.toUpperCase()}</label>
               <input value={f.value} onChange={e => f.setter(e.target.value)} style={{
                 width: '100%', padding: '10px 14px', borderRadius: 10, fontSize: 13, boxSizing: 'border-box',
-                background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', color: '#F0F6FF',
+                background: 'var(--w-card)', border: '1px solid var(--w-card-border)', color: 'var(--w-text-1)',
                 fontFamily: 'JetBrains Mono, monospace',
               }} />
             </div>
@@ -256,7 +256,7 @@ export default function Settings() {
       </div>
 
       {/* ── API Keys ── */}
-      <div style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 14, padding: 24, marginTop: 20 }}>
+      <div style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid var(--w-card-border)', borderRadius: 14, padding: 24, marginTop: 20 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
           <div>
             <SectionHeader icon="🔑" title="API KEYS" sub="Manage integration keys for the PayGuard REST API" />
@@ -269,7 +269,7 @@ export default function Settings() {
 
         <div style={{
           display: 'grid', gridTemplateColumns: '200px 1fr 100px 100px 80px 100px',
-          padding: '10px 16px', borderBottom: '1px solid rgba(255,255,255,0.06)', gap: 12,
+          padding: '10px 16px', borderBottom: '1px solid var(--w-card-border)', gap: 12,
         }}>
           {['KEY ID', 'NAME', 'CREATED', 'LAST USED', 'STATUS', 'ACTION'].map(h => (
             <span key={h} style={{ fontSize: 9, fontWeight: 700, color: '#334155', letterSpacing: '0.1em' }}>{h}</span>
@@ -280,10 +280,10 @@ export default function Settings() {
             display: 'grid', gridTemplateColumns: '200px 1fr 100px 100px 80px 100px',
             padding: '12px 16px', borderBottom: '1px solid rgba(255,255,255,0.03)', gap: 12, alignItems: 'center',
           }}>
-            <span style={{ fontSize: 12, fontFamily: 'JetBrains Mono, monospace', color: '#94A3B8' }}>{key.id}</span>
-            <span style={{ fontSize: 12, color: '#F0F6FF', fontWeight: 500 }}>{key.name}</span>
-            <span style={{ fontSize: 11, color: '#64748B' }}>{key.created}</span>
-            <span style={{ fontSize: 11, color: '#64748B' }}>{key.lastUsed}</span>
+            <span style={{ fontSize: 12, fontFamily: 'JetBrains Mono, monospace', color: 'var(--w-text-2)' }}>{key.id}</span>
+            <span style={{ fontSize: 12, color: 'var(--w-text-1)', fontWeight: 500 }}>{key.name}</span>
+            <span style={{ fontSize: 11, color: 'var(--w-text-3)' }}>{key.created}</span>
+            <span style={{ fontSize: 11, color: 'var(--w-text-3)' }}>{key.lastUsed}</span>
             <span style={{
               fontSize: 9, fontWeight: 700, padding: '3px 8px', borderRadius: 6, textAlign: 'center',
               background: key.status === 'active' ? 'rgba(16,245,160,0.1)' : 'rgba(239,68,68,0.1)',

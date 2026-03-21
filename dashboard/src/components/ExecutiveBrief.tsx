@@ -19,7 +19,7 @@ export default function ExecutiveBrief({ onClose }: Props) {
         boxShadow: '0 40px 100px rgba(0,0,0,0.7)',
       }}>
         {/* Header */}
-        <div style={{ padding: '24px 28px', borderBottom: '1px solid rgba(255,255,255,0.07)', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+        <div style={{ padding: '24px 28px', borderBottom: '1px solid var(--w-card-border)', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <div>
             <div style={{ fontSize: 10, fontWeight: 700, color: '#0EA5E9', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 4 }}>🤖 AI EXECUTIVE BRIEF</div>
             <h2 style={{ fontFamily: 'Outfit, sans-serif', fontSize: 22, fontWeight: 900, color: '#F0F6FF', margin: 0 }}>Good morning, Malcolm</h2>
@@ -27,7 +27,7 @@ export default function ExecutiveBrief({ onClose }: Props) {
           </div>
           <div style={{ display: 'flex', gap: 8 }}>
             <button onClick={handlePrint} style={{ padding: '7px 14px', borderRadius: 8, background: 'rgba(14,165,233,0.1)', border: '1px solid rgba(14,165,233,0.3)', color: '#0EA5E9', fontSize: 11, fontWeight: 700, cursor: 'pointer' }}>🖨️ Print / PDF</button>
-            <button onClick={onClose} style={{ padding: '7px 14px', borderRadius: 8, background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: '#64748B', fontSize: 11, cursor: 'pointer' }}>✕ Close</button>
+            <button onClick={onClose} style={{ padding: '7px 14px', borderRadius: 8, background: 'var(--w-card)', border: '1px solid rgba(255,255,255,0.1)', color: '#64748B', fontSize: 11, cursor: 'pointer' }}>✕ Close</button>
           </div>
         </div>
 
@@ -67,7 +67,7 @@ export default function ExecutiveBrief({ onClose }: Props) {
               { time: '02:14', threat: 'New mule network — RING-003 Durban', detail: '3 accounts sharing DEV-99f · All frozen · Analyst review required', color: '#F97316', badge: 'REVIEW' },
               { time: '04:55', threat: 'OTP intercept attempt — Sandton', detail: 'Screen capture overlay detected · Payment blocked · R15,000 saved', color: '#EF4444', badge: 'BLOCKED' },
             ].map(t => (
-              <div key={t.time} style={{ display: 'flex', gap: 14, padding: '11px 0', borderBottom: '1px solid rgba(255,255,255,0.05)', alignItems: 'flex-start' }}>
+              <div key={t.time} style={{ display: 'flex', gap: 14, padding: '11px 0', borderBottom: '1px solid var(--w-card-border)', alignItems: 'flex-start' }}>
                 <div style={{ fontFamily: 'JetBrains Mono', fontSize: 10, color: '#64748B', width: 40, flexShrink: 0, paddingTop: 2 }}>{t.time}</div>
                 <div style={{ flex: 1 }}>
                   <div style={{ fontSize: 12, fontWeight: 700, color: '#F0F6FF', marginBottom: 3 }}>{t.threat}</div>

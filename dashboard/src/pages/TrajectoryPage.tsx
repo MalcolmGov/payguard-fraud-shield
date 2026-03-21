@@ -51,11 +51,11 @@ export default function TrajectoryPage() {
   ];
 
   return (
-    <div style={{ padding: 28, fontFamily: 'Inter, sans-serif', color: '#F0F6FF', background: '#0D1629', minHeight: '100vh' }}>
+    <div style={{ padding: 28, fontFamily: 'Inter, sans-serif', color: 'var(--w-text-1)', background: '#0D1629', minHeight: '100vh' }}>
       <div style={{ marginBottom: 24 }}>
         <div style={{ fontSize: 11, fontWeight: 700, color: '#7C3AED', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 6 }}>🤖 ML TRAJECTORY MODEL</div>
         <h1 style={{ fontFamily: 'Outfit, sans-serif', fontSize: 28, fontWeight: 900, margin: '0 0 6px', letterSpacing: '-0.02em' }}>Attack Trajectory Prediction</h1>
-        <p style={{ color: '#8B949E', fontSize: 13, margin: 0 }}>7-day ML forecast with 80% confidence bands · Historical baseline · Pre-emptive staffing recommendations</p>
+        <p style={{ color: 'var(--w-text-2)', fontSize: 13, margin: 0 }}>7-day ML forecast with 80% confidence bands · Historical baseline · Pre-emptive staffing recommendations</p>
       </div>
 
       {/* KPIs */}
@@ -67,9 +67,9 @@ export default function TrajectoryPage() {
           { label: 'Model confidence', value: '81%', color: '#7C3AED', sub: 'LSTM v2.1' },
         ].map(k => (
           <div key={k.label} style={{ padding: '16px 18px', background: 'rgba(255,255,255,0.12)', border: `1px solid ${k.color}20`, borderRadius: 14 }}>
-            <div style={{ fontSize: 10, color: '#8B949E', marginBottom: 4 }}>{k.label}</div>
+            <div style={{ fontSize: 10, color: 'var(--w-text-2)', marginBottom: 4 }}>{k.label}</div>
             <div style={{ fontSize: 22, fontWeight: 800, color: k.color, fontFamily: 'Outfit' }}>{k.value}</div>
-            <div style={{ fontSize: 10, color: '#64748B', marginTop: 2 }}>{k.sub}</div>
+            <div style={{ fontSize: 10, color: 'var(--w-text-3)', marginTop: 2 }}>{k.sub}</div>
           </div>
         ))}
       </div>
@@ -78,12 +78,12 @@ export default function TrajectoryPage() {
       <div style={{ background: 'rgba(255,255,255,0.12)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 20, padding: '20px 20px 8px', marginBottom: 20 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
           <div>
-            <span style={{ fontSize: 13, fontWeight: 700, color: '#94A3B8' }}>Fraud Volume Forecast · 10-day window (3 history + 7 forecast)</span>
+            <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--w-text-2)' }}>Fraud Volume Forecast · 10-day window (3 history + 7 forecast)</span>
           </div>
           <div style={{ display: 'flex', gap: 12, fontSize: 11 }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}><div style={{ width: 20, height: 2, background: '#0EA5E9' }} /><span style={{ color: '#64748B' }}>Historical</span></div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}><div style={{ width: 20, height: 2, background: '#7C3AED', borderTop: '2px dashed #7C3AED' }} /><span style={{ color: '#64748B' }}>Forecast</span></div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}><div style={{ width: 16, height: 10, background: 'rgba(124,58,237,0.15)', borderRadius: 2 }} /><span style={{ color: '#64748B' }}>80% CI</span></div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}><div style={{ width: 20, height: 2, background: '#0EA5E9' }} /><span style={{ color: 'var(--w-text-3)' }}>Historical</span></div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}><div style={{ width: 20, height: 2, background: '#7C3AED', borderTop: '2px dashed #7C3AED' }} /><span style={{ color: 'var(--w-text-3)' }}>Forecast</span></div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}><div style={{ width: 16, height: 10, background: 'rgba(124,58,237,0.15)', borderRadius: 2 }} /><span style={{ color: 'var(--w-text-3)' }}>80% CI</span></div>
           </div>
         </div>
 
@@ -150,25 +150,25 @@ export default function TrajectoryPage() {
       {/* Recommendations */}
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
         <div style={{ background: 'rgba(255,255,255,0.12)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 20, padding: 20 }}>
-          <div style={{ fontSize: 12, fontWeight: 700, color: '#94A3B8', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 14 }}>🤖 AI Pre-emptive Recommendations</div>
+          <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--w-text-2)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 14 }}>🤖 AI Pre-emptive Recommendations</div>
           {recommendations.map(r => (
             <div key={r.day} style={{ padding: '12px 14px', borderRadius: 12, marginBottom: 10, background: r.level === 'critical' ? 'rgba(239,68,68,0.07)' : 'rgba(249,115,22,0.07)', border: `1px solid ${r.level === 'critical' ? 'rgba(239,68,68,0.25)' : 'rgba(249,115,22,0.25)'}` }}>
               <div style={{ fontSize: 11, fontWeight: 700, color: r.level === 'critical' ? '#EF4444' : '#F97316', marginBottom: 4 }}>{r.day}</div>
-              <div style={{ fontSize: 11, color: '#64748B', lineHeight: 1.7 }}>{r.action}</div>
+              <div style={{ fontSize: 11, color: 'var(--w-text-3)', lineHeight: 1.7 }}>{r.action}</div>
             </div>
           ))}
         </div>
 
         <div style={{ background: 'rgba(255,255,255,0.12)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 20, padding: 20 }}>
-          <div style={{ fontSize: 12, fontWeight: 700, color: '#94A3B8', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 14 }}>📊 Forecast Breakdown by Day</div>
+          <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--w-text-2)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 14 }}>📊 Forecast Breakdown by Day</div>
           {FORECAST.map(f => (
             <div key={f.day} style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 10 }}>
-              <span style={{ fontSize: 11, color: '#8B949E', width: 50, flexShrink: 0, fontFamily: 'JetBrains Mono' }}>{f.day}</span>
+              <span style={{ fontSize: 11, color: 'var(--w-text-2)', width: 50, flexShrink: 0, fontFamily: 'JetBrains Mono' }}>{f.day}</span>
               <div style={{ flex: 1, height: 6, background: 'rgba(255,255,255,0.12)', borderRadius: 99, overflow: 'hidden' }}>
                 <div style={{ width: `${(f.forecast / MAX_VAL) * 100}%`, height: '100%', background: f.forecast > 40 ? 'linear-gradient(90deg,#F97316,#EF4444)' : f.forecast > 25 ? '#FBBF24' : '#10F5A0', borderRadius: 99 }} />
               </div>
               <span style={{ fontSize: 11, fontWeight: 700, color: f.forecast > 40 ? '#EF4444' : '#94A3B8', width: 24, textAlign: 'right' }}>{f.forecast}</span>
-              <span style={{ fontSize: 9, color: '#64748B', width: 50 }}>±{Math.round((f.high - f.low) / 2)}</span>
+              <span style={{ fontSize: 9, color: 'var(--w-text-3)', width: 50 }}>±{Math.round((f.high - f.low) / 2)}</span>
             </div>
           ))}
         </div>

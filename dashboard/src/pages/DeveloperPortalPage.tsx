@@ -520,20 +520,20 @@ function CopyButton({ text, style }: { text: string; style?: React.CSSProperties
 
 function CodeBox({ code, lang }: { code: string; lang?: string }) {
   return (
-    <div style={{ position: 'relative', background: '#060A13', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 12, overflow: 'hidden' }}>
-      {lang && <div style={{ padding: '8px 16px', background: 'rgba(255,255,255,0.03)', borderBottom: '1px solid rgba(255,255,255,0.06)', fontSize: 11, color: '#475569', fontFamily: 'JetBrains Mono', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+    <div style={{ position: 'relative', background: '#060A13', border: '1px solid var(--w-card-border)', borderRadius: 12, overflow: 'hidden' }}>
+      {lang && <div style={{ padding: '8px 16px', background: 'var(--w-card)', borderBottom: '1px solid var(--w-card-border)', fontSize: 11, color: '#475569', fontFamily: 'JetBrains Mono', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <span>{lang}</span>
         <CopyButton text={code} />
       </div>}
-      <pre style={{ padding: '18px 20px', fontSize: 12.5, lineHeight: 1.9, color: '#8B949E', fontFamily: 'JetBrains Mono, monospace', overflowX: 'auto', whiteSpace: 'pre', margin: 0 }}>{code.trim()}</pre>
+      <pre style={{ padding: '18px 20px', fontSize: 12.5, lineHeight: 1.9, color: 'var(--w-text-2)', fontFamily: 'JetBrains Mono, monospace', overflowX: 'auto', whiteSpace: 'pre', margin: 0 }}>{code.trim()}</pre>
     </div>
   );
 }
 
 function Section({ id, title, children }: { id: string; title: string; children: React.ReactNode }) {
   return (
-    <section id={id} style={{ paddingTop: 48, paddingBottom: 48, borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
-      <h2 className="w-heading" style={{ fontSize: 28, fontWeight: 800, letterSpacing: '-0.02em', marginBottom: 28, color: '#F0F6FF' }}>{title}</h2>
+    <section id={id} style={{ paddingTop: 48, paddingBottom: 48, borderBottom: '1px solid var(--w-card-border)' }}>
+      <h2 className="w-heading" style={{ fontSize: 28, fontWeight: 800, letterSpacing: '-0.02em', marginBottom: 28, color: 'var(--w-text-1)' }}>{title}</h2>
       {children}
     </section>
   );
@@ -560,7 +560,7 @@ export default function DeveloperPortalPage() {
   };
 
   return (
-    <div style={{ minHeight: '100vh', background: '#0B1121', fontFamily: 'Inter, sans-serif', color: '#F0F6FF', overflowX: 'hidden' }}>
+    <div style={{ minHeight: '100vh', background: 'var(--w-bg)', fontFamily: 'Inter, sans-serif', color: 'var(--w-text-1)', overflowX: 'hidden' }}>
       <WebNav />
 
       {/* Hero */}
@@ -570,9 +570,9 @@ export default function DeveloperPortalPage() {
           <div className="section-label">Developer Portal</div>
           <h1 className="w-heading" style={{ fontSize: 54, fontWeight: 900, letterSpacing: '-0.03em', lineHeight: 1.05, marginBottom: 20 }}>
             <span className="grad-blue-green">Build Fraud Protection</span><br />
-            <span style={{ color: '#F0F6FF' }}>in Under a Day.</span>
+            <span style={{ color: 'var(--w-text-1)' }}>in Under a Day.</span>
           </h1>
-          <p style={{ fontSize: 17, color: '#64748B', lineHeight: 1.8, maxWidth: 480, margin: '0 auto 32px' }}>
+          <p style={{ fontSize: 17, color: 'var(--w-text-3)', lineHeight: 1.8, maxWidth: 480, margin: '0 auto 32px' }}>
             Full API reference, SDK guides, sandbox keys and interactive playground — everything you need to integrate PayGuard end-to-end.
           </p>
           <div style={{ display: 'flex', gap: 12, justifyContent: 'center' }}>
@@ -596,9 +596,9 @@ export default function DeveloperPortalPage() {
           ))}
           <div style={{ margin: '24px 24px 0', padding: '16px', background: 'rgba(16,245,160,0.06)', border: '1px solid rgba(16,245,160,0.15)', borderRadius: 10 }}>
             <div style={{ fontSize: 11, fontWeight: 700, color: '#10F5A0', marginBottom: 6 }}>Base URL</div>
-            <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono', color: '#64748B', wordBreak: 'break-all' }}>api.payguard<br />.swifter.io</div>
+            <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono', color: 'var(--w-text-3)', wordBreak: 'break-all' }}>api.payguard<br />.swifter.io</div>
           </div>
-          <div style={{ margin: '12px 24px 0', padding: '16px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 10 }}>
+          <div style={{ margin: '12px 24px 0', padding: '16px', background: 'var(--w-card)', border: '1px solid var(--w-card-border)', borderRadius: 10 }}>
             <div style={{ fontSize: 11, fontWeight: 700, color: '#475569', marginBottom: 6 }}>VERSION</div>
             <div style={{ fontSize: 12, fontFamily: 'JetBrains Mono', color: '#0EA5E9' }}>v1.0.0 · stable</div>
           </div>
@@ -622,18 +622,18 @@ export default function DeveloperPortalPage() {
                 </div>
               ))}
             </div>
-            <p style={{ fontSize: 14, color: '#64748B', lineHeight: 1.9 }}>
+            <p style={{ fontSize: 14, color: 'var(--w-text-3)', lineHeight: 1.9 }}>
               The PayGuard API is a real-time risk engine accessible via a REST interface. It evaluates fraud signals from the SDK and returns an enforcement action — <code style={{ color: '#10F5A0', background: 'rgba(16,245,160,0.08)', padding: '1px 6px', borderRadius: 4, fontFamily: 'JetBrains Mono' }}>ALLOW</code>, <code style={{ color: '#D29922', background: 'rgba(210,153,34,0.08)', padding: '1px 6px', borderRadius: 4, fontFamily: 'JetBrains Mono' }}>WARN_USER</code>, or <code style={{ color: '#F85149', background: 'rgba(248,81,73,0.08)', padding: '1px 6px', borderRadius: 4, fontFamily: 'JetBrains Mono' }}>BLOCK</code> — in under 100ms.
             </p>
-            <p style={{ fontSize: 14, color: '#64748B', lineHeight: 1.9, marginTop: 12 }}>
+            <p style={{ fontSize: 14, color: 'var(--w-text-3)', lineHeight: 1.9, marginTop: 12 }}>
               All API responses follow a consistent envelope. Error responses always include a machine-readable <code style={{ fontFamily: 'JetBrains Mono', color: '#BC8CFF' }}>error</code> field and a human-readable <code style={{ fontFamily: 'JetBrains Mono', color: '#BC8CFF' }}>message</code> field.
             </p>
           </Section>
 
           {/* ── AUTHENTICATION ── */}
           <Section id="authentication" title="Authentication">
-            <div style={{ padding: '16px 20px', borderRadius: 10, background: 'rgba(14,165,233,0.06)', border: '1px solid rgba(14,165,233,0.2)', marginBottom: 24, fontSize: 13, color: '#64748B', lineHeight: 1.8 }}>
-              All API requests use <strong style={{ color: '#F0F6FF' }}>Bearer token authentication</strong>. Include your API key in the <code style={{ fontFamily: 'JetBrains Mono', color: '#0EA5E9' }}>Authorization</code> header on every request.
+            <div style={{ padding: '16px 20px', borderRadius: 10, background: 'rgba(14,165,233,0.06)', border: '1px solid rgba(14,165,233,0.2)', marginBottom: 24, fontSize: 13, color: 'var(--w-text-3)', lineHeight: 1.8 }}>
+              All API requests use <strong style={{ color: 'var(--w-text-1)' }}>Bearer token authentication</strong>. Include your API key in the <code style={{ fontFamily: 'JetBrains Mono', color: '#0EA5E9' }}>Authorization</code> header on every request.
             </div>
             <CodeBox code={`Authorization: Bearer pg_live_a8b2c4d6e8f0a2b4c6d8e0f2a4b6c8d0`} lang="HTTP Header" />
             <div style={{ marginTop: 24 }}>
@@ -643,34 +643,34 @@ export default function DeveloperPortalPage() {
                   { prefix:'pg_live_',    desc:'Production key — charges apply, used in your released app', color:'#10F5A0' },
                   { prefix:'pg_sandbox_', desc:'Sandbox key — no charges, simulated responses, rate limited', color:'#F97316' },
                 ].map(k => (
-                  <div key={k.prefix} style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '12px 16px', borderRadius: 10, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)' }}>
+                  <div key={k.prefix} style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '12px 16px', borderRadius: 10, background: 'var(--w-card)', border: '1px solid var(--w-card-border)' }}>
                     <code style={{ fontFamily: 'JetBrains Mono', fontSize: 13, color: k.color, background: `${k.color}10`, padding: '3px 10px', borderRadius: 6 }}>{k.prefix}</code>
-                    <span style={{ fontSize: 13, color: '#64748B' }}>{k.desc}</span>
+                    <span style={{ fontSize: 13, color: 'var(--w-text-3)' }}>{k.desc}</span>
                   </div>
                 ))}
               </div>
             </div>
-            <div style={{ marginTop: 24, padding: '14px 18px', borderRadius: 10, background: 'rgba(248,81,73,0.06)', border: '1px solid rgba(248,81,73,0.2)', fontSize: 13, color: '#64748B', lineHeight: 1.8 }}>
-              🔒 <strong style={{ color: '#F0F6FF' }}>Never expose API keys client-side.</strong> Always call the PayGuard API from your backend, or use the SDK (which handles signing internally).
+            <div style={{ marginTop: 24, padding: '14px 18px', borderRadius: 10, background: 'rgba(248,81,73,0.06)', border: '1px solid rgba(248,81,73,0.2)', fontSize: 13, color: 'var(--w-text-3)', lineHeight: 1.8 }}>
+              🔒 <strong style={{ color: 'var(--w-text-1)' }}>Never expose API keys client-side.</strong> Always call the PayGuard API from your backend, or use the SDK (which handles signing internally).
             </div>
           </Section>
 
           {/* ── API KEYS ── */}
           <Section id="api-keys" title="API Keys">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
-              <p style={{ fontSize: 14, color: '#64748B' }}>Manage your API credentials. Production keys are scoped — only enable permissions you need.</p>
+              <p style={{ fontSize: 14, color: 'var(--w-text-3)' }}>Manage your API credentials. Production keys are scoped — only enable permissions you need.</p>
               <button className="w-btn-primary" style={{ fontSize: 12, padding: '8px 18px' }}>+ Create New Key</button>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
               {API_KEYS.map(k => (
-                <div key={k.id} style={{ borderRadius: 14, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', overflow: 'hidden' }}>
-                  <div style={{ padding: '16px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+                <div key={k.id} style={{ borderRadius: 14, background: 'var(--w-card)', border: '1px solid var(--w-card-border)', overflow: 'hidden' }}>
+                  <div style={{ padding: '16px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid var(--w-card-border)' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                       <div style={{ width: 36, height: 36, borderRadius: 10, background: k.env === 'live' ? 'rgba(16,245,160,0.12)' : 'rgba(249,115,22,0.12)', border: `1px solid ${k.env === 'live' ? 'rgba(16,245,160,0.25)' : 'rgba(249,115,22,0.25)'}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16 }}>
                         {k.env === 'live' ? '🔑' : '🧪'}
                       </div>
                       <div>
-                        <div style={{ fontSize: 14, fontWeight: 600, color: '#F0F6FF' }}>{k.name}</div>
+                        <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--w-text-1)' }}>{k.name}</div>
                         <div style={{ fontSize: 11, color: '#475569', marginTop: 2 }}>Created {k.created} · Last used {k.lastUsed}</div>
                       </div>
                     </div>
@@ -680,10 +680,10 @@ export default function DeveloperPortalPage() {
                     </div>
                   </div>
                   <div style={{ padding: '14px 20px', display: 'flex', alignItems: 'center', gap: 12 }}>
-                    <code style={{ flex: 1, fontSize: 12, fontFamily: 'JetBrains Mono', color: '#64748B', background: 'rgba(255,255,255,0.03)', padding: '8px 14px', borderRadius: 8, border: '1px solid rgba(255,255,255,0.06)' }}>
+                    <code style={{ flex: 1, fontSize: 12, fontFamily: 'JetBrains Mono', color: 'var(--w-text-3)', background: 'var(--w-card)', padding: '8px 14px', borderRadius: 8, border: '1px solid var(--w-card-border)' }}>
                       {showKey[k.id] ? k.key : `${k.key.slice(0, 18)}${'•'.repeat(24)}${k.key.slice(-4)}`}
                     </code>
-                    <button onClick={() => setShowKey(p => ({ ...p, [k.id]: !p[k.id] }))} style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.09)', borderRadius: 7, padding: '7px 14px', fontSize: 12, color: '#64748B', cursor: 'pointer' }}>{showKey[k.id] ? 'Hide' : 'Reveal'}</button>
+                    <button onClick={() => setShowKey(p => ({ ...p, [k.id]: !p[k.id] }))} style={{ background: 'var(--w-card)', border: '1px solid var(--w-card-border)', borderRadius: 7, padding: '7px 14px', fontSize: 12, color: 'var(--w-text-3)', cursor: 'pointer' }}>{showKey[k.id] ? 'Hide' : 'Reveal'}</button>
                     <CopyButton text={k.key} />
                     <button style={{ background: 'rgba(248,81,73,0.08)', border: '1px solid rgba(248,81,73,0.2)', borderRadius: 7, padding: '7px 14px', fontSize: 12, color: '#F85149', cursor: 'pointer' }}>Revoke</button>
                   </div>
@@ -699,7 +699,7 @@ export default function DeveloperPortalPage() {
 
           {/* ── QUICKSTART ── */}
           <Section id="quickstart" title="Quick Start">
-            <div style={{ display: 'flex', gap: 0, borderBottom: '1px solid rgba(255,255,255,0.07)', marginBottom: 24 }}>
+            <div style={{ display: 'flex', gap: 0, borderBottom: '1px solid var(--w-card-border)', marginBottom: 24 }}>
               {Object.keys(CODE_SAMPLES).map(lang => (
                 <button key={lang} onClick={() => setCodeLang(lang)} style={{ padding: '10px 20px', border: 'none', borderBottom: codeLang === lang ? '2px solid #10F5A0' : '2px solid transparent', background: 'transparent', color: codeLang === lang ? '#10F5A0' : '#475569', fontSize: 13, fontWeight: codeLang === lang ? 600 : 400, cursor: 'pointer', fontFamily: 'Inter', marginBottom: -1 }}>
                   {lang}
@@ -761,22 +761,22 @@ export default function DeveloperPortalPage() {
                   <code style={{ fontSize: 16, fontFamily: 'JetBrains Mono', color: '#E2E8F0' }}>{ep.path}</code>
                   {ep.auth && <Chip label="AUTH REQUIRED" color="#F97316" />}
                 </div>
-                <h3 style={{ fontSize: 20, fontWeight: 700, marginBottom: 10, color: '#F0F6FF', fontFamily: 'Outfit' }}>{ep.summary}</h3>
-                <p style={{ fontSize: 13, color: '#64748B', lineHeight: 1.9, marginBottom: 24 }}>{ep.desc}</p>
+                <h3 style={{ fontSize: 20, fontWeight: 700, marginBottom: 10, color: 'var(--w-text-1)', fontFamily: 'Outfit' }}>{ep.summary}</h3>
+                <p style={{ fontSize: 13, color: 'var(--w-text-3)', lineHeight: 1.9, marginBottom: 24 }}>{ep.desc}</p>
 
                 {/* Headers */}
                 <div style={{ marginBottom: 24 }}>
                   <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.08em', color: '#475569', marginBottom: 12 }}>REQUEST HEADERS</div>
-                  <div style={{ borderRadius: 10, border: '1px solid rgba(255,255,255,0.07)', overflow: 'hidden' }}>
-                    <div style={{ display: 'grid', gridTemplateColumns: '160px 80px 60px 1fr', background: 'rgba(255,255,255,0.03)', padding: '8px 16px', fontSize: 10, fontWeight: 700, color: '#334155', letterSpacing: '0.08em' }}>
+                  <div style={{ borderRadius: 10, border: '1px solid var(--w-card-border)', overflow: 'hidden' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: '160px 80px 60px 1fr', background: 'var(--w-card)', padding: '8px 16px', fontSize: 10, fontWeight: 700, color: '#334155', letterSpacing: '0.08em' }}>
                       <span>HEADER</span><span>TYPE</span><span>REQ</span><span>DESCRIPTION</span>
                     </div>
                     {ep.request.headers.map(h => (
                       <div key={h.name} style={{ display: 'grid', gridTemplateColumns: '160px 80px 60px 1fr', padding: '10px 16px', borderTop: '1px solid rgba(255,255,255,0.05)', fontSize: 12, alignItems: 'center' }}>
                         <code style={{ fontFamily: 'JetBrains Mono', color: '#10F5A0' }}>{h.name}</code>
-                        <span style={{ color: '#64748B' }}>{h.type}</span>
+                        <span style={{ color: 'var(--w-text-3)' }}>{h.type}</span>
                         <span style={{ color: h.required ? '#F85149' : '#475569' }}>{h.required ? 'Yes' : 'No'}</span>
-                        <span style={{ color: '#64748B' }}>{h.desc}</span>
+                        <span style={{ color: 'var(--w-text-3)' }}>{h.desc}</span>
                       </div>
                     ))}
                   </div>
@@ -807,7 +807,7 @@ export default function DeveloperPortalPage() {
 
           {/* ── WEBHOOKS ── */}
           <Section id="webhooks" title="Webhooks">
-            <p style={{ fontSize: 14, color: '#64748B', lineHeight: 1.9, marginBottom: 20 }}>
+            <p style={{ fontSize: 14, color: 'var(--w-text-3)', lineHeight: 1.9, marginBottom: 20 }}>
               Subscribe to fraud events delivered in real-time (&lt;200ms) to your HTTPS endpoint. Payloads are signed with HMAC-SHA256 using your webhook secret.
             </p>
             <div style={{ marginBottom: 20 }}>
@@ -841,9 +841,9 @@ app.post('/payguard/events', express.raw({ type: '*/*' }), (req, res) => {
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
               {['BLOCK','WARN_USER','ACCOUNT_FROZEN','GRAPH_CLUSTER_DETECTED'].map(evt => (
-                <div key={evt} style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '12px 16px', borderRadius: 10, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)' }}>
+                <div key={evt} style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '12px 16px', borderRadius: 10, background: 'var(--w-card)', border: '1px solid var(--w-card-border)' }}>
                   <code style={{ fontFamily: 'JetBrains Mono', color: '#BC8CFF', fontSize: 12, minWidth: 200 }}>{evt}</code>
-                  <span style={{ fontSize: 13, color: '#64748B' }}>{{ BLOCK:'Transaction blocked by risk engine', WARN_USER:'Risk score in WARN range — user shown scam warning', ACCOUNT_FROZEN:'Analyst froze account via dashboard or API', GRAPH_CLUSTER_DETECTED:'New fraud ring cluster identified in graph engine' }[evt]}</span>
+                  <span style={{ fontSize: 13, color: 'var(--w-text-3)' }}>{{ BLOCK:'Transaction blocked by risk engine', WARN_USER:'Risk score in WARN range — user shown scam warning', ACCOUNT_FROZEN:'Analyst froze account via dashboard or API', GRAPH_CLUSTER_DETECTED:'New fraud ring cluster identified in graph engine' }[evt]}</span>
                 </div>
               ))}
             </div>
@@ -851,8 +851,8 @@ app.post('/payguard/events', express.raw({ type: '*/*' }), (req, res) => {
 
           {/* ── ERRORS ── */}
           <Section id="errors" title="Error Codes">
-            <div style={{ borderRadius: 14, border: '1px solid rgba(255,255,255,0.07)', overflow: 'hidden' }}>
-              <div style={{ display: 'grid', gridTemplateColumns: '70px 180px 1fr', background: 'rgba(255,255,255,0.03)', padding: '10px 20px', fontSize: 10, fontWeight: 700, color: '#334155', letterSpacing: '0.08em' }}>
+            <div style={{ borderRadius: 14, border: '1px solid var(--w-card-border)', overflow: 'hidden' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '70px 180px 1fr', background: 'var(--w-card)', padding: '10px 20px', fontSize: 10, fontWeight: 700, color: '#334155', letterSpacing: '0.08em' }}>
                 <span>HTTP</span><span>ERROR CODE</span><span>DESCRIPTION</span>
               </div>
               {ERROR_CODES.map((e) => (
@@ -860,7 +860,7 @@ app.post('/payguard/events', express.raw({ type: '*/*' }), (req, res) => {
                   <div style={{ display: 'grid', gridTemplateColumns: '70px 180px 1fr', padding: '14px 20px', alignItems: 'start', fontSize: 13 }}>
                     <span style={{ color: e.code >= 500 ? '#F85149' : e.code >= 400 ? '#D29922' : '#10F5A0', fontWeight: 700, fontFamily: 'JetBrains Mono' }}>{e.code}</span>
                     <code style={{ fontFamily: 'JetBrains Mono', color: '#BC8CFF', fontSize: 12 }}>{e.id}</code>
-                    <span style={{ color: '#64748B', fontSize: 13 }}>{e.desc}</span>
+                    <span style={{ color: 'var(--w-text-3)', fontSize: 13 }}>{e.desc}</span>
                   </div>
                   <div style={{ padding: '0 20px 14px 270px' }}>
                     <CodeBox code={e.example} />
@@ -872,19 +872,19 @@ app.post('/payguard/events', express.raw({ type: '*/*' }), (req, res) => {
 
           {/* ── RATE LIMITS ── */}
           <Section id="rate-limits" title="Rate Limits">
-            <p style={{ fontSize: 14, color: '#64748B', lineHeight: 1.9, marginBottom: 20 }}>
+            <p style={{ fontSize: 14, color: 'var(--w-text-3)', lineHeight: 1.9, marginBottom: 20 }}>
               Rate limits are applied per API key. When exceeded, the API returns HTTP 429 with a <code style={{ fontFamily: 'JetBrains Mono', color: '#D29922' }}>Retry-After</code> header in seconds. Use exponential backoff with jitter on retry.
             </p>
-            <div style={{ borderRadius: 14, border: '1px solid rgba(255,255,255,0.07)', overflow: 'hidden', marginBottom: 20 }}>
-              <div style={{ display: 'grid', gridTemplateColumns: '140px 1fr 1fr 1fr 100px', background: 'rgba(255,255,255,0.03)', padding: '10px 20px', fontSize: 10, fontWeight: 700, color: '#334155', letterSpacing: '0.08em' }}>
+            <div style={{ borderRadius: 14, border: '1px solid var(--w-card-border)', overflow: 'hidden', marginBottom: 20 }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '140px 1fr 1fr 1fr 100px', background: 'var(--w-card)', padding: '10px 20px', fontSize: 10, fontWeight: 700, color: '#334155', letterSpacing: '0.08em' }}>
                 <span>TIER</span><span>/v1/evaluate</span><span>Read endpoints</span><span>Write endpoints</span><span>Burst</span>
               </div>
               {RATE_LIMITS.map((r) => (
                 <div key={r.tier} style={{ display: 'grid', gridTemplateColumns: '140px 1fr 1fr 1fr 100px', padding: '12px 20px', borderTop: '1px solid rgba(255,255,255,0.05)', fontSize: 13, alignItems: 'center' }}>
                   <span style={{ fontWeight: 600, color: r.tier === 'Enterprise' ? '#10F5A0' : '#F0F6FF' }}>{r.tier}</span>
                   <code style={{ fontFamily: 'JetBrains Mono', color: '#0EA5E9' }}>{r.evaluate}</code>
-                  <code style={{ fontFamily: 'JetBrains Mono', color: '#64748B' }}>{r.read}</code>
-                  <code style={{ fontFamily: 'JetBrains Mono', color: '#64748B' }}>{r.write}</code>
+                  <code style={{ fontFamily: 'JetBrains Mono', color: 'var(--w-text-3)' }}>{r.read}</code>
+                  <code style={{ fontFamily: 'JetBrains Mono', color: 'var(--w-text-3)' }}>{r.write}</code>
                   <code style={{ fontFamily: 'JetBrains Mono', color: '#BC8CFF' }}>{r.burst === 9999 ? 'Unlimited' : `${r.burst}/s`}</code>
                 </div>
               ))}
@@ -912,12 +912,12 @@ app.post('/payguard/events', express.raw({ type: '*/*' }), (req, res) => {
                 <div style={{ position: 'absolute', left: -6, top: 4, width: 10, height: 10, borderRadius: '50%', background: v.color, boxShadow: `0 0 10px ${v.color}` }} />
                 <div style={{ flex: 1 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
-                    <span style={{ fontSize: 16, fontWeight: 800, color: '#F0F6FF', fontFamily: 'Outfit' }}>{v.version}</span>
+                    <span style={{ fontSize: 16, fontWeight: 800, color: 'var(--w-text-1)', fontFamily: 'Outfit' }}>{v.version}</span>
                     <Chip label={v.badge} color={v.color} />
                     <span style={{ fontSize: 12, color: '#334155' }}>{v.date}</span>
                   </div>
                   <ul style={{ paddingLeft: 16, display: 'flex', flexDirection: 'column', gap: 6 }}>
-                    {v.changes.map(c => <li key={c} style={{ fontSize: 13, color: '#64748B', lineHeight: 1.7 }}>{c}</li>)}
+                    {v.changes.map(c => <li key={c} style={{ fontSize: 13, color: 'var(--w-text-3)', lineHeight: 1.7 }}>{c}</li>)}
                   </ul>
                 </div>
               </div>

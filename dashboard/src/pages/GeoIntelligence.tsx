@@ -83,14 +83,14 @@ export default function GeoIntelligence() {
   const filteredIds = new Set(filteredProvinces.map(p => p.id));
 
   return (
-    <div style={{ padding: '24px 32px', fontFamily: 'Inter, sans-serif', color: '#F0F6FF' }}>
+    <div style={{ padding: '24px 32px', fontFamily: 'Inter, sans-serif', color: 'var(--w-text-1)' }}>
       {/* Header */}
       <div style={{ marginBottom: 24 }}>
         <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.12em', color: '#0EA5E9', marginBottom: 6 }}>AI GEO-INTELLIGENCE</div>
         <h1 style={{ fontSize: 26, fontWeight: 900, fontFamily: 'Outfit, sans-serif', letterSpacing: '-0.02em', marginBottom: 4 }}>
           Fraud Heatmap \u2014 South Africa
         </h1>
-        <p style={{ fontSize: 13, color: '#64748B' }}>Real-time provincial fraud intelligence \u00B7 AI-predicted risk \u00B7 Live event feed</p>
+        <p style={{ fontSize: 13, color: 'var(--w-text-3)' }}>Real-time provincial fraud intelligence \u00B7 AI-predicted risk \u00B7 Live event feed</p>
       </div>
 
       {/* Stats bar */}
@@ -102,7 +102,7 @@ export default function GeoIntelligence() {
           { label: 'AVG RESPONSE TIME', value: '73ms', color: '#0EA5E9', icon: '\u26A1' },
         ].map((s, i) => (
           <div key={i} style={{
-            background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)',
+            background: 'var(--w-card)', border: '1px solid var(--w-card-border)',
             borderRadius: 14, padding: '16px 20px',
           }}>
             <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.08em', color: '#475569', marginBottom: 8 }}>{s.icon} {s.label}</div>
@@ -115,12 +115,12 @@ export default function GeoIntelligence() {
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 320px', gap: 20, marginBottom: 24 }}>
         {/* Map */}
         <div style={{
-          background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.08)',
+          background: 'var(--w-card)', border: '1px solid var(--w-card-border)',
           borderRadius: 16, padding: '20px', position: 'relative', overflow: 'hidden',
         }}>
           {/* Filter bar */}
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-            <span style={{ fontSize: 13, fontWeight: 600, color: '#94A3B8' }}>Click a province to explore</span>
+            <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--w-text-2)' }}>Click a province to explore</span>
             <div style={{ display: 'flex', gap: 8 }}>
               {['all', 'critical', 'high', 'medium', 'low'].map(f => (
                 <button key={f} onClick={() => setFilter(f)} style={{
@@ -236,7 +236,7 @@ export default function GeoIntelligence() {
 
         {/* Detail panel */}
         <div style={{
-          background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.08)',
+          background: 'var(--w-card)', border: '1px solid var(--w-card-border)',
           borderRadius: 16, padding: '24px 20px',
         }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 16 }}>
@@ -259,7 +259,7 @@ export default function GeoIntelligence() {
           {/* Risk bar */}
           <div style={{ marginBottom: 20 }}>
             <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.08em', color: '#475569', marginBottom: 8 }}>RISK SCORE</div>
-            <div style={{ height: 6, background: 'rgba(255,255,255,0.06)', borderRadius: 99, overflow: 'hidden' }}>
+            <div style={{ height: 6, background: 'var(--w-card)', borderRadius: 99, overflow: 'hidden' }}>
               <div style={{ height: '100%', width: `${selected.score}%`, background: RISK_COLOR[selected.risk], borderRadius: 99, transition: 'width 0.5s' }} />
             </div>
           </div>
@@ -271,8 +271,8 @@ export default function GeoIntelligence() {
             { label: 'Top Attack Vector', value: selected.topAttack, color: '#FBBF24' },
             { label: 'Trend', value: selected.trend, color: selected.trend.startsWith('+') ? '#EF4444' : '#10F5A0' },
           ].map((s, i) => (
-            <div key={i} style={{ display: 'flex', justifyContent: 'space-between', padding: '10px 0', borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
-              <span style={{ fontSize: 13, color: '#64748B' }}>{s.label}</span>
+            <div key={i} style={{ display: 'flex', justifyContent: 'space-between', padding: '10px 0', borderBottom: '1px solid var(--w-card-border)' }}>
+              <span style={{ fontSize: 13, color: 'var(--w-text-3)' }}>{s.label}</span>
               <span style={{ fontSize: 13, fontWeight: 700, color: s.color }}>{s.value}</span>
             </div>
           ))}
@@ -283,7 +283,7 @@ export default function GeoIntelligence() {
             {selected.hotspots.map((h, i) => (
               <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '4px 0' }}>
                 <div style={{ width: 6, height: 6, borderRadius: 3, background: RISK_COLOR[selected.risk] }} />
-                <span style={{ fontSize: 12, color: '#94A3B8' }}>{h}</span>
+                <span style={{ fontSize: 12, color: 'var(--w-text-2)' }}>{h}</span>
               </div>
             ))}
           </div>
@@ -294,7 +294,7 @@ export default function GeoIntelligence() {
             background: 'rgba(14,165,233,0.06)', border: '1px solid rgba(14,165,233,0.15)',
           }}>
             <div style={{ fontSize: 11, fontWeight: 700, color: '#0EA5E9', marginBottom: 6 }}>{'\uD83E\uDD16'} AI PREDICTION (72h)</div>
-            <div style={{ fontSize: 12, color: '#94A3B8', lineHeight: 1.6 }}>
+            <div style={{ fontSize: 12, color: 'var(--w-text-2)', lineHeight: 1.6 }}>
               Attack volume expected to increase 8-15% over the weekend. SIM swap activity peaks Friday evenings.
             </div>
           </div>
@@ -303,7 +303,7 @@ export default function GeoIntelligence() {
 
       {/* Live threat feed */}
       <div style={{
-        background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.08)',
+        background: 'var(--w-card)', border: '1px solid var(--w-card-border)',
         borderRadius: 16, padding: '20px', overflow: 'hidden',
       }}>
         <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.08em', color: '#EF4444', marginBottom: 14 }}>{'\uD83D\uDEA8'} LIVE THREAT FEED</div>
@@ -318,9 +318,9 @@ export default function GeoIntelligence() {
               transition: 'all 0.5s',
             }}>
               <span style={{ color: '#475569', fontFamily: 'JetBrains Mono, monospace', fontSize: 10 }}>{e.ts}</span>
-              <span style={{ color: '#94A3B8' }}>{e.type}</span>
-              <span style={{ color: '#64748B', fontSize: 11 }}>{e.province}</span>
-              <span style={{ color: '#F0F6FF', fontWeight: 600, fontSize: 11 }}>{e.amount}</span>
+              <span style={{ color: 'var(--w-text-2)' }}>{e.type}</span>
+              <span style={{ color: 'var(--w-text-3)', fontSize: 11 }}>{e.province}</span>
+              <span style={{ color: 'var(--w-text-1)', fontWeight: 600, fontSize: 11 }}>{e.amount}</span>
               <span style={{
                 fontSize: 10, fontWeight: 700, padding: '2px 8px', borderRadius: 4, textAlign: 'center',
                 background: e.action === 'BLOCKED' ? 'rgba(239,68,68,0.15)' : e.action === 'WARNED' ? 'rgba(251,191,36,0.15)' : 'rgba(14,165,233,0.15)',

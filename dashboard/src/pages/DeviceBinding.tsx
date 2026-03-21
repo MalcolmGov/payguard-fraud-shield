@@ -147,7 +147,7 @@ export default function DeviceBinding() {
   const anomalyCount = devices.filter(d => d.locationAnomaly).length;
 
   return (
-    <div style={{ padding: '24px 28px', fontFamily: 'Inter, sans-serif', color: '#F0F6FF' }}>
+    <div style={{ padding: '24px 28px', fontFamily: 'Inter, sans-serif', color: 'var(--w-text-1)' }}>
       {/* Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
         <div>
@@ -174,17 +174,17 @@ export default function DeviceBinding() {
       {/* Search */}
       <input placeholder="Search by model, phone, fingerprint, city, or province\u2026" value={search} onChange={e => setSearch(e.target.value)} style={{
         width: '100%', maxWidth: 460, padding: '10px 16px', borderRadius: 10, fontSize: 13, marginBottom: 20,
-        background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)',
-        color: '#F0F6FF', fontFamily: 'JetBrains Mono, monospace',
+        background: 'var(--w-card)', border: '1px solid rgba(255,255,255,0.1)',
+        color: 'var(--w-text-1)', fontFamily: 'JetBrains Mono, monospace',
       }} />
 
       <div style={{ display: 'grid', gridTemplateColumns: selected ? '1fr 380px' : '1fr', gap: 16 }}>
         {/* Device Table */}
         <div style={{
-          background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.07)',
+          background: 'rgba(255,255,255,0.025)', border: '1px solid var(--w-card-border)',
           borderRadius: 14, overflow: 'hidden',
         }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 100px 70px 70px 90px 120px 80px 90px', padding: '12px 20px', borderBottom: '1px solid rgba(255,255,255,0.06)', gap: 6 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 100px 70px 70px 90px 120px 80px 90px', padding: '12px 20px', borderBottom: '1px solid var(--w-card-border)', gap: 6 }}>
             {['DEVICE', 'USER', 'RISK', 'ROOT', 'TRUST', 'LOCATION', 'ACCTS', 'ACTION'].map(h => (
               <span key={h} style={{ fontSize: 9, fontWeight: 700, color: '#334155', letterSpacing: '0.1em' }}>{h}</span>
             ))}
@@ -204,26 +204,26 @@ export default function DeviceBinding() {
                 onMouseLeave={e => (e.currentTarget.style.background = selectedId === d.id ? 'rgba(14,165,233,0.05)' : d.blacklisted ? 'rgba(239,68,68,0.03)' : 'transparent')}
               >
                 <div>
-                  <div style={{ fontSize: 13, fontWeight: 600, color: '#F0F6FF' }}>{d.model}</div>
+                  <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--w-text-1)' }}>{d.model}</div>
                   <div style={{ fontSize: 10, color: '#475569', fontFamily: 'JetBrains Mono, monospace' }}>{d.fingerprint.slice(0, 16)}\u2026</div>
                 </div>
-                <span style={{ fontSize: 11, color: '#94A3B8', fontFamily: 'JetBrains Mono, monospace' }}>{d.userId.slice(0, 8)}\u2026</span>
+                <span style={{ fontSize: 11, color: 'var(--w-text-2)', fontFamily: 'JetBrains Mono, monospace' }}>{d.userId.slice(0, 8)}\u2026</span>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-                  <div style={{ width: 30, height: 4, borderRadius: 2, background: 'rgba(255,255,255,0.06)' }}>
+                  <div style={{ width: 30, height: 4, borderRadius: 2, background: 'var(--w-card)' }}>
                     <div style={{ width: `${d.riskScore}%`, height: '100%', borderRadius: 2, background: d.riskScore >= 70 ? '#EF4444' : d.riskScore >= 30 ? '#FBBF24' : '#10F5A0' }} />
                   </div>
-                  <span style={{ fontSize: 10, color: '#64748B', fontFamily: 'JetBrains Mono, monospace' }}>{d.riskScore}</span>
+                  <span style={{ fontSize: 10, color: 'var(--w-text-3)', fontFamily: 'JetBrains Mono, monospace' }}>{d.riskScore}</span>
                 </div>
                 <span style={{ fontSize: 10, color: d.isRooted ? '#EF4444' : '#334155' }}>{d.isRooted ? '\u26A0\uFE0F Yes' : '\u2014'}</span>
                 <span style={{ fontSize: 9, fontWeight: 700, padding: '3px 8px', borderRadius: 6, background: `${trust.color}18`, color: trust.color }}>{trust.label}</span>
                 <div>
-                  <div style={{ fontSize: 11, color: '#94A3B8', display: 'flex', alignItems: 'center', gap: 4 }}>
+                  <div style={{ fontSize: 11, color: 'var(--w-text-2)', display: 'flex', alignItems: 'center', gap: 4 }}>
                     {d.locationAnomaly && <span style={{ fontSize: 8, color: '#A78BFA' }}>⚠️</span>}
                     📍 {d.lastLocation.city}
                   </div>
                   <div style={{ fontSize: 9, color: '#475569' }}>{d.lastLocation.province}</div>
                 </div>
-                <span style={{ fontSize: 11, color: '#94A3B8', fontFamily: 'JetBrains Mono, monospace', textAlign: 'center' }}>{d.linkedAccounts}</span>
+                <span style={{ fontSize: 11, color: 'var(--w-text-2)', fontFamily: 'JetBrains Mono, monospace', textAlign: 'center' }}>{d.linkedAccounts}</span>
                 <button onClick={e => { e.stopPropagation(); toggleBlacklist(d.id); }} style={{
                   padding: '5px 12px', borderRadius: 6, fontSize: 10, fontWeight: 600, border: 'none', cursor: 'pointer',
                   background: d.blacklisted ? 'rgba(16,245,160,0.1)' : 'rgba(239,68,68,0.1)',
@@ -240,7 +240,7 @@ export default function DeviceBinding() {
           const uniqueProvinces = [...new Set(selected.locationHistory.map(l => l.province))];
           return (
             <div style={{
-              background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.07)',
+              background: 'rgba(255,255,255,0.025)', border: '1px solid var(--w-card-border)',
               borderRadius: 14, padding: '20px', maxHeight: 'calc(100vh - 80px)', overflowY: 'auto',
             }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 16 }}>
@@ -255,12 +255,12 @@ export default function DeviceBinding() {
 
               {/* Risk gauge */}
               <div style={{ fontSize: 10, fontWeight: 700, color: '#475569', letterSpacing: '0.08em', marginBottom: 12 }}>DEVICE REPUTATION</div>
-              <div style={{ background: 'rgba(255,255,255,0.03)', borderRadius: 12, padding: '16px', marginBottom: 16, textAlign: 'center' }}>
+              <div style={{ background: 'var(--w-card)', borderRadius: 12, padding: '16px', marginBottom: 16, textAlign: 'center' }}>
                 <div style={{ fontSize: 36, fontWeight: 900, color: selected.riskScore >= 70 ? '#EF4444' : selected.riskScore >= 30 ? '#FBBF24' : '#10F5A0', fontFamily: 'JetBrains Mono, monospace' }}>
                   {selected.riskScore}
                 </div>
                 <div style={{ fontSize: 10, color: '#475569', fontWeight: 700, letterSpacing: '0.08em' }}>RISK SCORE</div>
-                <div style={{ height: 4, background: 'rgba(255,255,255,0.06)', borderRadius: 2, marginTop: 8 }}>
+                <div style={{ height: 4, background: 'var(--w-card)', borderRadius: 2, marginTop: 8 }}>
                   <div style={{ width: `${selected.riskScore}%`, height: '100%', borderRadius: 2, background: selected.riskScore >= 70 ? '#EF4444' : selected.riskScore >= 30 ? '#FBBF24' : '#10F5A0', transition: 'width 0.5s' }} />
                 </div>
               </div>
@@ -288,8 +288,8 @@ export default function DeviceBinding() {
               }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
                   <div>
-                    <div style={{ fontSize: 16, fontWeight: 800, color: '#F0F6FF', fontFamily: 'Outfit, sans-serif' }}>{selected.lastLocation.city}</div>
-                    <div style={{ fontSize: 11, color: '#64748B' }}>{selected.lastLocation.province}</div>
+                    <div style={{ fontSize: 16, fontWeight: 800, color: 'var(--w-text-1)', fontFamily: 'Outfit, sans-serif' }}>{selected.lastLocation.city}</div>
+                    <div style={{ fontSize: 11, color: 'var(--w-text-3)' }}>{selected.lastLocation.province}</div>
                   </div>
                   <div style={{
                     padding: '6px 10px', borderRadius: 8,
@@ -299,11 +299,11 @@ export default function DeviceBinding() {
                   }}>{selected.locationAnomaly ? '⚠️ ANOMALY' : '✅ NORMAL'}</div>
                 </div>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
-                  <div style={{ fontSize: 11, color: '#64748B' }}>
-                    Lat: <span style={{ color: '#94A3B8', fontFamily: 'JetBrains Mono, monospace' }}>{selected.lastLocation.lat.toFixed(4)}</span>
+                  <div style={{ fontSize: 11, color: 'var(--w-text-3)' }}>
+                    Lat: <span style={{ color: 'var(--w-text-2)', fontFamily: 'JetBrains Mono, monospace' }}>{selected.lastLocation.lat.toFixed(4)}</span>
                   </div>
-                  <div style={{ fontSize: 11, color: '#64748B' }}>
-                    Lng: <span style={{ color: '#94A3B8', fontFamily: 'JetBrains Mono, monospace' }}>{selected.lastLocation.lng.toFixed(4)}</span>
+                  <div style={{ fontSize: 11, color: 'var(--w-text-3)' }}>
+                    Lng: <span style={{ color: 'var(--w-text-2)', fontFamily: 'JetBrains Mono, monospace' }}>{selected.lastLocation.lng.toFixed(4)}</span>
                   </div>
                 </div>
                 <div style={{ fontSize: 10, color: '#475569', marginTop: 6 }}>
@@ -334,7 +334,7 @@ export default function DeviceBinding() {
                           boxShadow: i === 0 ? '0 0 8px rgba(14,165,233,0.5)' : 'none',
                         }} />
                         {i < selected.locationHistory.length - 1 && (
-                          <div style={{ width: 1, flex: 1, minHeight: 20, background: 'rgba(255,255,255,0.06)' }} />
+                          <div style={{ width: 1, flex: 1, minHeight: 20, background: 'var(--w-card)' }} />
                         )}
                       </div>
                       {/* Entry */}
@@ -344,13 +344,13 @@ export default function DeviceBinding() {
                         borderLeft: provinceChanged ? '2px solid #A78BFA40' : '2px solid transparent',
                       }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                          <span style={{ fontSize: 12, fontWeight: 600, color: '#F0F6FF' }}>
+                          <span style={{ fontSize: 12, fontWeight: 600, color: 'var(--w-text-1)' }}>
                             📍 {entry.city}
                             {provinceChanged && <span style={{ fontSize: 9, color: '#A78BFA', marginLeft: 6 }}>NEW PROVINCE</span>}
                           </span>
                           <span style={{ fontSize: 9, color: '#475569', fontFamily: 'JetBrains Mono, monospace' }}>{entry.timestamp}</span>
                         </div>
-                        <div style={{ display: 'flex', gap: 12, fontSize: 10, color: '#64748B', marginTop: 3 }}>
+                        <div style={{ display: 'flex', gap: 12, fontSize: 10, color: 'var(--w-text-3)', marginTop: 3 }}>
                           <span>{entry.province}</span>
                           <span style={{ fontFamily: 'JetBrains Mono, monospace', color: '#475569' }}>IP: {entry.ip}</span>
                         </div>
@@ -372,9 +372,9 @@ export default function DeviceBinding() {
                 { l: 'Rooted / Jailbroken', v: selected.isRooted ? 'Yes' : 'No' },
                 { l: 'Emulator', v: selected.isEmulator ? 'Yes' : 'No' },
               ].map((item, i) => (
-                <div key={i} style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
-                  <span style={{ fontSize: 12, color: '#64748B' }}>{item.l}</span>
-                  <span style={{ fontSize: 12, color: '#F0F6FF', fontWeight: 600, fontFamily: item.mono ? 'JetBrains Mono, monospace' : 'inherit' }}>{item.v}</span>
+                <div key={i} style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid var(--w-card-border)' }}>
+                  <span style={{ fontSize: 12, color: 'var(--w-text-3)' }}>{item.l}</span>
+                  <span style={{ fontSize: 12, color: 'var(--w-text-1)', fontWeight: 600, fontFamily: item.mono ? 'JetBrains Mono, monospace' : 'inherit' }}>{item.v}</span>
                 </div>
               ))}
             </div>

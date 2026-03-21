@@ -36,7 +36,7 @@ export default function TalkToSalesModal({ onClose }: Props) {
 
   const inputStyle: React.CSSProperties = {
     width: '100%', padding: '11px 14px', borderRadius: 10, fontSize: 14,
-    background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.12)',
+    background: 'var(--w-card)', border: '1px solid rgba(255,255,255,0.12)',
     color: '#F0F6FF', fontFamily: 'Inter, sans-serif', outline: 'none',
     transition: 'border-color 0.2s', boxSizing: 'border-box',
   };
@@ -63,7 +63,7 @@ export default function TalkToSalesModal({ onClose }: Props) {
         <div style={{ padding: '28px 32px 0', position: 'relative' }}>
           <button onClick={onClose} style={{
             position: 'absolute', top: 20, right: 20,
-            background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)',
+            background: 'var(--w-card)', border: '1px solid rgba(255,255,255,0.1)',
             borderRadius: 8, width: 32, height: 32, cursor: 'pointer', color: '#94A3B8',
             fontSize: 16, display: 'flex', alignItems: 'center', justifyContent: 'center',
           }}>✕</button>

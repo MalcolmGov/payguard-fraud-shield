@@ -109,7 +109,7 @@ export default function WebNav() {
         {links.map(l => (
           <button key={l.label} onClick={() => go(l.path)} style={{
             display: 'block', width: '100%', padding: '16px 0', background: 'none', border: 'none',
-            borderBottom: '1px solid rgba(255,255,255,0.06)', cursor: 'pointer',
+            borderBottom: '1px solid var(--w-card-border)', cursor: 'pointer',
             fontSize: 16, fontWeight: 600, color: '#94A3B8', textAlign: 'left',
             fontFamily: 'Inter, sans-serif',
           }}>{l.label}</button>
@@ -173,7 +173,7 @@ export function WebFooter() {
             ))}
           </div>
           {/* Contact bar */}
-          <div className="footer-contact-bar" style={{ display: 'flex', justifyContent: 'center', gap: 32, marginBottom: 24, padding: '16px 0', borderTop: '1px solid rgba(255,255,255,0.05)', borderBottom: '1px solid rgba(255,255,255,0.05)', flexWrap: 'wrap' }}>
+          <div className="footer-contact-bar" style={{ display: 'flex', justifyContent: 'center', gap: 32, marginBottom: 24, padding: '16px 0', borderTop: '1px solid rgba(255,255,255,0.05)', borderBottom: '1px solid var(--w-card-border)', flexWrap: 'wrap' }}>
             <a href="mailto:partnerships@payguard.africa" style={{ fontSize: 13, color: '#64748B', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 6, transition: 'color 0.15s' }}
               onMouseEnter={e => (e.currentTarget as HTMLAnchorElement).style.color = '#0EA5E9'}
               onMouseLeave={e => (e.currentTarget as HTMLAnchorElement).style.color = '#64748B'}

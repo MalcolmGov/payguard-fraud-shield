@@ -55,7 +55,7 @@ export default function Rules() {
   };
 
   return (
-    <div style={{ padding: '24px 28px', fontFamily: 'Inter, sans-serif', color: '#F0F6FF' }}>
+    <div style={{ padding: '24px 28px', fontFamily: 'Inter, sans-serif', color: 'var(--w-text-1)' }}>
       {/* Toast stack */}
       <div style={{ position: 'fixed', top: 20, right: 20, zIndex: 9999, display: 'flex', flexDirection: 'column', gap: 8, width: 380 }}>
         {toasts.map(t => (
@@ -83,9 +83,9 @@ export default function Rules() {
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 24 }}>
               <div>
                 <div style={{ fontSize: 10, fontWeight: 700, color: '#0EA5E9', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 4 }}>EDIT RULE</div>
-                <h3 style={{ fontFamily: 'Outfit, sans-serif', fontSize: 20, fontWeight: 800, margin: 0, color: '#F0F6FF' }}>{editRule.ruleId}</h3>
+                <h3 style={{ fontFamily: 'Outfit, sans-serif', fontSize: 20, fontWeight: 800, margin: 0, color: 'var(--w-text-1)' }}>{editRule.ruleId}</h3>
               </div>
-              <button onClick={() => setEditRule(null)} style={{ background: 'none', border: 'none', color: '#64748B', cursor: 'pointer', fontSize: 18 }}>✕</button>
+              <button onClick={() => setEditRule(null)} style={{ background: 'none', border: 'none', color: 'var(--w-text-3)', cursor: 'pointer', fontSize: 18 }}>✕</button>
             </div>
 
             {/* Name */}
@@ -93,8 +93,8 @@ export default function Rules() {
               <label style={{ fontSize: 10, fontWeight: 700, color: '#475569', letterSpacing: '0.08em', display: 'block', marginBottom: 6 }}>RULE NAME</label>
               <input value={editName} onChange={e => setEditName(e.target.value)} style={{
                 width: '100%', padding: '10px 14px', borderRadius: 10, fontSize: 13,
-                background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)',
-                color: '#F0F6FF', fontFamily: 'Inter, sans-serif', boxSizing: 'border-box',
+                background: 'var(--w-card)', border: '1px solid rgba(255,255,255,0.1)',
+                color: 'var(--w-text-1)', fontFamily: 'Inter, sans-serif', boxSizing: 'border-box',
               }} />
             </div>
 
@@ -103,8 +103,8 @@ export default function Rules() {
               <label style={{ fontSize: 10, fontWeight: 700, color: '#475569', letterSpacing: '0.08em', display: 'block', marginBottom: 6 }}>DESCRIPTION</label>
               <textarea value={editDesc} onChange={e => setEditDesc(e.target.value)} rows={3} style={{
                 width: '100%', padding: '10px 14px', borderRadius: 10, fontSize: 13, resize: 'vertical',
-                background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)',
-                color: '#F0F6FF', fontFamily: 'Inter, sans-serif', boxSizing: 'border-box',
+                background: 'var(--w-card)', border: '1px solid rgba(255,255,255,0.1)',
+                color: 'var(--w-text-1)', fontFamily: 'Inter, sans-serif', boxSizing: 'border-box',
               }} />
             </div>
 
@@ -147,10 +147,10 @@ export default function Rules() {
               border: `1px solid ${severityColor(editSeverity)}25`,
             }}>
               <div style={{ fontSize: 10, fontWeight: 700, color: '#475569', letterSpacing: '0.08em', marginBottom: 8 }}>PREVIEW</div>
-              <div style={{ fontSize: 13, fontWeight: 700, color: '#F0F6FF', marginBottom: 4 }}>{editName}</div>
-              <div style={{ fontSize: 11, color: '#64748B', marginBottom: 6 }}>{editDesc}</div>
+              <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--w-text-1)', marginBottom: 4 }}>{editName}</div>
+              <div style={{ fontSize: 11, color: 'var(--w-text-3)', marginBottom: 6 }}>{editDesc}</div>
               <div style={{ display: 'flex', gap: 8 }}>
-                <span style={{ fontSize: 10, color: '#94A3B8' }}>
+                <span style={{ fontSize: 10, color: 'var(--w-text-2)' }}>
                   Score: <span style={{ fontWeight: 700, color: severityColor(editSeverity), fontFamily: 'JetBrains Mono, monospace' }}>{editScore}</span>
                 </span>
                 <span style={{
@@ -164,7 +164,7 @@ export default function Rules() {
             <div style={{ display: 'flex', gap: 10 }}>
               <button onClick={() => setEditRule(null)} style={{
                 flex: 1, padding: '11px', borderRadius: 10, fontSize: 12, fontWeight: 700, cursor: 'pointer',
-                background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: '#64748B',
+                background: 'var(--w-card)', border: '1px solid rgba(255,255,255,0.1)', color: 'var(--w-text-3)',
               }}>Cancel</button>
               <button onClick={saveEdit} style={{
                 flex: 1, padding: '11px', borderRadius: 10, fontSize: 12, fontWeight: 700, cursor: 'pointer',
@@ -213,7 +213,7 @@ export default function Rules() {
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 10 }}>
                 <div>
                   <div style={{ fontSize: 10, fontWeight: 700, color: '#475569', fontFamily: 'JetBrains Mono, monospace', marginBottom: 4 }}>{rule.ruleId}</div>
-                  <div style={{ fontSize: 15, fontWeight: 700, color: '#F0F6FF', fontFamily: 'Outfit, sans-serif' }}>{rule.name}</div>
+                  <div style={{ fontSize: 15, fontWeight: 700, color: 'var(--w-text-1)', fontFamily: 'Outfit, sans-serif' }}>{rule.name}</div>
                 </div>
                 <button onClick={e => { e.stopPropagation(); toggle(rule.ruleId); }} style={{
                   width: 44, height: 24, borderRadius: 12, border: 'none', cursor: 'pointer', position: 'relative',
@@ -226,11 +226,11 @@ export default function Rules() {
                 </button>
               </div>
 
-              <p style={{ fontSize: 12, color: '#64748B', lineHeight: 1.6, marginBottom: 12 }}>{rule.description}</p>
+              <p style={{ fontSize: 12, color: 'var(--w-text-3)', lineHeight: 1.6, marginBottom: 12 }}>{rule.description}</p>
 
               <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
                 {rule.score != null && (
-                  <div style={{ fontSize: 11, color: '#94A3B8' }}>
+                  <div style={{ fontSize: 11, color: 'var(--w-text-2)' }}>
                     Score: <span style={{ fontWeight: 700, color: sColor, fontFamily: 'JetBrains Mono, monospace' }}>{rule.score}</span>
                   </div>
                 )}

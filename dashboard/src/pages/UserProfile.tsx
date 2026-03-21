@@ -123,7 +123,7 @@ export default function UserProfile() {
   const rColor = RISK_COLORS[user.riskTier] || '#0EA5E9';
 
   return (
-    <div style={{ padding: '24px 28px', fontFamily: 'Inter, sans-serif', color: '#F0F6FF' }}>
+    <div style={{ padding: '24px 28px', fontFamily: 'Inter, sans-serif', color: 'var(--w-text-1)' }}>
       {/* Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 20 }}>
         <div>
@@ -148,8 +148,8 @@ export default function UserProfile() {
           placeholder="Search phone…"
           onChange={e => { if (USER_DB[e.target.value]) setSelectedPhone(e.target.value); }}
           style={{
-            padding: '8px 14px', borderRadius: 10, fontSize: 11, border: '1px solid rgba(255,255,255,0.08)',
-            background: 'rgba(255,255,255,0.03)', color: '#94A3B8', fontFamily: 'JetBrains Mono, monospace', width: 180,
+            padding: '8px 14px', borderRadius: 10, fontSize: 11, border: '1px solid var(--w-card-border)',
+            background: 'var(--w-card)', color: 'var(--w-text-2)', fontFamily: 'JetBrains Mono, monospace', width: 180,
           }}
         />
       </div>
@@ -160,7 +160,7 @@ export default function UserProfile() {
       }}>
         {/* Left: Identity */}
         <div style={{
-          background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.07)',
+          background: 'rgba(255,255,255,0.025)', border: '1px solid var(--w-card-border)',
           borderRadius: 14, padding: '20px', display: 'flex', flexDirection: 'column', gap: 14,
         }}>
           {/* Avatar + Name */}
@@ -172,7 +172,7 @@ export default function UserProfile() {
             }}>{user.name.charAt(0)}</div>
             <div>
               <div style={{ fontSize: 16, fontWeight: 800, fontFamily: 'Outfit, sans-serif' }}>{user.name}</div>
-              <div style={{ fontSize: 11, color: '#64748B', fontFamily: 'JetBrains Mono, monospace' }}>{user.phone}</div>
+              <div style={{ fontSize: 11, color: 'var(--w-text-3)', fontFamily: 'JetBrains Mono, monospace' }}>{user.phone}</div>
             </div>
           </div>
 
@@ -199,7 +199,7 @@ export default function UserProfile() {
               { label: 'Flag Rate', value: `${user.flagRate}%`, color: user.flagRate > 5 ? '#EF4444' : '#10F5A0' },
               { label: 'Devices', value: String(user.devices.length) },
             ].map(s => (
-              <div key={s.label} style={{ padding: '8px 10px', background: 'rgba(255,255,255,0.04)', borderRadius: 8 }}>
+              <div key={s.label} style={{ padding: '8px 10px', background: 'var(--w-card)', borderRadius: 8 }}>
                 <div style={{ fontSize: 8, color: '#475569', fontWeight: 700, letterSpacing: '0.06em' }}>{s.label.toUpperCase()}</div>
                 <div style={{ fontSize: 14, fontWeight: 800, color: s.color || '#F0F6FF', fontFamily: 'Outfit, sans-serif' }}>{s.value}</div>
               </div>
@@ -209,13 +209,13 @@ export default function UserProfile() {
 
         {/* Right: Risk Trend + Quick Stats */}
         <div style={{
-          background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.07)',
+          background: 'rgba(255,255,255,0.025)', border: '1px solid var(--w-card-border)',
           borderRadius: 14, padding: '20px',
         }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
             <div>
               <div style={{ fontSize: 10, fontWeight: 700, color: '#475569', letterSpacing: '0.08em' }}>RISK SCORE TREND (20D)</div>
-              <div style={{ fontSize: 11, color: '#64748B', marginTop: 2 }}>Score history across last 20 transactions</div>
+              <div style={{ fontSize: 11, color: 'var(--w-text-3)', marginTop: 2 }}>Score history across last 20 transactions</div>
             </div>
             <div style={{ textAlign: 'right' }}>
               <div style={{ fontSize: 28, fontWeight: 900, color: rColor, fontFamily: 'Outfit, sans-serif' }}>
@@ -243,7 +243,7 @@ export default function UserProfile() {
       </div>
 
       {/* Tab Navigation */}
-      <div style={{ display: 'flex', gap: 0, borderBottom: '1px solid rgba(255,255,255,0.06)', marginBottom: 16 }}>
+      <div style={{ display: 'flex', gap: 0, borderBottom: '1px solid var(--w-card-border)', marginBottom: 16 }}>
         {([
           { id: 'transactions' as const, label: '💳 Transactions', count: userTxns.length },
           { id: 'devices' as const, label: '📱 Devices', count: user.devices.length },
@@ -260,8 +260,8 @@ export default function UserProfile() {
 
       {/* Tab Content */}
       {activeTab === 'transactions' && (
-        <div style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 14, overflow: 'hidden' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '90px 120px 85px 70px 85px', padding: '10px 18px', borderBottom: '1px solid rgba(255,255,255,0.05)', gap: 8 }}>
+        <div style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid var(--w-card-border)', borderRadius: 14, overflow: 'hidden' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '90px 120px 85px 70px 85px', padding: '10px 18px', borderBottom: '1px solid var(--w-card-border)', gap: 8 }}>
             {['DATE', 'RECIPIENT', 'AMOUNT', 'RISK', 'ACTION'].map(h => (
               <span key={h} style={{ fontSize: 9, fontWeight: 700, color: '#334155', letterSpacing: '0.1em' }}>{h}</span>
             ))}
@@ -278,11 +278,11 @@ export default function UserProfile() {
               onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.03)'; }}
               onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; }}
             >
-              <span style={{ fontSize: 10, color: '#64748B', fontFamily: 'JetBrains Mono, monospace' }}>
+              <span style={{ fontSize: 10, color: 'var(--w-text-3)', fontFamily: 'JetBrains Mono, monospace' }}>
                 {new Date(tx.createdAt).toLocaleDateString('en-ZA', { day: '2-digit', month: 'short' })}
               </span>
-              <span style={{ fontSize: 10, color: '#94A3B8', fontFamily: 'JetBrains Mono, monospace' }}>{tx.recipientWallet}</span>
-              <span style={{ fontSize: 12, fontWeight: 700, color: '#F0F6FF', fontFamily: 'JetBrains Mono' }}>R{tx.amount.toLocaleString()}</span>
+              <span style={{ fontSize: 10, color: 'var(--w-text-2)', fontFamily: 'JetBrains Mono, monospace' }}>{tx.recipientWallet}</span>
+              <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--w-text-1)', fontFamily: 'JetBrains Mono' }}>R{tx.amount.toLocaleString()}</span>
               <span style={{
                 fontSize: 8, fontWeight: 800, padding: '2px 6px', borderRadius: 4, textAlign: 'center',
                 background: `${RISK_COLORS[tx.riskLevel]}15`, color: RISK_COLORS[tx.riskLevel],
@@ -303,7 +303,7 @@ export default function UserProfile() {
               borderRadius: 14, padding: '16px 18px',
             }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
-                <div style={{ fontSize: 14, fontWeight: 700, color: '#F0F6FF' }}>📱 {d.model}</div>
+                <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--w-text-1)' }}>📱 {d.model}</div>
                 <span style={{
                   fontSize: 9, fontWeight: 700, padding: '3px 8px', borderRadius: 6,
                   background: d.trusted ? 'rgba(16,245,160,0.1)' : 'rgba(239,68,68,0.1)',
@@ -319,7 +319,7 @@ export default function UserProfile() {
                 ].map(f => (
                   <div key={f.label}>
                     <div style={{ fontSize: 8, color: '#475569', fontWeight: 700, letterSpacing: '0.06em' }}>{f.label.toUpperCase()}</div>
-                    <div style={{ fontSize: 11, color: '#94A3B8', fontFamily: 'JetBrains Mono, monospace' }}>{f.value}</div>
+                    <div style={{ fontSize: 11, color: 'var(--w-text-2)', fontFamily: 'JetBrains Mono, monospace' }}>{f.value}</div>
                   </div>
                 ))}
               </div>
@@ -350,7 +350,7 @@ export default function UserProfile() {
                       {new Date(a.timestamp).toLocaleString('en-ZA', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' })}
                     </span>
                   </div>
-                  <p style={{ fontSize: 11, color: '#94A3B8', lineHeight: 1.6, margin: 0 }}>{a.message}</p>
+                  <p style={{ fontSize: 11, color: 'var(--w-text-2)', lineHeight: 1.6, margin: 0 }}>{a.message}</p>
                   <div style={{ marginTop: 6 }}>
                     <span style={{
                       fontSize: 9, fontWeight: 700, padding: '2px 6px', borderRadius: 4,

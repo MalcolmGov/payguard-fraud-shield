@@ -219,7 +219,7 @@ export default function Clients() {
   const tierColor = (t: string) => TIER_COLORS[t] || '#94A3B8';
 
   return (
-    <div style={{ padding: '24px 28px', fontFamily: 'Inter, sans-serif', color: '#F0F6FF' }}>
+    <div style={{ padding: '24px 28px', fontFamily: 'Inter, sans-serif', color: 'var(--w-text-1)' }}>
       {/* Toast stack */}
       <div style={{ position: 'fixed', top: 20, right: 20, zIndex: 9999, display: 'flex', flexDirection: 'column', gap: 8, width: 400 }}>
         {toasts.map(t => (
@@ -263,7 +263,7 @@ export default function Clients() {
       {/* Registration Form */}
       {showForm && (
         <div style={{
-          background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(14,165,233,0.2)',
+          background: 'var(--w-card)', border: '1px solid rgba(14,165,233,0.2)',
           borderRadius: 14, padding: 24, marginBottom: 20,
           animation: 'fadeInDown 0.2s ease',
         }}>
@@ -456,18 +456,18 @@ export default function Clients() {
               {/* Summary */}
               <div style={{ gridColumn: '1 / -1', padding: 16, borderRadius: 10, background: 'rgba(14,165,233,0.06)', border: '1px solid rgba(14,165,233,0.15)' }}>
                 <div style={{ fontSize: 10, fontWeight: 700, color: '#475569', letterSpacing: '0.08em', marginBottom: 8 }}>REGISTRATION SUMMARY</div>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, fontSize: 12, color: '#F0F6FF', lineHeight: 1.8 }}>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, fontSize: 12, color: 'var(--w-text-1)', lineHeight: 1.8 }}>
                   <div>
                     <strong>{form.name || '—'}</strong> ({form.industry || '—'})<br />
-                    {form.contact_name && <><span style={{ color: '#94A3B8' }}>Contact:</span> {form.contact_name}<br /></>}
-                    <span style={{ color: '#94A3B8' }}>Region:</span> {form.region || '—'}<br />
-                    <span style={{ color: '#94A3B8' }}>Integration:</span> {form.integration_types.join(', ') || '—'}
+                    {form.contact_name && <><span style={{ color: 'var(--w-text-2)' }}>Contact:</span> {form.contact_name}<br /></>}
+                    <span style={{ color: 'var(--w-text-2)' }}>Region:</span> {form.region || '—'}<br />
+                    <span style={{ color: 'var(--w-text-2)' }}>Integration:</span> {form.integration_types.join(', ') || '—'}
                   </div>
                   <div>
                     <span style={{ color: '#10F5A0', fontWeight: 700 }}>Pricing</span><br />
-                    <span style={{ color: '#94A3B8' }}>Monthly Fee:</span> {form.currency} {form.monthly_fee.toFixed(2)}<br />
-                    <span style={{ color: '#94A3B8' }}>Per-TX Fee:</span> {form.currency} {form.per_tx_fee.toFixed(4)}<br />
-                    <span style={{ color: '#94A3B8' }}>Billing:</span> {form.billing_cycle} · {form.rate_limit} req/min
+                    <span style={{ color: 'var(--w-text-2)' }}>Monthly Fee:</span> {form.currency} {form.monthly_fee.toFixed(2)}<br />
+                    <span style={{ color: 'var(--w-text-2)' }}>Per-TX Fee:</span> {form.currency} {form.per_tx_fee.toFixed(4)}<br />
+                    <span style={{ color: 'var(--w-text-2)' }}>Billing:</span> {form.billing_cycle} · {form.rate_limit} req/min
                   </div>
                 </div>
               </div>
@@ -478,7 +478,7 @@ export default function Clients() {
           <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 18 }}>
             <button onClick={prevStep} disabled={formStep === 0} style={{
               padding: '8px 18px', borderRadius: 8, fontSize: 12, fontWeight: 600, border: 'none', cursor: formStep === 0 ? 'not-allowed' : 'pointer',
-              background: 'rgba(255,255,255,0.06)', color: formStep === 0 ? '#334155' : '#94A3B8',
+              background: 'var(--w-card)', color: formStep === 0 ? '#334155' : '#94A3B8',
             }}>← Back</button>
             {formStep < 3 ? (
               <button onClick={nextStep} style={{
@@ -519,7 +519,7 @@ export default function Clients() {
                     background: k.environment === 'production' ? 'rgba(239,68,68,0.15)' : 'rgba(14,165,233,0.15)',
                     color: k.environment === 'production' ? '#EF4444' : '#0EA5E9',
                   }}>{k.environment.toUpperCase()}</span>
-                  <code style={{ fontSize: 13, color: '#F0F6FF', fontFamily: 'JetBrains Mono, monospace' }}>{k.key}</code>
+                  <code style={{ fontSize: 13, color: 'var(--w-text-1)', fontFamily: 'JetBrains Mono, monospace' }}>{k.key}</code>
                 </div>
                 <button onClick={() => { navigator.clipboard.writeText(k.key); addToast(`📋 ${k.environment} key copied`, 'success'); }} style={{
                   padding: '6px 12px', borderRadius: 6, fontSize: 11, fontWeight: 600, border: 'none', cursor: 'pointer',
@@ -530,7 +530,7 @@ export default function Clients() {
           </div>
           <button onClick={() => setNewKeys([])} style={{
             marginTop: 12, padding: '6px 14px', borderRadius: 8, fontSize: 11, fontWeight: 600, border: 'none', cursor: 'pointer',
-            background: 'rgba(255,255,255,0.06)', color: '#475569',
+            background: 'var(--w-card)', color: '#475569',
           }}>✕ Dismiss</button>
         </div>
       )}
@@ -541,8 +541,8 @@ export default function Clients() {
       ) : (
         <div style={{ display: 'grid', gridTemplateColumns: clientDetail ? '1fr 380px' : '1fr', gap: 16, transition: 'all 0.3s' }}>
           {/* Client Table */}
-          <div style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 14, overflow: 'hidden' }}>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 140px 90px 80px 90px 100px', padding: '12px 20px', borderBottom: '1px solid rgba(255,255,255,0.06)', gap: 8 }}>
+          <div style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid var(--w-card-border)', borderRadius: 14, overflow: 'hidden' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 140px 90px 80px 90px 100px', padding: '12px 20px', borderBottom: '1px solid var(--w-card-border)', gap: 8 }}>
               {['CLIENT', 'EMAIL', 'TIER', 'KEYS', 'RATE LIMIT', 'LAST ACTIVE'].map(h => (
                 <span key={h} style={{ fontSize: 9, fontWeight: 700, color: '#334155', letterSpacing: '0.1em' }}>{h}</span>
               ))}
@@ -562,18 +562,18 @@ export default function Clients() {
                 onMouseLeave={e => (e.currentTarget.style.background = selectedId === c.id ? 'rgba(14,165,233,0.05)' : 'transparent')}
               >
                 <div>
-                  <div style={{ fontSize: 13, color: '#F0F6FF', fontWeight: 600 }}>{c.name}</div>
+                  <div style={{ fontSize: 13, color: 'var(--w-text-1)', fontWeight: 600 }}>{c.name}</div>
                   <div style={{ fontSize: 10, color: '#475569' }}>
                     {new Date(c.created_at).toLocaleDateString('en-ZA', { month: 'short', day: 'numeric', year: 'numeric' })}
                   </div>
                 </div>
-                <span style={{ fontSize: 11, color: '#94A3B8', fontFamily: 'JetBrains Mono, monospace', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{c.email}</span>
+                <span style={{ fontSize: 11, color: 'var(--w-text-2)', fontFamily: 'JetBrains Mono, monospace', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{c.email}</span>
                 <span style={{
                   fontSize: 9, fontWeight: 700, padding: '3px 10px', borderRadius: 6, textAlign: 'center',
                   background: `${tierColor(c.tier)}15`, color: tierColor(c.tier), textTransform: 'uppercase',
                 }}>{c.tier}</span>
                 <span style={{ fontSize: 13, color: '#0EA5E9', fontWeight: 700, fontFamily: 'JetBrains Mono, monospace' }}>{c.active_keys || '0'}</span>
-                <span style={{ fontSize: 11, color: '#94A3B8', fontFamily: 'JetBrains Mono, monospace' }}>{c.rate_limit}/min</span>
+                <span style={{ fontSize: 11, color: 'var(--w-text-2)', fontFamily: 'JetBrains Mono, monospace' }}>{c.rate_limit}/min</span>
                 <span style={{ fontSize: 10, color: '#475569' }}>
                   {c.last_api_call ? new Date(c.last_api_call).toLocaleDateString('en-ZA', { month: 'short', day: 'numeric' }) : '—'}
                 </span>
@@ -584,7 +584,7 @@ export default function Clients() {
           {/* Detail Drawer */}
           {clientDetail && (
             <div style={{
-              background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.07)',
+              background: 'rgba(255,255,255,0.025)', border: '1px solid var(--w-card-border)',
               borderRadius: 14, padding: '22px', position: 'sticky', top: 20, height: 'fit-content',
               maxHeight: 'calc(100vh - 60px)', overflowY: 'auto',
             }}>
@@ -594,22 +594,22 @@ export default function Clients() {
                     {clientDetail.client.tier} CLIENT
                   </div>
                   <div style={{ fontSize: 18, fontWeight: 800, fontFamily: 'Outfit, sans-serif' }}>{clientDetail.client.name}</div>
-                  <div style={{ fontSize: 11, color: '#8B949E', fontFamily: 'JetBrains Mono, monospace', marginTop: 2 }}>{clientDetail.client.email}</div>
+                  <div style={{ fontSize: 11, color: 'var(--w-text-2)', fontFamily: 'JetBrains Mono, monospace', marginTop: 2 }}>{clientDetail.client.email}</div>
                 </div>
                 <button onClick={() => { setSelectedId(null); setClientDetail(null); }} style={{ background: 'none', border: 'none', color: '#475569', cursor: 'pointer', fontSize: 18 }}>✕</button>
               </div>
 
               {/* Stats */}
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 16 }}>
-                <div style={{ padding: '12px 14px', background: 'rgba(255,255,255,0.04)', borderRadius: 10 }}>
+                <div style={{ padding: '12px 14px', background: 'var(--w-card)', borderRadius: 10 }}>
                   <div style={{ fontSize: 9, fontWeight: 700, color: '#475569', letterSpacing: '0.08em', marginBottom: 4 }}>ACTIVE KEYS</div>
                   <div style={{ fontSize: 18, fontWeight: 800, color: '#0EA5E9', fontFamily: 'Outfit, sans-serif' }}>
                     {clientDetail.api_keys.filter(k => k.is_active).length}
                   </div>
                 </div>
-                <div style={{ padding: '12px 14px', background: 'rgba(255,255,255,0.04)', borderRadius: 10 }}>
+                <div style={{ padding: '12px 14px', background: 'var(--w-card)', borderRadius: 10 }}>
                   <div style={{ fontSize: 9, fontWeight: 700, color: '#475569', letterSpacing: '0.08em', marginBottom: 4 }}>RATE LIMIT</div>
-                  <div style={{ fontSize: 18, fontWeight: 800, color: '#F0F6FF', fontFamily: 'Outfit, sans-serif' }}>{clientDetail.client.rate_limit}/min</div>
+                  <div style={{ fontSize: 18, fontWeight: 800, color: 'var(--w-text-1)', fontFamily: 'Outfit, sans-serif' }}>{clientDetail.client.rate_limit}/min</div>
                 </div>
               </div>
 
@@ -637,7 +637,7 @@ export default function Clients() {
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
                     {clientDetail.api_keys.map(k => (
                       <div key={k.id} style={{
-                        padding: '10px 12px', borderRadius: 10, background: 'rgba(255,255,255,0.03)',
+                        padding: '10px 12px', borderRadius: 10, background: 'var(--w-card)',
                         borderLeft: `2px solid ${k.is_active ? (k.environment === 'production' ? '#EF4444' : '#0EA5E9') : '#334155'}`,
                         opacity: k.is_active ? 1 : 0.5,
                       }}>
@@ -648,7 +648,7 @@ export default function Clients() {
                               background: k.environment === 'production' ? 'rgba(239,68,68,0.15)' : 'rgba(14,165,233,0.15)',
                               color: k.environment === 'production' ? '#EF4444' : '#0EA5E9',
                             }}>{k.environment.toUpperCase()}</span>
-                            <code style={{ fontSize: 11, color: '#94A3B8', fontFamily: 'JetBrains Mono, monospace' }}>{k.key_prefix}...</code>
+                            <code style={{ fontSize: 11, color: 'var(--w-text-2)', fontFamily: 'JetBrains Mono, monospace' }}>{k.key_prefix}...</code>
                           </div>
                           {k.is_active ? (
                             <button onClick={(e) => { e.stopPropagation(); revokeKey(k.id); }} style={{
@@ -686,6 +686,6 @@ const labelStyle: React.CSSProperties = {
 
 const inputStyle: React.CSSProperties = {
   width: '100%', padding: '10px 14px', borderRadius: 10, fontSize: 13,
-  background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)',
-  color: '#F0F6FF', fontFamily: 'Inter, sans-serif',
+  background: 'var(--w-card)', border: '1px solid rgba(255,255,255,0.1)',
+  color: 'var(--w-text-1)', fontFamily: 'Inter, sans-serif',
 };

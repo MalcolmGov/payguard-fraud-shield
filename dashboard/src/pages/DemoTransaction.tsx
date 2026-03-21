@@ -182,7 +182,7 @@ function IncomingCall() {
         <div style={{ fontSize: 11, color: '#F44336', fontWeight: 600 }}>Unknown Number</div>
         <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.4)', marginTop: 4 }}>Not in your contacts</div>
       </div>
-      <div style={{ textAlign: 'center', padding: '12px 16px', background: 'rgba(255,255,255,0.05)', borderRadius: 10, width: '100%' }}>
+      <div style={{ textAlign: 'center', padding: '12px 16px', background: 'var(--w-card)', borderRadius: 10, width: '100%' }}>
         <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.6)', lineHeight: 1.7 }}>
           "Congratulations! Your account won R50,000. Send R500 to verify your wallet to claim your prize."
         </div>
@@ -299,10 +299,10 @@ function ScanningScreen() {
     return () => clearInterval(t);
   }, []);
   return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: '#0D1117', gap: 16, padding: 20 }}>
+    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: 'var(--w-bg)', gap: 16, padding: 20 }}>
       <div style={{ width: 48, height: 48, borderRadius: '50%', border: '3px solid #58A6FF', borderTopColor: 'transparent', animation: 'spin 1s linear infinite' }} />
       <div style={{ fontSize: 13, fontWeight: 700, color: '#58A6FF' }}>PayGuard Analysing{dots}</div>
-      <div style={{ fontSize: 10, color: '#8B949E', textAlign: 'center', lineHeight: 1.8 }}>
+      <div style={{ fontSize: 10, color: 'var(--w-text-2)', textAlign: 'center', lineHeight: 1.8 }}>
         Evaluating 35 fraud rules<br />Cross-referencing device graph<br />Computing risk score
       </div>
       <div style={{ width: '100%', background: '#30363D', borderRadius: 999, height: 6, overflow: 'hidden' }}>
@@ -328,7 +328,7 @@ function AlertScreen() {
           <div style={{ fontSize: 13, fontWeight: 800, color: '#F85149', textAlign: 'center', marginBottom: 6 }}>
             Possible Scam Detected
           </div>
-          <div style={{ fontSize: 10, color: '#8B949E', textAlign: 'center', lineHeight: 1.6, marginBottom: 10 }}>
+          <div style={{ fontSize: 10, color: 'var(--w-text-2)', textAlign: 'center', lineHeight: 1.6, marginBottom: 10 }}>
             Risk Score: <strong style={{ color: '#F85149' }}>92/100  HIGH</strong><br />
             You are on an active call with an unknown number.<br />
             Fraudsters often impersonate bank security agents.
@@ -352,17 +352,17 @@ function AlertScreen() {
 
 function ProtectedScreen() {
   return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: '#0D1117', gap: 12, padding: 20 }}>
+    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: 'var(--w-bg)', gap: 12, padding: 20 }}>
       <div style={{ width: 56, height: 56, borderRadius: '50%', background: '#3FB950', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 28, color: 'white', fontWeight: 800 }}></div>
       <div style={{ fontSize: 14, fontWeight: 800, color: '#3FB950', textAlign: 'center' }}>Transaction Cancelled</div>
-      <div style={{ fontSize: 10, color: '#8B949E', textAlign: 'center', lineHeight: 1.8 }}>
+      <div style={{ fontSize: 10, color: 'var(--w-text-2)', textAlign: 'center', lineHeight: 1.8 }}>
         R2,500 protected<br />
         Fraud event logged<br />
         Analyst alerted
       </div>
       <div style={{ width: '100%', background: 'rgba(63,185,80,0.1)', border: '1px solid rgba(63,185,80,0.3)', borderRadius: 8, padding: '10px 12px', marginTop: 8 }}>
         <div style={{ fontSize: 9, color: '#3FB950', fontWeight: 600, marginBottom: 4 }}>PayGuard Protected You</div>
-        <div style={{ fontSize: 9, color: '#8B949E', lineHeight: 1.6 }}>
+        <div style={{ fontSize: 9, color: 'var(--w-text-2)', lineHeight: 1.6 }}>
           + Fraud ring flagged in graph<br />
           + Device added to watchlist<br />
           + Analyst dashboard updated

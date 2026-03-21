@@ -243,14 +243,14 @@ export default function PayGuardVoiceCoPilot() {
             exit={{ opacity: 0, y: 20, scale: 0.95 }} transition={{ type: 'spring', stiffness: 400, damping: 30 }}
             style={{
               position: 'fixed', bottom: 90, right: 24, zIndex: 999, width: 380, borderRadius: 16,
-              background: '#141720', border: '1px solid rgba(255,255,255,0.07)',
+              background: '#141720', border: '1px solid var(--w-card-border)',
               boxShadow: '0 25px 60px rgba(0,0,0,0.5)', overflow: 'hidden',
             }}
           >
             {/* Header */}
-            <div style={{ padding: '16px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
+            <div style={{ padding: '16px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid var(--w-card-border)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                <div style={{ width: 36, height: 36, borderRadius: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#1a1e28', border: '1px solid rgba(255,255,255,0.07)', fontSize: 18 }}>🛡️</div>
+                <div style={{ width: 36, height: 36, borderRadius: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#1a1e28', border: '1px solid var(--w-card-border)', fontSize: 18 }}>🛡️</div>
                 <div>
                   <p style={{ fontSize: 14, fontWeight: 600, color: '#fff', margin: 0 }}>PayGuard Co-Pilot</p>
                   <p style={{ fontSize: 11, color: '#94a3b8', margin: 0 }}>

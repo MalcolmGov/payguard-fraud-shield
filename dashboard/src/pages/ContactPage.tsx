@@ -14,13 +14,13 @@ type FormData = {
 };
 
 const FIELD_STYLE: React.CSSProperties = {
-  background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.09)',
-  borderRadius: 10, padding: '13px 16px', fontSize: 14, color: '#F0F6FF',
+  background: 'var(--w-card)', border: '1px solid var(--w-card-border)',
+  borderRadius: 10, padding: '13px 16px', fontSize: 14, color: 'var(--w-text-1)',
   fontFamily: 'Inter, sans-serif', outline: 'none', width: '100%', boxSizing: 'border-box',
 };
 
 const LABEL_STYLE: React.CSSProperties = {
-  fontSize: 12, fontWeight: 600, color: '#64748B', letterSpacing: '0.04em',
+  fontSize: 12, fontWeight: 600, color: 'var(--w-text-3)', letterSpacing: '0.04em',
   marginBottom: 6, display: 'block',
 };
 
@@ -75,7 +75,7 @@ export default function ContactPage() {
     (e.target.style.borderColor = 'rgba(255,255,255,0.09)');
 
   return (
-    <div style={{ minHeight: '100vh', background: '#0B1121', fontFamily: 'Inter, sans-serif', color: '#F0F6FF', overflowX: 'hidden' }}>
+    <div style={{ minHeight: '100vh', background: 'var(--w-bg)', fontFamily: 'Inter, sans-serif', color: 'var(--w-text-1)', overflowX: 'hidden' }}>
       <WebNav />
 
       {/* Hero */}
@@ -87,7 +87,7 @@ export default function ContactPage() {
             <span className="grad-white-blue">Let's Talk</span> About<br />
             <span style={{ background: 'linear-gradient(135deg, #3B82F6, #00D4AA)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Fraud Prevention.</span>
           </h1>
-          <p style={{ fontSize: 18, color: '#94A3B8', lineHeight: 1.8, maxWidth: 580, margin: '0 auto' }}>
+          <p style={{ fontSize: 18, color: 'var(--w-text-2)', lineHeight: 1.8, maxWidth: 580, margin: '0 auto' }}>
             Whether you're a bank, telco, fintech, or PSP — tell us about your fraud challenges and we'll show you exactly how PayGuard fits your stack.
           </p>
         </div>
@@ -103,7 +103,7 @@ export default function ContactPage() {
           ].map(c => (
             <a key={c.label} href={c.href} target={c.href.startsWith('http') ? '_blank' : undefined} rel="noopener noreferrer" style={{
               display: 'flex', alignItems: 'center', gap: 14, padding: '20px 24px',
-              borderRadius: 16, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)',
+              borderRadius: 16, background: 'var(--w-card)', border: '1px solid var(--w-card-border)',
               textDecoration: 'none', transition: 'border-color 0.2s, transform 0.2s', cursor: 'pointer',
             }}
               onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.borderColor = 'rgba(14,165,233,0.4)'; (e.currentTarget as HTMLAnchorElement).style.transform = 'translateY(-2px)'; }}
@@ -111,7 +111,7 @@ export default function ContactPage() {
             >
               <div style={{ fontSize: 24, flexShrink: 0 }}>{c.icon}</div>
               <div>
-                <div style={{ fontSize: 12, fontWeight: 600, color: '#64748B', marginBottom: 4 }}>{c.label}</div>
+                <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--w-text-3)', marginBottom: 4 }}>{c.label}</div>
                 <div style={{ fontSize: 14, fontWeight: 600, color: '#0EA5E9' }}>{c.value}</div>
               </div>
             </a>
@@ -127,7 +127,7 @@ export default function ContactPage() {
             <h2 className="w-heading" style={{ fontSize: 40, fontWeight: 800, letterSpacing: '-0.02em', marginBottom: 14 }}>
               Talk to Our Team
             </h2>
-            <p style={{ fontSize: 15, color: '#64748B', lineHeight: 1.8, maxWidth: 520, margin: '0 auto' }}>
+            <p style={{ fontSize: 15, color: 'var(--w-text-3)', lineHeight: 1.8, maxWidth: 520, margin: '0 auto' }}>
               Tell us about your institution, fraud challenges, and timeline. We'll respond within one business day.
             </p>
           </div>
@@ -136,7 +136,7 @@ export default function ContactPage() {
             <div className="glass-card" style={{ padding: '60px 40px', textAlign: 'center', borderColor: 'rgba(16,245,160,0.25)', maxWidth: 520, margin: '0 auto' }}>
               <div style={{ fontSize: 52, marginBottom: 20 }}>✅</div>
               <div style={{ fontSize: 22, fontWeight: 800, color: '#10F5A0', fontFamily: 'Outfit', marginBottom: 10 }}>Message Sent Successfully</div>
-              <div style={{ fontSize: 15, color: '#64748B', lineHeight: 1.8, marginBottom: 8 }}>
+              <div style={{ fontSize: 15, color: 'var(--w-text-3)', lineHeight: 1.8, marginBottom: 8 }}>
                 Your enquiry has been delivered to our sales team.<br />
                 We'll respond within one business day.
               </div>
@@ -173,7 +173,7 @@ export default function ContactPage() {
                     style={{ ...FIELD_STYLE, cursor: 'pointer', color: form.institutionType ? '#F0F6FF' : '#475569' }}
                     onFocus={focusBorder} onBlur={blurBorder}>
                     <option value="" disabled>Select type…</option>
-                    {INST_TYPES.map(t => <option key={t} value={t} style={{ background: '#0D1117' }}>{t}</option>)}
+                    {INST_TYPES.map(t => <option key={t} value={t} style={{ background: 'var(--w-bg)' }}>{t}</option>)}
                   </select>
                 </Field>
                 <Field label="Your Role" required>
@@ -181,7 +181,7 @@ export default function ContactPage() {
                     style={{ ...FIELD_STYLE, cursor: 'pointer', color: form.role ? '#F0F6FF' : '#475569' }}
                     onFocus={focusBorder} onBlur={blurBorder}>
                     <option value="" disabled>Select role…</option>
-                    {ROLES.map(r => <option key={r} value={r} style={{ background: '#0D1117' }}>{r}</option>)}
+                    {ROLES.map(r => <option key={r} value={r} style={{ background: 'var(--w-bg)' }}>{r}</option>)}
                   </select>
                 </Field>
                 <Field label="Monthly Transaction Volume">
@@ -189,7 +189,7 @@ export default function ContactPage() {
                     style={{ ...FIELD_STYLE, cursor: 'pointer', color: form.txVolume ? '#F0F6FF' : '#475569' }}
                     onFocus={focusBorder} onBlur={blurBorder}>
                     <option value="" disabled>Select volume…</option>
-                    {TX_VOLUMES.map(v => <option key={v} value={v} style={{ background: '#0D1117' }}>{v}</option>)}
+                    {TX_VOLUMES.map(v => <option key={v} value={v} style={{ background: 'var(--w-bg)' }}>{v}</option>)}
                   </select>
                 </Field>
               </div>
@@ -237,10 +237,10 @@ export default function ContactPage() {
                   { icon: '🔒', label: 'Your data is secure', sub: 'GDPR & POPIA compliant' },
                   { icon: '🎯', label: 'No spam, ever', sub: 'Unsubscribe any time' },
                 ].map(b => (
-                  <div key={b.label} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '12px 16px', borderRadius: 10, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}>
+                  <div key={b.label} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '12px 16px', borderRadius: 10, background: 'var(--w-card)', border: '1px solid var(--w-card-border)' }}>
                     <span style={{ fontSize: 18 }}>{b.icon}</span>
                     <div>
-                      <div style={{ fontSize: 12, fontWeight: 600, color: '#94A3B8' }}>{b.label}</div>
+                      <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--w-text-2)' }}>{b.label}</div>
                       <div style={{ fontSize: 11, color: '#334155' }}>{b.sub}</div>
                     </div>
                   </div>

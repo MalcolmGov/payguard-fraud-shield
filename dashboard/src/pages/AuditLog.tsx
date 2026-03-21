@@ -23,10 +23,10 @@ const ACTION_META: Record<ActionType, { label: string; color: string; icon: stri
   RULE_EDIT: { label: 'Rule Modified', color: '#0EA5E9', icon: '✏️' },
   RULE_TOGGLE: { label: 'Rule Toggled', color: '#A78BFA', icon: '⚙️' },
   RISK_OVERRIDE: { label: 'Risk Override', color: '#F97316', icon: '🎚️' },
-  NOTE_ADDED: { label: 'Note Added', color: '#64748B', icon: '📝' },
+  NOTE_ADDED: { label: 'Note Added', color: 'var(--w-text-3)', icon: '📝' },
   EXPORT: { label: 'Data Exported', color: '#0EA5E9', icon: '📤' },
   LOGIN: { label: 'Session Started', color: '#10F5A0', icon: '🔑' },
-  LOGOUT: { label: 'Session Ended', color: '#64748B', icon: '🚪' },
+  LOGOUT: { label: 'Session Ended', color: 'var(--w-text-3)', icon: '🚪' },
   BULK_BLOCK: { label: 'Bulk Block', color: '#EF4444', icon: '🔒' },
 };
 
@@ -88,16 +88,16 @@ export default function AuditLog() {
   }), []);
 
   const CATEGORY_ICONS: Record<string, { icon: string; color: string }> = {
-    all: { icon: '📋', color: '#F0F6FF' },
+    all: { icon: '📋', color: 'var(--w-text-1)' },
     account: { icon: '👤', color: '#0EA5E9' },
     transaction: { icon: '💳', color: '#10F5A0' },
     rule: { icon: '⚙️', color: '#A78BFA' },
     device: { icon: '📱', color: '#F97316' },
-    system: { icon: '🔐', color: '#64748B' },
+    system: { icon: '🔐', color: 'var(--w-text-3)' },
   };
 
   return (
-    <div style={{ padding: '24px 28px', fontFamily: 'Inter, sans-serif', color: '#F0F6FF', minHeight: '100vh' }}>
+    <div style={{ padding: '24px 28px', fontFamily: 'Inter, sans-serif', color: 'var(--w-text-1)', minHeight: '100vh' }}>
       {/* Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
         <div>
@@ -128,8 +128,8 @@ export default function AuditLog() {
           value={search} onChange={e => setSearch(e.target.value)}
           style={{
             width: 280, padding: '10px 16px', borderRadius: 10, fontSize: 12,
-            background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)',
-            color: '#F0F6FF', fontFamily: 'JetBrains Mono, monospace',
+            background: 'var(--w-card)', border: '1px solid rgba(255,255,255,0.1)',
+            color: 'var(--w-text-1)', fontFamily: 'JetBrains Mono, monospace',
           }}
         />
 
@@ -184,13 +184,13 @@ export default function AuditLog() {
 
       {/* Log entries */}
       <div style={{
-        background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.07)',
+        background: 'rgba(255,255,255,0.025)', border: '1px solid var(--w-card-border)',
         borderRadius: 14, overflow: 'hidden',
       }}>
         {/* Table header */}
         <div style={{
           display: 'grid', gridTemplateColumns: '140px 90px 80px 1fr 120px 32px',
-          padding: '12px 20px', borderBottom: '1px solid rgba(255,255,255,0.06)', gap: 12,
+          padding: '12px 20px', borderBottom: '1px solid var(--w-card-border)', gap: 12,
         }}>
           {['TIMESTAMP', 'ACTOR', 'ACTION', 'DETAILS', 'TARGET', ''].map(h => (
             <span key={h} style={{ fontSize: 9, fontWeight: 700, color: '#334155', letterSpacing: '0.1em' }}>{h}</span>
@@ -217,7 +217,7 @@ export default function AuditLog() {
                 onMouseLeave={e => { if (!isExpanded) e.currentTarget.style.background = 'transparent'; }}
               >
                 {/* Timestamp */}
-                <span style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: '#64748B' }}>
+                <span style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--w-text-3)' }}>
                   {entry.timestamp.split(' ')[1]}
                   <span style={{ display: 'block', fontSize: 9, color: '#334155' }}>{entry.timestamp.split(' ')[0]}</span>
                 </span>
@@ -225,7 +225,7 @@ export default function AuditLog() {
                 {/* Actor */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                   <div style={{ width: 6, height: 6, borderRadius: 3, background: ROLE_COLORS[entry.role] }} />
-                  <span style={{ fontSize: 11, fontWeight: 600, color: '#94A3B8', textTransform: 'capitalize' }}>{entry.actor}</span>
+                  <span style={{ fontSize: 11, fontWeight: 600, color: 'var(--w-text-2)', textTransform: 'capitalize' }}>{entry.actor}</span>
                 </div>
 
                 {/* Action badge */}
@@ -238,12 +238,12 @@ export default function AuditLog() {
                 </span>
 
                 {/* Details */}
-                <span style={{ fontSize: 12, color: '#94A3B8', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                <span style={{ fontSize: 12, color: 'var(--w-text-2)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                   {entry.details}
                 </span>
 
                 {/* Target */}
-                <span style={{ fontSize: 10, color: '#64748B', fontFamily: 'JetBrains Mono, monospace', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                <span style={{ fontSize: 10, color: 'var(--w-text-3)', fontFamily: 'JetBrains Mono, monospace', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                   {entry.target}
                 </span>
 
@@ -256,7 +256,7 @@ export default function AuditLog() {
                 <div style={{
                   padding: '16px 20px 16px 40px',
                   background: 'rgba(14,165,233,0.03)',
-                  borderBottom: '1px solid rgba(255,255,255,0.06)',
+                  borderBottom: '1px solid var(--w-card-border)',
                 }}>
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 16, marginBottom: 12 }}>
                     {[
@@ -264,16 +264,16 @@ export default function AuditLog() {
                       { label: 'IP Address', value: entry.ip, sub: 'Source' },
                       { label: 'Category', value: entry.category, sub: 'Type' },
                     ].map(f => (
-                      <div key={f.label} style={{ padding: '10px 14px', background: 'rgba(255,255,255,0.03)', borderRadius: 10 }}>
+                      <div key={f.label} style={{ padding: '10px 14px', background: 'var(--w-card)', borderRadius: 10 }}>
                         <div style={{ fontSize: 9, fontWeight: 700, color: '#475569', letterSpacing: '0.08em', marginBottom: 4 }}>{f.label.toUpperCase()}</div>
-                        <div style={{ fontSize: 13, fontWeight: 600, color: '#F0F6FF', textTransform: 'capitalize' }}>{f.value}</div>
+                        <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--w-text-1)', textTransform: 'capitalize' }}>{f.value}</div>
                         <div style={{ fontSize: 9, color: '#334155', textTransform: 'capitalize' }}>{f.sub}</div>
                       </div>
                     ))}
                   </div>
-                  <div style={{ padding: '10px 14px', background: 'rgba(255,255,255,0.03)', borderRadius: 10 }}>
+                  <div style={{ padding: '10px 14px', background: 'var(--w-card)', borderRadius: 10 }}>
                     <div style={{ fontSize: 9, fontWeight: 700, color: '#475569', letterSpacing: '0.08em', marginBottom: 4 }}>FULL DESCRIPTION</div>
-                    <div style={{ fontSize: 13, color: '#94A3B8', lineHeight: 1.7 }}>{entry.details}</div>
+                    <div style={{ fontSize: 13, color: 'var(--w-text-2)', lineHeight: 1.7 }}>{entry.details}</div>
                   </div>
                   <div style={{ marginTop: 10, fontSize: 10, color: '#334155', fontFamily: 'JetBrains Mono, monospace' }}>
                     Event ID: {entry.id} · Logged at {entry.timestamp} · Hash: {entry.id.repeat(4).slice(0, 16)}

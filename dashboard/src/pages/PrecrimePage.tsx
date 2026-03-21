@@ -141,7 +141,7 @@ export default function PrecrimePage() {
   };
 
   return (
-    <div style={{ padding: 28, fontFamily: 'Inter, sans-serif', color: '#F0F6FF', background: '#0D1629', minHeight: '100vh' }}>
+    <div style={{ padding: 28, fontFamily: 'Inter, sans-serif', color: 'var(--w-text-1)', background: '#0D1629', minHeight: '100vh' }}>
       {/* Toast stack */}
       <div style={{ position: 'fixed', top: 20, right: 20, zIndex: 9999, display: 'flex', flexDirection: 'column', gap: 8, width: 360 }}>
         {toasts.map(t => (
@@ -165,16 +165,16 @@ export default function PrecrimePage() {
           <div onClick={e => e.stopPropagation()} style={{ background: '#0A101E', border: '1px solid rgba(239,68,68,0.3)', borderRadius: 20, padding: 32, width: 420, boxShadow: '0 40px 80px rgba(0,0,0,0.8)' }}>
             <div style={{ fontSize: 32, textAlign: 'center', marginBottom: 12 }}>🔒</div>
             <h3 style={{ fontFamily: 'Outfit', fontSize: 20, fontWeight: 800, textAlign: 'center', margin: '0 0 8px' }}>Freeze Account?</h3>
-            <p style={{ fontSize: 13, color: '#64748B', textAlign: 'center', lineHeight: 1.7, marginBottom: 20 }}>
-              This will immediately block all outbound transactions for <strong style={{ color: '#F0F6FF' }}>{confirmFreeze.name}</strong> ({confirmFreeze.id}) and remove them from the pre-crime watchlist. The account holder will receive an in-app notification.
+            <p style={{ fontSize: 13, color: 'var(--w-text-3)', textAlign: 'center', lineHeight: 1.7, marginBottom: 20 }}>
+              This will immediately block all outbound transactions for <strong style={{ color: 'var(--w-text-1)' }}>{confirmFreeze.name}</strong> ({confirmFreeze.id}) and remove them from the pre-crime watchlist. The account holder will receive an in-app notification.
             </p>
-            <div style={{ padding: '12px 16px', background: 'rgba(239,68,68,0.07)', border: '1px solid rgba(239,68,68,0.2)', borderRadius: 10, marginBottom: 20, fontSize: 12, color: '#94A3B8' }}>
+            <div style={{ padding: '12px 16px', background: 'rgba(239,68,68,0.07)', border: '1px solid rgba(239,68,68,0.2)', borderRadius: 10, marginBottom: 20, fontSize: 12, color: 'var(--w-text-2)' }}>
               <strong style={{ color: '#EF4444' }}>Account:</strong> {confirmFreeze.id} · {confirmFreeze.phone}<br />
               <strong style={{ color: '#EF4444' }}>Reason:</strong> Pre-crime score {scores[SAMPLE_ACCOUNTS.findIndex(a => a.id === confirmFreeze.id)]}/100 — {confirmFreeze.signals[0]}<br />
               <strong style={{ color: '#EF4444' }}>Action:</strong> Outbound block + analyst queue escalation
             </div>
             <div style={{ display: 'flex', gap: 10 }}>
-              <button onClick={() => setConfirmFreeze(null)} style={{ flex: 1, padding: '11px', borderRadius: 10, background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: '#64748B', fontSize: 12, fontWeight: 700, cursor: 'pointer' }}>Cancel</button>
+              <button onClick={() => setConfirmFreeze(null)} style={{ flex: 1, padding: '11px', borderRadius: 10, background: 'var(--w-card)', border: '1px solid rgba(255,255,255,0.1)', color: 'var(--w-text-3)', fontSize: 12, fontWeight: 700, cursor: 'pointer' }}>Cancel</button>
               <button onClick={() => doFreeze(confirmFreeze)} style={{ flex: 1, padding: '11px', borderRadius: 10, background: 'linear-gradient(135deg,#EF4444,#DC2626)', border: 'none', color: '#fff', fontSize: 12, fontWeight: 700, cursor: 'pointer', boxShadow: '0 4px 16px rgba(239,68,68,0.3)' }}>🔒 Confirm Freeze</button>
             </div>
           </div>
@@ -185,7 +185,7 @@ export default function PrecrimePage() {
       <div style={{ marginBottom: 24 }}>
         <div style={{ fontSize: 11, fontWeight: 700, color: '#EF4444', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 6 }}>🤖 AI PRE-CRIME ENGINE</div>
         <h1 style={{ fontFamily: 'Outfit, sans-serif', fontSize: 28, fontWeight: 900, margin: '0 0 6px', letterSpacing: '-0.02em' }}>Account Pre-crime Score</h1>
-        <p style={{ color: '#8B949E', fontSize: 13, margin: 0 }}>ML model scoring accounts on 24h attack probability · Updated every 3 seconds · <span style={{ color: '#10F5A0' }}>Live</span> · Last: {lastUpdate}</p>
+        <p style={{ color: 'var(--w-text-2)', fontSize: 13, margin: 0 }}>ML model scoring accounts on 24h attack probability · Updated every 3 seconds · <span style={{ color: '#10F5A0' }}>Live</span> · Last: {lastUpdate}</p>
       </div>
 
       {/* KPIs */}
@@ -197,7 +197,7 @@ export default function PrecrimePage() {
           { label: 'Avg 24h Score', value: `${Math.round(scores.reduce((a,b)=>a+b,0)/scores.length)}`, color: '#0EA5E9', icon: '📊' },
         ].map(k => (
           <div key={k.label} style={{ padding: '16px 18px', background: 'rgba(255,255,255,0.12)', border: `1px solid ${k.color}25`, borderRadius: 14 }}>
-            <div style={{ fontSize: 11, color: '#8B949E', marginBottom: 4 }}>{k.icon} {k.label}</div>
+            <div style={{ fontSize: 11, color: 'var(--w-text-2)', marginBottom: 4 }}>{k.icon} {k.label}</div>
             <div style={{ fontSize: 26, fontWeight: 800, color: k.color, fontFamily: 'Outfit' }}>{k.value}</div>
           </div>
         ))}
@@ -208,7 +208,7 @@ export default function PrecrimePage() {
         <div style={{ background: 'rgba(255,255,255,0.12)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 20, overflow: 'hidden' }}>
           <div style={{ padding: '16px 20px', borderBottom: '1px solid rgba(255,255,255,0.12)', display: 'flex', alignItems: 'center', gap: 8 }}>
             <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#EF4444', display: 'inline-block', animation: 'pulse 1s infinite' }} />
-            <span style={{ fontSize: 12, fontWeight: 700, color: '#94A3B8', textTransform: 'uppercase', letterSpacing: '0.08em' }}>At-Risk Watchlist — Ranked by 24h Score</span>
+            <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--w-text-2)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>At-Risk Watchlist — Ranked by 24h Score</span>
           </div>
           {SAMPLE_ACCOUNTS.map((acc, idx) => {
             const score = scores[idx];
@@ -222,7 +222,7 @@ export default function PrecrimePage() {
                 alignItems: 'center', gap: 12, padding: '14px 20px', cursor: 'pointer',
                 background: isFrozen ? 'rgba(124,58,237,0.06)' : isSelected ? 'rgba(14,165,233,0.06)' : 'transparent',
                 borderLeft: `3px solid ${isFrozen ? '#7C3AED' : isSelected ? '#0EA5E9' : 'transparent'}`,
-                borderBottom: '1px solid rgba(255,255,255,0.09)', transition: 'all 0.15s',
+                borderBottom: '1px solid var(--w-card-border)', transition: 'all 0.15s',
                 opacity: isFrozen ? 0.75 : 1,
               }}>
                 <div style={{ width: 36, height: 36, borderRadius: 10, background: `${color}15`, border: `1.5px solid ${color}40`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: 13, color, fontFamily: 'Outfit' }}>
@@ -235,14 +235,14 @@ export default function PrecrimePage() {
                     {uStat === 'waiting' && <span style={{ fontSize: 9, padding: '1px 6px', borderRadius: 4, background: 'rgba(251,191,36,0.15)', border: '1px solid rgba(251,191,36,0.3)', color: '#FBBF24', fontWeight: 700 }}>USSD PENDING</span>}
                     {uStat === 'confirmed' && <span style={{ fontSize: 9, padding: '1px 6px', borderRadius: 4, background: 'rgba(16,245,160,0.12)', border: '1px solid rgba(16,245,160,0.3)', color: '#10F5A0', fontWeight: 700 }}>✓ VERIFIED</span>}
                   </div>
-                  <div style={{ fontSize: 10, color: '#8B949E', fontFamily: 'JetBrains Mono' }}>{acc.id} · {acc.province}</div>
-                  <div style={{ fontSize: 10, color: '#64748B', marginTop: 3 }}>{acc.signals.slice(0,2).join(' · ')}</div>
+                  <div style={{ fontSize: 10, color: 'var(--w-text-2)', fontFamily: 'JetBrains Mono' }}>{acc.id} · {acc.province}</div>
+                  <div style={{ fontSize: 10, color: 'var(--w-text-3)', marginTop: 3 }}>{acc.signals.slice(0,2).join(' · ')}</div>
                 </div>
                 <Sparkline data={acc.sparkline} color={color} />
                 <div style={{ fontSize: 11, color: TREND_COLOR[acc.trend], fontWeight: 700 }}>
                   {TREND_ICON[acc.trend]} {acc.trend.charAt(0).toUpperCase() + acc.trend.slice(1)}
                 </div>
-                <div style={{ fontSize: 10, color: '#8B949E' }}>{acc.lastActivity}</div>
+                <div style={{ fontSize: 10, color: 'var(--w-text-2)' }}>{acc.lastActivity}</div>
               </div>
             );
           })}
@@ -264,7 +264,7 @@ export default function PrecrimePage() {
                     {isFrozen ? '🔒 FROZEN — Transactions Blocked' : 'Pre-crime Score'}
                   </div>
                   <h2 style={{ fontFamily: 'Outfit', fontSize: 20, fontWeight: 800, margin: 0 }}>{selected.name}</h2>
-                  <div style={{ fontSize: 11, color: '#8B949E', marginTop: 2, fontFamily: 'JetBrains Mono' }}>{selected.phone} · {selected.province}</div>
+                  <div style={{ fontSize: 11, color: 'var(--w-text-2)', marginTop: 2, fontFamily: 'JetBrains Mono' }}>{selected.phone} · {selected.province}</div>
                 </div>
                 <div style={{ width: 60, height: 60, borderRadius: 16, background: `${color}15`, border: `2px solid ${color}40`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: isFrozen ? 26 : 26, fontWeight: 900, color, fontFamily: 'Outfit' }}>
                   {isFrozen ? '🔒' : score}
@@ -276,7 +276,7 @@ export default function PrecrimePage() {
                 <div style={{ height: 6, background: 'rgba(255,255,255,0.12)', borderRadius: 99, overflow: 'hidden', marginBottom: 4 }}>
                   <div style={{ width: `${isFrozen ? 0 : score}%`, height: '100%', background: `linear-gradient(90deg, #10F5A0, ${color})`, borderRadius: 99, transition: 'width 0.5s ease' }} />
                 </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 9, color: '#64748B' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 9, color: 'var(--w-text-3)' }}>
                   <span>LOW</span><span>MEDIUM</span><span>HIGH</span><span>CRITICAL</span>
                 </div>
               </div>
@@ -291,7 +291,7 @@ export default function PrecrimePage() {
                     {uStat === 'confirmed' && '✅ USSD Confirmed — Account Holder Verified'}
                     {uStat === 'denied' && '🚨 USSD Denied — Account Frozen Automatically'}
                   </div>
-                  <div style={{ fontSize: 10, color: '#64748B' }}>
+                  <div style={{ fontSize: 10, color: 'var(--w-text-3)' }}>
                     {uStat === 'waiting' && 'Customer must press 1 (Confirm) or 2 (Deny) on their physical SIM.'}
                     {uStat === 'confirmed' && 'Account holder confirmed they initiated the session. Risk score reset.'}
                     {uStat === 'denied' && 'Fraudster could not complete USSD challenge. Account blocked and escalated.'}
@@ -301,11 +301,11 @@ export default function PrecrimePage() {
 
               {/* Signals */}
               <div style={{ marginBottom: 16 }}>
-                <div style={{ fontSize: 10, color: '#8B949E', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 8 }}>Triggered signals</div>
+                <div style={{ fontSize: 10, color: 'var(--w-text-2)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 8 }}>Triggered signals</div>
                 {selected.signals.map(s => (
                   <div key={s} style={{ display: 'flex', gap: 6, marginBottom: 5, alignItems: 'center' }}>
                     <span style={{ width: 5, height: 5, borderRadius: '50%', background: color, flexShrink: 0 }} />
-                    <span style={{ fontSize: 11, color: '#94A3B8' }}>{s}</span>
+                    <span style={{ fontSize: 11, color: 'var(--w-text-2)' }}>{s}</span>
                   </div>
                 ))}
               </div>
@@ -313,9 +313,9 @@ export default function PrecrimePage() {
               {/* Risk factors */}
               {selected.riskFactors.length > 0 && (
                 <div style={{ marginBottom: 16 }}>
-                  <div style={{ fontSize: 10, color: '#8B949E', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 8 }}>Risk factors</div>
+                  <div style={{ fontSize: 10, color: 'var(--w-text-2)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 8 }}>Risk factors</div>
                   {selected.riskFactors.map(f => (
-                    <div key={f} style={{ fontSize: 11, color: '#64748B', marginBottom: 4, paddingLeft: 10, borderLeft: `2px solid ${color}40` }}>{f}</div>
+                    <div key={f} style={{ fontSize: 11, color: 'var(--w-text-3)', marginBottom: 4, paddingLeft: 10, borderLeft: `2px solid ${color}40` }}>{f}</div>
                   ))}
                 </div>
               )}
@@ -323,7 +323,7 @@ export default function PrecrimePage() {
               {/* AI Recommendation */}
               <div style={{ padding: 14, background: `${color}08`, border: `1px solid ${color}25`, borderRadius: 12, marginBottom: 14 }}>
                 <div style={{ fontSize: 10, fontWeight: 700, color, marginBottom: 6, textTransform: 'uppercase', letterSpacing: '0.08em' }}>🤖 AI Recommendation</div>
-                <p style={{ fontSize: 11, color: '#64748B', lineHeight: 1.7, margin: 0 }}>{selected.recommendation}</p>
+                <p style={{ fontSize: 11, color: 'var(--w-text-3)', lineHeight: 1.7, margin: 0 }}>{selected.recommendation}</p>
               </div>
 
               {/* Action buttons */}

@@ -1,4 +1,4 @@
-﻿﻿import { useState, useEffect, useCallback } from 'react';
+?import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 // -- Types ---------------------------------------------------------------------
@@ -35,19 +35,19 @@ const ATO_STEPS: ATOStep[] = [
     callActive: false,
     signalsToFire: [],
     riskScoreTarget: 0,
-    narration: 'Lerato Nkosi opens her Network mobile wallet app as usual. The PayGuard SDK has silently established her device baseline � typical session behaviour, normal location, no anomalies.',
+    narration: 'Lerato Nkosi opens her Network mobile wallet app as usual. The PayGuard SDK has silently established her device baseline ? typical session behaviour, normal location, no anomalies.',
   },
   {
     id: 1,
     title: 'Suspicious SMS Arrives',
-    subtitle: 'Smishing bait � fake Network security alert.',
+    subtitle: 'Smishing bait ? fake Network security alert.',
     screen: 'sms',
     callActive: false,
     signalsToFire: [
       { id: 'a1', rule: 'RULE_008', label: 'SMS contains fraud keywords: "security", "access", "urgent"', delta: 25, severity: 'medium', icon: '??', timestamp: '' },
     ],
     riskScoreTarget: 25,
-    narration: 'Lerato receives an SMS: "Network Security: Your account was accessed from an unknown device in Cape Town. Call us immediately: 087 555 0022." The SDK scans the SMS content � RULE_008 fires on fraud keywords.',
+    narration: 'Lerato receives an SMS: "Network Security: Your account was accessed from an unknown device in Cape Town. Call us immediately: 087 555 0022." The SDK scans the SMS content ? RULE_008 fires on fraud keywords.',
   },
   {
     id: 2,
@@ -57,7 +57,7 @@ const ATO_STEPS: ATOStep[] = [
     callActive: true,
     signalsToFire: [],
     riskScoreTarget: 25,
-    narration: 'Lerato calls the number. It\'s answered immediately � a professional-sounding "Network agent". They ask her to verify her identity. She\'s on a call with an unknown number she received via SMS.',
+    narration: 'Lerato calls the number. It\'s answered immediately ? a professional-sounding "Network agent". They ask her to verify her identity. She\'s on a call with an unknown number she received via SMS.',
   },
   {
     id: 3,
@@ -67,12 +67,12 @@ const ATO_STEPS: ATOStep[] = [
     callActive: true,
     signalsToFire: [],
     riskScoreTarget: 25,
-    narration: '"For your security, we need to send a one-time PIN to verify your identity. Please read it back to me when you receive it." � The scammer triggers a password reset on their end. Lerato\'s number receives the real Network OTP.',
+    narration: '"For your security, we need to send a one-time PIN to verify your identity. Please read it back to me when you receive it." ? The scammer triggers a password reset on their end. Lerato\'s number receives the real Network OTP.',
   },
   {
     id: 4,
     title: 'Real OTP SMS Arrives',
-    subtitle: 'Genuine Network OTP � scammer waiting for Lerato to read it.',
+    subtitle: 'Genuine Network OTP ? scammer waiting for Lerato to read it.',
     screen: 'otp_arrives',
     callActive: true,
     signalsToFire: [
@@ -95,7 +95,7 @@ const ATO_STEPS: ATOStep[] = [
   },
   {
     id: 6,
-    title: '?? OTP Interception Alert � Full Screen',
+    title: '?? OTP Interception Alert ? Full Screen',
     subtitle: 'Red overlay covers OTP. Warning impossible to miss.',
     screen: 'alert',
     callActive: true,
@@ -111,7 +111,7 @@ const ATO_STEPS: ATOStep[] = [
     callActive: false,
     signalsToFire: [],
     riskScoreTarget: 100,
-    narration: 'Lerato hangs up. The password reset expires unused. The scammer never got the OTP. The event is logged in the fraud dashboard � the phone number and IP are added to the watchlist.',
+    narration: 'Lerato hangs up. The password reset expires unused. The scammer never got the OTP. The event is logged in the fraud dashboard ? the phone number and IP are added to the watchlist.',
   },
 ];
 
@@ -195,13 +195,13 @@ function OutboundCallScreen() {
         <div style={{ fontSize: 16, fontWeight: 700, color: 'white', marginBottom: 4 }}>087 555 0022</div>
         <div style={{ fontSize: 11, color: '#F44336' }}>? Not a verified Network number</div>
       </div>
-      <div style={{ textAlign: 'center', padding: '12px 16px', background: 'rgba(255,255,255,0.05)', borderRadius: 10, width: '100%' }}>
+      <div style={{ textAlign: 'center', padding: '12px 16px', background: 'var(--w-card)', borderRadius: 10, width: '100%' }}>
         <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.7)', lineHeight: 1.7, fontStyle: 'italic' }}>
-          "Welcome to Network Security. Your account shows suspicious activity. I'll need to verify your identity�"
+          "Welcome to Network Security. Your account shows suspicious activity. I'll need to verify your identity?"
         </div>
       </div>
       <div style={{ fontFamily: 'monospace', fontSize: 12, color: '#4CAF50' }}>
-        {String(Math.floor(secs / 60)).padStart(2, '0')}:{String(secs % 60).padStart(2, '0')} � Call in progress
+        {String(Math.floor(secs / 60)).padStart(2, '0')}:{String(secs % 60).padStart(2, '0')} ? Call in progress
       </div>
     </div>
   );
@@ -248,7 +248,7 @@ function OtpArrivesScreen({ callActive }: { callActive: boolean }) {
           <span style={{ fontSize: 9, color: '#888' }}>Valid for 5 minutes. Never share this code.</span>
         </div>
         <div style={{ marginTop: 8, padding: '6px 8px', background: '#FFEBEE', borderRadius: 6, fontSize: 9, color: '#C62828' }}>
-          ?? OTP received during active call � SDK alert incoming
+          ?? OTP received during active call ? SDK alert incoming
         </div>
       </div>
     </div>
@@ -265,7 +265,7 @@ function OtpGuardScreen({ callActive }: { callActive: boolean }) {
           8 4 7 2 9 1
         </div>
       </div>
-      {/* OtpGuard overlay � full screen */}
+      {/* OtpGuard overlay ? full screen */}
       <div style={{ position: 'absolute', inset: 0, top: 24, background: 'rgba(198,40,40,0.97)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 16, gap: 10 }}>
         <div style={{ fontSize: 36 }}>??</div>
         <div style={{ fontSize: 14, fontWeight: 800, color: 'white', textAlign: 'center', lineHeight: 1.3 }}>
@@ -282,10 +282,10 @@ function OtpGuardScreen({ callActive }: { callActive: boolean }) {
           </div>
         </div>
         <div style={{ fontSize: 9, color: 'rgba(255,255,255,0.6)', textAlign: 'center' }}>
-          ?? Screen recording blocked � OTP hidden
+          ?? Screen recording blocked ? OTP hidden
         </div>
         <button style={{ background: 'white', border: 'none', borderRadius: 8, padding: '10px 20px', fontSize: 11, fontWeight: 700, color: '#C62828', cursor: 'pointer', marginTop: 4 }}>
-          I understand � End Call
+          I understand ? End Call
         </button>
       </div>
     </div>
@@ -297,15 +297,15 @@ function ATOAlertScreen() {
     <div style={{ height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: '#1A1A1A', gap: 10, padding: 16 }}>
       <div style={{ fontSize: 48 }}>???</div>
       <div style={{ fontSize: 13, fontWeight: 800, color: '#F85149', textAlign: 'center' }}>Account Takeover Blocked</div>
-      <div style={{ fontSize: 10, color: '#8B949E', textAlign: 'center', lineHeight: 1.8 }}>
+      <div style={{ fontSize: 10, color: 'var(--w-text-2)', textAlign: 'center', lineHeight: 1.8 }}>
         OTP never disclosed<br />Password reset expired<br />Call ended
       </div>
       <div style={{ width: '100%', background: 'rgba(248,81,73,0.1)', border: '1px solid rgba(248,81,73,0.3)', borderRadius: 8, padding: '10px 12px' }}>
         <div style={{ fontSize: 9, color: '#F85149', fontWeight: 600, marginBottom: 4 }}>FRAUD SHIELD ACTION</div>
-        <div style={{ fontSize: 9, color: '#8B949E', lineHeight: 1.6 }}>
-          � FLAG_SECURE applied � screen blocked<br />
-          � RULE_014 fired � +80 pts ? BLOCK<br />
-          � Risk score: 100/100
+        <div style={{ fontSize: 9, color: 'var(--w-text-2)', lineHeight: 1.6 }}>
+          ? FLAG_SECURE applied ? screen blocked<br />
+          ? RULE_014 fired ? +80 pts ? BLOCK<br />
+          ? Risk score: 100/100
         </div>
       </div>
     </div>
@@ -314,20 +314,20 @@ function ATOAlertScreen() {
 
 function ATOProtectedScreen() {
   return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: '#0D1117', gap: 12, padding: 20 }}>
+    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: 'var(--w-bg)', gap: 12, padding: 20 }}>
       <div style={{ fontSize: 52 }}>?</div>
       <div style={{ fontSize: 14, fontWeight: 800, color: '#3FB950', textAlign: 'center' }}>Account Secure</div>
-      <div style={{ fontSize: 10, color: '#8B949E', textAlign: 'center', lineHeight: 1.8 }}>
+      <div style={{ fontSize: 10, color: 'var(--w-text-2)', textAlign: 'center', lineHeight: 1.8 }}>
         Lerato's account protected<br />
         Scammer got nothing<br />
         Analyst dashboard updated
       </div>
       <div style={{ width: '100%', background: 'rgba(63,185,80,0.1)', border: '1px solid rgba(63,185,80,0.3)', borderRadius: 8, padding: '10px 12px', marginTop: 8 }}>
         <div style={{ fontSize: 9, color: '#3FB950', fontWeight: 600, marginBottom: 4 }}>?? PayGuard Protected You</div>
-        <div style={{ fontSize: 9, color: '#8B949E', lineHeight: 1.6 }}>
-          � Caller number flagged in graph<br />
-          � Device watchlisted for 30 days<br />
-          � SMS sender reported
+        <div style={{ fontSize: 9, color: 'var(--w-text-2)', lineHeight: 1.6 }}>
+          ? Caller number flagged in graph<br />
+          ? Device watchlisted for 30 days<br />
+          ? SMS sender reported
         </div>
       </div>
     </div>
@@ -368,7 +368,7 @@ function RiskMeter({ score }: { score: number }) {
         <div style={{ height: '100%', borderRadius: 999, width: `${score}%`, background: score >= 80 ? 'linear-gradient(90deg, #D29922, #F85149)' : score >= 45 ? '#D29922' : '#3FB950', transition: 'width 1s cubic-bezier(0.34, 1.56, 0.64, 1)', boxShadow: `0 0 8px ${color}88` }} />
       </div>
       <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 9, color: 'var(--text-muted)', marginBottom: 12 }}>
-        <span>0 � ALLOW</span><span>45 � WARN</span><span>80 � BLOCK</span>
+        <span>0 ? ALLOW</span><span>45 ? WARN</span><span>80 ? BLOCK</span>
       </div>
       {score > 0 && (
         <div style={{ padding: '10px 14px', borderRadius: 8, background: `${color}15`, border: `1px solid ${color}40`, display: 'flex', alignItems: 'center', gap: 10 }}>
@@ -391,7 +391,7 @@ function SignalFeed({ signals }: { signals: Signal[] }) {
         <span style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-secondary)' }}>LIVE SIGNAL FEED</span>
       </div>
       {signals.length === 0 ? (
-        <div style={{ textAlign: 'center', color: 'var(--text-muted)', fontSize: 12, padding: '24px 0' }}>No signals yet � session clean ?</div>
+        <div style={{ textAlign: 'center', color: 'var(--text-muted)', fontSize: 12, padding: '24px 0' }}>No signals yet ? session clean ?</div>
       ) : (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
           {signals.map(sig => {
@@ -403,7 +403,7 @@ function SignalFeed({ signals }: { signals: Signal[] }) {
                     <span style={{ fontSize: 16 }}>{sig.icon}</span>
                     <div>
                       <div style={{ fontSize: 11, fontWeight: 600, color: 'var(--text-primary)' }}>{sig.label}</div>
-                      <div style={{ fontSize: 10, color: 'var(--text-muted)' }}>{sig.rule} � {sig.timestamp}</div>
+                      <div style={{ fontSize: 10, color: 'var(--text-muted)' }}>{sig.rule} ? {sig.timestamp}</div>
                     </div>
                   </div>
                   <span style={{ fontSize: 12, fontWeight: 700, color: c, flexShrink: 0 }}>+{sig.delta} pts</span>
@@ -453,7 +453,7 @@ export default function DemoTakeover() {
     setStepIdx(stepIdx - 1);
     const prev = ATO_STEPS[stepIdx - 1];
     const allSigs: Signal[] = [];
-    for (let i = 0; i < stepIdx - 1; i++) ATO_STEPS[i].signalsToFire.forEach(s => allSigs.unshift({ ...s, timestamp: '�' }));
+    for (let i = 0; i < stepIdx - 1; i++) ATO_STEPS[i].signalsToFire.forEach(s => allSigs.unshift({ ...s, timestamp: '?' }));
     setSignals(allSigs);
     setRiskScore(prev.riskScoreTarget);
   };
@@ -473,8 +473,8 @@ export default function DemoTakeover() {
       <div className="demo-flow-header" style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '0 24px', height: 56, borderBottom: '1px solid var(--border)', background: 'var(--bg-secondary)', flexShrink: 0 }}>
         <button className="btn btn-ghost" onClick={() => navigate('/demo')} style={{ fontSize: 12, padding: '6px 12px' }}>? All Demos</button>
         <div style={{ flex: 1 }}>
-          <div style={{ fontSize: 15, fontWeight: 700, color: 'var(--text-primary)' }}>?? Demo 2 of 2 � Account Takeover via OTP Interception</div>
-          <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>Smishing � Vishing � OTP Phishing � OtpGuard Protection</div>
+          <div style={{ fontSize: 15, fontWeight: 700, color: 'var(--text-primary)' }}>?? Demo 2 of 2 ? Account Takeover via OTP Interception</div>
+          <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>Smishing ? Vishing ? OTP Phishing ? OtpGuard Protection</div>
         </div>
         {isLast && (
           <button className="btn btn-primary" onClick={() => navigate('/transactions')} style={{ fontSize: 12 }}>
@@ -493,7 +493,7 @@ export default function DemoTakeover() {
               setStepIdx(i);
               setRiskScore(ATO_STEPS[i].riskScoreTarget);
               const allSigs: Signal[] = [];
-              for (let j = 0; j < i; j++) ATO_STEPS[j].signalsToFire.forEach(sig => allSigs.unshift({ ...sig, timestamp: '�' }));
+              for (let j = 0; j < i; j++) ATO_STEPS[j].signalsToFire.forEach(sig => allSigs.unshift({ ...sig, timestamp: '?' }));
               setSignals(allSigs);
             }}
               style={{ padding: '10px 14px', border: 'none', cursor: 'pointer', whiteSpace: 'nowrap', background: 'transparent', borderBottom: isActive ? '2px solid #F85149' : isDone ? '2px solid #3FB950' : '2px solid transparent', color: isActive ? '#F85149' : isDone ? '#3FB950' : 'var(--text-muted)', fontSize: 11, fontWeight: isActive ? 700 : 400, fontFamily: 'Inter, sans-serif', transition: 'all 0.2s' }}>
@@ -516,7 +516,7 @@ export default function DemoTakeover() {
           <div style={{ display: 'flex', gap: 10 }}>
             <button className="btn btn-ghost" onClick={retreat} disabled={isFirst} style={{ flex: 1, fontSize: 13 }}>? Back</button>
             <button className={`btn ${isLast ? 'btn-ghost' : 'btn-danger'}`} onClick={advanceStep} disabled={isLast || animating} style={{ flex: 2, fontSize: 13, fontWeight: 700 }}>
-              {isLast ? '? End of Demo' : animating ? 'Detecting�' : 'Next Step ?'}
+              {isLast ? '? End of Demo' : animating ? 'Detecting?' : 'Next Step ?'}
             </button>
           </div>
           <div style={{ display: 'flex', gap: 10 }}>
@@ -550,7 +550,7 @@ export default function DemoTakeover() {
             {[
               { id: 'RULE_008', label: 'SMS fraud keywords detected', delta: 25, fired: riskScore >= 25 },
               { id: 'RULE_008', label: 'OTP SMS during active call session', delta: 25, fired: riskScore >= 45 },
-              { id: 'RULE_014', label: 'OTP screen open � unknown caller', delta: 80, fired: riskScore >= 100 },
+              { id: 'RULE_014', label: 'OTP screen open ? unknown caller', delta: 80, fired: riskScore >= 100 },
               { id: 'RULE_011', label: 'Emulator / fraud farm device', delta: 40, fired: false },
               { id: 'RULE_006', label: 'SIM swap detected last 48h', delta: 50, fired: false },
               { id: 'RULE_009', label: 'Rooted/jailbroken device', delta: 20, fired: false },
@@ -566,7 +566,7 @@ export default function DemoTakeover() {
               );
             })}
             <div style={{ marginTop: 14, padding: '10px 12px', background: 'rgba(248,81,73,0.07)', border: '1px solid rgba(248,81,73,0.2)', borderRadius: 8, fontSize: 11, color: 'var(--text-secondary)', lineHeight: 1.7 }}>
-              <strong style={{ color: '#F85149' }}>?? RULE_014</strong> � Highest single-rule weight in the engine (+80 pts). OTP disclosure enables full account takeover regardless of transaction amount.
+              <strong style={{ color: '#F85149' }}>?? RULE_014</strong> ? Highest single-rule weight in the engine (+80 pts). OTP disclosure enables full account takeover regardless of transaction amount.
             </div>
           </div>
         </div>

@@ -243,7 +243,7 @@ export default function Reports() {
   };
 
   return (
-    <div style={{ padding: '24px 28px', fontFamily: 'Inter, sans-serif', color: '#F0F6FF' }}>
+    <div style={{ padding: '24px 28px', fontFamily: 'Inter, sans-serif', color: 'var(--w-text-1)' }}>
       {/* Toast stack */}
       <div style={{ position: 'fixed', top: 20, right: 20, zIndex: 9999, display: 'flex', flexDirection: 'column', gap: 8, width: 380 }}>
         {toasts.map(t => (
@@ -264,7 +264,7 @@ export default function Reports() {
           <p style={{ fontSize: 12, color: '#475569', margin: '4px 0 0' }}>Automated fraud intelligence reports · Compliance extracts · <span style={{ color: '#10F5A0' }}>PDF + CSV export</span></p>
         </div>
         <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-          <div style={{ display: 'flex', gap: 4, background: 'rgba(255,255,255,0.05)', borderRadius: 8, padding: 3 }}>
+          <div style={{ display: 'flex', gap: 4, background: 'var(--w-card)', borderRadius: 8, padding: 3 }}>
             {(['7d', '30d', '90d'] as const).map(p => (
               <button key={p} onClick={() => setPeriod(p)} style={{
                 padding: '6px 14px', borderRadius: 6, fontSize: 11, fontWeight: 600, border: 'none', cursor: 'pointer',
@@ -285,7 +285,7 @@ export default function Reports() {
           { label: 'AMOUNT PROTECTED', value: `R${blockedAmount.toLocaleString()}`, color: '#10F5A0' },
         ].map((s, i) => (
           <div key={i} style={{
-            background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.07)',
+            background: 'rgba(255,255,255,0.025)', border: '1px solid var(--w-card-border)',
             borderRadius: 14, padding: '16px 18px',
           }}>
             <div style={{ fontSize: 9, fontWeight: 700, letterSpacing: '0.1em', color: '#475569', marginBottom: 8 }}>{s.label}</div>
@@ -296,15 +296,15 @@ export default function Reports() {
 
       {/* Reports List */}
       <div style={{
-        background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.07)',
+        background: 'rgba(255,255,255,0.025)', border: '1px solid var(--w-card-border)',
         borderRadius: 14, overflow: 'hidden',
       }}>
-        <div style={{ padding: '14px 20px', borderBottom: '1px solid rgba(255,255,255,0.06)', display: 'flex', justifyContent: 'space-between' }}>
-          <span style={{ fontSize: 12, fontWeight: 700, color: '#94A3B8' }}>Available Reports</span>
+        <div style={{ padding: '14px 20px', borderBottom: '1px solid var(--w-card-border)', display: 'flex', justifyContent: 'space-between' }}>
+          <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--w-text-2)' }}>Available Reports</span>
           <span style={{ fontSize: 11, color: '#475569' }}>{reports.length} reports</span>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '80px 1fr 90px 100px 75px 200px', padding: '10px 20px', borderBottom: '1px solid rgba(255,255,255,0.04)', gap: 8 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '80px 1fr 90px 100px 75px 200px', padding: '10px 20px', borderBottom: '1px solid var(--w-card-border)', gap: 8 }}>
           {['ID', 'REPORT NAME', 'TYPE', 'DATE', 'STATUS', 'ACTIONS'].map(h => (
             <span key={h} style={{ fontSize: 9, fontWeight: 700, color: '#334155', letterSpacing: '0.1em' }}>{h}</span>
           ))}
@@ -323,12 +323,12 @@ export default function Reports() {
               onMouseLeave={(e: any) => (e.currentTarget.style.background = 'transparent')}
             >
               <span style={{ fontSize: 11, color: '#475569', fontFamily: 'JetBrains Mono, monospace' }}>{r.id}</span>
-              <span style={{ fontSize: 13, color: '#F0F6FF', fontWeight: 600 }}>{r.name}</span>
+              <span style={{ fontSize: 13, color: 'var(--w-text-1)', fontWeight: 600 }}>{r.name}</span>
               <span style={{
                 fontSize: 9, fontWeight: 700, padding: '3px 10px', borderRadius: 6,
                 background: `${typeColor(r.type)}18`, color: typeColor(r.type),
               }}>{r.type}</span>
-              <span style={{ fontSize: 11, color: '#64748B', fontFamily: 'JetBrains Mono, monospace' }}>{r.date}</span>
+              <span style={{ fontSize: 11, color: 'var(--w-text-3)', fontFamily: 'JetBrains Mono, monospace' }}>{r.date}</span>
               <span style={{
                 fontSize: 9, fontWeight: 600, padding: '3px 8px', borderRadius: 6,
                 background: r.status === 'Ready' ? 'rgba(16,245,160,0.1)' : 'rgba(251,191,36,0.1)',
@@ -343,7 +343,7 @@ export default function Reports() {
                 }}>{isViewed ? '✓ Opened' : '📄 View PDF'}</button>
                 <button onClick={() => downloadCSV(r)} style={{
                   padding: '6px 10px', borderRadius: 8, fontSize: 11, fontWeight: 600, border: 'none', cursor: 'pointer',
-                  background: 'rgba(255,255,255,0.05)', color: '#64748B',
+                  background: 'var(--w-card)', color: 'var(--w-text-3)',
                   transition: 'all 0.2s',
                 }}>⬇ CSV</button>
               </div>

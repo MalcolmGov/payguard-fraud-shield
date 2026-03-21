@@ -97,7 +97,7 @@ export default function CaseSummariser({ tx, onClose }: Props) {
               <div style={{ fontSize: 10, fontWeight: 700, color: rColor, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 4 }}>🤖 AI CASE SUMMARY</div>
               <h2 style={{ fontFamily: 'Outfit, sans-serif', fontSize: 18, fontWeight: 800, margin: 0, color: '#F0F6FF' }}>{tx.id}</h2>
             </div>
-            <button onClick={close} style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 8, width: 30, height: 30, cursor: 'pointer', color: '#64748B', fontSize: 14, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✕</button>
+            <button onClick={close} style={{ background: 'var(--w-card)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 8, width: 30, height: 30, cursor: 'pointer', color: '#64748B', fontSize: 14, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✕</button>
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 8 }}>
@@ -134,7 +134,7 @@ export default function CaseSummariser({ tx, onClose }: Props) {
                 <p style={{ fontSize: 12, color: '#64748B', lineHeight: 1.85, margin: 0 }}>{data.summary}</p>
                 <div style={{ marginTop: 10, display: 'flex', alignItems: 'center', gap: 6 }}>
                   <span style={{ fontSize: 10, color: '#64748B' }}>Confidence:</span>
-                  <div style={{ flex: 1, height: 4, background: 'rgba(255,255,255,0.06)', borderRadius: 99, overflow: 'hidden' }}>
+                  <div style={{ flex: 1, height: 4, background: 'var(--w-card)', borderRadius: 99, overflow: 'hidden' }}>
                     <div style={{ width: `${data.confidence}%`, height: '100%', background: `linear-gradient(90deg, #10F5A0, ${rColor})`, borderRadius: 99 }} />
                   </div>
                   <span style={{ fontSize: 10, fontWeight: 700, color: rColor }}>{data.confidence}%</span>
@@ -148,7 +148,7 @@ export default function CaseSummariser({ tx, onClose }: Props) {
                   <div key={i} style={{ display: 'flex', gap: 10, marginBottom: 10, alignItems: 'flex-start' }}>
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flexShrink: 0 }}>
                       <div style={{ width: 8, height: 8, borderRadius: '50%', background: TYPE_COLOR[ev.type], marginTop: 3 }} />
-                      {i < data.timeline.length - 1 && <div style={{ width: 1, height: 22, background: 'rgba(255,255,255,0.06)' }} />}
+                      {i < data.timeline.length - 1 && <div style={{ width: 1, height: 22, background: 'var(--w-card)' }} />}
                     </div>
                     <div>
                       <div style={{ display: 'flex', gap: 6, alignItems: 'center', marginBottom: 2 }}>
@@ -182,7 +182,7 @@ export default function CaseSummariser({ tx, onClose }: Props) {
                   <div style={{ fontSize: 12, fontWeight: 700, color: '#EF4444', marginBottom: 8 }}>⚠️ Confirm Freeze?</div>
                   <p style={{ fontSize: 11, color: '#64748B', lineHeight: 1.7, margin: '0 0 12px' }}>This will immediately block all outbound transactions for this account and escalate the case to the fraud queue. The account holder will be notified via in-app message.</p>
                   <div style={{ display: 'flex', gap: 8 }}>
-                    <button onClick={() => setAction('idle')} style={{ flex: 1, padding: '9px', borderRadius: 9, background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: '#64748B', fontSize: 11, fontWeight: 700, cursor: 'pointer' }}>Cancel</button>
+                    <button onClick={() => setAction('idle')} style={{ flex: 1, padding: '9px', borderRadius: 9, background: 'var(--w-card)', border: '1px solid rgba(255,255,255,0.1)', color: '#64748B', fontSize: 11, fontWeight: 700, cursor: 'pointer' }}>Cancel</button>
                     <button onClick={() => setAction('frozen')} style={{ flex: 1, padding: '9px', borderRadius: 9, background: 'linear-gradient(135deg,#EF4444,#DC2626)', border: 'none', color: '#fff', fontSize: 11, fontWeight: 700, cursor: 'pointer' }}>🔒 Confirm Freeze</button>
                   </div>
                 </div>
@@ -207,7 +207,7 @@ export default function CaseSummariser({ tx, onClose }: Props) {
                       <div style={{ fontSize: 12, fontWeight: 700, color: '#0EA5E9', marginBottom: 8 }}>📲 Ready to send USSD Challenge</div>
                       <p style={{ fontSize: 11, color: '#64748B', lineHeight: 1.7, margin: '0 0 12px' }}>This will push <strong style={{ color: '#0EA5E9', fontFamily: 'JetBrains Mono' }}>{ussdCode}</strong> to the account holder's registered SIM ({tx.userPhone}). They must respond 1 (Confirm) or 2 (Deny) within 300 seconds.</p>
                       <div style={{ display: 'flex', gap: 8 }}>
-                        <button onClick={() => setAction('idle')} style={{ flex: 1, padding: '9px', borderRadius: 9, background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: '#64748B', fontSize: 11, fontWeight: 700, cursor: 'pointer' }}>Cancel</button>
+                        <button onClick={() => setAction('idle')} style={{ flex: 1, padding: '9px', borderRadius: 9, background: 'var(--w-card)', border: '1px solid rgba(255,255,255,0.1)', color: '#64748B', fontSize: 11, fontWeight: 700, cursor: 'pointer' }}>Cancel</button>
                         <button onClick={doUssdPush} style={{ flex: 1, padding: '9px', borderRadius: 9, background: 'linear-gradient(135deg,#0EA5E9,#0284C7)', border: 'none', color: '#fff', fontSize: 11, fontWeight: 700, cursor: 'pointer' }}>📡 Send Now</button>
                       </div>
                     </>
@@ -222,7 +222,7 @@ export default function CaseSummariser({ tx, onClose }: Props) {
                     <>
                       <div style={{ fontSize: 12, fontWeight: 700, color: '#FBBF24', marginBottom: 6 }}>⏳ Awaiting SIM Response</div>
                       <div style={{ fontSize: 11, color: '#64748B', marginBottom: 8 }}><span style={{ fontFamily: 'JetBrains Mono', color: '#FBBF24' }}>{ussdCode}</span> sent · Customer presses 1 to confirm or 2 to deny</div>
-                      <div style={{ height: 3, background: 'rgba(255,255,255,0.06)', borderRadius: 99, overflow: 'hidden' }}>
+                      <div style={{ height: 3, background: 'var(--w-card)', borderRadius: 99, overflow: 'hidden' }}>
                         <div style={{ height: '100%', background: '#FBBF24', borderRadius: 99, animation: 'progressBar 3.8s linear forwards' }} />
                       </div>
                     </>
@@ -231,7 +231,7 @@ export default function CaseSummariser({ tx, onClose }: Props) {
                     <>
                       <div style={{ fontSize: 12, fontWeight: 700, color: '#10F5A0', marginBottom: 6 }}>✅ Confirmed — Account Holder Verified</div>
                       <p style={{ fontSize: 11, color: '#64748B', lineHeight: 1.7, margin: '0 0 10px' }}>Customer pressed <strong style={{ color: '#10F5A0' }}>1 (Confirm)</strong> — they initiated this session. Transaction may proceed. Risk score reset to baseline.</p>
-                      <button onClick={() => setAction('idle')} style={{ padding: '7px 14px', borderRadius: 8, background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: '#64748B', fontSize: 11, fontWeight: 700, cursor: 'pointer' }}>Close</button>
+                      <button onClick={() => setAction('idle')} style={{ padding: '7px 14px', borderRadius: 8, background: 'var(--w-card)', border: '1px solid rgba(255,255,255,0.1)', color: '#64748B', fontSize: 11, fontWeight: 700, cursor: 'pointer' }}>Close</button>
                     </>
                   )}
                   {action === 'ussd_denied' && (
@@ -248,7 +248,7 @@ export default function CaseSummariser({ tx, onClose }: Props) {
                 <div style={{ padding: '16px', background: 'rgba(16,245,160,0.07)', border: '1px solid rgba(16,245,160,0.25)', borderRadius: 14 }}>
                   <div style={{ fontSize: 13, fontWeight: 700, color: '#10F5A0', marginBottom: 6 }}>✅ Marked Safe</div>
                   <p style={{ fontSize: 11, color: '#64748B', lineHeight: 1.7, margin: '0 0 10px' }}>Transaction {tx.id} marked as legitimate by analyst. Score suppressed for this session. Note added to account history. No further action required.</p>
-                  <button onClick={() => setAction('idle')} style={{ padding: '7px 14px', borderRadius: 8, background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: '#64748B', fontSize: 11, fontWeight: 700, cursor: 'pointer' }}>Undo</button>
+                  <button onClick={() => setAction('idle')} style={{ padding: '7px 14px', borderRadius: 8, background: 'var(--w-card)', border: '1px solid rgba(255,255,255,0.1)', color: '#64748B', fontSize: 11, fontWeight: 700, cursor: 'pointer' }}>Undo</button>
                 </div>
               )}
             </>

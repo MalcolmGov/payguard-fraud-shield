@@ -48,7 +48,7 @@ export default function Transactions() {
     s === 'APPROVED' ? '✅ Approved' : s === 'REJECTED' ? '❌ Rejected' : s === 'ESCALATED' ? '⚡ Escalated' : '⏳ Pending';
 
   return (
-    <div style={{ padding: '24px 28px', fontFamily: 'Inter, sans-serif', color: '#F0F6FF' }}>
+    <div style={{ padding: '24px 28px', fontFamily: 'Inter, sans-serif', color: 'var(--w-text-1)' }}>
       {/* Toast stack */}
       <div style={{ position: 'fixed', top: 20, right: 20, zIndex: 9999, display: 'flex', flexDirection: 'column', gap: 8, width: 360 }}>
         {toasts.map(t => (
@@ -86,8 +86,8 @@ export default function Transactions() {
           onChange={e => setSearch(e.target.value)}
           style={{
             flex: 1, maxWidth: 360, padding: '10px 16px', borderRadius: 10, fontSize: 13,
-            background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)',
-            color: '#F0F6FF', fontFamily: 'JetBrains Mono, monospace',
+            background: 'var(--w-card)', border: '1px solid rgba(255,255,255,0.1)',
+            color: 'var(--w-text-1)', fontFamily: 'JetBrains Mono, monospace',
           }}
         />
         <div style={{ display: 'flex', gap: 6 }}>
@@ -104,11 +104,11 @@ export default function Transactions() {
 
       {/* Table */}
       <div style={{
-        background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.07)',
+        background: 'rgba(255,255,255,0.025)', border: '1px solid var(--w-card-border)',
         borderRadius: 14, overflow: 'hidden',
       }}>
         {/* Header */}
-        <div style={{ display: 'grid', gridTemplateColumns: '70px 120px 115px 115px 80px 65px 75px 50px 80px 145px', padding: '12px 20px', borderBottom: '1px solid rgba(255,255,255,0.06)', gap: 6 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '70px 120px 115px 115px 80px 65px 75px 50px 80px 145px', padding: '12px 20px', borderBottom: '1px solid var(--w-card-border)', gap: 6 }}>
           {['TIME', 'TXN ID', 'SENDER', 'RECIPIENT', 'AMOUNT', 'RISK', 'ACTION', 'CALL', 'STATUS', 'ACTIONS'].map(h => (
             <span key={h} style={{ fontSize: 9, fontWeight: 700, color: '#334155', letterSpacing: '0.1em' }}>{h}</span>
           ))}
@@ -132,10 +132,10 @@ export default function Transactions() {
               <span onClick={() => setSelectedTx(tx)} style={{ fontSize: 11, color: '#475569', fontFamily: 'JetBrains Mono, monospace', cursor: 'pointer' }}>
                 {new Date(tx.createdAt).toLocaleTimeString('en-ZA', { hour: '2-digit', minute: '2-digit' })}
               </span>
-              <span onClick={() => setSelectedTx(tx)} style={{ fontSize: 11, color: '#64748B', fontFamily: 'JetBrains Mono, monospace', cursor: 'pointer' }}>{tx.id.slice(0, 12)}</span>
-              <span style={{ fontSize: 11, color: '#94A3B8', fontFamily: 'JetBrains Mono, monospace' }}>{tx.userPhone}</span>
-              <span style={{ fontSize: 11, color: '#94A3B8', fontFamily: 'JetBrains Mono, monospace' }}>{tx.recipientWallet}</span>
-              <span style={{ fontSize: 12, color: '#F0F6FF', fontWeight: 600, fontFamily: 'JetBrains Mono, monospace' }}>R{tx.amount.toLocaleString()}</span>
+              <span onClick={() => setSelectedTx(tx)} style={{ fontSize: 11, color: 'var(--w-text-3)', fontFamily: 'JetBrains Mono, monospace', cursor: 'pointer' }}>{tx.id.slice(0, 12)}</span>
+              <span style={{ fontSize: 11, color: 'var(--w-text-2)', fontFamily: 'JetBrains Mono, monospace' }}>{tx.userPhone}</span>
+              <span style={{ fontSize: 11, color: 'var(--w-text-2)', fontFamily: 'JetBrains Mono, monospace' }}>{tx.recipientWallet}</span>
+              <span style={{ fontSize: 12, color: 'var(--w-text-1)', fontWeight: 600, fontFamily: 'JetBrains Mono, monospace' }}>R{tx.amount.toLocaleString()}</span>
               <span style={{
                 fontSize: 9, fontWeight: 700, padding: '3px 8px', borderRadius: 6, textAlign: 'center',
                 background: `${riskColor(tx.riskLevel)}18`, color: riskColor(tx.riskLevel),

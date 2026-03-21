@@ -30,13 +30,13 @@ type FormData = {
 };
 
 const FIELD_STYLE: React.CSSProperties = {
-  background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.09)',
-  borderRadius: 10, padding: '13px 16px', fontSize: 14, color: '#F0F6FF',
+  background: 'var(--w-card)', border: '1px solid var(--w-card-border)',
+  borderRadius: 10, padding: '13px 16px', fontSize: 14, color: 'var(--w-text-1)',
   fontFamily: 'Inter, sans-serif', outline: 'none', width: '100%',
 };
 
 const LABEL_STYLE: React.CSSProperties = {
-  fontSize: 12, fontWeight: 600, color: '#64748B', letterSpacing: '0.04em',
+  fontSize: 12, fontWeight: 600, color: 'var(--w-text-3)', letterSpacing: '0.04em',
   marginBottom: 6, display: 'block',
 };
 
@@ -91,7 +91,7 @@ export default function AboutPage() {
     (e.target.style.borderColor = 'rgba(255,255,255,0.09)');
 
   return (
-    <div style={{ minHeight: '100vh', background: '#0B1121', fontFamily: 'Inter, sans-serif', color: '#F0F6FF', overflowX: 'hidden' }}>
+    <div style={{ minHeight: '100vh', background: 'var(--w-bg)', fontFamily: 'Inter, sans-serif', color: 'var(--w-text-1)', overflowX: 'hidden' }}>
       <WebNav />
 
       {/* ═══ HERO ═══ */}
@@ -104,7 +104,7 @@ export default function AboutPage() {
             Protecting Africa's{' '}
             <span className="grad-blue-purple">Digital Payment Future.</span>
           </h1>
-          <p style={{ fontSize: 18, color: '#94A3B8', lineHeight: 1.9, maxWidth: 680, margin: '0 auto' }}>
+          <p style={{ fontSize: 18, color: 'var(--w-text-2)', lineHeight: 1.9, maxWidth: 680, margin: '0 auto' }}>
             PayGuard is Africa's real-time fraud prevention platform. We combine device intelligence, AI-powered anomaly detection, and graph-based fraud ring analysis into a single SDK — protecting banks, telcos, fintechs, and payment providers from the continent's most sophisticated threats.
           </p>
         </div>
@@ -119,13 +119,13 @@ export default function AboutPage() {
               Make Every Digital Payment Safe.{' '}
               <span style={{ color: '#3B82F6' }}>Everywhere.</span>
             </h2>
-            <p style={{ fontSize: 15, color: '#94A3B8', lineHeight: 1.9, marginBottom: 20 }}>
-              Africa's digital payments ecosystem is growing at <strong style={{ color: '#F0F6FF' }}>over 20% annually</strong>, driving financial inclusion across the continent. But with growth comes risk — social engineering, SIM swaps, deepfake voice cloning, and organised mule networks cost institutions and customers <strong style={{ color: '#F59E0B' }}>billions every year</strong>.
+            <p style={{ fontSize: 15, color: 'var(--w-text-2)', lineHeight: 1.9, marginBottom: 20 }}>
+              Africa's digital payments ecosystem is growing at <strong style={{ color: 'var(--w-text-1)' }}>over 20% annually</strong>, driving financial inclusion across the continent. But with growth comes risk — social engineering, SIM swaps, deepfake voice cloning, and organised mule networks cost institutions and customers <strong style={{ color: '#F59E0B' }}>billions every year</strong>.
             </p>
-            <p style={{ fontSize: 15, color: '#94A3B8', lineHeight: 1.9, marginBottom: 20 }}>
-              We believe that fraud prevention shouldn't be a luxury only available to the world's largest banks. Our mission is to <strong style={{ color: '#F0F6FF' }}>democratise enterprise-grade fraud protection</strong> — making it accessible to every financial institution in Africa through a single, developer-friendly SDK.
+            <p style={{ fontSize: 15, color: 'var(--w-text-2)', lineHeight: 1.9, marginBottom: 20 }}>
+              We believe that fraud prevention shouldn't be a luxury only available to the world's largest banks. Our mission is to <strong style={{ color: 'var(--w-text-1)' }}>democratise enterprise-grade fraud protection</strong> — making it accessible to every financial institution in Africa through a single, developer-friendly SDK.
             </p>
-            <p style={{ fontSize: 15, color: '#94A3B8', lineHeight: 1.9 }}>
+            <p style={{ fontSize: 15, color: 'var(--w-text-2)', lineHeight: 1.9 }}>
               When a grandmother's pension is protected from a vishing scam, when a small business isn't drained by a SIM swap attack — that's our mission in action.
             </p>
           </div>
@@ -140,8 +140,8 @@ export default function AboutPage() {
             ].map(s => (
               <div key={s.label} className="glass-card" style={{ padding: '28px 24px', textAlign: 'center' }}>
                 <div style={{ fontSize: 36, fontWeight: 900, color: s.color, fontFamily: "'Plus Jakarta Sans', sans-serif", marginBottom: 4 }}>{s.value}</div>
-                <div style={{ fontSize: 14, fontWeight: 700, color: '#F0F6FF', marginBottom: 4 }}>{s.label}</div>
-                <div style={{ fontSize: 11, color: '#64748B' }}>{s.sub}</div>
+                <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--w-text-1)', marginBottom: 4 }}>{s.label}</div>
+                <div style={{ fontSize: 11, color: 'var(--w-text-3)' }}>{s.sub}</div>
               </div>
             ))}
           </div>
@@ -149,14 +149,14 @@ export default function AboutPage() {
       </section>
 
       {/* ═══ OUR VALUES ═══ */}
-      <section style={{ background: 'rgba(255,255,255,0.015)', borderTop: '1px solid rgba(255,255,255,0.04)', borderBottom: '1px solid rgba(255,255,255,0.04)', padding: '100px 48px' }}>
+      <section style={{ background: 'rgba(255,255,255,0.015)', borderTop: '1px solid rgba(255,255,255,0.04)', borderBottom: '1px solid var(--w-card-border)', padding: '100px 48px' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: 64 }}>
             <div className="section-label">Our Values</div>
             <h2 className="w-heading" style={{ fontSize: 42, fontWeight: 800, letterSpacing: '-0.02em', marginBottom: 16 }}>
               What We Stand For
             </h2>
-            <p style={{ fontSize: 16, color: '#64748B', maxWidth: 580, margin: '0 auto', lineHeight: 1.8 }}>
+            <p style={{ fontSize: 16, color: 'var(--w-text-3)', maxWidth: 580, margin: '0 auto', lineHeight: 1.8 }}>
               These principles guide every product decision, every line of code, and every partnership we build.
             </p>
           </div>
@@ -167,8 +167,8 @@ export default function AboutPage() {
                 <div style={{ width: 56, height: 56, borderRadius: 14, background: `${v.color}12`, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 20, boxShadow: `0 0 24px ${v.color}15`, border: `1px solid ${v.color}20`, overflow: 'hidden' }}>
                   <img src={v.icon} alt={v.title} style={{ width: 38, height: 38, objectFit: 'contain' }} />
                 </div>
-                <div style={{ fontSize: 17, fontWeight: 700, color: '#F0F6FF', fontFamily: "'Plus Jakarta Sans', sans-serif", marginBottom: 8 }}>{v.title}</div>
-                <div style={{ fontSize: 14, color: '#64748B', lineHeight: 1.7 }}>{v.desc}</div>
+                <div style={{ fontSize: 17, fontWeight: 700, color: 'var(--w-text-1)', fontFamily: "'Plus Jakarta Sans', sans-serif", marginBottom: 8 }}>{v.title}</div>
+                <div style={{ fontSize: 14, color: 'var(--w-text-3)', lineHeight: 1.7 }}>{v.desc}</div>
               </div>
             ))}
           </div>
@@ -184,17 +184,17 @@ export default function AboutPage() {
               Built for the Continent,{' '}
               <span style={{ color: '#00D4AA' }}>by the Continent.</span>
             </h2>
-            <p style={{ fontSize: 15, color: '#94A3B8', lineHeight: 1.9 }}>
-              Africa isn't a secondary market we adapted for — it's our foundation. Our infrastructure runs on <strong style={{ color: '#F0F6FF' }}>AWS af-south-1 (Cape Town)</strong> for data sovereignty. Our ML models are trained on African payment patterns — mobile money, USSD, instant EFT — not retrofitted Western transaction data.
+            <p style={{ fontSize: 15, color: 'var(--w-text-2)', lineHeight: 1.9 }}>
+              Africa isn't a secondary market we adapted for — it's our foundation. Our infrastructure runs on <strong style={{ color: 'var(--w-text-1)' }}>AWS af-south-1 (Cape Town)</strong> for data sovereignty. Our ML models are trained on African payment patterns — mobile money, USSD, instant EFT — not retrofitted Western transaction data.
             </p>
-            <p style={{ fontSize: 15, color: '#94A3B8', lineHeight: 1.9 }}>
+            <p style={{ fontSize: 15, color: 'var(--w-text-2)', lineHeight: 1.9 }}>
               We understand the unique fraud vectors that target this continent: social engineering calls exploiting trust, SIM swap attacks leveraging telco vulnerabilities, and organised crime networks that move stolen funds across borders in minutes. PayGuard was purpose-built to stop them all.
             </p>
           </div>
 
           {/* Journey timeline */}
           <div>
-            <div style={{ fontSize: 13, fontWeight: 700, color: '#64748B', letterSpacing: '0.08em', marginBottom: 24 }}>OUR JOURNEY</div>
+            <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--w-text-3)', letterSpacing: '0.08em', marginBottom: 24 }}>OUR JOURNEY</div>
             <div style={{ position: 'relative', paddingLeft: 28 }}>
               <div style={{ position: 'absolute', left: 8, top: 6, bottom: 6, width: 2, background: 'linear-gradient(180deg, #3B82F6, #00D4AA)' }} />
               {MILESTONES.map((m, i) => (
@@ -202,7 +202,7 @@ export default function AboutPage() {
                   <div style={{ position: 'absolute', left: -22, top: 6, width: 12, height: 12, borderRadius: '50%', background: i === MILESTONES.length - 1 ? '#00D4AA' : '#3B82F6', boxShadow: `0 0 12px ${i === MILESTONES.length - 1 ? 'rgba(0,212,170,0.4)' : 'rgba(59,130,246,0.4)'}` }} />
                   <div>
                     <div style={{ fontSize: 12, fontWeight: 700, color: '#3B82F6', marginBottom: 4 }}>{m.year}</div>
-                    <div style={{ fontSize: 14, color: '#94A3B8', lineHeight: 1.7 }}>{m.event}</div>
+                    <div style={{ fontSize: 14, color: 'var(--w-text-2)', lineHeight: 1.7 }}>{m.event}</div>
                   </div>
                 </div>
               ))}
@@ -212,14 +212,14 @@ export default function AboutPage() {
       </section>
 
       {/* ═══ VISION ═══ */}
-      <section style={{ background: 'rgba(255,255,255,0.015)', borderTop: '1px solid rgba(255,255,255,0.04)', borderBottom: '1px solid rgba(255,255,255,0.04)', padding: '80px 48px' }}>
+      <section style={{ background: 'rgba(255,255,255,0.015)', borderTop: '1px solid rgba(255,255,255,0.04)', borderBottom: '1px solid var(--w-card-border)', padding: '80px 48px' }}>
         <div style={{ maxWidth: 780, margin: '0 auto', textAlign: 'center' }}>
           <div className="section-label">Our Vision</div>
           <h2 className="w-heading" style={{ fontSize: 38, fontWeight: 800, letterSpacing: '-0.02em', marginBottom: 20, lineHeight: 1.2 }}>
             A world where every digital payment{' '}
             <span className="grad-blue-purple">is inherently safe.</span>
           </h2>
-          <p style={{ fontSize: 16, color: '#94A3B8', lineHeight: 1.9, maxWidth: 640, margin: '0 auto' }}>
+          <p style={{ fontSize: 16, color: 'var(--w-text-2)', lineHeight: 1.9, maxWidth: 640, margin: '0 auto' }}>
             We envision a future where fraud protection is embedded invisibly into every payment rail, every app, and every transaction — where customers never have to think about whether their money is safe. That's the future PayGuard is building, one SDK at a time.
           </p>
         </div>
@@ -235,7 +235,7 @@ export default function AboutPage() {
             <h2 className="w-heading" style={{ fontSize: 44, fontWeight: 800, letterSpacing: '-0.02em', marginBottom: 14 }}>
               Talk to Our Team
             </h2>
-            <p style={{ fontSize: 16, color: '#64748B', lineHeight: 1.8, maxWidth: 560, margin: '0 auto' }}>
+            <p style={{ fontSize: 16, color: 'var(--w-text-3)', lineHeight: 1.8, maxWidth: 560, margin: '0 auto' }}>
               Whether you're a bank, telco, fintech, or PSP — tell us about your fraud challenges and we'll show you exactly how PayGuard fits your stack.
             </p>
           </div>
@@ -244,7 +244,7 @@ export default function AboutPage() {
             <div className="glass-card" style={{ padding: '60px 40px', textAlign: 'center', borderColor: 'rgba(16,245,160,0.25)', maxWidth: 520, margin: '0 auto' }}>
               <div style={{ fontSize: 52, marginBottom: 20 }}>✅</div>
               <div style={{ fontSize: 22, fontWeight: 800, color: '#10F5A0', fontFamily: 'Outfit', marginBottom: 10 }}>Message Received</div>
-              <div style={{ fontSize: 15, color: '#64748B', lineHeight: 1.8 }}>
+              <div style={{ fontSize: 15, color: 'var(--w-text-3)', lineHeight: 1.8 }}>
                 Thank you — a member of our team will reach out within one business day. We look forward to the conversation.
               </div>
               <button onClick={() => setSent(false)} style={{ marginTop: 28, background: 'none', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 8, padding: '10px 20px', color: '#475569', fontSize: 13, cursor: 'pointer', fontFamily: 'Inter' }}>Send another message</button>
@@ -278,7 +278,7 @@ export default function AboutPage() {
                     style={{ ...FIELD_STYLE, cursor: 'pointer', color: form.institutionType ? '#F0F6FF' : '#475569' }}
                     onFocus={focusBorder} onBlur={blurBorder}>
                     <option value="" disabled>Select type…</option>
-                    {INST_TYPES.map(t => <option key={t} value={t} style={{ background: '#0D1117' }}>{t}</option>)}
+                    {INST_TYPES.map(t => <option key={t} value={t} style={{ background: 'var(--w-bg)' }}>{t}</option>)}
                   </select>
                 </Field>
 
@@ -288,7 +288,7 @@ export default function AboutPage() {
                     style={{ ...FIELD_STYLE, cursor: 'pointer', color: form.role ? '#F0F6FF' : '#475569' }}
                     onFocus={focusBorder} onBlur={blurBorder}>
                     <option value="" disabled>Select role…</option>
-                    {ROLES.map(r => <option key={r} value={r} style={{ background: '#0D1117' }}>{r}</option>)}
+                    {ROLES.map(r => <option key={r} value={r} style={{ background: 'var(--w-bg)' }}>{r}</option>)}
                   </select>
                 </Field>
                 <Field label="Monthly Transaction Volume">
@@ -296,7 +296,7 @@ export default function AboutPage() {
                     style={{ ...FIELD_STYLE, cursor: 'pointer', color: form.txVolume ? '#F0F6FF' : '#475569' }}
                     onFocus={focusBorder} onBlur={blurBorder}>
                     <option value="" disabled>Select volume…</option>
-                    {TX_VOLUMES.map(v => <option key={v} value={v} style={{ background: '#0D1117' }}>{v}</option>)}
+                    {TX_VOLUMES.map(v => <option key={v} value={v} style={{ background: 'var(--w-bg)' }}>{v}</option>)}
                   </select>
                 </Field>
 
@@ -345,10 +345,10 @@ export default function AboutPage() {
                   { icon: '🔒', label: 'Your data is secure', sub: 'GDPR & POPIA compliant' },
                   { icon: '🎯', label: 'No spam, ever', sub: 'Unsubscribe any time' },
                 ].map(b => (
-                  <div key={b.label} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '12px 16px', borderRadius: 10, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}>
+                  <div key={b.label} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '12px 16px', borderRadius: 10, background: 'var(--w-card)', border: '1px solid var(--w-card-border)' }}>
                     <span style={{ fontSize: 18 }}>{b.icon}</span>
                     <div>
-                      <div style={{ fontSize: 12, fontWeight: 600, color: '#94A3B8' }}>{b.label}</div>
+                      <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--w-text-2)' }}>{b.label}</div>
                       <div style={{ fontSize: 11, color: '#334155' }}>{b.sub}</div>
                     </div>
                   </div>

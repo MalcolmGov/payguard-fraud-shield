@@ -68,14 +68,14 @@ export default function LegalPage() {
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: '#050505', fontFamily: 'Inter, sans-serif', color: '#F0F6FF' }}>
+    <div style={{ minHeight: '100vh', background: '#050505', fontFamily: 'Inter, sans-serif', color: 'var(--w-text-1)' }}>
       {/* Nav bar */}
-      <nav style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 200, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 48px', height: 68, background: 'rgba(0,0,0,0.95)', borderBottom: '1px solid rgba(255,255,255,0.07)', backdropFilter: 'blur(24px)' }}>
+      <nav style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 200, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 48px', height: 68, background: 'rgba(0,0,0,0.95)', borderBottom: '1px solid var(--w-card-border)', backdropFilter: 'blur(24px)' }}>
         <div onClick={() => navigate('/')} style={{ display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer' }}>
           <img src="/payguard-logo.png" alt="PayGuard" style={{ width: 44, height: 44, borderRadius: 12, objectFit: 'cover', boxShadow: '0 0 30px rgba(255,23,68,0.65)' }} />
-          <div style={{ fontFamily: 'Outfit, sans-serif', fontSize: 15, fontWeight: 800, color: '#F0F6FF' }}>PayGuard</div>
+          <div style={{ fontFamily: 'Outfit, sans-serif', fontSize: 15, fontWeight: 800, color: 'var(--w-text-1)' }}>PayGuard</div>
         </div>
-        <button onClick={() => navigate('/')} style={{ background: 'none', border: '1px solid rgba(255,255,255,0.1)', padding: '8px 20px', borderRadius: 8, color: '#94A3B8', fontSize: 13, fontWeight: 600, cursor: 'pointer', transition: 'all 0.2s' }}
+        <button onClick={() => navigate('/')} style={{ background: 'none', border: '1px solid rgba(255,255,255,0.1)', padding: '8px 20px', borderRadius: 8, color: 'var(--w-text-2)', fontSize: 13, fontWeight: 600, cursor: 'pointer', transition: 'all 0.2s' }}
           onMouseEnter={e => { e.currentTarget.style.color = '#F0F6FF'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)'; }}
           onMouseLeave={e => { e.currentTarget.style.color = '#94A3B8'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'; }}>← Back to Home</button>
       </nav>
@@ -86,7 +86,7 @@ export default function LegalPage() {
         <div style={{ marginBottom: 56 }}>
           <div style={{ fontSize: 48, marginBottom: 16 }}>{doc.icon}</div>
           <h1 style={{ fontSize: 44, fontWeight: 900, fontFamily: 'Outfit', letterSpacing: '-0.03em', marginBottom: 12 }}>{doc.title}</h1>
-          <div style={{ display: 'flex', gap: 16, alignItems: 'center', fontSize: 13, color: '#64748B' }}>
+          <div style={{ display: 'flex', gap: 16, alignItems: 'center', fontSize: 13, color: 'var(--w-text-3)' }}>
             <span>Last updated: {doc.updated}</span>
             <span>·</span>
             <span>Swifter Technologies (Pty) Ltd</span>
@@ -111,13 +111,13 @@ export default function LegalPage() {
         {/* Sections */}
         {doc.sections.map((s, i) => (
           <div key={i} style={{ marginBottom: 36 }}>
-            <h2 style={{ fontSize: 18, fontWeight: 800, fontFamily: 'Outfit', color: '#F0F6FF', marginBottom: 12, letterSpacing: '-0.01em' }}>{s.heading}</h2>
-            <p style={{ fontSize: 15, color: '#94A3B8', lineHeight: 1.9, margin: 0 }}>{s.body}</p>
+            <h2 style={{ fontSize: 18, fontWeight: 800, fontFamily: 'Outfit', color: 'var(--w-text-1)', marginBottom: 12, letterSpacing: '-0.01em' }}>{s.heading}</h2>
+            <p style={{ fontSize: 15, color: 'var(--w-text-2)', lineHeight: 1.9, margin: 0 }}>{s.body}</p>
           </div>
         ))}
 
         {/* Footer note */}
-        <div style={{ marginTop: 64, padding: '24px 28px', borderRadius: 16, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}>
+        <div style={{ marginTop: 64, padding: '24px 28px', borderRadius: 16, background: 'var(--w-card)', border: '1px solid var(--w-card-border)' }}>
           <p style={{ fontSize: 13, color: '#536380', lineHeight: 1.8, margin: 0 }}>
             For questions about this document, contact <span style={{ color: '#FF4455' }}>legal@payguard.africa</span>. 
             PayGuard is a product of Swifter Technologies (Pty) Ltd, registered in South Africa. 

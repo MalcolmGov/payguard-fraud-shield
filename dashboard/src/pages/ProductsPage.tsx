@@ -100,7 +100,7 @@ export default function ProductsPage() {
   const product = PRODUCTS.find(p => p.id === activeProduct) || PRODUCTS[0];
 
   return (
-    <div style={{ minHeight: '100vh', background: '#0B1121', fontFamily: 'Inter, sans-serif', color: '#F0F6FF', overflowX: 'hidden' }}>
+    <div style={{ minHeight: '100vh', background: 'var(--w-bg)', fontFamily: 'Inter, sans-serif', color: 'var(--w-text-1)', overflowX: 'hidden' }}>
       <WebNav />
 
       {/* Hero */}
@@ -108,9 +108,9 @@ export default function ProductsPage() {
         <div className="section-label">Product Suite</div>
         <h1 className="w-heading" style={{ fontSize: 56, fontWeight: 900, letterSpacing: '-0.03em', lineHeight: 1.1, marginBottom: 20 }}>
           <span className="grad-white-blue">Six Modules.</span><br />
-          <span style={{ color: '#F0F6FF' }}>One Unified Defence.</span>
+          <span style={{ color: 'var(--w-text-1)' }}>One Unified Defence.</span>
         </h1>
-        <p style={{ fontSize: 18, color: '#94A3B8', maxWidth: 620, margin: '0 auto 40px', lineHeight: 1.8 }}>
+        <p style={{ fontSize: 18, color: 'var(--w-text-2)', maxWidth: 620, margin: '0 auto 40px', lineHeight: 1.8 }}>
           Each module works independently or together as a complete fraud management stack. Deploy what you need today, add more as you grow.
         </p>
         <div style={{ display: 'flex', gap: 14, justifyContent: 'center' }}>
@@ -128,9 +128,9 @@ export default function ProductsPage() {
               style={{
                 display: 'flex', alignItems: 'center', gap: 8,
                 padding: '10px 18px', borderRadius: 12, cursor: 'pointer', fontSize: 13, fontWeight: 600,
-                border: activeProduct === p.id ? `1px solid ${p.color}` : '1px solid rgba(255,255,255,0.08)',
-                background: activeProduct === p.id ? `${p.color}15` : 'rgba(255,255,255,0.03)',
-                color: activeProduct === p.id ? '#F0F6FF' : '#64748B',
+                border: activeProduct === p.id ? `1px solid ${p.color}` : '1px solid var(--w-card-border)',
+                background: activeProduct === p.id ? `${p.color}15` : 'var(--w-card)',
+                color: activeProduct === p.id ? 'var(--w-text-1)' : 'var(--w-text-3)',
                 transition: 'all 0.2s',
               }}
             >
@@ -142,7 +142,7 @@ export default function ProductsPage() {
 
         {/* Active Product Detail */}
         <div style={{
-          background: 'linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(0,0,0,0.6) 100%)',
+          background: 'var(--w-card)',
           border: `1px solid ${product.color}30`,
           borderRadius: 24, padding: '48px', position: 'relative', overflow: 'hidden',
         }}>
@@ -152,22 +152,22 @@ export default function ProductsPage() {
             <span style={{ fontSize: 36 }}>{product.icon}</span>
             <div>
               <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.12em', color: product.color, marginBottom: 4 }}>MODULE {product.glyph}</div>
-              <h2 style={{ fontSize: 28, fontWeight: 800, fontFamily: 'Outfit, sans-serif', color: '#F0F6FF' }}>{product.name}</h2>
+              <h2 style={{ fontSize: 28, fontWeight: 800, fontFamily: 'Outfit, sans-serif', color: 'var(--w-text-1)' }}>{product.name}</h2>
             </div>
           </div>
           <div style={{ fontSize: 12, color: product.color, marginBottom: 6, fontFamily: 'JetBrains Mono, monospace', letterSpacing: '0.04em' }}>{product.tag}</div>
-          <div style={{ fontSize: 18, fontWeight: 700, color: '#F0F6FF', marginBottom: 16, fontFamily: 'Outfit, sans-serif' }}>{product.tagline}</div>
-          <p style={{ fontSize: 15, color: '#94A3B8', lineHeight: 1.85, marginBottom: 32, maxWidth: 700 }}>{product.desc}</p>
+          <div style={{ fontSize: 18, fontWeight: 700, color: 'var(--w-text-1)', marginBottom: 16, fontFamily: 'Outfit, sans-serif' }}>{product.tagline}</div>
+          <p style={{ fontSize: 15, color: 'var(--w-text-2)', lineHeight: 1.85, marginBottom: 32, maxWidth: 700 }}>{product.desc}</p>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
             {product.signals.map((s, i) => (
               <div key={i} style={{
-                background: 'rgba(255,255,255,0.03)',
-                border: '1px solid rgba(255,255,255,0.06)',
+                background: 'var(--w-card)',
+                border: '1px solid var(--w-card-border)',
                 borderRadius: 14, padding: '20px 24px',
               }}>
-                <div style={{ fontSize: 14, fontWeight: 700, color: '#F0F6FF', marginBottom: 6 }}>{s.name}</div>
-                <div style={{ fontSize: 13, color: '#64748B', lineHeight: 1.6 }}>{s.desc}</div>
+                <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--w-text-1)', marginBottom: 6 }}>{s.name}</div>
+                <div style={{ fontSize: 13, color: 'var(--w-text-3)', lineHeight: 1.6 }}>{s.desc}</div>
               </div>
             ))}
           </div>
@@ -182,12 +182,12 @@ export default function ProductsPage() {
         </div>
 
         <div style={{
-          background: 'rgba(255,255,255,0.02)',
-          border: '1px solid rgba(255,255,255,0.08)',
+          background: 'var(--w-card)',
+          border: '1px solid var(--w-card-border)',
           borderRadius: 20, overflow: 'hidden',
         }}>
           {/* Header */}
-          <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', padding: '16px 24px', borderBottom: '1px solid rgba(255,255,255,0.08)', background: 'rgba(255,255,255,0.02)' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', padding: '16px 24px', borderBottom: '1px solid var(--w-card-border)', background: 'var(--w-card)' }}>
             <div style={{ fontSize: 11, fontWeight: 700, color: '#475569' }}>FEATURE</div>
             <div style={{ fontSize: 11, fontWeight: 700, color: '#00D4AA', textAlign: 'center' }}>PAYGUARD</div>
             <div style={{ fontSize: 11, fontWeight: 700, color: '#475569', textAlign: 'center' }}>RULE-BASED LEGACY</div>
@@ -195,8 +195,8 @@ export default function ProductsPage() {
 
           {/* Rows */}
           {COMPARE.map((row, i) => (
-            <div key={row.feature} style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', padding: '14px 24px', borderBottom: i < COMPARE.length - 1 ? '1px solid rgba(255,255,255,0.04)' : 'none', alignItems: 'center' }}>
-              <div style={{ fontSize: 14, color: '#94A3B8' }}>{row.feature}</div>
+            <div key={row.feature} style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', padding: '14px 24px', borderBottom: i < COMPARE.length - 1 ? '1px solid var(--w-card-border)' : 'none', alignItems: 'center' }}>
+              <div style={{ fontSize: 14, color: 'var(--w-text-2)' }}>{row.feature}</div>
               <div style={{ textAlign: 'center', fontSize: 14, color: typeof row.fs === 'boolean' ? '#00D4AA' : '#00D4AA', fontWeight: 600 }}>
                 {typeof row.fs === 'boolean' ? (row.fs ? '\u2705' : '\u274C') : row.fs}
               </div>
@@ -214,7 +214,7 @@ export default function ProductsPage() {
         <h2 className="w-heading" style={{ fontSize: 36, fontWeight: 800, letterSpacing: '-0.02em', marginBottom: 16 }}>
           <span className="grad-blue-green">Ready to Protect Your Customers?</span>
         </h2>
-        <p style={{ fontSize: 16, color: '#64748B', marginBottom: 32, maxWidth: 520, margin: '0 auto 32px' }}>Tell us about your fraud challenges — our team will show you exactly how PayGuard fits your stack.</p>
+        <p style={{ fontSize: 16, color: 'var(--w-text-3)', marginBottom: 32, maxWidth: 520, margin: '0 auto 32px' }}>Tell us about your fraud challenges — our team will show you exactly how PayGuard fits your stack.</p>
         <div style={{ display: 'flex', gap: 14, justifyContent: 'center' }}>
           <button className="w-btn-primary" onClick={() => setShowSales(true)} style={{ fontSize: 15, padding: '14px 32px' }}>🤝 Talk to Sales</button>
           <button className="w-btn-secondary" onClick={() => navigate('/sandbox')}>Try Sandbox</button>

@@ -113,25 +113,25 @@ function Nav() {
       <nav className="web-nav" style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 200, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 48px', height: 72, background: navBg, borderBottom: scrolled ? '1px solid rgba(59,130,246,0.15)' : '1px solid transparent', backdropFilter: scrolled ? 'blur(24px)' : 'none', transition: 'all 0.3s' }}>
         <div onClick={() => go('/')} style={{ display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer', zIndex: 201 }}>
           <img src="/payguard-logo.png" alt="PayGuard" style={{ width: 40, height: 40, borderRadius: 10, objectFit: 'cover', boxShadow: '0 0 24px rgba(59,130,246,0.4)' }} />
-          <div style={{ fontFamily: "'Plus Jakarta Sans', 'Outfit', sans-serif", fontSize: 18, fontWeight: 800, color: '#F0F6FF', letterSpacing: '-0.02em' }}>PayGuard</div>
+          <div style={{ fontFamily: "'Plus Jakarta Sans', 'Outfit', sans-serif", fontSize: 18, fontWeight: 800, color: 'var(--w-text-1)', letterSpacing: '-0.02em' }}>PayGuard</div>
         </div>
         <div className="nav-desktop-links" style={{ display: 'flex', alignItems: 'center', gap: 2 }}>
           {links.map(l => (
-            <button key={l.path} onClick={() => go(l.path)} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '8px 14px', borderRadius: 8, fontSize: 14, fontWeight: 500, color: '#94A3B8', fontFamily: 'Inter, sans-serif', transition: 'color 0.15s, background 0.15s' }}
+            <button key={l.path} onClick={() => go(l.path)} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '8px 14px', borderRadius: 8, fontSize: 14, fontWeight: 500, color: 'var(--w-text-2)', fontFamily: 'Inter, sans-serif', transition: 'color 0.15s, background 0.15s' }}
               onMouseEnter={e => { (e.target as HTMLButtonElement).style.color = '#F0F6FF'; (e.target as HTMLButtonElement).style.background = 'rgba(255,255,255,0.05)'; }}
               onMouseLeave={e => { (e.target as HTMLButtonElement).style.color = '#94A3B8'; (e.target as HTMLButtonElement).style.background = 'none'; }}>{l.label}</button>
           ))}
         </div>
         <div className="nav-desktop-ctas" style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <ThemeToggle />
-          <button onClick={() => go('/demo')} style={{ padding: '9px 18px', fontSize: 13, fontWeight: 600, background: 'transparent', border: '1px solid rgba(59,130,246,0.3)', borderRadius: 8, cursor: 'pointer', color: '#94A3B8', transition: 'all 0.2s' }}
+          <button onClick={() => go('/demo')} style={{ padding: '9px 18px', fontSize: 13, fontWeight: 600, background: 'transparent', border: '1px solid rgba(59,130,246,0.3)', borderRadius: 8, cursor: 'pointer', color: 'var(--w-text-2)', transition: 'all 0.2s' }}
             onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(59,130,246,0.6)'; e.currentTarget.style.color = '#F0F6FF'; }}
             onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(59,130,246,0.3)'; e.currentTarget.style.color = '#94A3B8'; }}>Live Demo</button>
           <button onClick={() => go('/contact')} style={{ padding: '9px 18px', fontSize: 13, fontWeight: 700, background: 'linear-gradient(135deg,#3B82F6,#2563EB)', color: '#fff', border: 'none', borderRadius: 8, cursor: 'pointer', boxShadow: '0 2px 16px rgba(59,130,246,0.35)', transition: 'opacity 0.2s' }}
             onMouseEnter={e => (e.currentTarget.style.opacity = '0.85')}
             onMouseLeave={e => (e.currentTarget.style.opacity = '1')}>Talk to Sales</button>
         </div>
-        <button className="hamburger-btn" onClick={() => setMenuOpen(o => !o)} aria-label="Toggle menu" style={{ display: 'none', background: 'none', border: 'none', cursor: 'pointer', padding: '8px', borderRadius: 8, zIndex: 201, color: '#F0F6FF' }}>
+        <button className="hamburger-btn" onClick={() => setMenuOpen(o => !o)} aria-label="Toggle menu" style={{ display: 'none', background: 'none', border: 'none', cursor: 'pointer', padding: '8px', borderRadius: 8, zIndex: 201, color: 'var(--w-text-1)' }}>
           <div style={{ width: 22, height: 16, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
             <span style={{ display: 'block', height: 2, background: '#F0F6FF', borderRadius: 2, transform: menuOpen ? 'translateY(7px) rotate(45deg)' : 'none', transition: 'transform 0.25s' }} />
             <span style={{ display: 'block', height: 2, background: '#F0F6FF', borderRadius: 2, opacity: menuOpen ? 0 : 1, transition: 'opacity 0.2s' }} />
@@ -142,10 +142,10 @@ function Nav() {
       <div className="mobile-menu" style={{ position: 'fixed', top: 72, left: 0, right: 0, zIndex: 199, background: 'rgba(10,22,40,0.97)', backdropFilter: 'blur(24px)', borderBottom: menuOpen ? '1px solid rgba(59,130,246,0.15)' : 'none', display: 'flex', flexDirection: 'column', maxHeight: menuOpen ? '100vh' : 0, overflow: 'hidden', transition: 'max-height 0.35s cubic-bezier(0.4,0,0.2,1)' }}>
         <div style={{ padding: '16px 20px', display: 'flex', flexDirection: 'column', gap: 4 }}>
           {links.map(l => (
-            <button key={l.path} onClick={() => go(l.path)} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '14px 16px', borderRadius: 10, fontSize: 16, fontWeight: 600, color: '#94A3B8', textAlign: 'left', fontFamily: 'Inter, sans-serif', width: '100%' }}>{l.label}</button>
+            <button key={l.path} onClick={() => go(l.path)} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '14px 16px', borderRadius: 10, fontSize: 16, fontWeight: 600, color: 'var(--w-text-2)', textAlign: 'left', fontFamily: 'Inter, sans-serif', width: '100%' }}>{l.label}</button>
           ))}
           <div style={{ height: 1, background: 'rgba(255,255,255,0.07)', margin: '8px 0' }} />
-          <button onClick={() => go('/demo')} style={{ width: '100%', padding: '12px', borderRadius: 10, cursor: 'pointer', fontWeight: 600, fontSize: 14, background: 'transparent', border: '1px solid rgba(59,130,246,0.3)', color: '#94A3B8' }}>Live Demo</button>
+          <button onClick={() => go('/demo')} style={{ width: '100%', padding: '12px', borderRadius: 10, cursor: 'pointer', fontWeight: 600, fontSize: 14, background: 'transparent', border: '1px solid rgba(59,130,246,0.3)', color: 'var(--w-text-2)' }}>Live Demo</button>
           <button onClick={() => go('/contact')} style={{ width: '100%', padding: '13px', borderRadius: 10, cursor: 'pointer', fontWeight: 700, fontSize: 14, background: 'linear-gradient(135deg,#3B82F6,#2563EB)', color: '#fff', border: 'none' }}>Talk to Sales</button>
         </div>
       </div>
@@ -159,7 +159,7 @@ export default function Landing() {
   const [showSales, setShowSales] = useState(false);
 
   return (
-    <div className="landing-page" style={{ minHeight: '100vh', background: '#0A1628', overflowY: 'auto', overflowX: 'hidden', fontFamily: 'Inter, sans-serif', color: '#F0F6FF' }}>
+    <div className="landing-page" style={{ minHeight: '100vh', background: 'var(--w-bg)', overflowY: 'auto', overflowX: 'hidden', fontFamily: 'Inter, sans-serif', color: 'var(--w-text-1)' }}>
       <Nav />
 
       {/* ═══ HERO ═══ */}
@@ -246,10 +246,10 @@ export default function Landing() {
         <section style={{ padding: '100px 48px', maxWidth: 1200, margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: 64 }}>
             <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.14em', color: '#3B82F6', marginBottom: 12 }}>PRODUCT SUITE</div>
-            <h2 style={{ fontFamily: "'Plus Jakarta Sans', 'Outfit', sans-serif", fontSize: 44, fontWeight: 800, letterSpacing: '-0.02em', marginBottom: 16, color: '#F0F6FF' }}>
+            <h2 style={{ fontFamily: "'Plus Jakarta Sans', 'Outfit', sans-serif", fontSize: 44, fontWeight: 800, letterSpacing: '-0.02em', marginBottom: 16, color: 'var(--w-text-1)' }}>
               Eight Products. One Platform.
             </h2>
-            <p style={{ fontSize: 17, color: '#94A3B8', maxWidth: 600, margin: '0 auto', lineHeight: 1.8 }}>From social engineering and SIM swap to AI deepfakes and mule networks — PayGuard covers every attack vector.</p>
+            <p style={{ fontSize: 17, color: 'var(--w-text-2)', maxWidth: 600, margin: '0 auto', lineHeight: 1.8 }}>From social engineering and SIM swap to AI deepfakes and mule networks — PayGuard covers every attack vector.</p>
           </div>
           <div className="product-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 18 }}>
             {PRODUCTS.map((p, i) => (
@@ -257,7 +257,7 @@ export default function Landing() {
                 <div onClick={() => navigate('/products')} style={{
                   borderRadius: 16, cursor: 'pointer', overflow: 'hidden', height: '100%',
                   background: 'linear-gradient(135deg, rgba(15,26,46,0.8), rgba(15,26,46,0.95))',
-                  border: '1px solid rgba(255,255,255,0.06)',
+                  border: '1px solid var(--w-card-border)',
                   padding: '32px 28px', transition: 'all 0.3s cubic-bezier(0.4,0,0.2,1)',
                   position: 'relative',
                   boxShadow: '0 1px 3px rgba(0,0,0,0.2), 0 1px 2px rgba(0,0,0,0.15)',
@@ -285,7 +285,7 @@ export default function Landing() {
                   <div style={{ width: 72, height: 72, borderRadius: 16, background: `${p.color}12`, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 20, boxShadow: `0 0 24px ${p.color}15`, border: `1px solid ${p.color}20`, position: 'relative', overflow: 'hidden' }}>
                     <img src={p.icon} alt={p.name} style={{ width: 52, height: 52, objectFit: 'contain' }} />
                   </div>
-                  <h3 style={{ fontSize: 18, fontWeight: 600, fontFamily: "'Plus Jakarta Sans', sans-serif", color: '#F0F6FF', marginBottom: 10, position: 'relative' }}>{p.name}</h3>
+                  <h3 style={{ fontSize: 18, fontWeight: 600, fontFamily: "'Plus Jakarta Sans', sans-serif", color: 'var(--w-text-1)', marginBottom: 10, position: 'relative' }}>{p.name}</h3>
                   <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.6)', lineHeight: 1.7, margin: 0, position: 'relative' }}>{p.desc}</p>
                 </div>
               </Reveal>
@@ -295,13 +295,13 @@ export default function Landing() {
       </Reveal>
 
       {/* ═══ HOW IT WORKS — PIPELINE ═══ */}
-      <section style={{ background: 'rgba(255,255,255,0.015)', borderTop: '1px solid rgba(255,255,255,0.04)', borderBottom: '1px solid rgba(255,255,255,0.04)', padding: '100px 48px' }}>
+      <section style={{ background: 'rgba(255,255,255,0.015)', borderTop: '1px solid rgba(255,255,255,0.04)', borderBottom: '1px solid var(--w-card-border)', padding: '100px 48px' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto' }}>
           <Reveal>
             <div style={{ textAlign: 'center', marginBottom: 72 }}>
               <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.14em', color: '#3B82F6', marginBottom: 12 }}>HOW IT WORKS</div>
-              <h2 style={{ fontFamily: "'Plus Jakarta Sans', 'Outfit', sans-serif", fontSize: 44, fontWeight: 800, letterSpacing: '-0.02em', color: '#F0F6FF' }}>From Signal to Decision in &lt;100ms</h2>
-              <p style={{ fontSize: 16, color: '#64748B', maxWidth: 540, margin: '16px auto 0', lineHeight: 1.8 }}>PayGuard evaluates every transaction before the customer taps Confirm. No delays. No friction.</p>
+              <h2 style={{ fontFamily: "'Plus Jakarta Sans', 'Outfit', sans-serif", fontSize: 44, fontWeight: 800, letterSpacing: '-0.02em', color: 'var(--w-text-1)' }}>From Signal to Decision in &lt;100ms</h2>
+              <p style={{ fontSize: 16, color: 'var(--w-text-3)', maxWidth: 540, margin: '16px auto 0', lineHeight: 1.8 }}>PayGuard evaluates every transaction before the customer taps Confirm. No delays. No friction.</p>
             </div>
           </Reveal>
           <div className="how-works-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 0, position: 'relative' }}>
@@ -312,8 +312,8 @@ export default function Landing() {
                   <div style={{ width: 72, height: 72, borderRadius: '50%', background: `${s.color}12`, border: `2px solid ${s.color}30`, display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px', boxShadow: `0 0 40px ${s.color}15`, transition: 'all 0.3s', overflow: 'hidden' }}>
                     <img src={s.icon} alt={s.title} style={{ width: 48, height: 48, objectFit: 'contain' }} />
                   </div>
-                  <h3 style={{ fontSize: 16, fontWeight: 700, marginBottom: 10, fontFamily: "'Plus Jakarta Sans', sans-serif", color: '#F0F6FF' }}>{s.title}</h3>
-                  <p style={{ fontSize: 13, color: '#64748B', lineHeight: 1.7 }}>{s.desc}</p>
+                  <h3 style={{ fontSize: 16, fontWeight: 700, marginBottom: 10, fontFamily: "'Plus Jakarta Sans', sans-serif", color: 'var(--w-text-1)' }}>{s.title}</h3>
+                  <p style={{ fontSize: 13, color: 'var(--w-text-3)', lineHeight: 1.7 }}>{s.desc}</p>
                 </div>
               </Reveal>
             ))}
@@ -327,15 +327,15 @@ export default function Landing() {
           <div className="dev-teaser-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'center' }}>
             <div>
               <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.14em', color: '#10B981', marginBottom: 12 }}>DEVELOPER EXPERIENCE</div>
-              <h2 style={{ fontFamily: "'Plus Jakarta Sans', 'Outfit', sans-serif", fontSize: 40, fontWeight: 800, letterSpacing: '-0.02em', marginBottom: 16, color: '#F0F6FF', lineHeight: 1.15 }}>
+              <h2 style={{ fontFamily: "'Plus Jakarta Sans', 'Outfit', sans-serif", fontSize: 40, fontWeight: 800, letterSpacing: '-0.02em', marginBottom: 16, color: 'var(--w-text-1)', lineHeight: 1.15 }}>
                 Integrate in<br /><span style={{ color: '#10B981' }}>4 Lines of Code.</span>
               </h2>
-              <p style={{ fontSize: 16, color: '#94A3B8', lineHeight: 1.8, marginBottom: 24 }}>
+              <p style={{ fontSize: 16, color: 'var(--w-text-2)', lineHeight: 1.8, marginBottom: 24 }}>
                 Drop our SDK into your Android or iOS app. PayGuard handles signal collection, encryption, API calls, and decision rendering automatically.
               </p>
               <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 32px', display: 'flex', flexDirection: 'column', gap: 10 }}>
                 {['0.8 MB SDK footprint', 'AES-256-GCM encrypted payloads', 'Kotlin + Swift native SDKs', 'Sandbox mode for testing'].map(f => (
-                  <li key={f} style={{ fontSize: 14, color: '#64748B', display: 'flex', alignItems: 'center', gap: 10 }}>
+                  <li key={f} style={{ fontSize: 14, color: 'var(--w-text-3)', display: 'flex', alignItems: 'center', gap: 10 }}>
                     <span style={{ color: '#10B981', fontSize: 14 }}>✓</span> {f}
                   </li>
                 ))}
@@ -344,14 +344,14 @@ export default function Landing() {
                 onMouseEnter={e => { e.currentTarget.style.background = 'rgba(16,185,129,0.15)'; }}
                 onMouseLeave={e => { e.currentTarget.style.background = 'rgba(16,185,129,0.1)'; }}>Read the Docs →</button>
             </div>
-            <div style={{ background: '#0B1121', borderRadius: 16, border: '1px solid rgba(59,130,246,0.15)', overflow: 'hidden', boxShadow: '0 24px 80px rgba(0,0,0,0.4)' }}>
-              <div style={{ padding: '12px 18px', background: 'rgba(255,255,255,0.03)', borderBottom: '1px solid rgba(255,255,255,0.06)', display: 'flex', gap: 6, alignItems: 'center' }}>
+            <div style={{ background: 'var(--w-bg)', borderRadius: 16, border: '1px solid rgba(59,130,246,0.15)', overflow: 'hidden', boxShadow: '0 24px 80px rgba(0,0,0,0.4)' }}>
+              <div style={{ padding: '12px 18px', background: 'var(--w-card)', borderBottom: '1px solid var(--w-card-border)', display: 'flex', gap: 6, alignItems: 'center' }}>
                 <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#EF4444' }} />
                 <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#F59E0B' }} />
                 <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#10B981' }} />
                 <span style={{ marginLeft: 10, fontSize: 11, color: '#475569', fontFamily: 'JetBrains Mono, monospace' }}>MainActivity.kt</span>
               </div>
-              <pre style={{ padding: '24px', margin: 0, fontSize: 13, lineHeight: 1.8, fontFamily: 'JetBrains Mono, monospace', color: '#94A3B8', overflow: 'auto' }}>
+              <pre style={{ padding: '24px', margin: 0, fontSize: 13, lineHeight: 1.8, fontFamily: 'JetBrains Mono, monospace', color: 'var(--w-text-2)', overflow: 'auto' }}>
 {`// Initialize PayGuard SDK
 FraudShieldSDK.initialize(
   context = applicationContext,
@@ -375,13 +375,13 @@ when (decision.action) {
       </Reveal>
 
       {/* ═══ WITHOUT vs WITH ═══ */}
-      <section style={{ background: 'rgba(255,255,255,0.015)', borderTop: '1px solid rgba(255,255,255,0.04)', borderBottom: '1px solid rgba(255,255,255,0.04)', padding: '100px 48px' }}>
+      <section style={{ background: 'rgba(255,255,255,0.015)', borderTop: '1px solid rgba(255,255,255,0.04)', borderBottom: '1px solid var(--w-card-border)', padding: '100px 48px' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto' }}>
           <Reveal>
             <div style={{ textAlign: 'center', marginBottom: 64 }}>
               <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.14em', color: '#3B82F6', marginBottom: 12 }}>REAL-WORLD SCENARIOS</div>
-              <h2 style={{ fontFamily: "'Plus Jakarta Sans', 'Outfit', sans-serif", fontSize: 44, fontWeight: 800, letterSpacing: '-0.02em', color: '#F0F6FF' }}>See PayGuard In Action</h2>
-              <p style={{ fontSize: 16, color: '#64748B', maxWidth: 520, margin: '16px auto 0', lineHeight: 1.8 }}>From classic vishing to AI deepfake attacks — see how PayGuard transforms each scenario.</p>
+              <h2 style={{ fontFamily: "'Plus Jakarta Sans', 'Outfit', sans-serif", fontSize: 44, fontWeight: 800, letterSpacing: '-0.02em', color: 'var(--w-text-1)' }}>See PayGuard In Action</h2>
+              <p style={{ fontSize: 16, color: 'var(--w-text-3)', maxWidth: 520, margin: '16px auto 0', lineHeight: 1.8 }}>From classic vishing to AI deepfake attacks — see how PayGuard transforms each scenario.</p>
             </div>
           </Reveal>
           <div className="comparison-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 20 }}>
@@ -390,7 +390,7 @@ when (decision.action) {
                 <div style={{
                   borderRadius: 16, overflow: 'hidden',
                   background: 'linear-gradient(135deg, rgba(15,26,46,0.7), rgba(15,26,46,0.95))',
-                  border: '1px solid rgba(255,255,255,0.06)',
+                  border: '1px solid var(--w-card-border)',
                   transition: 'all 0.3s cubic-bezier(0.4,0,0.2,1)',
                   boxShadow: '0 1px 3px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.03)',
                   backdropFilter: 'blur(12px)',
@@ -400,7 +400,7 @@ when (decision.action) {
                   <div style={{ padding: '28px 28px 24px' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20 }}>
                       <div style={{ width: 52, height: 52, borderRadius: 12, background: `${c.color}12`, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: `0 0 20px ${c.color}10`, overflow: 'hidden' }}><img src={c.icon} alt={c.title} style={{ width: 36, height: 36, objectFit: 'contain' }} /></div>
-                      <h3 style={{ fontSize: 18, fontWeight: 700, fontFamily: "'Plus Jakarta Sans', sans-serif", color: '#F0F6FF', margin: 0 }}>{c.title}</h3>
+                      <h3 style={{ fontSize: 18, fontWeight: 700, fontFamily: "'Plus Jakarta Sans', sans-serif", color: 'var(--w-text-1)', margin: 0 }}>{c.title}</h3>
                     </div>
                     <div className="comparison-inner" style={{ display: 'grid', gridTemplateColumns: '1fr auto 1fr', gap: 0 }}>
                       {/* Danger side */}
@@ -433,12 +433,12 @@ when (decision.action) {
 
 
       {/* ═══ WHO IT'S FOR ═══ */}
-      <section style={{ background: 'rgba(255,255,255,0.015)', borderTop: '1px solid rgba(255,255,255,0.04)', borderBottom: '1px solid rgba(255,255,255,0.04)', padding: '100px 48px' }}>
+      <section style={{ background: 'rgba(255,255,255,0.015)', borderTop: '1px solid rgba(255,255,255,0.04)', borderBottom: '1px solid var(--w-card-border)', padding: '100px 48px' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto' }}>
           <Reveal>
             <div style={{ textAlign: 'center', marginBottom: 56 }}>
               <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.14em', color: '#3B82F6', marginBottom: 12 }}>WHO IT'S FOR</div>
-              <h2 style={{ fontFamily: "'Plus Jakarta Sans', 'Outfit', sans-serif", fontSize: 40, fontWeight: 800, letterSpacing: '-0.02em', color: '#F0F6FF' }}>Built for Every Payment Provider.</h2>
+              <h2 style={{ fontFamily: "'Plus Jakarta Sans', 'Outfit', sans-serif", fontSize: 40, fontWeight: 800, letterSpacing: '-0.02em', color: 'var(--w-text-1)' }}>Built for Every Payment Provider.</h2>
             </div>
           </Reveal>
           <div className="who-for-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 18 }}>
@@ -447,7 +447,7 @@ when (decision.action) {
                 <div style={{
                   padding: '28px 28px', borderRadius: 16,
                   background: 'linear-gradient(135deg, rgba(15,26,46,0.7), rgba(15,26,46,0.95))',
-                  border: '1px solid rgba(255,255,255,0.06)',
+                  border: '1px solid var(--w-card-border)',
                   transition: 'all 0.3s cubic-bezier(0.4,0,0.2,1)',
                   display: 'flex', alignItems: 'center', gap: 20,
                   boxShadow: '0 1px 3px rgba(0,0,0,0.2)',
@@ -472,7 +472,7 @@ when (decision.action) {
                   {/* Frosted icon */}
                   <div style={{ width: 64, height: 64, borderRadius: 14, background: `${w.color}10`, border: `1px solid ${w.color}18`, backdropFilter: 'blur(10px)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, boxShadow: `0 0 20px ${w.color}10`, overflow: 'hidden' }}><img src={w.icon} alt={w.name} style={{ width: 44, height: 44, objectFit: 'contain' }} /></div>
                   <div style={{ flex: 1 }}>
-                    <div style={{ fontSize: 17, fontWeight: 700, color: '#F0F6FF', marginBottom: 4, fontFamily: "'Plus Jakarta Sans', sans-serif" }}>{w.name}</div>
+                    <div style={{ fontSize: 17, fontWeight: 700, color: 'var(--w-text-1)', marginBottom: 4, fontFamily: "'Plus Jakarta Sans', sans-serif" }}>{w.name}</div>
                     <div style={{ fontSize: 14, color: 'rgba(255,255,255,0.55)', lineHeight: 1.6, marginBottom: 8 }}>{w.desc}</div>
                     <div style={{ fontSize: 11, fontWeight: 600, color: w.color, letterSpacing: '0.04em', fontFamily: 'JetBrains Mono, monospace' }}>{w.tags}</div>
                   </div>
@@ -486,7 +486,7 @@ when (decision.action) {
       {/* ═══ TRUST BADGES ═══ */}
       <Reveal>
         <section style={{ padding: '64px 48px' }}>
-          <div style={{ maxWidth: 1000, margin: '0 auto', background: 'rgba(255,255,255,0.02)', borderRadius: 16, border: '1px solid rgba(255,255,255,0.05)', padding: '40px 0', position: 'relative', overflow: 'hidden' }}>
+          <div style={{ maxWidth: 1000, margin: '0 auto', background: 'var(--w-card)', borderRadius: 16, border: '1px solid var(--w-card-border)', padding: '40px 0', position: 'relative', overflow: 'hidden' }}>
             {/* Shimmer sweep animation on load */}
             <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.03), transparent)', backgroundSize: '200% 100%', animation: 'shimmerSweep 3s ease-in-out', pointerEvents: 'none' }} />
             <div className="trust-badges-container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap', gap: 0 }}>
@@ -503,7 +503,7 @@ when (decision.action) {
                       <div dangerouslySetInnerHTML={{ __html: b.svg }} />
                     </div>
                   </div>
-                  <div style={{ fontSize: 13, fontWeight: 700, color: '#F0F6FF', letterSpacing: '0.08em', fontFamily: "'Plus Jakarta Sans', sans-serif" }}>{b.title}</div>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--w-text-1)', letterSpacing: '0.08em', fontFamily: "'Plus Jakarta Sans', sans-serif" }}>{b.title}</div>
                   <div style={{ fontSize: 12, color: '#475569' }}>{b.desc}</div>
                 </div>
               ))}
@@ -517,18 +517,18 @@ when (decision.action) {
         <div style={{ position: 'absolute', top: '50%', left: '50%', width: 600, height: 600, transform: 'translate(-50%,-50%)', borderRadius: '50%', background: 'radial-gradient(circle, rgba(59,130,246,0.1) 0%, transparent 70%)', filter: 'blur(60px)', pointerEvents: 'none' }} />
         <Reveal>
           <div style={{ position: 'relative', zIndex: 1, maxWidth: 680, margin: '0 auto' }}>
-            <h2 style={{ fontFamily: "'Plus Jakarta Sans', 'Outfit', sans-serif", fontSize: 52, fontWeight: 800, letterSpacing: '-0.03em', marginBottom: 16, lineHeight: 1.1, color: '#F0F6FF' }}>
+            <h2 style={{ fontFamily: "'Plus Jakarta Sans', 'Outfit', sans-serif", fontSize: 52, fontWeight: 800, letterSpacing: '-0.03em', marginBottom: 16, lineHeight: 1.1, color: 'var(--w-text-1)' }}>
               Ready to <span style={{ background: 'linear-gradient(135deg, #3B82F6, #00D4AA)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Stop Fraud?</span>
             </h2>
-            <p style={{ fontSize: 18, color: '#94A3B8', lineHeight: 1.8, marginBottom: 40 }}>35 rules. 5 intelligence layers. Every payment rail. Every fraud vector.</p>
+            <p style={{ fontSize: 18, color: 'var(--w-text-2)', lineHeight: 1.8, marginBottom: 40 }}>35 rules. 5 intelligence layers. Every payment rail. Every fraud vector.</p>
             <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }}>
               <button onClick={() => setShowSales(true)} style={{ padding: '15px 36px', fontSize: 16, fontWeight: 700, background: 'linear-gradient(135deg,#3B82F6,#2563EB)', color: '#fff', border: 'none', borderRadius: 10, cursor: 'pointer', boxShadow: '0 4px 24px rgba(59,130,246,0.4)', transition: 'all 0.2s' }}
                 onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 8px 32px rgba(59,130,246,0.5)'; }}
                 onMouseLeave={e => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = '0 4px 24px rgba(59,130,246,0.4)'; }}>Book a Demo</button>
-              <button onClick={() => navigate('/demo')} style={{ padding: '15px 36px', fontSize: 16, fontWeight: 600, background: 'transparent', color: '#94A3B8', border: '1px solid rgba(148,163,184,0.2)', borderRadius: 10, cursor: 'pointer', transition: 'all 0.2s' }}
+              <button onClick={() => navigate('/demo')} style={{ padding: '15px 36px', fontSize: 16, fontWeight: 600, background: 'transparent', color: 'var(--w-text-2)', border: '1px solid rgba(148,163,184,0.2)', borderRadius: 10, cursor: 'pointer', transition: 'all 0.2s' }}
                 onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(59,130,246,0.4)'; e.currentTarget.style.color = '#F0F6FF'; }}
                 onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(148,163,184,0.2)'; e.currentTarget.style.color = '#94A3B8'; }}>▶ Live Demo</button>
-              <button onClick={() => navigate('/developers')} style={{ padding: '15px 36px', fontSize: 16, fontWeight: 600, background: 'transparent', color: '#94A3B8', border: '1px solid rgba(148,163,184,0.2)', borderRadius: 10, cursor: 'pointer', transition: 'all 0.2s' }}
+              <button onClick={() => navigate('/developers')} style={{ padding: '15px 36px', fontSize: 16, fontWeight: 600, background: 'transparent', color: 'var(--w-text-2)', border: '1px solid rgba(148,163,184,0.2)', borderRadius: 10, cursor: 'pointer', transition: 'all 0.2s' }}
                 onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(59,130,246,0.4)'; e.currentTarget.style.color = '#F0F6FF'; }}
                 onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(148,163,184,0.2)'; e.currentTarget.style.color = '#94A3B8'; }}>SDK Docs →</button>
             </div>
@@ -544,9 +544,9 @@ when (decision.action) {
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
                 <img src="/payguard-logo.png" alt="PayGuard" style={{ width: 36, height: 36, borderRadius: 10, objectFit: 'cover', boxShadow: '0 0 20px rgba(59,130,246,0.3)' }} />
-                <div style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: 15, fontWeight: 800, color: '#F0F6FF' }}>PayGuard</div>
+                <div style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: 15, fontWeight: 800, color: 'var(--w-text-1)' }}>PayGuard</div>
               </div>
-              <p style={{ fontSize: 14, color: '#64748B', lineHeight: 1.8, maxWidth: 260 }}>Real-time fraud prevention for African financial infrastructure.</p>
+              <p style={{ fontSize: 14, color: 'var(--w-text-3)', lineHeight: 1.8, maxWidth: 260 }}>Real-time fraud prevention for African financial infrastructure.</p>
               <div style={{ marginTop: 8, fontSize: 11, color: '#1E293B', fontFamily: 'JetBrains Mono, monospace' }}>© 2026 PayGuard</div>
             </div>
             {[

@@ -160,7 +160,7 @@ export default function AskPayGuard({ onClose }: { onClose: () => void }) {
             </div>
           </div>
         </div>
-        <button onClick={onClose} style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 8, width: 28, height: 28, cursor: 'pointer', color: '#64748B', fontSize: 14 }}>✕</button>
+        <button onClick={onClose} style={{ background: 'var(--w-card)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 8, width: 28, height: 28, cursor: 'pointer', color: '#64748B', fontSize: 14 }}>✕</button>
       </div>
 
       {/* Messages */}
@@ -185,7 +185,7 @@ export default function AskPayGuard({ onClose }: { onClose: () => void }) {
         {thinking && (
           <div style={{ display: 'flex', gap: 8, alignItems: 'flex-start' }}>
             <div style={{ width: 26, height: 26, borderRadius: 8, background: 'linear-gradient(135deg,#0EA5E9,#7C3AED)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12 }}>🛡️</div>
-            <div style={{ padding: '10px 16px', borderRadius: '4px 14px 14px 14px', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)' }}>
+            <div style={{ padding: '10px 16px', borderRadius: '4px 14px 14px 14px', background: 'var(--w-card)', border: '1px solid var(--w-card-border)' }}>
               <div style={{ display: 'flex', gap: 4, alignItems: 'center' }}>
                 {[0, 1, 2].map(j => (
                   <div key={j} style={{ width: 6, height: 6, borderRadius: '50%', background: '#0EA5E9', animation: 'pulse 1.2s infinite', animationDelay: `${j * 0.2}s`, opacity: 0.6 }} />
@@ -211,7 +211,7 @@ export default function AskPayGuard({ onClose }: { onClose: () => void }) {
           onChange={e => setInput(e.target.value)}
           onKeyDown={e => e.key === 'Enter' && send(input)}
           placeholder="Ask about fraud patterns, transactions, rules…"
-          style={{ flex: 1, background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 10, padding: '9px 12px', fontSize: 12, color: '#F0F6FF', fontFamily: 'Inter, sans-serif', outline: 'none' }}
+          style={{ flex: 1, background: 'var(--w-card)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 10, padding: '9px 12px', fontSize: 12, color: '#F0F6FF', fontFamily: 'Inter, sans-serif', outline: 'none' }}
         />
         <button onClick={() => send(input)} disabled={!input.trim() || thinking} style={{ width: 36, height: 36, borderRadius: 10, background: input.trim() ? 'linear-gradient(135deg,#0EA5E9,#7C3AED)' : 'rgba(255,255,255,0.05)', border: 'none', cursor: input.trim() ? 'pointer' : 'default', color: '#fff', fontSize: 14, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>→</button>
       </div>

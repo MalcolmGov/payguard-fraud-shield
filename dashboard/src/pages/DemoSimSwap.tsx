@@ -162,14 +162,14 @@ function VictimNoService() {
 
 function VictimAlert() {
   return (
-    <div style={{ height: '100%', background: '#0D1117', display: 'flex', flexDirection: 'column', padding: 12, gap: 10 }}>
-      <div style={{ fontSize: 10, color: '#8B949E', textAlign: 'center', marginTop: 8 }}>Push Notification</div>
+    <div style={{ height: '100%', background: 'var(--w-bg)', display: 'flex', flexDirection: 'column', padding: 12, gap: 10 }}>
+      <div style={{ fontSize: 10, color: 'var(--w-text-2)', textAlign: 'center', marginTop: 8 }}>Push Notification</div>
       <div style={{ background: '#1C2333', border: '2px solid #F85149', borderRadius: 12, padding: 14 }}>
         <div style={{ display: 'flex', gap: 8, marginBottom: 8 }}>
           <span style={{ fontSize: 20 }}>???</span>
           <div>
             <div style={{ fontSize: 11, fontWeight: 700, color: '#F85149' }}>mobile wallet Security Alert</div>
-            <div style={{ fontSize: 9, color: '#8B949E' }}>Just now</div>
+            <div style={{ fontSize: 9, color: 'var(--w-text-2)' }}>Just now</div>
           </div>
         </div>
         <div style={{ fontSize: 10, color: '#C9D1D9', lineHeight: 1.8 }}>
@@ -269,13 +269,13 @@ function AttackerSend() {
 
 function AttackerBlocked() {
   return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: '#0D1117', gap: 12, padding: 20 }}>
+    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: 'var(--w-bg)', gap: 12, padding: 20 }}>
       <div style={{ fontSize: 44 }}>??</div>
       <div style={{ fontSize: 13, fontWeight: 800, color: '#F85149', textAlign: 'center' }}>Account Suspended</div>
-      <div style={{ fontSize: 10, color: '#8B949E', textAlign: 'center', lineHeight: 1.8 }}>Transfer blocked<br />Identity required<br />Fraud flagged</div>
+      <div style={{ fontSize: 10, color: 'var(--w-text-2)', textAlign: 'center', lineHeight: 1.8 }}>Transfer blocked<br />Identity required<br />Fraud flagged</div>
       <div style={{ width: '100%', background: 'rgba(248,81,73,0.1)', border: '1px solid rgba(248,81,73,0.3)', borderRadius: 8, padding: '10px 12px' }}>
         <div style={{ fontSize: 9, color: '#F85149', fontWeight: 600, marginBottom: 4 }}>PayGuard Decision</div>
-        <div style={{ fontSize: 9, color: '#8B949E', lineHeight: 1.6 }}>? R8,000 transfer blocked<br />? Account frozen<br />? Analyst dashboard alerted<br />? Device watchlisted</div>
+        <div style={{ fontSize: 9, color: 'var(--w-text-2)', lineHeight: 1.6 }}>? R8,000 transfer blocked<br />? Account frozen<br />? Analyst dashboard alerted<br />? Device watchlisted</div>
       </div>
     </div>
   );

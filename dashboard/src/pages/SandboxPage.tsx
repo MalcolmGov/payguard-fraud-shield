@@ -101,7 +101,7 @@ function JsonView({ data, status }: { data: Record<string, unknown> | null; stat
       const valColor = isStr ? '#A5D6FF' : isNum ? '#79C0FF' : isBool ? '#FF7B72' : '#8B949E';
       highlighted.push({ key: `l${i}`, content: <span>{indent}<span style={{ color: '#7EE787' }}>{key}</span>{colon}<span style={{ color: valColor }}>{val}</span></span> });
     } else {
-      highlighted.push({ key: `l${i}`, content: <span style={{ color: '#8B949E' }}>{line}</span> });
+      highlighted.push({ key: `l${i}`, content: <span style={{ color: 'var(--w-text-2)' }}>{line}</span> });
     }
   });
 
@@ -110,7 +110,7 @@ function JsonView({ data, status }: { data: Record<string, unknown> | null; stat
       <div style={{ position: 'absolute', top: 12, right: 16, fontSize: 11, fontWeight: 700, color: ok ? '#3FB950' : '#F85149', background: ok ? 'rgba(63,185,80,0.1)' : 'rgba(248,81,73,0.1)', padding: '3px 10px', borderRadius: 6 }}>
         {status}
       </div>
-      <pre style={{ margin: 0, padding: '16px 20px', fontSize: 12.5, lineHeight: 1.7, overflowX: 'auto', fontFamily: 'JetBrains Mono, monospace', color: '#E6EDF3' }}>
+      <pre style={{ margin: 0, padding: '16px 20px', fontSize: 12.5, lineHeight: 1.7, overflowX: 'auto', fontFamily: 'JetBrains Mono, monospace', color: 'var(--w-text-1)' }}>
         {highlighted.map(h => <div key={h.key}>{h.content}</div>)}
       </pre>
     </div>
@@ -294,7 +294,7 @@ function SignalSimulator() {
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
         {/* Left: Signal controls */}
         <div>
-          <div style={{ fontSize: 13, fontWeight: 700, color: '#F0F6FF', marginBottom: 16 }}>Signal Controls</div>
+          <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--w-text-1)', marginBottom: 16 }}>Signal Controls</div>
 
           {/* Transaction inputs */}
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 16 }}>
@@ -302,7 +302,7 @@ function SignalSimulator() {
               <label style={{ fontSize: 10, fontWeight: 700, color: '#475569', letterSpacing: '0.08em' }}>AMOUNT (ZAR)</label>
               <input type="number" value={amount} onChange={e => setAmount(Number(e.target.value))} style={{
                 width: '100%', padding: '8px 12px', borderRadius: 8, fontSize: 14, marginTop: 4, boxSizing: 'border-box',
-                background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.1)', color: '#F0F6FF',
+                background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.1)', color: 'var(--w-text-1)',
                 fontFamily: 'JetBrains Mono, monospace', fontWeight: 700,
               }} />
             </div>
@@ -318,14 +318,14 @@ function SignalSimulator() {
 
           {/* Signal toggles */}
           {signals.map(s => (
-            <div key={s.label} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 0', borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
+            <div key={s.label} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 0', borderBottom: '1px solid var(--w-card-border)' }}>
               <span style={{ fontSize: 13, color: s.value ? '#F0F6FF' : '#64748B', transition: 'color 0.2s' }}>{s.label}</span>
               <button style={toggleStyle(s.value)} onClick={() => s.set(!s.value)}><div style={dotStyle(s.value)} /></button>
             </div>
           ))}
 
           {/* Recipient known toggle */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 0', borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 0', borderBottom: '1px solid var(--w-card-border)' }}>
             <span style={{ fontSize: 13, color: recipientKnown ? '#10F5A0' : '#64748B' }}>✅ Recipient in contacts</span>
             <button style={{ ...toggleStyle(recipientKnown), background: recipientKnown ? '#10F5A0' : 'rgba(255,255,255,0.1)' }} onClick={() => setRecipientKnown(!recipientKnown)}><div style={dotStyle(recipientKnown)} /></button>
           </div>
@@ -339,8 +339,8 @@ function SignalSimulator() {
         </div>
 
         {/* Right: Response */}
-        <div style={{ background: 'rgba(0,0,0,0.4)', borderRadius: 14, border: '1px solid rgba(255,255,255,0.06)', overflow: 'hidden' }}>
-          <div style={{ padding: '10px 16px', borderBottom: '1px solid rgba(255,255,255,0.06)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div style={{ background: 'rgba(0,0,0,0.4)', borderRadius: 14, border: '1px solid var(--w-card-border)', overflow: 'hidden' }}>
+          <div style={{ padding: '10px 16px', borderBottom: '1px solid var(--w-card-border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <span style={{ fontSize: 11, fontWeight: 700, color: '#475569', letterSpacing: '0.08em' }}>LIVE ENGINE RESPONSE</span>
             {latency && <span style={{ fontSize: 11, color: '#10F5A0', fontFamily: 'JetBrains Mono, monospace' }}>{latency}ms</span>}
           </div>
@@ -359,7 +359,7 @@ function SignalSimulator() {
               </div>
               <div>
                 <div style={{ fontSize: 14, fontWeight: 800, color: riskColor(result.risk_score as number) }}>{result.risk_level as string}</div>
-                <div style={{ fontSize: 12, color: '#94A3B8', marginTop: 2 }}>Action: <b style={{ color: (result.recommended_action as string) === 'BLOCK' ? '#EF4444' : '#FBBF24' }}>{result.recommended_action as string}</b></div>
+                <div style={{ fontSize: 12, color: 'var(--w-text-2)', marginTop: 2 }}>Action: <b style={{ color: (result.recommended_action as string) === 'BLOCK' ? '#EF4444' : '#FBBF24' }}>{result.recommended_action as string}</b></div>
                 {typeof result.warning_message === 'string' && result.warning_message && (
                   <div style={{ fontSize: 11, color: '#FBBF24', marginTop: 6, maxWidth: 300, lineHeight: 1.5 }}>
                     ⚠️ {result.warning_message}
@@ -412,7 +412,7 @@ export default function SandboxPage() {
   const filteredEps = ENDPOINTS.filter(e => e.label.toLowerCase().includes(search.toLowerCase()) || e.path.toLowerCase().includes(search.toLowerCase()));
 
   return (
-    <div style={{ minHeight: '100vh', background: '#0B1121', fontFamily: 'Inter, sans-serif', color: '#F0F6FF', overflowX: 'hidden' }}>
+    <div style={{ minHeight: '100vh', background: 'var(--w-bg)', fontFamily: 'Inter, sans-serif', color: 'var(--w-text-1)', overflowX: 'hidden' }}>
       <WebNav />
 
       {/* Hero */}
@@ -421,7 +421,7 @@ export default function SandboxPage() {
         <h1 className="w-heading" style={{ fontSize: 48, fontWeight: 900, letterSpacing: '-0.03em', lineHeight: 1.1, marginBottom: 20 }}>
           <span className="grad-white-blue">Zero Credentials, Full Access.</span>
         </h1>
-        <p style={{ fontSize: 16, color: '#94A3B8', maxWidth: 520, margin: '0 auto 40px', lineHeight: 1.8 }}>
+        <p style={{ fontSize: 16, color: 'var(--w-text-2)', maxWidth: 520, margin: '0 auto 40px', lineHeight: 1.8 }}>
           Fire real API requests against the full endpoint catalogue, inspect live responses, or use the signal simulator to tune fraud rules.
         </p>
 
@@ -446,12 +446,12 @@ export default function SandboxPage() {
             <div style={{
               display: 'flex', alignItems: 'center', gap: 16, marginBottom: 20,
               padding: '14px 20px', borderRadius: 14,
-              background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)',
+              background: 'var(--w-card)', border: '1px solid var(--w-card-border)',
             }}>
               <div style={{ fontSize: 11, fontWeight: 700, color: '#FF4455', letterSpacing: '0.08em' }}>\uD83D\uDD11 API KEY</div>
               <select value={apiKey} onChange={e => setApiKey(e.target.value)} style={{
                 flex: 1, maxWidth: 360, padding: '8px 12px', borderRadius: 8, fontSize: 12,
-                background: 'rgba(0,0,0,0.4)', border: '1px solid rgba(255,255,255,0.1)', color: '#94A3B8',
+                background: 'rgba(0,0,0,0.4)', border: '1px solid rgba(255,255,255,0.1)', color: 'var(--w-text-2)',
                 fontFamily: 'JetBrains Mono, monospace',
               }}>
                 {API_KEYS.map(k => <option key={k.key} value={k.key}>{k.label}</option>)}
@@ -463,11 +463,11 @@ export default function SandboxPage() {
             {/* Endpoint selector + Request area */}
             <div style={{ display: 'grid', gridTemplateColumns: '280px 1fr', gap: 16 }}>
               {/* Endpoints sidebar */}
-              <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 14, overflow: 'hidden' }}>
-                <div style={{ padding: '12px 16px', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+              <div style={{ background: 'var(--w-card)', border: '1px solid var(--w-card-border)', borderRadius: 14, overflow: 'hidden' }}>
+                <div style={{ padding: '12px 16px', borderBottom: '1px solid var(--w-card-border)' }}>
                   <input placeholder="Search endpoints..." value={search} onChange={e => setSearch(e.target.value)} style={{
                     width: '100%', padding: '8px 12px', borderRadius: 8, fontSize: 12, border: '1px solid rgba(255,255,255,0.1)',
-                    background: 'rgba(0,0,0,0.3)', color: '#F0F6FF', fontFamily: 'JetBrains Mono, monospace',
+                    background: 'rgba(0,0,0,0.3)', color: 'var(--w-text-1)', fontFamily: 'JetBrains Mono, monospace',
                   }} />
                 </div>
                 {GROUPS.map(g => {
@@ -511,7 +511,7 @@ export default function SandboxPage() {
                 {/* Request tabs */}
                 {ep.body && (
                   <div>
-                    <div style={{ display: 'flex', gap: 0, borderBottom: '1px solid rgba(255,255,255,0.08)', marginBottom: 12 }}>
+                    <div style={{ display: 'flex', gap: 0, borderBottom: '1px solid var(--w-card-border)', marginBottom: 12 }}>
                       {(['body', 'headers', 'auth'] as RequestTab[]).map(t => (
                         <button key={t} onClick={() => setReqTab(t)} style={{
                           padding: '8px 20px', fontSize: 12, fontWeight: 600, border: 'none', cursor: 'pointer',
@@ -523,19 +523,19 @@ export default function SandboxPage() {
                     {reqTab === 'body' && (
                       <textarea value={bodyText} onChange={e => setBodyText(e.target.value)} rows={12} style={{
                         width: '100%', padding: 16, borderRadius: 12, fontSize: 12.5, lineHeight: 1.6,
-                        background: 'rgba(0,0,0,0.4)', border: '1px solid rgba(255,255,255,0.08)',
-                        color: '#E6EDF3', fontFamily: 'JetBrains Mono, monospace', resize: 'vertical',
+                        background: 'rgba(0,0,0,0.4)', border: '1px solid var(--w-card-border)',
+                        color: 'var(--w-text-1)', fontFamily: 'JetBrains Mono, monospace', resize: 'vertical',
                       }} />
                     )}
                     {reqTab === 'headers' && (
-                      <pre style={{ padding: 16, borderRadius: 12, background: 'rgba(0,0,0,0.4)', border: '1px solid rgba(255,255,255,0.08)', fontSize: 12, color: '#94A3B8', fontFamily: 'JetBrains Mono, monospace' }}>
+                      <pre style={{ padding: 16, borderRadius: 12, background: 'rgba(0,0,0,0.4)', border: '1px solid var(--w-card-border)', fontSize: 12, color: 'var(--w-text-2)', fontFamily: 'JetBrains Mono, monospace' }}>
 {`Content-Type: application/json
 Authorization: Bearer ${apiKey}
 X-Sandbox: true`}
                       </pre>
                     )}
                     {reqTab === 'auth' && (
-                      <div style={{ padding: 16, borderRadius: 12, background: 'rgba(0,0,0,0.4)', border: '1px solid rgba(255,255,255,0.08)', fontSize: 13, color: '#94A3B8' }}>
+                      <div style={{ padding: 16, borderRadius: 12, background: 'rgba(0,0,0,0.4)', border: '1px solid var(--w-card-border)', fontSize: 13, color: 'var(--w-text-2)' }}>
                         Bearer token: <span style={{ color: '#A5D6FF', fontFamily: 'JetBrains Mono, monospace' }}>{apiKey}</span>
                       </div>
                     )}
@@ -543,8 +543,8 @@ X-Sandbox: true`}
                 )}
 
                 {/* Response */}
-                <div style={{ background: 'rgba(0,0,0,0.4)', borderRadius: 14, border: '1px solid rgba(255,255,255,0.08)', overflow: 'hidden' }}>
-                  <div style={{ padding: '10px 16px', borderBottom: '1px solid rgba(255,255,255,0.06)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div style={{ background: 'rgba(0,0,0,0.4)', borderRadius: 14, border: '1px solid var(--w-card-border)', overflow: 'hidden' }}>
+                  <div style={{ padding: '10px 16px', borderBottom: '1px solid var(--w-card-border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <span style={{ fontSize: 11, fontWeight: 700, color: '#475569', letterSpacing: '0.08em' }}>RESPONSE</span>
                     {response && <span style={{ fontSize: 11, color: '#475569', fontFamily: 'JetBrains Mono, monospace' }}>{response.latency}ms</span>}
                   </div>
@@ -564,7 +564,7 @@ X-Sandbox: true`}
         <h2 className="w-heading" style={{ fontSize: 36, fontWeight: 800, letterSpacing: '-0.02em', marginBottom: 16 }}>
           <span className="grad-blue-green">Ready to Integrate?</span>
         </h2>
-        <p style={{ fontSize: 16, color: '#64748B', marginBottom: 32 }}>Move from sandbox to production in under 48 hours. Talk to our team to get started.</p>
+        <p style={{ fontSize: 16, color: 'var(--w-text-3)', marginBottom: 32 }}>Move from sandbox to production in under 48 hours. Talk to our team to get started.</p>
         <div style={{ display: 'flex', gap: 14, justifyContent: 'center' }}>
           <button className="w-btn-primary" onClick={() => setShowSales(true)} style={{ fontSize: 15, padding: '14px 32px' }}>🤝 Talk to Sales</button>
           <button className="w-btn-secondary" onClick={() => navigate('/developers')}>SDK Documentation</button>

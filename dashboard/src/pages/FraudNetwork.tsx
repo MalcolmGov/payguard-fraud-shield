@@ -40,11 +40,11 @@ export default function FraudNetwork() {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: 'calc(100vh - 0px)', fontFamily: 'Inter, sans-serif', color: '#F0F6FF' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', height: 'calc(100vh - 0px)', fontFamily: 'Inter, sans-serif', color: 'var(--w-text-1)' }}>
       {/* Header */}
       <div style={{
         padding: '16px 28px', display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-        borderBottom: '1px solid rgba(255,255,255,0.06)',
+        borderBottom: '1px solid var(--w-card-border)',
       }}>
         <div>
           <h1 style={{ fontSize: 20, fontWeight: 900, fontFamily: 'Outfit, sans-serif', letterSpacing: '-0.02em', margin: 0 }}>
@@ -52,7 +52,7 @@ export default function FraudNetwork() {
           </h1>
           <p style={{ fontSize: 11, color: '#475569', margin: '2px 0 0' }}>Neo4j-powered entity relationships · Click nodes to explore · {mockGraphData.nodes.length} nodes · {mockGraphData.links.length} edges</p>
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 16, fontSize: 11, color: '#64748B' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 16, fontSize: 11, color: 'var(--w-text-3)' }}>
           {Object.entries(NODE_COLORS).map(([type, color]) => (
             <span key={type} style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
               <span style={{ width: 10, height: 10, borderRadius: '50%', background: color, display: 'inline-block' }} />
@@ -64,7 +64,7 @@ export default function FraudNetwork() {
 
       <div style={{ flex: 1, display: 'flex' }}>
         {/* Graph */}
-        <div style={{ flex: 1, background: '#0D1117', position: 'relative' }}>
+        <div style={{ flex: 1, background: 'var(--w-bg)', position: 'relative' }}>
           <ForceGraph2D
             graphData={mockGraphData}
             backgroundColor="#0D1117"
@@ -126,7 +126,7 @@ export default function FraudNetwork() {
 
           return (
             <div style={{
-              width: 320, background: '#0D1117', borderLeft: '1px solid rgba(255,255,255,0.08)',
+              width: 320, background: 'var(--w-bg)', borderLeft: '1px solid rgba(255,255,255,0.08)',
               padding: '24px 20px', overflowY: 'auto',
             }}>
               {/* Close */}
@@ -135,7 +135,7 @@ export default function FraudNetwork() {
                   <div style={{ fontSize: 10, fontWeight: 700, color, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 4 }}>
                     {selectedNode.type?.toUpperCase()}
                   </div>
-                  <h3 style={{ fontSize: 18, fontWeight: 800, fontFamily: 'Outfit, sans-serif', margin: 0, color: '#F0F6FF' }}>
+                  <h3 style={{ fontSize: 18, fontWeight: 800, fontFamily: 'Outfit, sans-serif', margin: 0, color: 'var(--w-text-1)' }}>
                     {selectedNode.label?.replace('\n', ' ') || selectedNode.id}
                   </h3>
                 </div>
@@ -163,9 +163,9 @@ export default function FraudNetwork() {
                   { label: 'Weight', value: selectedNode.val?.toString() || '—' },
                   { label: 'Connections', value: connections.length.toString() },
                 ].map(p => (
-                  <div key={p.label} style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
-                    <span style={{ fontSize: 12, color: '#64748B' }}>{p.label}</span>
-                    <span style={{ fontSize: 12, color: '#F0F6FF', fontWeight: 600, fontFamily: 'JetBrains Mono, monospace' }}>{p.value}</span>
+                  <div key={p.label} style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid var(--w-card-border)' }}>
+                    <span style={{ fontSize: 12, color: 'var(--w-text-3)' }}>{p.label}</span>
+                    <span style={{ fontSize: 12, color: 'var(--w-text-1)', fontWeight: 600, fontFamily: 'JetBrains Mono, monospace' }}>{p.value}</span>
                   </div>
                 ))}
               </div>
@@ -184,7 +184,7 @@ export default function FraudNetwork() {
                     return (
                       <div key={n.id} onClick={() => setSelectedNode(n)} style={{
                         display: 'flex', alignItems: 'center', gap: 10, padding: '8px 10px',
-                        borderRadius: 8, background: 'rgba(255,255,255,0.03)', cursor: 'pointer',
+                        borderRadius: 8, background: 'var(--w-card)', cursor: 'pointer',
                         borderLeft: `2px solid ${nColor}40`, transition: 'background 0.15s',
                       }}
                         onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.06)')}
@@ -192,10 +192,10 @@ export default function FraudNetwork() {
                       >
                         <div style={{ width: 8, height: 8, borderRadius: 4, background: nColor, flexShrink: 0 }} />
                         <div style={{ flex: 1 }}>
-                          <div style={{ fontSize: 12, fontWeight: 600, color: '#F0F6FF' }}>
+                          <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--w-text-1)' }}>
                             {n.label?.replace('\n', ' ') || n.id}
                           </div>
-                          <div style={{ fontSize: 9, color: '#64748B', textTransform: 'capitalize' }}>
+                          <div style={{ fontSize: 9, color: 'var(--w-text-3)', textTransform: 'capitalize' }}>
                             {n.type} · {edge?.label || '—'}
                           </div>
                         </div>
@@ -218,12 +218,12 @@ export default function FraudNetwork() {
                   const tgt = typeof l.target === 'string' ? l.target : l.target?.id;
                   return (
                     <div key={i} style={{
-                      fontSize: 11, color: '#64748B', padding: '6px 0',
+                      fontSize: 11, color: 'var(--w-text-3)', padding: '6px 0',
                       borderBottom: '1px solid rgba(255,255,255,0.03)',
                     }}>
-                      <span style={{ color: '#94A3B8', fontFamily: 'JetBrains Mono, monospace', fontSize: 10 }}>{src}</span>
+                      <span style={{ color: 'var(--w-text-2)', fontFamily: 'JetBrains Mono, monospace', fontSize: 10 }}>{src}</span>
                       <span style={{ color: '#0EA5E9', margin: '0 6px' }}>→</span>
-                      <span style={{ color: '#94A3B8', fontFamily: 'JetBrains Mono, monospace', fontSize: 10 }}>{tgt}</span>
+                      <span style={{ color: 'var(--w-text-2)', fontFamily: 'JetBrains Mono, monospace', fontSize: 10 }}>{tgt}</span>
                       <span style={{
                         marginLeft: 8, fontSize: 9, padding: '2px 6px', borderRadius: 4,
                         background: 'rgba(14,165,233,0.1)', color: '#0EA5E9', fontWeight: 600,

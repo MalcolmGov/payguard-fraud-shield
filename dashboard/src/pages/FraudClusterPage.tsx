@@ -108,7 +108,7 @@ export default function FraudClusterPage() {
   const getRingForNode = (nodeId: string) => RINGS.find(r => r.nodes.some(n => n.id === nodeId));
 
   return (
-    <div style={{ padding: 28, fontFamily: 'Inter, sans-serif', color: '#F0F6FF', background: '#0D1629', minHeight: '100vh' }}>
+    <div style={{ padding: 28, fontFamily: 'Inter, sans-serif', color: 'var(--w-text-1)', background: '#0D1629', minHeight: '100vh' }}>
       {/* Toast stack */}
       <div style={{ position: 'fixed', top: 20, right: 20, zIndex: 9999, display: 'flex', flexDirection: 'column', gap: 8, width: 380 }}>
         {toasts.map(t => (
@@ -129,16 +129,16 @@ export default function FraudClusterPage() {
           <div onClick={e => e.stopPropagation()} style={{ background: '#0A101E', border: `1px solid ${confirmBlock.color}40`, borderRadius: 20, padding: 32, width: 420, boxShadow: '0 40px 80px rgba(0,0,0,0.8)' }}>
             <div style={{ fontSize: 32, textAlign: 'center', marginBottom: 12 }}>🔒</div>
             <h3 style={{ fontFamily: 'Outfit', fontSize: 20, fontWeight: 800, textAlign: 'center', margin: '0 0 8px' }}>Bulk-Block {confirmBlock.id}?</h3>
-            <p style={{ fontSize: 13, color: '#64748B', textAlign: 'center', lineHeight: 1.7, marginBottom: 20 }}>
-              This will immediately block all <strong style={{ color: '#F0F6FF' }}>{confirmBlock.members} accounts</strong> in the <strong style={{ color: confirmBlock.color }}>{confirmBlock.name}</strong> fraud ring and freeze <strong style={{ color: '#F0F6FF' }}>{confirmBlock.stolen}</strong> in exposure.
+            <p style={{ fontSize: 13, color: 'var(--w-text-3)', textAlign: 'center', lineHeight: 1.7, marginBottom: 20 }}>
+              This will immediately block all <strong style={{ color: 'var(--w-text-1)' }}>{confirmBlock.members} accounts</strong> in the <strong style={{ color: confirmBlock.color }}>{confirmBlock.name}</strong> fraud ring and freeze <strong style={{ color: 'var(--w-text-1)' }}>{confirmBlock.stolen}</strong> in exposure.
             </p>
-            <div style={{ padding: '12px 16px', background: `${confirmBlock.color}08`, border: `1px solid ${confirmBlock.color}25`, borderRadius: 10, marginBottom: 20, fontSize: 12, color: '#94A3B8' }}>
+            <div style={{ padding: '12px 16px', background: `${confirmBlock.color}08`, border: `1px solid ${confirmBlock.color}25`, borderRadius: 10, marginBottom: 20, fontSize: 12, color: 'var(--w-text-2)' }}>
               <strong style={{ color: confirmBlock.color }}>Ring:</strong> {confirmBlock.id} · {confirmBlock.name}<br />
               <strong style={{ color: confirmBlock.color }}>Risk:</strong> {confirmBlock.risk.toUpperCase()} · Detected {confirmBlock.discovered}<br />
               <strong style={{ color: confirmBlock.color }}>Action:</strong> Block all linked accounts + escalate to analyst queue
             </div>
             <div style={{ display: 'flex', gap: 10 }}>
-              <button onClick={() => setConfirmBlock(null)} style={{ flex: 1, padding: '11px', borderRadius: 10, background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: '#64748B', fontSize: 12, fontWeight: 700, cursor: 'pointer' }}>Cancel</button>
+              <button onClick={() => setConfirmBlock(null)} style={{ flex: 1, padding: '11px', borderRadius: 10, background: 'var(--w-card)', border: '1px solid rgba(255,255,255,0.1)', color: 'var(--w-text-3)', fontSize: 12, fontWeight: 700, cursor: 'pointer' }}>Cancel</button>
               <button onClick={() => doBulkBlock(confirmBlock)} style={{ flex: 1, padding: '11px', borderRadius: 10, background: `linear-gradient(135deg,${confirmBlock.color},${confirmBlock.color}CC)`, border: 'none', color: '#fff', fontSize: 12, fontWeight: 700, cursor: 'pointer', boxShadow: `0 4px 16px ${confirmBlock.color}40` }}>🔒 Confirm Block All</button>
             </div>
           </div>
@@ -148,7 +148,7 @@ export default function FraudClusterPage() {
       <div style={{ marginBottom: 20 }}>
         <div style={{ fontSize: 11, fontWeight: 700, color: '#F97316', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 6 }}>🕸️ AI FRAUD GRAPH ENGINE</div>
         <h1 style={{ fontFamily: 'Outfit, sans-serif', fontSize: 28, fontWeight: 900, margin: '0 0 6px', letterSpacing: '-0.02em' }}>Fraud Pattern Clustering</h1>
-        <p style={{ color: '#8B949E', fontSize: 13, margin: 0 }}>AI-detected fraud rings · Shared device/wallet/IP linking · Real-time cluster discovery</p>
+        <p style={{ color: 'var(--w-text-2)', fontSize: 13, margin: 0 }}>AI-detected fraud rings · Shared device/wallet/IP linking · Real-time cluster discovery</p>
       </div>
 
       {/* New ring alert banner */}
@@ -157,9 +157,9 @@ export default function FraudClusterPage() {
           <span style={{ fontSize: 18 }}>🚨</span>
           <div>
             <div style={{ fontWeight: 700, color: '#EF4444', fontSize: 13 }}>New fraud ring detected — RING-003 (Durban)</div>
-            <div style={{ fontSize: 11, color: '#64748B' }}>3 accounts sharing a single device fingerprint · R28,000 at risk · Auto-blocked</div>
+            <div style={{ fontSize: 11, color: 'var(--w-text-3)' }}>3 accounts sharing a single device fingerprint · R28,000 at risk · Auto-blocked</div>
           </div>
-          <button onClick={() => setNewRingAlert(false)} style={{ marginLeft: 'auto', background: 'none', border: 'none', color: '#64748B', cursor: 'pointer', fontSize: 14 }}>✕</button>
+          <button onClick={() => setNewRingAlert(false)} style={{ marginLeft: 'auto', background: 'none', border: 'none', color: 'var(--w-text-3)', cursor: 'pointer', fontSize: 14 }}>✕</button>
         </div>
       )}
 
@@ -172,7 +172,7 @@ export default function FraudClusterPage() {
           { label: 'Auto-blocked', value: '100%', color: '#0EA5E9' },
         ].map(k => (
           <div key={k.label} style={{ padding: '14px 18px', background: 'rgba(255,255,255,0.12)', border: `1px solid ${k.color}20`, borderRadius: 14 }}>
-            <div style={{ fontSize: 10, color: '#8B949E', marginBottom: 4 }}>{k.label}</div>
+            <div style={{ fontSize: 10, color: 'var(--w-text-2)', marginBottom: 4 }}>{k.label}</div>
             <div style={{ fontSize: 22, fontWeight: 800, color: k.color, fontFamily: 'Outfit' }}>{k.value}</div>
           </div>
         ))}
@@ -262,7 +262,7 @@ export default function FraudClusterPage() {
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
                 <div>
                   <div style={{ fontSize: 10, color: ring.color, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em' }}>{ring.id}</div>
-                  <div style={{ fontSize: 13, fontWeight: 700, color: '#F0F6FF', marginTop: 2 }}>{ring.name}</div>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--w-text-1)', marginTop: 2 }}>{ring.name}</div>
                 </div>
                 <span style={{ fontSize: 9, padding: '3px 8px', borderRadius: 99, background: `${ring.color}15`, border: `1px solid ${ring.color}30`, color: ring.color, fontWeight: 700 }}>{ring.risk.toUpperCase()}</span>
               </div>
@@ -272,8 +272,8 @@ export default function FraudClusterPage() {
                 { k: 'Detected', v: ring.discovered },
               ].map(r => (
                 <div key={r.k} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, borderTop: '1px solid rgba(255,255,255,0.05)', padding: '5px 0' }}>
-                  <span style={{ color: '#8B949E' }}>{r.k}</span>
-                  <span style={{ color: '#94A3B8', fontWeight: 600 }}>{r.v}</span>
+                  <span style={{ color: 'var(--w-text-2)' }}>{r.k}</span>
+                  <span style={{ color: 'var(--w-text-2)', fontWeight: 600 }}>{r.v}</span>
                 </div>
               ))}
               {blockedRings.has(ring.id) ? (
@@ -296,10 +296,10 @@ export default function FraudClusterPage() {
                 <span style={{ fontSize: 20 }}>{NODE_ICONS[selected.type]}</span>
                 <div>
                   <div style={{ fontWeight: 700, fontSize: 14 }}>{selected.label}</div>
-                  <div style={{ fontSize: 10, color: '#8B949E', textTransform: 'capitalize' }}>{selected.type} · {getRingForNode(selected.id)?.id}</div>
+                  <div style={{ fontSize: 10, color: 'var(--w-text-2)', textTransform: 'capitalize' }}>{selected.type} · {getRingForNode(selected.id)?.id}</div>
                 </div>
               </div>
-              <div style={{ fontSize: 11, color: '#64748B' }}>
+              <div style={{ fontSize: 11, color: 'var(--w-text-3)' }}>
                 Connected to {ALL_EDGES.filter(e => e.from === selected.id || e.to === selected.id).length} other entities in this fraud ring.
               </div>
             </div>

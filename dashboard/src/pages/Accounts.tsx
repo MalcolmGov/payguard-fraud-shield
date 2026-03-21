@@ -83,7 +83,7 @@ export default function Accounts() {
   const riskColor = (r: string) => r === 'HIGH' ? '#EF4444' : r === 'MEDIUM' ? '#FBBF24' : '#10F5A0';
 
   return (
-    <div style={{ padding: '24px 28px', fontFamily: 'Inter, sans-serif', color: '#F0F6FF' }}>
+    <div style={{ padding: '24px 28px', fontFamily: 'Inter, sans-serif', color: 'var(--w-text-1)' }}>
       {/* Toast stack */}
       <div style={{ position: 'fixed', top: 20, right: 20, zIndex: 9999, display: 'flex', flexDirection: 'column', gap: 8, width: 360 }}>
         {toasts.map(t => (
@@ -126,18 +126,18 @@ export default function Accounts() {
         onChange={e => setSearch(e.target.value)}
         style={{
           width: '100%', maxWidth: 360, padding: '10px 16px', borderRadius: 10, fontSize: 13, marginBottom: 20,
-          background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)',
-          color: '#F0F6FF', fontFamily: 'JetBrains Mono, monospace',
+          background: 'var(--w-card)', border: '1px solid rgba(255,255,255,0.1)',
+          color: 'var(--w-text-1)', fontFamily: 'JetBrains Mono, monospace',
         }}
       />
 
       <div style={{ display: 'grid', gridTemplateColumns: selected ? '1fr 360px' : '1fr', gap: 16, transition: 'all 0.3s' }}>
         {/* Table */}
         <div style={{
-          background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.07)',
+          background: 'rgba(255,255,255,0.025)', border: '1px solid var(--w-card-border)',
           borderRadius: 14, overflow: 'hidden',
         }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 100px 100px 80px 100px 90px', padding: '12px 20px', borderBottom: '1px solid rgba(255,255,255,0.06)', gap: 8 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 100px 100px 80px 100px 90px', padding: '12px 20px', borderBottom: '1px solid var(--w-card-border)', gap: 8 }}>
             {['PHONE / ACCOUNT', 'TRANSACTIONS', 'TOTAL AMOUNT', 'RISK', 'STATUS', 'ACTION'].map(h => (
               <span key={h} style={{ fontSize: 9, fontWeight: 700, color: '#334155', letterSpacing: '0.1em' }}>{h}</span>
             ))}
@@ -155,14 +155,14 @@ export default function Accounts() {
               onMouseLeave={e => (e.currentTarget.style.background = selectedPhone === a.phone ? 'rgba(14,165,233,0.05)' : a.blocked ? 'rgba(248,81,73,0.03)' : 'transparent')}
             >
               <div>
-                <div style={{ fontSize: 13, color: '#F0F6FF', fontWeight: 600, fontFamily: 'JetBrains Mono, monospace' }}>{a.phone}</div>
+                <div style={{ fontSize: 13, color: 'var(--w-text-1)', fontWeight: 600, fontFamily: 'JetBrains Mono, monospace' }}>{a.phone}</div>
                 <div style={{ fontSize: 10, color: '#475569', display: 'flex', alignItems: 'center', gap: 6 }}>
                   {a.name}
                   {a.notes.length > 0 && <span style={{ fontSize: 9, color: '#0EA5E9' }}>📝 {a.notes.length}</span>}
                 </div>
               </div>
-              <span style={{ fontSize: 13, color: '#94A3B8', fontFamily: 'JetBrains Mono, monospace' }}>{a.txCount}</span>
-              <span style={{ fontSize: 13, color: '#F0F6FF', fontWeight: 600, fontFamily: 'JetBrains Mono, monospace' }}>R{a.totalAmount.toLocaleString()}</span>
+              <span style={{ fontSize: 13, color: 'var(--w-text-2)', fontFamily: 'JetBrains Mono, monospace' }}>{a.txCount}</span>
+              <span style={{ fontSize: 13, color: 'var(--w-text-1)', fontWeight: 600, fontFamily: 'JetBrains Mono, monospace' }}>R{a.totalAmount.toLocaleString()}</span>
               <span style={{
                 fontSize: 9, fontWeight: 700, padding: '3px 10px', borderRadius: 6, textAlign: 'center',
                 background: `${riskColor(a.maxRisk)}18`, color: riskColor(a.maxRisk),
@@ -184,7 +184,7 @@ export default function Accounts() {
         {/* Detail Drawer */}
         {selected && (
           <div style={{
-            background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.07)',
+            background: 'rgba(255,255,255,0.025)', border: '1px solid var(--w-card-border)',
             borderRadius: 14, padding: '22px', position: 'sticky', top: 20, height: 'fit-content',
             maxHeight: 'calc(100vh - 60px)', overflowY: 'auto',
           }}>
@@ -195,7 +195,7 @@ export default function Accounts() {
                   {selected.blocked ? '🔒 BLOCKED' : 'ACCOUNT DETAIL'}
                 </div>
                 <div style={{ fontSize: 18, fontWeight: 800, fontFamily: 'Outfit, sans-serif' }}>{selected.name}</div>
-                <div style={{ fontSize: 11, color: '#8B949E', fontFamily: 'JetBrains Mono, monospace', marginTop: 2 }}>{selected.phone}</div>
+                <div style={{ fontSize: 11, color: 'var(--w-text-2)', fontFamily: 'JetBrains Mono, monospace', marginTop: 2 }}>{selected.phone}</div>
               </div>
               <button onClick={() => setSelectedPhone(null)} style={{ background: 'none', border: 'none', color: '#475569', cursor: 'pointer', fontSize: 18 }}>✕</button>
             </div>
@@ -204,9 +204,9 @@ export default function Accounts() {
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 16 }}>
               {[
                 { label: 'Transactions', value: selected.txCount.toString(), color: '#0EA5E9' },
-                { label: 'Total Volume', value: `R${selected.totalAmount.toLocaleString()}`, color: '#F0F6FF' },
+                { label: 'Total Volume', value: `R${selected.totalAmount.toLocaleString()}`, color: 'var(--w-text-1)' },
               ].map(s => (
-                <div key={s.label} style={{ padding: '12px 14px', background: 'rgba(255,255,255,0.04)', borderRadius: 10 }}>
+                <div key={s.label} style={{ padding: '12px 14px', background: 'var(--w-card)', borderRadius: 10 }}>
                   <div style={{ fontSize: 9, fontWeight: 700, color: '#475569', letterSpacing: '0.08em', marginBottom: 4 }}>{s.label}</div>
                   <div style={{ fontSize: 18, fontWeight: 800, color: s.color, fontFamily: 'Outfit, sans-serif' }}>{s.value}</div>
                 </div>
@@ -240,8 +240,8 @@ export default function Accounts() {
                   placeholder="Add a note…"
                   style={{
                     flex: 1, padding: '8px 12px', borderRadius: 8, fontSize: 12,
-                    background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)',
-                    color: '#F0F6FF', fontFamily: 'Inter, sans-serif',
+                    background: 'var(--w-card)', border: '1px solid rgba(255,255,255,0.1)',
+                    color: 'var(--w-text-1)', fontFamily: 'Inter, sans-serif',
                   }}
                 />
                 <button onClick={() => addNote(selected.phone)} style={{
@@ -255,8 +255,8 @@ export default function Accounts() {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 4, maxHeight: 120, overflowY: 'auto' }}>
                   {selected.notes.map((note, i) => (
                     <div key={i} style={{
-                      fontSize: 11, color: '#94A3B8', padding: '6px 10px', borderRadius: 8,
-                      background: 'rgba(255,255,255,0.03)', borderLeft: '2px solid #0EA5E940',
+                      fontSize: 11, color: 'var(--w-text-2)', padding: '6px 10px', borderRadius: 8,
+                      background: 'var(--w-card)', borderLeft: '2px solid #0EA5E940',
                     }}>{note}</div>
                   ))}
                 </div>
@@ -273,17 +273,17 @@ export default function Accounts() {
                   {selectedTxs.map(tx => (
                     <div key={tx.id} style={{
                       display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-                      padding: '8px 10px', borderRadius: 8, background: 'rgba(255,255,255,0.03)',
+                      padding: '8px 10px', borderRadius: 8, background: 'var(--w-card)',
                       borderLeft: `2px solid ${riskColor(tx.riskLevel)}30`,
                     }}>
                       <div>
-                        <div style={{ fontSize: 11, color: '#94A3B8', fontFamily: 'JetBrains Mono, monospace' }}>{tx.id}</div>
+                        <div style={{ fontSize: 11, color: 'var(--w-text-2)', fontFamily: 'JetBrains Mono, monospace' }}>{tx.id}</div>
                         <div style={{ fontSize: 9, color: '#475569' }}>
                           {new Date(tx.createdAt).toLocaleString('en-ZA', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
                         </div>
                       </div>
                       <div style={{ textAlign: 'right' }}>
-                        <div style={{ fontSize: 12, fontWeight: 700, color: '#F0F6FF', fontFamily: 'JetBrains Mono, monospace' }}>R{tx.amount.toLocaleString()}</div>
+                        <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--w-text-1)', fontFamily: 'JetBrains Mono, monospace' }}>R{tx.amount.toLocaleString()}</div>
                         <span style={{
                           fontSize: 8, fontWeight: 700, padding: '2px 6px', borderRadius: 4,
                           background: `${riskColor(tx.riskLevel)}15`, color: riskColor(tx.riskLevel),

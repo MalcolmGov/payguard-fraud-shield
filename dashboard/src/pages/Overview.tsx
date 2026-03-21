@@ -159,7 +159,7 @@ export default function Overview() {
   };
 
   return (
-    <div style={{ padding: '20px 28px', fontFamily: 'Inter, sans-serif', color: '#F0F6FF' }}>
+    <div style={{ padding: '20px 28px', fontFamily: 'Inter, sans-serif', color: 'var(--w-text-1)' }}>
       {/* Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
         <div>
@@ -212,7 +212,7 @@ export default function Overview() {
           <span style={{ fontSize: 11, fontWeight: 800, letterSpacing: '0.1em', color: threatColors[threatLevel] }}>
             THREAT LEVEL: {threatLevel}
           </span>
-          <span style={{ fontSize: 12, color: '#64748B' }}>\u2014 {threatLabels[threatLevel]}</span>
+          <span style={{ fontSize: 12, color: 'var(--w-text-3)' }}>\u2014 {threatLabels[threatLevel]}</span>
         </div>
         <span style={{ fontSize: 11, color: '#475569', fontFamily: 'JetBrains Mono, monospace' }}>
           Updated {time.toLocaleTimeString('en-ZA')}
@@ -230,7 +230,7 @@ export default function Overview() {
         ].map((s, i) => (
           <div key={i} onClick={() => navigate(s.link)} style={{
             background: 'rgba(255,255,255,0.025)',
-            border: '1px solid rgba(255,255,255,0.07)',
+            border: '1px solid var(--w-card-border)',
             borderRadius: 14, padding: '16px 18px', position: 'relative', overflow: 'hidden',
             cursor: 'pointer', transition: 'all 0.2s',
           }}
@@ -244,7 +244,7 @@ export default function Overview() {
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
               <div>
-                <div style={{ fontSize: 28, fontWeight: 900, color: '#F0F6FF', fontFamily: 'Outfit, sans-serif', letterSpacing: '-0.02em', lineHeight: 1 }}>{s.value}</div>
+                <div style={{ fontSize: 28, fontWeight: 900, color: 'var(--w-text-1)', fontFamily: 'Outfit, sans-serif', letterSpacing: '-0.02em', lineHeight: 1 }}>{s.value}</div>
                 <div style={{ fontSize: 11, fontWeight: 600, color: s.trendUp ? '#10F5A0' : '#0EA5E9', marginTop: 4 }}>
                   {s.trendUp ? '\u2191' : '\u2193'} {s.trend}
                 </div>
@@ -259,7 +259,7 @@ export default function Overview() {
       <div style={{ display: 'grid', gridTemplateColumns: '280px 1fr 280px', gap: 14, marginBottom: 20 }}>
         {/* Ring Gauges */}
         <div style={{
-          background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.07)',
+          background: 'rgba(255,255,255,0.025)', border: '1px solid var(--w-card-border)',
           borderRadius: 14, padding: '20px',
         }}>
           <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.08em', color: '#475569', marginBottom: 16 }}>SYSTEM HEALTH</div>
@@ -273,7 +273,7 @@ export default function Overview() {
 
         {/* Risk Distribution - Custom bars */}
         <div style={{
-          background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.07)',
+          background: 'rgba(255,255,255,0.025)', border: '1px solid var(--w-card-border)',
           borderRadius: 14, padding: '20px',
         }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
@@ -282,7 +282,7 @@ export default function Overview() {
               {[{ l: 'Blocked', c: '#EF4444' }, { l: 'Warned', c: '#FBBF24' }, { l: 'Allowed', c: '#10F5A0' }].map(x => (
                 <div key={x.l} style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
                   <div style={{ width: 8, height: 8, borderRadius: 2, background: x.c }} />
-                  <span style={{ fontSize: 10, color: '#64748B' }}>{x.l}</span>
+                  <span style={{ fontSize: 10, color: 'var(--w-text-3)' }}>{x.l}</span>
                 </div>
               ))}
             </div>
@@ -321,7 +321,7 @@ export default function Overview() {
 
         {/* Top Attack Vectors */}
         <div style={{
-          background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.07)',
+          background: 'rgba(255,255,255,0.025)', border: '1px solid var(--w-card-border)',
           borderRadius: 14, padding: '20px',
         }}>
           <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.08em', color: '#475569', marginBottom: 16 }}>TOP ATTACK VECTORS</div>
@@ -334,10 +334,10 @@ export default function Overview() {
           ].map((v, i) => (
             <div key={i} style={{ marginBottom: 12 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
-                <span style={{ fontSize: 12, color: '#94A3B8' }}>{v.name}</span>
+                <span style={{ fontSize: 12, color: 'var(--w-text-2)' }}>{v.name}</span>
                 <span style={{ fontSize: 12, fontWeight: 700, color: v.color, fontFamily: 'JetBrains Mono, monospace' }}>{v.pct}%</span>
               </div>
-              <div style={{ height: 5, background: 'rgba(255,255,255,0.06)', borderRadius: 99 }}>
+              <div style={{ height: 5, background: 'var(--w-card)', borderRadius: 99 }}>
                 <div style={{ height: '100%', width: `${v.pct}%`, background: v.color, borderRadius: 99, transition: 'width 1s ease-out' }} />
               </div>
             </div>
@@ -349,7 +349,7 @@ export default function Overview() {
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
         {/* Live Threat Feed */}
         <div style={{
-          background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.07)',
+          background: 'rgba(255,255,255,0.025)', border: '1px solid var(--w-card-border)',
           borderRadius: 14, padding: '20px', maxHeight: 380, overflow: 'hidden',
         }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
@@ -372,8 +372,8 @@ export default function Overview() {
                 <span style={{ color: '#334155', fontFamily: 'JetBrains Mono, monospace', fontSize: 9 }}>
                   {e.ts.toLocaleTimeString('en-ZA', { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
                 </span>
-                <span style={{ color: '#94A3B8', fontSize: 11, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{e.type}</span>
-                <span style={{ color: '#F0F6FF', fontWeight: 600, fontSize: 11, fontFamily: 'JetBrains Mono, monospace' }}>R{e.amount.toLocaleString()}</span>
+                <span style={{ color: 'var(--w-text-2)', fontSize: 11, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{e.type}</span>
+                <span style={{ color: 'var(--w-text-1)', fontWeight: 600, fontSize: 11, fontFamily: 'JetBrains Mono, monospace' }}>R{e.amount.toLocaleString()}</span>
                 <span style={{
                   fontSize: 9, fontWeight: 700, padding: '2px 6px', borderRadius: 4, textAlign: 'center',
                   background: e.action === 'BLOCK' ? 'rgba(239,68,68,0.15)' : 'rgba(251,191,36,0.15)',
@@ -386,7 +386,7 @@ export default function Overview() {
 
         {/* Recent Flagged Transactions */}
         <div style={{
-          background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.07)',
+          background: 'rgba(255,255,255,0.025)', border: '1px solid var(--w-card-border)',
           borderRadius: 14, padding: '20px', maxHeight: 380, overflow: 'hidden',
         }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
@@ -419,8 +419,8 @@ export default function Overview() {
                   <span style={{ fontSize: 10, color: '#475569', fontFamily: 'JetBrains Mono, monospace' }}>
                     {new Date(t.createdAt).toLocaleTimeString('en-ZA', { hour: '2-digit', minute: '2-digit' })}
                   </span>
-                  <span style={{ fontSize: 11, color: '#94A3B8', fontFamily: 'JetBrains Mono, monospace' }}>{t.senderId}</span>
-                  <span style={{ fontSize: 11, color: '#F0F6FF', fontWeight: 600, fontFamily: 'JetBrains Mono, monospace' }}>R{t.amount?.toLocaleString()}</span>
+                  <span style={{ fontSize: 11, color: 'var(--w-text-2)', fontFamily: 'JetBrains Mono, monospace' }}>{t.senderId}</span>
+                  <span style={{ fontSize: 11, color: 'var(--w-text-1)', fontWeight: 600, fontFamily: 'JetBrains Mono, monospace' }}>R{t.amount?.toLocaleString()}</span>
                   <span style={{
                     fontSize: 9, fontWeight: 700, padding: '2px 8px', borderRadius: 4,
                     background: `${riskColor}18`, color: riskColor, textAlign: 'center',

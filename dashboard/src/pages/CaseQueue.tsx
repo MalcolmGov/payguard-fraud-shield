@@ -120,7 +120,7 @@ export default function CaseQueue() {
   }).length;
 
   return (
-    <div style={{ padding: '24px 28px', fontFamily: 'Inter, sans-serif', color: '#F0F6FF' }}>
+    <div style={{ padding: '24px 28px', fontFamily: 'Inter, sans-serif', color: 'var(--w-text-1)' }}>
       {/* Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 20 }}>
         <div>
@@ -192,7 +192,7 @@ export default function CaseQueue() {
             >
               {/* Case ID + Priority */}
               <div>
-                <div style={{ fontSize: 12, fontWeight: 800, color: '#F0F6FF', fontFamily: 'JetBrains Mono, monospace' }}>{c.id}</div>
+                <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--w-text-1)', fontFamily: 'JetBrains Mono, monospace' }}>{c.id}</div>
                 <span style={{
                   fontSize: 8, fontWeight: 800, padding: '2px 6px', borderRadius: 4, marginTop: 4, display: 'inline-block',
                   background: `${pCfg.color}18`, color: pCfg.color, letterSpacing: '0.06em',
@@ -201,13 +201,13 @@ export default function CaseQueue() {
 
               {/* Transaction summary */}
               <div onClick={() => setSelectedTx(c.tx)}>
-                <div style={{ fontSize: 12, color: '#94A3B8', display: 'flex', gap: 8, alignItems: 'center' }}>
+                <div style={{ fontSize: 12, color: 'var(--w-text-2)', display: 'flex', gap: 8, alignItems: 'center' }}>
                   <span style={{ fontFamily: 'JetBrains Mono, monospace' }}>{c.tx.userPhone}</span>
                   <span style={{ color: '#334155' }}>→</span>
                   <span style={{ fontFamily: 'JetBrains Mono, monospace' }}>{c.tx.recipientWallet}</span>
                 </div>
                 <div style={{ display: 'flex', gap: 8, marginTop: 4, alignItems: 'center' }}>
-                  <span style={{ fontSize: 13, fontWeight: 700, color: '#F0F6FF', fontFamily: 'JetBrains Mono, monospace' }}>R{c.tx.amount.toLocaleString()}</span>
+                  <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--w-text-1)', fontFamily: 'JetBrains Mono, monospace' }}>R{c.tx.amount.toLocaleString()}</span>
                   {c.tx.onCall && <span style={{ fontSize: 9, padding: '1px 6px', borderRadius: 4, background: 'rgba(239,68,68,0.12)', color: '#EF4444', fontWeight: 700 }}>📞 ON CALL</span>}
                   {c.rulesFired.length > 0 && <span style={{ fontSize: 9, color: '#475569' }}>{c.rulesFired.length} rules</span>}
                 </div>

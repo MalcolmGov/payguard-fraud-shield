@@ -72,7 +72,7 @@ export default function AttackSimulator() {
   const statusColor = (s: string) => s === 'blocked' ? '#EF4444' : s === 'warned' ? '#FBBF24' : s === 'ok' ? '#10F5A0' : '#475569';
 
   return (
-    <div style={{ padding: '24px 28px', fontFamily: 'Inter, sans-serif', color: '#F0F6FF' }}>
+    <div style={{ padding: '24px 28px', fontFamily: 'Inter, sans-serif', color: 'var(--w-text-1)' }}>
       {/* Header */}
       <div style={{ marginBottom: 20 }}>
         <h1 style={{ fontSize: 24, fontWeight: 900, fontFamily: 'Outfit, sans-serif', letterSpacing: '-0.02em', margin: 0 }}>
@@ -96,11 +96,11 @@ export default function AttackSimulator() {
 
       {/* Description + Controls */}
       <div style={{
-        background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.07)',
+        background: 'rgba(255,255,255,0.025)', border: '1px solid var(--w-card-border)',
         borderRadius: 14, padding: '20px', marginBottom: 20,
         display: 'flex', justifyContent: 'space-between', alignItems: 'center',
       }}>
-        <p style={{ fontSize: 14, color: '#94A3B8', margin: 0, maxWidth: 600 }}>{activeScenario.desc}</p>
+        <p style={{ fontSize: 14, color: 'var(--w-text-2)', margin: 0, maxWidth: 600 }}>{activeScenario.desc}</p>
         <div style={{ display: 'flex', gap: 8 }}>
           <button onClick={run} disabled={running} style={{
             padding: '10px 24px', borderRadius: 10, fontSize: 13, fontWeight: 700, border: 'none', cursor: running ? 'not-allowed' : 'pointer',
@@ -109,20 +109,20 @@ export default function AttackSimulator() {
           }}>{running ? 'Running\u2026' : '\u25B6 Run Simulation'}</button>
           <button onClick={reset} style={{
             padding: '10px 18px', borderRadius: 10, fontSize: 13, fontWeight: 600, border: '1px solid rgba(255,255,255,0.1)',
-            background: 'transparent', color: '#64748B', cursor: 'pointer',
+            background: 'transparent', color: 'var(--w-text-3)', cursor: 'pointer',
           }}>Reset</button>
         </div>
       </div>
 
       {/* Timeline */}
       <div style={{
-        background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.07)',
+        background: 'rgba(255,255,255,0.025)', border: '1px solid var(--w-card-border)',
         borderRadius: 14, padding: '24px',
       }}>
         <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.08em', color: '#475569', marginBottom: 20 }}>EVENT TIMELINE</div>
         <div style={{ position: 'relative', paddingLeft: 28 }}>
           {/* Vertical line */}
-          <div style={{ position: 'absolute', left: 9, top: 0, bottom: 0, width: 2, background: 'rgba(255,255,255,0.06)' }} />
+          <div style={{ position: 'absolute', left: 9, top: 0, bottom: 0, width: 2, background: 'var(--w-card)' }} />
 
           {activeScenario.steps.map((step, i) => {
             const isActive = i <= currentStep;
@@ -159,7 +159,7 @@ export default function AttackSimulator() {
                 <div style={{ fontSize: 14, fontWeight: 700, color: isActive ? '#F0F6FF' : '#475569', marginBottom: 4, transition: 'color 0.3s' }}>
                   {step.label}
                 </div>
-                <div style={{ fontSize: 12, color: '#64748B', lineHeight: 1.6 }}>{step.detail}</div>
+                <div style={{ fontSize: 12, color: 'var(--w-text-3)', lineHeight: 1.6 }}>{step.detail}</div>
               </div>
             );
           })}

@@ -186,7 +186,7 @@ export default function Invoices() {
 
   // ── Render ─────────────────────────────────────────────────────────────────
   return (
-    <div style={{ padding: '24px 28px', fontFamily: 'Inter, sans-serif', color: '#F0F6FF' }}>
+    <div style={{ padding: '24px 28px', fontFamily: 'Inter, sans-serif', color: 'var(--w-text-1)' }}>
       {/* Toasts */}
       <div style={{ position: 'fixed', top: 20, right: 20, zIndex: 9999, display: 'flex', flexDirection: 'column', gap: 8, width: 400 }}>
         {toasts.map(t => (
@@ -224,7 +224,7 @@ export default function Invoices() {
       {stats && (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: 10, marginBottom: 20 }}>
           {[
-            { label: 'DRAFTS', value: stats.drafts, color: '#94A3B8' },
+            { label: 'DRAFTS', value: stats.drafts, color: 'var(--w-text-2)' },
             { label: 'SENT', value: stats.sent, color: '#0EA5E9' },
             { label: 'PAID', value: stats.paid, color: '#10F5A0' },
             { label: 'OVERDUE', value: stats.overdue, color: '#EF4444' },
@@ -245,7 +245,7 @@ export default function Invoices() {
       {/* Generate Invoice Form */}
       {showGenerate && (
         <div style={{
-          background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(14,165,233,0.2)',
+          background: 'var(--w-card)', border: '1px solid rgba(14,165,233,0.2)',
           borderRadius: 14, padding: 24, marginBottom: 20, animation: 'fadeInDown 0.2s ease',
         }}>
           <div style={{ fontSize: 14, fontWeight: 700, color: '#0EA5E9', marginBottom: 16 }}>Generate Invoice</div>
@@ -317,8 +317,8 @@ export default function Invoices() {
         <div style={{ textAlign: 'center', padding: 60, color: '#475569' }}>Loading invoices...</div>
       ) : (
         <div style={{ display: 'grid', gridTemplateColumns: selectedInvoice ? '1fr 360px' : '1fr', gap: 16, transition: 'all 0.3s' }}>
-          <div style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 14, overflow: 'hidden' }}>
-            <div style={{ display: 'grid', gridTemplateColumns: '120px 1fr 100px 90px 110px 80px 80px', padding: '12px 20px', borderBottom: '1px solid rgba(255,255,255,0.06)', gap: 8 }}>
+          <div style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid var(--w-card-border)', borderRadius: 14, overflow: 'hidden' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '120px 1fr 100px 90px 110px 80px 80px', padding: '12px 20px', borderBottom: '1px solid var(--w-card-border)', gap: 8 }}>
               {['INVOICE #', 'CLIENT', 'PERIOD', 'API CALLS', 'TOTAL', 'STATUS', 'ACTION'].map(h => (
                 <span key={h} style={{ fontSize: 9, fontWeight: 700, color: '#334155', letterSpacing: '0.1em' }}>{h}</span>
               ))}
@@ -339,14 +339,14 @@ export default function Invoices() {
               >
                 <span style={{ fontSize: 12, color: '#0EA5E9', fontWeight: 600, fontFamily: 'JetBrains Mono, monospace' }}>{inv.invoice_number}</span>
                 <div>
-                  <div style={{ fontSize: 13, color: '#F0F6FF', fontWeight: 600 }}>{inv.client_name}</div>
+                  <div style={{ fontSize: 13, color: 'var(--w-text-1)', fontWeight: 600 }}>{inv.client_name}</div>
                   <div style={{ fontSize: 10, color: '#475569' }}>{inv.client_email}</div>
                 </div>
-                <span style={{ fontSize: 10, color: '#94A3B8' }}>
+                <span style={{ fontSize: 10, color: 'var(--w-text-2)' }}>
                   {new Date(inv.period_start).toLocaleDateString('en-ZA', { month: 'short', day: 'numeric' })} — {new Date(inv.period_end).toLocaleDateString('en-ZA', { month: 'short', day: 'numeric' })}
                 </span>
-                <span style={{ fontSize: 12, color: '#94A3B8', fontFamily: 'JetBrains Mono, monospace' }}>{Number(inv.total_api_calls).toLocaleString()}</span>
-                <span style={{ fontSize: 13, color: '#F0F6FF', fontWeight: 700, fontFamily: 'JetBrains Mono, monospace' }}>{fmt(inv.total, inv.currency)}</span>
+                <span style={{ fontSize: 12, color: 'var(--w-text-2)', fontFamily: 'JetBrains Mono, monospace' }}>{Number(inv.total_api_calls).toLocaleString()}</span>
+                <span style={{ fontSize: 13, color: 'var(--w-text-1)', fontWeight: 700, fontFamily: 'JetBrains Mono, monospace' }}>{fmt(inv.total, inv.currency)}</span>
                 <span style={{
                   fontSize: 9, fontWeight: 700, padding: '3px 10px', borderRadius: 6, textAlign: 'center',
                   background: `${STATUS_COLORS[inv.status]}15`, color: STATUS_COLORS[inv.status],
@@ -363,14 +363,14 @@ export default function Invoices() {
           {/* Detail Drawer */}
           {selectedInvoice && (
             <div style={{
-              background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.07)',
+              background: 'rgba(255,255,255,0.025)', border: '1px solid var(--w-card-border)',
               borderRadius: 14, padding: 22, position: 'sticky', top: 20, height: 'fit-content',
             }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 16 }}>
                 <div>
                   <div style={{ fontSize: 10, fontWeight: 700, color: STATUS_COLORS[selectedInvoice.status], letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 4 }}>{selectedInvoice.status}</div>
                   <div style={{ fontSize: 16, fontWeight: 800, fontFamily: 'Outfit, sans-serif', color: '#0EA5E9' }}>{selectedInvoice.invoice_number}</div>
-                  <div style={{ fontSize: 12, color: '#94A3B8', marginTop: 2 }}>{selectedInvoice.client_name}</div>
+                  <div style={{ fontSize: 12, color: 'var(--w-text-2)', marginTop: 2 }}>{selectedInvoice.client_name}</div>
                 </div>
                 <button onClick={() => setSelectedInvoice(null)} style={{ background: 'none', border: 'none', color: '#475569', cursor: 'pointer', fontSize: 18 }}>✕</button>
               </div>
@@ -384,20 +384,20 @@ export default function Invoices() {
                   { label: 'Subtotal', value: fmt(selectedInvoice.subtotal, selectedInvoice.currency) },
                   { label: `VAT (${selectedInvoice.vat_rate}%)`, value: fmt(selectedInvoice.vat_amount, selectedInvoice.currency) },
                 ].map(r => (
-                  <div key={r.label} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, padding: '6px 0', borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
-                    <span style={{ color: '#94A3B8' }}>{r.label}</span>
-                    <span style={{ color: '#F0F6FF', fontFamily: 'JetBrains Mono, monospace', fontWeight: 600 }}>{r.value}</span>
+                  <div key={r.label} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, padding: '6px 0', borderBottom: '1px solid var(--w-card-border)' }}>
+                    <span style={{ color: 'var(--w-text-2)' }}>{r.label}</span>
+                    <span style={{ color: 'var(--w-text-1)', fontFamily: 'JetBrains Mono, monospace', fontWeight: 600 }}>{r.value}</span>
                   </div>
                 ))}
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14, padding: '8px 0', borderTop: '2px solid #0EA5E9' }}>
-                  <span style={{ color: '#F0F6FF', fontWeight: 700 }}>Total Due</span>
+                  <span style={{ color: 'var(--w-text-1)', fontWeight: 700 }}>Total Due</span>
                   <span style={{ color: '#10F5A0', fontFamily: 'JetBrains Mono, monospace', fontWeight: 800 }}>{fmt(selectedInvoice.total, selectedInvoice.currency)}</span>
                 </div>
               </div>
 
               {/* Dates */}
               <div style={{ fontSize: 10, color: '#475569', marginBottom: 16, lineHeight: 1.8 }}>
-                <span style={{ color: '#94A3B8' }}>Due:</span> {new Date(selectedInvoice.due_date).toLocaleDateString('en-ZA', { day: 'numeric', month: 'long', year: 'numeric' })}<br />
+                <span style={{ color: 'var(--w-text-2)' }}>Due:</span> {new Date(selectedInvoice.due_date).toLocaleDateString('en-ZA', { day: 'numeric', month: 'long', year: 'numeric' })}<br />
                 {selectedInvoice.paid_at && <><span style={{ color: '#10F5A0' }}>Paid:</span> {new Date(selectedInvoice.paid_at).toLocaleDateString('en-ZA')}<br /></>}
                 {selectedInvoice.sent_at && <><span style={{ color: '#0EA5E9' }}>Sent:</span> {new Date(selectedInvoice.sent_at).toLocaleDateString('en-ZA')}<br /></>}
               </div>
@@ -439,6 +439,6 @@ const labelStyle: React.CSSProperties = {
 
 const inputStyle: React.CSSProperties = {
   width: '100%', padding: '10px 14px', borderRadius: 10, fontSize: 13,
-  background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)',
-  color: '#F0F6FF', fontFamily: 'Inter, sans-serif',
+  background: 'var(--w-card)', border: '1px solid rgba(255,255,255,0.1)',
+  color: 'var(--w-text-1)', fontFamily: 'Inter, sans-serif',
 };
