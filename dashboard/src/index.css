@@ -2576,6 +2576,7 @@ input:focus, select:focus { border-color: var(--accent-blue); }
     padding: 14px 20px !important;
   }
 
+
   /* ── Headings size cap ── */
   h1[style], .w-heading[style] {
     font-size: 28px !important;
@@ -2584,4 +2585,197 @@ input:focus, select:focus { border-color: var(--accent-blue); }
   h2[style], h2.w-heading {
     font-size: 22px !important;
   }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   LIGHT THEME — Inline Style Overrides (!important)
+   Pages use hardcoded inline colors that CSS vars can't fix.
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Page-level dark backgrounds → light ── */
+[data-theme="light"] div[style*="background: '#0B1121'"],
+[data-theme="light"] div[style*='background: "#0B1121"'],
+[data-theme="light"] div[style*="background:#0B1121"],
+[data-theme="light"] div[style*="background: rgb(11"],
+[data-theme="light"] [style*="#0B1121"] {
+  background: #F8FAFC !important;
+}
+
+/* ── All hardcoded light text → dark ── */
+[data-theme="light"] [style*="color: '#F0F6FF'"],
+[data-theme="light"] [style*='color: "#F0F6FF"'],
+[data-theme="light"] [style*="color: '#FFFFFF'"],
+[data-theme="light"] [style*="color: '#E6EDF3'"],
+[data-theme="light"] [style*="color: '#f0f6ff'"],
+[data-theme="light"] h1[style],
+[data-theme="light"] h2[style] {
+  color: #0F172A !important;
+}
+
+/* ── Muted text → darker for light bg ── */
+[data-theme="light"] [style*="color: '#94A3B8'"],
+[data-theme="light"] [style*="color: '#64748B'"],
+[data-theme="light"] [style*="color: '#475569'"],
+[data-theme="light"] [style*='color: "#94A3B8"'],
+[data-theme="light"] [style*='color: "#64748B"'] {
+  color: #334155 !important;
+}
+
+/* ── White-alpha card backgrounds → visible on white ── */
+[data-theme="light"] [style*="background: 'rgba(255,255,255,0.0"],
+[data-theme="light"] [style*="background: 'rgba(255, 255, 255, 0.0"],
+[data-theme="light"] div[style*="rgba(255,255,255,0.03)"],
+[data-theme="light"] div[style*="rgba(255,255,255,0.04)"],
+[data-theme="light"] div[style*="rgba(255,255,255,0.02)"] {
+  background: rgba(0,0,0,0.03) !important;
+}
+
+/* ── White-alpha borders → visible on white ── */
+[data-theme="light"] [style*="border: '1px solid rgba(255,255,255"],
+[data-theme="light"] div[style*="rgba(255,255,255,0.06)"],
+[data-theme="light"] div[style*="rgba(255,255,255,0.08)"],
+[data-theme="light"] div[style*="rgba(255,255,255,0.04)"] {
+  border-color: rgba(0,0,0,0.1) !important;
+}
+
+/* ── Products page: product detail card ── */
+[data-theme="light"] div[style*="linear-gradient(135deg, rgba(255,255,255,0.04)"] {
+  background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(241,245,249,0.9) 100%) !important;
+  border-color: rgba(0,0,0,0.1) !important;
+}
+
+/* ── Products page: comparison table wrapper ── */
+[data-theme="light"] div[style*="rgba(255,255,255,0.02)"][style*="borderRadius"] {
+  background: #FFFFFF !important;
+  border-color: #E2E8F0 !important;
+}
+
+/* ── Contact form: inputs, textareas, selects ── */
+[data-theme="light"] input[style],
+[data-theme="light"] textarea[style],
+[data-theme="light"] select[style] {
+  background: #FFFFFF !important;
+  color: #0F172A !important;
+  border: 1px solid #CBD5E1 !important;
+  border-radius: 8px !important;
+}
+[data-theme="light"] input[style]:focus,
+[data-theme="light"] textarea[style]:focus,
+[data-theme="light"] select[style]:focus {
+  border-color: #3B82F6 !important;
+  outline: none !important;
+}
+
+/* ── Contact form: general inputs without inline style ── */
+[data-theme="light"] input,
+[data-theme="light"] textarea,
+[data-theme="light"] select {
+  background: #FFFFFF !important;
+  color: #0F172A !important;
+  border: 1px solid #CBD5E1 !important;
+}
+[data-theme="light"] input::placeholder,
+[data-theme="light"] textarea::placeholder {
+  color: #94A3B8 !important;
+}
+
+/* ── Contact form: labels ── */
+[data-theme="light"] label,
+[data-theme="light"] label[style] {
+  color: #1E293B !important;
+}
+
+/* ── Contact form: checkbox/interest chips ── */
+[data-theme="light"] [style*="cursor: 'pointer'"][style*="borderRadius"],
+[data-theme="light"] div[style*="padding: '6px 14px'"],
+[data-theme="light"] div[style*="border-radius"][style*="cursor"] {
+  border-color: #CBD5E1 !important;
+  color: #334155 !important;
+}
+
+/* ── Sandbox: dark panels → light ── */
+[data-theme="light"] div[style*="background: '#0A0F1A'"],
+[data-theme="light"] div[style*='background: "#0A0F1A"'],
+[data-theme="light"] [style*="#0A0F1A"],
+[data-theme="light"] [style*="#0D1117"],
+[data-theme="light"] [style*="#1C2333"],
+[data-theme="light"] [style*="#161B22"],
+[data-theme="light"] [style*="#131A2B"] {
+  background: #F1F5F9 !important;
+}
+
+/* ── Sandbox: sidebar backgrounds ── */
+[data-theme="light"] div[style*="borderRight"][style*="background"],
+[data-theme="light"] aside[style] {
+  background: #F8FAFC !important;
+  border-color: #E2E8F0 !important;
+}
+
+/* ── Sandbox: API key display ── */
+[data-theme="light"] div[style*="fontFamily: 'JetBrains Mono'"][style*="background"] {
+  background: #F1F5F9 !important;
+  color: #334155 !important;
+  border-color: #CBD5E1 !important;
+}
+
+/* ── Sandbox: JSON editor / code block — keep dark for readability ── */
+[data-theme="light"] pre[style],
+[data-theme="light"] code[style] {
+  background: #1E293B !important;
+  color: #E2E8F0 !important;
+}
+
+/* ── Sandbox: endpoint URL bar ── */
+[data-theme="light"] div[style*="display: 'flex'"][style*="borderRadius"][style*="background"] {
+  background: #F1F5F9 !important;
+  border-color: #CBD5E1 !important;
+}
+
+/* ── Sandbox: response panel ── */
+[data-theme="light"] div[style*="RESPONSE"],
+[data-theme="light"] [style*="minHeight: 120"] {
+  background: #F8FAFC !important;
+  border-color: #E2E8F0 !important;
+}
+
+/* ── Architecture page: dark section bg ── */
+[data-theme="light"] section[style*="#0B1121"],
+[data-theme="light"] section[style*="background"],
+[data-theme="light"] div[style*="minHeight: '100vh'"][style*="background"] {
+  background: #F8FAFC !important;
+}
+
+/* ── HowItWorks: timeline step cards ── */
+[data-theme="light"] div[style*="linear-gradient"][style*="border: '1px solid rgba(0"] {
+  background: #FFFFFF !important;
+  border-color: #E2E8F0 !important;
+}
+
+/* ── All pages: WebNav glass-nav background ── */
+[data-theme="light"] nav[style] {
+  background: rgba(248,250,252,0.95) !important;
+  border-bottom: 1px solid #E2E8F0 !important;
+}
+[data-theme="light"] nav a,
+[data-theme="light"] nav a[style] {
+  color: #334155 !important;
+}
+[data-theme="light"] nav a:hover {
+  color: #0F172A !important;
+}
+
+/* ── Footer ── */
+[data-theme="light"] footer,
+[data-theme="light"] footer[style] {
+  background: #F1F5F9 !important;
+  border-top: 1px solid #E2E8F0 !important;
+}
+[data-theme="light"] footer p,
+[data-theme="light"] footer span,
+[data-theme="light"] footer a,
+[data-theme="light"] footer div {
+  color: #475569 !important;
+}
+[data-theme="light"] footer a:hover {
+  color: #0F172A !important;
 }
