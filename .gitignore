@@ -35,7 +35,8 @@ logs/
 .DS_Store
 Thumbs.db
 
-# ── Docker volumes ─────────────────────────────────────────
-data/
+# ── Docker volumes (not source data files) ─────────────────
+/data/
+!**/src/data/
 
 .vercel
