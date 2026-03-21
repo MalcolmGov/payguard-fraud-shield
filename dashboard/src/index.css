@@ -2447,3 +2447,141 @@ input:focus, select:focus { border-color: var(--accent-blue); }
   background: #F8FAFC;
   color: #0F172A;
 }
+
+/* ═══════════════════════════════════════════════════════════
+   MOBILE RESPONSIVE — Cards, Grids & Modals
+   ═══════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  /* ── All inline 4-col or 3-col grids → 2 columns ── */
+  div[style*="grid-template-columns: repeat(4"],
+  div[style*="gridTemplateColumns"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+  }
+
+  .grid-2 { grid-template-columns: 1fr !important; }
+  .grid-3 { grid-template-columns: 1fr 1fr !important; }
+
+  /* ── Trust badge / stats cards ── */
+  .premium-card,
+  .glass-card {
+    min-width: 0 !important;
+    width: 100% !important;
+  }
+
+  /* ── Contact / Talk to Sales Modal ── */
+  .modal,
+  div[style*="maxWidth: 520"],
+  div[style*="max-width: 520"],
+  div[style*="maxWidth: 480"],
+  div[style*="max-width: 480"],
+  div[style*="maxWidth: 500"],
+  div[style*="max-width: 500"] {
+    width: 92vw !important;
+    max-width: 92vw !important;
+    min-width: 0 !important;
+    padding: 24px 20px !important;
+    margin: 16px !important;
+    box-sizing: border-box !important;
+  }
+
+  .modal h2 {
+    font-size: 18px !important;
+    word-break: normal !important;
+  }
+
+  .modal p,
+  .modal label,
+  .modal input,
+  .modal textarea,
+  .modal select {
+    font-size: 14px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .modal-actions {
+    flex-direction: column !important;
+    gap: 8px !important;
+  }
+  .modal-actions .btn,
+  .modal-actions button {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+
+  /* ── CTA buttons row → stack vertically ── */
+  div[style*="display: flex"][style*="gap"] > .w-btn-primary,
+  div[style*="display: flex"][style*="gap"] > .w-btn-secondary,
+  div[style*="display:flex"][style*="gap"] > a[class*="btn"] {
+    width: 100% !important;
+    text-align: center !important;
+    justify-content: center !important;
+  }
+
+  /* ── Section padding tighten ── */
+  section {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  /* ── Product module tabs → wrap ── */
+  div[style*="display: flex"][style*="overflow"] {
+    flex-wrap: wrap !important;
+    overflow-x: visible !important;
+    gap: 8px !important;
+  }
+
+  /* ── Architecture layer tabs → scroll nicely ── */
+  div[role="tablist"],
+  div[style*="border-radius: 12"][style*="display: flex"][style*="gap: 4"] {
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+    justify-content: center !important;
+  }
+
+  /* ── Comparison table → horizontal scroll ── */
+  .table-wrap,
+  div[style*="overflow-x"] {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* ── How it Works timeline cards ── */
+  div[style*="maxWidth: 640"],
+  div[style*="max-width: 640"] {
+    max-width: 100% !important;
+    padding: 20px 16px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  /* ── Even smaller: all grids → single column ── */
+  div[style*="grid-template-columns: repeat(4"],
+  div[style*="grid-template-columns: repeat(3"],
+  div[style*="gridTemplateColumns"],
+  .grid-3 {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ── Hero buttons full width ── */
+  .hero-btn-primary,
+  .hero-btn-secondary,
+  .w-btn-primary,
+  .w-btn-secondary {
+    width: 100% !important;
+    text-align: center !important;
+    justify-content: center !important;
+    padding: 14px 20px !important;
+  }
+
+  /* ── Headings size cap ── */
+  h1[style], .w-heading[style] {
+    font-size: 28px !important;
+    line-height: 1.2 !important;
+  }
+  h2[style], h2.w-heading {
+    font-size: 22px !important;
+  }
+}
