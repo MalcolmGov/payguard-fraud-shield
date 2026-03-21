@@ -1,15 +1,22 @@
 import { useState } from 'react';
 import WebNav, { WebFooter } from '../components/WebNav';
 
-
-
 const VALUES = [
-  { icon: '⚡', title: 'Zero Friction', desc: 'Fraud prevention must be invisible to legitimate users. If we add friction to good transactions, we have failed.' },
-  { icon: '🔬', title: 'Signal-Led', desc: 'Every rule is grounded in real fraud data, not assumptions. We invest heavily in threat research and intelligence.' },
-  { icon: '🤝', title: 'Partner-First', desc: 'We don\'t replace your fraud team — we give them superpowers. Your analysts own the rules. We provide the platform.' },
-  { icon: '🔒', title: 'Privacy by Design', desc: 'Data minimisation, in-region hosting, end-to-end encryption. Compliant with GDPR, POPIA, PCI-DSS out of the box.' },
+  { icon: '/icon-transaction-guard.png', title: 'Zero Friction', desc: 'Fraud prevention must be invisible to legitimate users. We block threats without adding delays or disrupting real customers.', color: '#3B82F6' },
+  { icon: '/icon-ai-anomaly.png', title: 'Intelligence-Led', desc: 'Every rule is grounded in real fraud data and African payment patterns. Our models learn continuously from the threats that matter most.', color: '#10B981' },
+  { icon: '/icon-fraud-ring.png', title: 'Partner-First', desc: "We don't replace your fraud team — we give them superpowers. Your analysts own the rules. We provide the platform and insights.", color: '#8B5CF6' },
+  { icon: '/icon-aml-sanctions.png', title: 'Privacy by Design', desc: 'Data minimisation, in-region hosting (af-south-1), end-to-end AES-256-GCM encryption. GDPR, POPIA, and PCI-DSS compliant by default.', color: '#06B6D4' },
+  { icon: '/icon-decision.png', title: 'Africa-First Innovation', desc: "Built for the continent's unique payment landscape — mobile money, USSD, instant EFT, and airtime. Not a US product adapted for Africa.", color: '#F59E0B' },
+  { icon: '/icon-sdk-embedded.png', title: 'Developer Obsessed', desc: 'One SDK. Four lines of code. Native Kotlin + Swift. We believe great security should be the easiest thing to implement, not the hardest.', color: '#EC4899' },
 ];
 
+const MILESTONES = [
+  { year: '2023', event: 'PayGuard founded with a mission to eliminate fraud across African digital payments.' },
+  { year: '2024', event: 'Launched Transaction Guard and OTP Guard. First bank partnership signed.' },
+  { year: '2024', event: 'Released AI Anomaly Detection with deepfake voice scoring and synthetic identity models.' },
+  { year: '2025', event: 'Expanded to 8 products covering the full fraud lifecycle. Opened sandbox for developers.' },
+  { year: '2025', event: 'Processing fraud signals across multiple payment rails — EFT, Card, RTP, Mobile Money, USSD.' },
+];
 
 const INST_TYPES = ['Commercial Bank', 'Neobank / Challenger', 'Mobile Network Operator', 'Fintech / Wallet', 'PSP / Acquirer', 'Insurance Provider', 'Credit Union / Cooperative', 'Regulator / Government'];
 const ROLES = ['Chief Risk Officer', 'Head of Fraud / Financial Crime', 'CISO / Head of Security', 'Product Manager', 'Technology / Engineering Lead', 'CEO / Founder', 'Compliance Officer', 'Investor / Analyst', 'Other'];
@@ -87,55 +94,139 @@ export default function AboutPage() {
     <div style={{ minHeight: '100vh', background: '#0B1121', fontFamily: 'Inter, sans-serif', color: '#F0F6FF', overflowX: 'hidden' }}>
       <WebNav />
 
-      {/* Hero */}
+      {/* ═══ HERO ═══ */}
       <section className="mesh-bg" style={{ padding: '140px 48px 80px', position: 'relative', overflow: 'hidden' }}>
-        <div className="orb" style={{ width: 500, height: 500, background: 'rgba(124,58,237,0.09)', top: -80, right: -100, '--orb-dur': '14s' } as React.CSSProperties} />
-        <div style={{ position: 'relative', zIndex: 1, maxWidth: 820, margin: '0 auto' }}>
-          <div className="section-label">About Us</div>
+        <div className="orb" style={{ width: 500, height: 500, background: 'rgba(59,130,246,0.09)', top: -80, right: -100, '--orb-dur': '14s' } as React.CSSProperties} />
+        <div className="orb" style={{ width: 400, height: 400, background: 'rgba(0,212,170,0.06)', bottom: -60, left: -80, '--orb-dur': '18s' } as React.CSSProperties} />
+        <div style={{ position: 'relative', zIndex: 1, maxWidth: 820, margin: '0 auto', textAlign: 'center' }}>
+          <div className="section-label">About PayGuard</div>
           <h1 className="w-heading" style={{ fontSize: 56, fontWeight: 900, letterSpacing: '-0.03em', lineHeight: 1.1, marginBottom: 28 }}>
-            We built PayGuard because{' '}
-            <span className="grad-blue-purple">social engineering fraud is a human problem</span>,
-            not just a technical one.
+            Protecting Africa's{' '}
+            <span className="grad-blue-purple">Digital Payment Future.</span>
           </h1>
-          <p style={{ fontSize: 18, color: '#64748B', lineHeight: 1.9, maxWidth: 680 }}>
-            Every dollar stolen from a customer through a vishing call is not a fraud statistic — it's a family's savings. We're here to stop that, at any scale, across any payment rail.
+          <p style={{ fontSize: 18, color: '#94A3B8', lineHeight: 1.9, maxWidth: 680, margin: '0 auto' }}>
+            PayGuard is Africa's real-time fraud prevention platform. We combine device intelligence, AI-powered anomaly detection, and graph-based fraud ring analysis into a single SDK — protecting banks, telcos, fintechs, and payment providers from the continent's most sophisticated threats.
           </p>
         </div>
       </section>
 
-      {/* Mission */}
-      <section style={{ padding: '80px 48px', maxWidth: 1100, margin: '0 auto' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 40, alignItems: 'center' }}>
+      {/* ═══ MISSION ═══ */}
+      <section style={{ padding: '100px 48px', maxWidth: 1100, margin: '0 auto' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 56, alignItems: 'center' }}>
           <div>
-            <div className="section-label">Mission</div>
-            <h2 className="w-heading" style={{ fontSize: 42, fontWeight: 800, letterSpacing: '-0.02em', marginBottom: 20, lineHeight: 1.15 }}>
-              Make Digital Payments Safe. Everywhere.
+            <div className="section-label">Our Mission</div>
+            <h2 className="w-heading" style={{ fontSize: 42, fontWeight: 800, letterSpacing: '-0.02em', marginBottom: 24, lineHeight: 1.15 }}>
+              Make Every Digital Payment Safe.{' '}
+              <span style={{ color: '#3B82F6' }}>Everywhere.</span>
             </h2>
-            <p style={{ fontSize: 15, color: '#64748B', lineHeight: 1.9, marginBottom: 20 }}>
-              The global payments ecosystem processes over <strong style={{ color: '#F0F6FF' }}>$10 trillion</strong> in digital transactions annually. Social engineering fraud — vishing, smishing, SIM swap, OTP phishing — costs institutions and customers over <strong style={{ color: '#F59E0B' }}>$485 billion</strong> every year.
+            <p style={{ fontSize: 15, color: '#94A3B8', lineHeight: 1.9, marginBottom: 20 }}>
+              Africa's digital payments ecosystem is growing at <strong style={{ color: '#F0F6FF' }}>over 20% annually</strong>, driving financial inclusion across the continent. But with growth comes risk — social engineering, SIM swaps, deepfake voice cloning, and organised mule networks cost institutions and customers <strong style={{ color: '#F59E0B' }}>billions every year</strong>.
             </p>
-            <p style={{ fontSize: 15, color: '#64748B', lineHeight: 1.9 }}>
-              The tools to stop it already existed (call state APIs, device fingerprinting, graph databases) — but no one had assembled them into a coherent, institution-grade SDK. We did.
+            <p style={{ fontSize: 15, color: '#94A3B8', lineHeight: 1.9, marginBottom: 20 }}>
+              We believe that fraud prevention shouldn't be a luxury only available to the world's largest banks. Our mission is to <strong style={{ color: '#F0F6FF' }}>democratise enterprise-grade fraud protection</strong> — making it accessible to every financial institution in Africa through a single, developer-friendly SDK.
+            </p>
+            <p style={{ fontSize: 15, color: '#94A3B8', lineHeight: 1.9 }}>
+              When a grandmother's pension is protected from a vishing scam, when a small business isn't drained by a SIM swap attack — that's our mission in action.
             </p>
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-            {VALUES.map(v => (
-              <div key={v.title} className="glass-card" style={{ padding: '20px 24px', display: 'flex', alignItems: 'flex-start', gap: 16 }}>
-                <span style={{ fontSize: 24, flexShrink: 0 }}>{v.icon}</span>
-                <div>
-                  <div style={{ fontSize: 15, fontWeight: 700, color: '#F0F6FF', fontFamily: 'Outfit, sans-serif', marginBottom: 5 }}>{v.title}</div>
-                  <div style={{ fontSize: 13, color: '#64748B', lineHeight: 1.7 }}>{v.desc}</div>
-                </div>
+
+          {/* Stats */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+            {[
+              { value: '8', label: 'Products', sub: 'Full fraud lifecycle coverage', color: '#3B82F6' },
+              { value: '35', label: 'Rules', sub: 'Evaluating in parallel', color: '#8B5CF6' },
+              { value: '<100ms', label: 'Latency', sub: 'Signal to decision', color: '#10B981' },
+              { value: '5', label: 'Intelligence Layers', sub: 'Device · Call · SIM · Graph · AI', color: '#F59E0B' },
+            ].map(s => (
+              <div key={s.label} className="glass-card" style={{ padding: '28px 24px', textAlign: 'center' }}>
+                <div style={{ fontSize: 36, fontWeight: 900, color: s.color, fontFamily: "'Plus Jakarta Sans', sans-serif", marginBottom: 4 }}>{s.value}</div>
+                <div style={{ fontSize: 14, fontWeight: 700, color: '#F0F6FF', marginBottom: 4 }}>{s.label}</div>
+                <div style={{ fontSize: 11, color: '#64748B' }}>{s.sub}</div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
+      {/* ═══ OUR VALUES ═══ */}
+      <section style={{ background: 'rgba(255,255,255,0.015)', borderTop: '1px solid rgba(255,255,255,0.04)', borderBottom: '1px solid rgba(255,255,255,0.04)', padding: '100px 48px' }}>
+        <div style={{ maxWidth: 1100, margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: 64 }}>
+            <div className="section-label">Our Values</div>
+            <h2 className="w-heading" style={{ fontSize: 42, fontWeight: 800, letterSpacing: '-0.02em', marginBottom: 16 }}>
+              What We Stand For
+            </h2>
+            <p style={{ fontSize: 16, color: '#64748B', maxWidth: 580, margin: '0 auto', lineHeight: 1.8 }}>
+              These principles guide every product decision, every line of code, and every partnership we build.
+            </p>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20 }}>
+            {VALUES.map(v => (
+              <div key={v.title} className="glass-card" style={{ padding: '32px 28px', position: 'relative', overflow: 'hidden' }}>
+                <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 3, background: `linear-gradient(90deg, ${v.color}, ${v.color}60, transparent)` }} />
+                <div style={{ width: 56, height: 56, borderRadius: 14, background: `${v.color}12`, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 20, boxShadow: `0 0 24px ${v.color}15`, border: `1px solid ${v.color}20`, overflow: 'hidden' }}>
+                  <img src={v.icon} alt={v.title} style={{ width: 38, height: 38, objectFit: 'contain' }} />
+                </div>
+                <div style={{ fontSize: 17, fontWeight: 700, color: '#F0F6FF', fontFamily: "'Plus Jakarta Sans', sans-serif", marginBottom: 8 }}>{v.title}</div>
+                <div style={{ fontSize: 14, color: '#64748B', lineHeight: 1.7 }}>{v.desc}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
+      {/* ═══ WHY AFRICA ═══ */}
+      <section style={{ padding: '100px 48px', maxWidth: 1100, margin: '0 auto' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 56, alignItems: 'center' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+            <div className="section-label">Why Africa</div>
+            <h2 className="w-heading" style={{ fontSize: 42, fontWeight: 800, letterSpacing: '-0.02em', marginBottom: 8, lineHeight: 1.15 }}>
+              Built for the Continent,{' '}
+              <span style={{ color: '#00D4AA' }}>by the Continent.</span>
+            </h2>
+            <p style={{ fontSize: 15, color: '#94A3B8', lineHeight: 1.9 }}>
+              Africa isn't a secondary market we adapted for — it's our foundation. Our infrastructure runs on <strong style={{ color: '#F0F6FF' }}>AWS af-south-1 (Cape Town)</strong> for data sovereignty. Our ML models are trained on African payment patterns — mobile money, USSD, instant EFT — not retrofitted Western transaction data.
+            </p>
+            <p style={{ fontSize: 15, color: '#94A3B8', lineHeight: 1.9 }}>
+              We understand the unique fraud vectors that target this continent: social engineering calls exploiting trust, SIM swap attacks leveraging telco vulnerabilities, and organised crime networks that move stolen funds across borders in minutes. PayGuard was purpose-built to stop them all.
+            </p>
+          </div>
 
-      {/* ── Contact form ── */}
-      <section id="contact" style={{ background: 'rgba(255,255,255,0.015)', borderTop: '1px solid rgba(255,255,255,0.05)', padding: '96px 48px' }}>
+          {/* Journey timeline */}
+          <div>
+            <div style={{ fontSize: 13, fontWeight: 700, color: '#64748B', letterSpacing: '0.08em', marginBottom: 24 }}>OUR JOURNEY</div>
+            <div style={{ position: 'relative', paddingLeft: 28 }}>
+              <div style={{ position: 'absolute', left: 8, top: 6, bottom: 6, width: 2, background: 'linear-gradient(180deg, #3B82F6, #00D4AA)' }} />
+              {MILESTONES.map((m, i) => (
+                <div key={i} style={{ display: 'flex', gap: 16, marginBottom: 24, position: 'relative' }}>
+                  <div style={{ position: 'absolute', left: -22, top: 6, width: 12, height: 12, borderRadius: '50%', background: i === MILESTONES.length - 1 ? '#00D4AA' : '#3B82F6', boxShadow: `0 0 12px ${i === MILESTONES.length - 1 ? 'rgba(0,212,170,0.4)' : 'rgba(59,130,246,0.4)'}` }} />
+                  <div>
+                    <div style={{ fontSize: 12, fontWeight: 700, color: '#3B82F6', marginBottom: 4 }}>{m.year}</div>
+                    <div style={{ fontSize: 14, color: '#94A3B8', lineHeight: 1.7 }}>{m.event}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ VISION ═══ */}
+      <section style={{ background: 'rgba(255,255,255,0.015)', borderTop: '1px solid rgba(255,255,255,0.04)', borderBottom: '1px solid rgba(255,255,255,0.04)', padding: '80px 48px' }}>
+        <div style={{ maxWidth: 780, margin: '0 auto', textAlign: 'center' }}>
+          <div className="section-label">Our Vision</div>
+          <h2 className="w-heading" style={{ fontSize: 38, fontWeight: 800, letterSpacing: '-0.02em', marginBottom: 20, lineHeight: 1.2 }}>
+            A world where every digital payment{' '}
+            <span className="grad-blue-purple">is inherently safe.</span>
+          </h2>
+          <p style={{ fontSize: 16, color: '#94A3B8', lineHeight: 1.9, maxWidth: 640, margin: '0 auto' }}>
+            We envision a future where fraud protection is embedded invisibly into every payment rail, every app, and every transaction — where customers never have to think about whether their money is safe. That's the future PayGuard is building, one SDK at a time.
+          </p>
+        </div>
+      </section>
+
+      {/* ═══ Contact form ═══ */}
+      <section id="contact" style={{ padding: '96px 48px' }}>
         <div style={{ maxWidth: 860, margin: '0 auto' }}>
 
           {/* Header */}
@@ -231,7 +322,7 @@ export default function AboutPage() {
               <div style={{ marginTop: 24 }}>
                 <Field label="Tell us about your fraud challenge">
                   <textarea value={form.message} onChange={e => set('message', e.target.value)} rows={5}
-                    placeholder="Describe the fraud vectors you're dealing with, your current tooling, and what outcome you're trying to achieve. The more detail, the more we can tailor our response."
+                    placeholder="Describe the fraud vectors you're dealing with, your current tooling, and what outcome you're trying to achieve."
                     style={{ ...FIELD_STYLE, resize: 'vertical', lineHeight: 1.8 }}
                     onFocus={focusBorder} onBlur={blurBorder} />
                 </Field>
@@ -242,7 +333,7 @@ export default function AboutPage() {
                 <input type="checkbox" checked={form.consent} onChange={e => set('consent', e.target.checked)} required
                   style={{ marginTop: 3, accentColor: '#0EA5E9', flexShrink: 0, cursor: 'pointer', width: 16, height: 16 }} />
                 <label style={{ fontSize: 13, color: '#475569', lineHeight: 1.7, cursor: 'pointer' }}>
-                  I agree that Swifter Technologies may contact me about PayGuard. I understand my data will be handled in accordance with our{' '}
+                  I agree that PayGuard may contact me regarding their fraud prevention platform. My data will be handled in accordance with the{' '}
                   <span style={{ color: '#0EA5E9', textDecoration: 'underline', cursor: 'pointer' }}>Privacy Policy</span>.
                 </label>
               </div>

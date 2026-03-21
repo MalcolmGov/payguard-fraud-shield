@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import TalkToSalesModal from './TalkToSalesModal';
+import ThemeToggle from './ThemeToggle';
 
 export default function WebNav() {
   const navigate = useNavigate();
@@ -46,7 +47,6 @@ export default function WebNav() {
           }} />
           <div>
             <div style={{ fontSize: 16, fontWeight: 800, color: '#F0F6FF', fontFamily: 'Outfit, sans-serif', letterSpacing: '-0.02em' }}>PayGuard</div>
-            <div style={{ fontSize: 8, fontWeight: 600, color: '#475569', letterSpacing: '0.1em', textTransform: 'uppercase' as const }}>Powered by Swifter</div>
           </div>
         </div>
 
@@ -65,6 +65,7 @@ export default function WebNav() {
 
         {/* Desktop CTAs */}
         <div className="nav-desktop-ctas" style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <ThemeToggle />
           <button onClick={() => go('/sandbox')} className="w-btn-secondary" style={{ padding: '9px 20px', fontSize: 13 }}>Try Sandbox</button>
           <button onClick={() => setShowSales(true)} style={{
             padding: '9px 20px', fontSize: 13, fontWeight: 700,
@@ -152,7 +153,7 @@ export function WebFooter() {
                 onMouseEnter={e => (e.currentTarget as HTMLButtonElement).style.opacity = '0.85'}
                 onMouseLeave={e => (e.currentTarget as HTMLButtonElement).style.opacity = '1'}
               >🤝 Talk to Sales</button>
-              <div style={{ marginTop: 16, fontSize: 11, color: '#334155', fontFamily: 'JetBrains Mono' }}>SDK v1.0.0 · © 2026 Swifter</div>
+              <div style={{ marginTop: 16, fontSize: 11, color: '#334155', fontFamily: 'JetBrains Mono' }}>© 2026 PayGuard</div>
             </div>
             {/* Columns */}
             {[
@@ -187,7 +188,7 @@ export function WebFooter() {
             >📝 Contact Form</span>
           </div>
           <div className="footer-bottom" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 12, color: '#334155', flexWrap: 'wrap', gap: 12 }}>
-            <span>{'\u00A9'} 2026 Swifter Technologies. All rights reserved.</span>
+            <span>{'\u00A9'} 2026 PayGuard. All rights reserved.</span>
             <div style={{ display: 'flex', gap: 20, flexWrap: 'wrap' }}>
               <span>🔒 SOC 2 Type II</span>
               <span>🌍 Africa-first infrastructure</span>

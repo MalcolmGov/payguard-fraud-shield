@@ -1,7 +1,7 @@
-﻿import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-// ── Data ──────────────────────────────────────────────────────────────────────
+// -- Data ----------------------------------------------------------------------
 
 interface RingNode {
   id: string; label: string; type: 'device' | 'account' | 'wallet' | 'ip';
@@ -52,39 +52,39 @@ interface Stage {
 
 const STAGES: Stage[] = [
   {
-    id: 0, title: 'Flagged Transaction', action: 'Investigate →',
+    id: 0, title: 'Flagged Transaction', action: 'Investigate ?',
     description: 'A transaction from +27 82 100 001 (R4,500 to an unknown wallet) was flagged with score 97. RULE_001 + RULE_006. Click Investigate to open the fraud graph.',
     revealNodes: [], revealLinks: [], blockNodes: [],
     stat: null,
   },
   {
-    id: 1, title: 'Step 1 — Source Account', action: 'Expand Graph →',
+    id: 1, title: 'Step 1 � Source Account', action: 'Expand Graph ?',
     description: 'Account A1 (+27 82 100 001) is in the graph. The system traces what device this account used. Device FRAUD-001 surfaces.',
     revealNodes: ['A1', 'D1'], revealLinks: ['D1-A1'], blockNodes: [],
     stat: { label: 'Accounts found', value: '1', color: '#D29922' },
   },
   {
-    id: 2, title: 'Step 2 — Same Device, 12 Accounts', action: 'Trace Money Flow →',
+    id: 2, title: 'Step 2 � Same Device, 12 Accounts', action: 'Trace Money Flow ?',
     description: 'Device FRAUD-001 has been used to control 12 different mobile wallet accounts. All of them show recent high-risk activity. This is a fraud farm.',
     revealNodes: ['A2','A3','A4','A5','A6','A7','A8','A9','A10','A11','A12'],
     revealLinks: ['D1-A2','D1-A3','D1-A4','D1-A5','D1-A6','D1-A7','D1-A8','D1-A9','D1-A10','D1-A11','D1-A12'],
     blockNodes: [], stat: { label: 'Accounts on this device', value: '12', color: '#F85149' },
   },
   {
-    id: 3, title: 'Step 3 — Money Flows to 2 Mule Wallets', action: 'Identify IP →',
-    description: 'Every account sent money to one of two mule wallets — MULE-001 and MULE-002. Combined withdrawals: R68,400 over 14 days.',
+    id: 3, title: 'Step 3 � Money Flows to 2 Mule Wallets', action: 'Identify IP ?',
+    description: 'Every account sent money to one of two mule wallets � MULE-001 and MULE-002. Combined withdrawals: R68,400 over 14 days.',
     revealNodes: ['W1','W2'],
     revealLinks: ['A1-W1','A3-W1','A5-W1','A7-W1','A9-W1','A11-W1','A2-W2','A4-W2','A6-W2','A8-W2','A10-W2','A12-W2'],
     blockNodes: [], stat: { label: 'Total stolen (14 days)', value: 'R68,400', color: '#F85149' },
   },
   {
-    id: 4, title: 'Step 4 — Shared IP Address', action: 'Bulk Block →',
-    description: 'All 12 accounts and both mule wallets connect from the same IP: 196.25.1.82. One operator, one device, one IP — a complete fraud ring.',
+    id: 4, title: 'Step 4 � Shared IP Address', action: 'Bulk Block ?',
+    description: 'All 12 accounts and both mule wallets connect from the same IP: 196.25.1.82. One operator, one device, one IP � a complete fraud ring.',
     revealNodes: ['IP'], revealLinks: ['D1-IP'],
     blockNodes: [], stat: { label: 'Unique IP', value: '196.25.1.82', color: '#BC8CFF' },
   },
   {
-    id: 5, title: '🚫 Bulk Block — 14 Entities', action: '✅ Ring Dismantled',
+    id: 5, title: '?? Bulk Block � 14 Entities', action: '? Ring Dismantled',
     description: 'One click. All 12 victim accounts suspended pending re-verification. Both mule wallets frozen. IP blacklisted. Analyst report generated for SAPS/FSCA.',
     revealNodes: [], revealLinks: [],
     blockNodes: ['D1','A1','A2','A3','A4','A5','A6','A7','A8','A9','A10','A11','A12','W1','W2'],
@@ -92,10 +92,10 @@ const STAGES: Stage[] = [
   },
 ];
 
-// ── SVG Graph ─────────────────────────────────────────────────────────────────
+// -- SVG Graph -----------------------------------------------------------------
 
 const TYPE_COLOR: Record<string, string> = { device: '#F85149', account: '#58A6FF', wallet: '#D29922', ip: '#BC8CFF' };
-const TYPE_ICON:  Record<string, string> = { device: '💻', account: '👤', wallet: '💳', ip: '🌐' };
+const TYPE_ICON:  Record<string, string> = { device: '??', account: '??', wallet: '??', ip: '??' };
 
 function GraphView({ nodes, links }: { nodes: RingNode[]; links: RingLink[] }) {
   const visNodes = nodes.filter(n => n.visible);
@@ -139,7 +139,7 @@ function GraphView({ nodes, links }: { nodes: RingNode[]; links: RingLink[] }) {
               filter={!node.blocked && node.risk === 'high' ? 'url(#glow-high)' : !node.blocked ? 'url(#glow-med)' : undefined}
             />
             <text textAnchor="middle" dominantBaseline="middle" fontSize={isDevice ? 14 : 10} fill={node.blocked ? '#484F58' : 'white'}>
-              {node.blocked ? '🚫' : TYPE_ICON[node.type]}
+              {node.blocked ? '??' : TYPE_ICON[node.type]}
             </text>
             {node.label.split('\n').map((line, i) => (
               <text key={i} x={0} y={r + 10 + i * 11} textAnchor="middle" fontSize={8} fill={node.blocked ? '#484F58' : 'rgba(255,255,255,0.7)'}>
@@ -153,7 +153,7 @@ function GraphView({ nodes, links }: { nodes: RingNode[]; links: RingLink[] }) {
   );
 }
 
-// ── Main ──────────────────────────────────────────────────────────────────────
+// -- Main ----------------------------------------------------------------------
 
 export default function DemoFraudRing() {
   const navigate = useNavigate();
@@ -218,12 +218,12 @@ export default function DemoFraudRing() {
     <div style={{ height: '100vh', background: 'var(--bg-primary)', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
       {/* Topbar */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '0 24px', height: 56, borderBottom: '1px solid var(--border)', background: 'var(--bg-secondary)', flexShrink: 0 }}>
-        <button className="btn btn-ghost" onClick={() => navigate('/demo')} style={{ fontSize: 12 }}>← All Demos</button>
+        <button className="btn btn-ghost" onClick={() => navigate('/demo')} style={{ fontSize: 12 }}>? All Demos</button>
         <div style={{ flex: 1 }}>
-          <div style={{ fontSize: 15, fontWeight: 700, color: 'var(--text-primary)' }}>🕸️ Demo 4 of 4 — Fraud Ring Investigation</div>
-          <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>Graph Engine · Connected Accounts · Mule Wallets · Bulk Block</div>
+          <div style={{ fontSize: 15, fontWeight: 700, color: 'var(--text-primary)' }}>??? Demo 4 of 4 � Fraud Ring Investigation</div>
+          <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>Graph Engine � Connected Accounts � Mule Wallets � Bulk Block</div>
         </div>
-        {isLast && <button className="btn btn-primary" onClick={() => navigate('/dashboard')} style={{ fontSize: 12 }}>Open Analyst Dashboard →</button>}
+        {isLast && <button className="btn btn-primary" onClick={() => navigate('/dashboard')} style={{ fontSize: 12 }}>Open Analyst Dashboard ?</button>}
       </div>
 
       {/* Stage bar */}
@@ -233,14 +233,14 @@ export default function DemoFraudRing() {
           return (
             <button key={s.id} onClick={() => { if (i < stageIdx) { for (let j = stageIdx; j > i; j--) {} retreat(); } else { for (let j = stageIdx; j < i; j++) advance(); } }}
               style={{ padding: '10px 16px', border: 'none', cursor: 'pointer', whiteSpace: 'nowrap', background: 'transparent', borderBottom: isActive ? '2px solid #BC8CFF' : isDone ? '2px solid #3FB950' : '2px solid transparent', color: isActive ? '#BC8CFF' : isDone ? '#3FB950' : 'var(--text-muted)', fontSize: 11, fontWeight: isActive ? 700 : 400, fontFamily: 'Inter, sans-serif', transition: 'all 0.2s' }}>
-              {isDone ? '✓' : `${i + 1}.`} {s.title.split(' ').slice(0, 4).join(' ')}
+              {isDone ? '?' : `${i + 1}.`} {s.title.split(' ').slice(0, 4).join(' ')}
             </button>
           );
         })}
       </div>
 
       {/* Main */}
-      <div style={{ flex: 1, display: 'grid', gridTemplateColumns: '300px 1fr', gap: 0, overflow: 'hidden' }}>
+      <div className="demo-flow-grid" style={{ flex: 1, display: 'grid', gridTemplateColumns: '300px 1fr', gap: 0, overflow: 'hidden' }}>
 
         {/* Left panel */}
         <div style={{ borderRight: '1px solid var(--border)', padding: 20, display: 'flex', flexDirection: 'column', gap: 14, overflowY: 'auto' }}>
@@ -271,20 +271,20 @@ export default function DemoFraudRing() {
           {/* Controls */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
             <div style={{ display: 'flex', gap: 8 }}>
-              <button className="btn btn-ghost" onClick={retreat} disabled={isFirst} style={{ flex: 1, fontSize: 12 }}>← Back</button>
+              <button className="btn btn-ghost" onClick={retreat} disabled={isFirst} style={{ flex: 1, fontSize: 12 }}>? Back</button>
               <button
                 className={`btn ${isLast ? 'btn-ghost' : stageIdx === STAGES.length - 2 ? 'btn-danger' : 'btn-primary'}`}
                 onClick={advance} disabled={isLast}
                 style={{ flex: 2, fontSize: 12, fontWeight: 700 }}
               >
-                {isLast ? '✅ Investigation Complete' : stage.action}
+                {isLast ? '? Investigation Complete' : stage.action}
               </button>
             </div>
             <div style={{ display: 'flex', gap: 8 }}>
               <button className={`btn ${autoPlay ? 'btn-danger' : 'btn-ghost'}`} onClick={() => setAutoPlay(a => !a)} style={{ flex: 1, fontSize: 11 }}>
-                {autoPlay ? '⏸ Pause' : '▶ Auto'}
+                {autoPlay ? '? Pause' : '? Auto'}
               </button>
-              <button className="btn btn-ghost" onClick={reset} style={{ flex: 1, fontSize: 11 }}>↺ Reset</button>
+              <button className="btn btn-ghost" onClick={reset} style={{ flex: 1, fontSize: 11 }}>? Reset</button>
             </div>
           </div>
 
@@ -304,19 +304,19 @@ export default function DemoFraudRing() {
             ))}
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 4 }}>
               <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#484F58', flexShrink: 0 }} />
-              <span style={{ fontSize: 11, color: 'var(--text-muted)' }}>🚫 Blocked entity</span>
+              <span style={{ fontSize: 11, color: 'var(--text-muted)' }}>?? Blocked entity</span>
             </div>
           </div>
 
           {isLast && (
             <div style={{ background: 'rgba(63,185,80,0.08)', border: '1px solid rgba(63,185,80,0.25)', borderRadius: 10, padding: 14 }}>
-              <div style={{ fontSize: 11, fontWeight: 700, color: '#3FB950', marginBottom: 6 }}>✅ Fraud Ring Dismantled</div>
+              <div style={{ fontSize: 11, fontWeight: 700, color: '#3FB950', marginBottom: 6 }}>? Fraud Ring Dismantled</div>
               <div style={{ fontSize: 11, color: 'var(--text-secondary)', lineHeight: 1.8 }}>
-                • 12 accounts suspended<br />
-                • 2 mule wallets frozen<br />
-                • R68,400 in future fraud prevented<br />
-                • FSCA/SAPS report generated<br />
-                • IP blacklisted network-wide
+                � 12 accounts suspended<br />
+                � 2 mule wallets frozen<br />
+                � R68,400 in future fraud prevented<br />
+                � FSCA/SAPS report generated<br />
+                � IP blacklisted network-wide
               </div>
             </div>
           )}
@@ -342,10 +342,10 @@ export default function DemoFraudRing() {
           {/* Empty state */}
           {stageIdx === 0 && (
             <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 16 }}>
-              <div style={{ fontSize: 48, opacity: 0.3 }}>🕸️</div>
+              <div style={{ fontSize: 48, opacity: 0.3 }}>???</div>
               <div style={{ fontSize: 14, color: 'rgba(255,255,255,0.2)', textAlign: 'center' }}>
                 Fraud network graph will appear here<br />
-                <span style={{ fontSize: 12 }}>Click "Investigate →" to begin</span>
+                <span style={{ fontSize: 12 }}>Click "Investigate ?" to begin</span>
               </div>
             </div>
           )}
@@ -353,7 +353,7 @@ export default function DemoFraudRing() {
           {/* Blocked overlay banner */}
           {isLast && (
             <div style={{ position: 'absolute', top: 16, left: '50%', transform: 'translateX(-50%)', background: 'rgba(63,185,80,0.9)', borderRadius: 8, padding: '8px 20px', fontSize: 12, fontWeight: 700, color: '#0D1117', backdropFilter: 'blur(8px)' }}>
-              ✅ 14 entities blocked — ring dismantled in 4 steps
+              ? 14 entities blocked � ring dismantled in 4 steps
             </div>
           )}
         </div>

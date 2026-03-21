@@ -1,4 +1,4 @@
-﻿﻿import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 interface FPStep {
@@ -9,16 +9,16 @@ interface FPStep {
 
 const STEPS: FPStep[] = [
   { id:0, title:'Thabo Opens mobile wallet', subtitle:'Recognised device. Familiar location. No call active.', screen:'home', riskScore:0, signalsFired:[],
-    narration:'Thabo Mokoena opens mobile wallet to pay his monthly rent. The PayGuard SDK initialises � device fingerprint matches stored baseline, location normal, no active calls.' },
-  { id:1, title:'Navigates to Send Money', subtitle:'No active call � primary social engineering signal absent.', screen:'contacts', riskScore:0, signalsFired:[],
+    narration:'Thabo Mokoena opens mobile wallet to pay his monthly rent. The PayGuard SDK initialises ? device fingerprint matches stored baseline, location normal, no active calls.' },
+  { id:1, title:'Navigates to Send Money', subtitle:'No active call ? primary social engineering signal absent.', screen:'contacts', riskScore:0, signalsFired:[],
     narration:'Thabo taps Send Money. RULE_002 monitoring begins: is there an active call? No. The highest-weight rule cannot fire. Risk stays at 0.' },
-  { id:2, title:'Types His Landlord\'s Name', subtitle:'Recipient in contacts � no paste event detected.', screen:'recipient', riskScore:0, signalsFired:[],
-    narration:'Thabo types "Uncle Sipho" � his landlord, already in contacts. No clipboard paste detected (RULE_004: 0). Contact is known (RULE_002: 0). Score still 0.' },
-  { id:3, title:'Enters R6,000 � Above Average', subtitle:'But: no call, known contact � RULE_001 cannot fire.', screen:'amount', riskScore:3, signalsFired:['RULE_005 evaluated � known contact exemption applies'],
-    narration:'R6,000 is above Thabo\'s R1,200 average. RULE_005 evaluates: amount > 2� average � but the recipient IS in contacts, so the rule applies a known-contact exemption. Only a residual 3 pts.' },
-  { id:4, title:'PayGuard Evaluating�', subtitle:'0 high-confidence rules fired. Score: 3/100.', screen:'scanning', riskScore:3, signalsFired:[],
-    narration:'The full rule set is evaluated in 29ms. No social engineering indicators. Device known. No SIM swap. No VPN. No paste. No rush. Score: 3/100 � decisively ALLOW.' },
-  { id:5, title:'? Transaction Approved � Zero Friction', subtitle:'R6,000 sent. Thabo experienced nothing. Rent paid.', screen:'success', riskScore:3, signalsFired:[],
+  { id:2, title:'Types His Landlord\'s Name', subtitle:'Recipient in contacts ? no paste event detected.', screen:'recipient', riskScore:0, signalsFired:[],
+    narration:'Thabo types "Uncle Sipho" ? his landlord, already in contacts. No clipboard paste detected (RULE_004: 0). Contact is known (RULE_002: 0). Score still 0.' },
+  { id:3, title:'Enters R6,000 ? Above Average', subtitle:'But: no call, known contact ? RULE_001 cannot fire.', screen:'amount', riskScore:3, signalsFired:['RULE_005 evaluated ? known contact exemption applies'],
+    narration:'R6,000 is above Thabo\'s R1,200 average. RULE_005 evaluates: amount > 2? average ? but the recipient IS in contacts, so the rule applies a known-contact exemption. Only a residual 3 pts.' },
+  { id:4, title:'PayGuard Evaluating?', subtitle:'0 high-confidence rules fired. Score: 3/100.', screen:'scanning', riskScore:3, signalsFired:[],
+    narration:'The full rule set is evaluated in 29ms. No social engineering indicators. Device known. No SIM swap. No VPN. No paste. No rush. Score: 3/100 ? decisively ALLOW.' },
+  { id:5, title:'? Transaction Approved ? Zero Friction', subtitle:'R6,000 sent. Thabo experienced nothing. Rent paid.', screen:'success', riskScore:3, signalsFired:[],
     narration:'The transaction completes instantly. Thabo saw no warning, no delay, no friction. PayGuard protected him without touching his experience. This is the promise: genuine customers feel nothing.' },
 ];
 
@@ -45,7 +45,7 @@ function HomeScreen() {
         </div>
       </div>
       <div style={{ flex:1, background:'#fff', borderRadius:'12px 12px 0 0', padding:14 }}>
-        <div style={{ fontSize:9, color:'#3FB950', fontWeight:600, marginBottom:8, padding:'4px 8px', background:'rgba(63,185,80,0.08)', borderRadius:6 }}>?? PayGuard: Device recognised � Baseline normal</div>
+        <div style={{ fontSize:9, color:'#3FB950', fontWeight:600, marginBottom:8, padding:'4px 8px', background:'rgba(63,185,80,0.08)', borderRadius:6 }}>?? PayGuard: Device recognised ? Baseline normal</div>
         <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr 1fr', gap:8 }}>
           {[['??','Send'],['??','Receive'],['??','Airtime'],['??','Bills'],['??','Bank'],['?','More']].map(([i,l])=>(
             <div key={l} style={{ background:'#F5F5F5', borderRadius:8, padding:'10px 6px', textAlign:'center' }}>
@@ -63,7 +63,7 @@ function ContactsScreen() {
     <div style={{ height:'100%', display:'flex', flexDirection:'column', background:'#fff' }}>
       <div style={{ background:'#FFCC00', padding:'10px 14px' }}><div style={{ fontSize:12, fontWeight:700, color:'#1A1A1A' }}>? Send Money</div></div>
       <div style={{ padding:14 }}>
-        <div style={{ fontSize:9, color:'#3FB950', fontWeight:600, marginBottom:8, padding:'4px 8px', background:'rgba(63,185,80,0.08)', borderRadius:6 }}>? No active call detected � primary fraud signal absent</div>
+        <div style={{ fontSize:9, color:'#3FB950', fontWeight:600, marginBottom:8, padding:'4px 8px', background:'rgba(63,185,80,0.08)', borderRadius:6 }}>? No active call detected ? primary fraud signal absent</div>
         <div style={{ fontSize:10, color:'#333', marginBottom:4 }}>Recipient</div>
         <div style={{ border:'2px solid #FFCC00', borderRadius:8, padding:'8px 10px', fontSize:12, color:'#333', display:'flex', alignItems:'center', gap:6 }}>
           <span>??</span> Uncle Sipho<span style={{ color:'#aaa' }}>|</span>
@@ -90,11 +90,11 @@ function RecipientScreen() {
         <div style={{ fontSize:10, color:'#333', marginBottom:4 }}>Recipient</div>
         <div style={{ border:'2px solid #3FB950', borderRadius:8, padding:'8px 10px', fontSize:11, color:'#333', display:'flex', alignItems:'center', gap:6, background:'#f0fff4' }}>
           <span style={{ fontSize:16 }}>?</span>
-          <div><div style={{ fontSize:12, fontWeight:600 }}>Uncle Sipho</div><div style={{ fontSize:9, color:'#3FB950', fontWeight:600 }}>In contacts � Known recipient</div></div>
+          <div><div style={{ fontSize:12, fontWeight:600 }}>Uncle Sipho</div><div style={{ fontSize:9, color:'#3FB950', fontWeight:600 }}>In contacts ? Known recipient</div></div>
         </div>
         <div style={{ marginTop:10, padding:'8px 10px', background:'rgba(63,185,80,0.08)', border:'1px solid rgba(63,185,80,0.2)', borderRadius:6 }}>
-          <div style={{ fontSize:9, color:'#3FB950', fontWeight:600 }}>?? PayGuard: RULE_004 � No paste event</div>
-          <div style={{ fontSize:9, color:'#3FB950' }}>RULE_002 � Recipient in contacts. No signal.</div>
+          <div style={{ fontSize:9, color:'#3FB950', fontWeight:600 }}>?? PayGuard: RULE_004 ? No paste event</div>
+          <div style={{ fontSize:9, color:'#3FB950' }}>RULE_002 ? Recipient in contacts. No signal.</div>
         </div>
         <div style={{ fontSize:10, color:'#333', marginTop:12, marginBottom:4 }}>Amount (ZAR)</div>
         <div style={{ border:'1px solid #ddd', borderRadius:8, padding:'8px 10px', fontSize:12, color:'#ccc' }}>R 0.00</div>
@@ -112,10 +112,10 @@ function AmountScreen() {
         <div style={{ fontSize:12, fontWeight:600, color:'#333', marginBottom:10, display:'flex', alignItems:'center', gap:6 }}><span>?</span> Uncle Sipho (In contacts)</div>
         <div style={{ fontSize:10, color:'#333', marginBottom:4 }}>Amount</div>
         <div style={{ border:'2px solid #3FB950', borderRadius:8, padding:'10px', fontSize:18, fontWeight:700, color:'#1A1A1A', background:'#f0fff4' }}>R 6,000.00</div>
-        <div style={{ fontSize:9, color:'#888', marginTop:4 }}>Your average: R1,200 � Above average, but recipient is a known contact</div>
+        <div style={{ fontSize:9, color:'#888', marginTop:4 }}>Your average: R1,200 ? Above average, but recipient is a known contact</div>
         <div style={{ marginTop:10, padding:'8px 10px', background:'rgba(63,185,80,0.08)', border:'1px solid rgba(63,185,80,0.2)', borderRadius:6, fontSize:9 }}>
           <div style={{ color:'#3FB950', fontWeight:600, marginBottom:2 }}>?? RULE_005 evaluated:</div>
-          <div style={{ color:'#555' }}>Amount above 2� avg � but recipient IS in contacts. Known-contact exemption applied. +3 pts residual only.</div>
+          <div style={{ color:'#555' }}>Amount above 2? avg ? but recipient IS in contacts. Known-contact exemption applied. +3 pts residual only.</div>
         </div>
       </div>
     </div>
@@ -148,7 +148,7 @@ function SuccessScreen() {
       <div style={{ fontSize:11, color:'#8B949E', textAlign:'center', lineHeight:1.8 }}>Uncle Sipho<br />Rent paid<br />Zero friction</div>
       <div style={{ width:'100%', background:'rgba(63,185,80,0.1)', border:'1px solid rgba(63,185,80,0.3)', borderRadius:8, padding:'10px 12px', marginTop:4 }}>
         <div style={{ fontSize:9, color:'#3FB950', fontWeight:600, marginBottom:4 }}>?? PayGuard Result</div>
-        <div style={{ fontSize:9, color:'#8B949E', lineHeight:1.7 }}>Risk score: 3/100<br />Decision: ALLOW<br />Thabo experienced: nothing<br />Fraud prevented: �</div>
+        <div style={{ fontSize:9, color:'#8B949E', lineHeight:1.7 }}>Risk score: 3/100<br />Decision: ALLOW<br />Thabo experienced: nothing<br />Fraud prevented: ?</div>
       </div>
     </div>
   );
@@ -195,8 +195,8 @@ export default function DemoFalsePositive() {
       <div style={{ display:'flex', alignItems:'center', gap:12, padding:'0 24px', height:56, borderBottom:'1px solid var(--border)', background:'var(--bg-secondary)', flexShrink:0 }}>
         <button className="btn btn-ghost" onClick={() => navigate('/demo')} style={{ fontSize:12 }}>? All Demos</button>
         <div style={{ flex:1 }}>
-          <div style={{ fontSize:15, fontWeight:700, color:'var(--text-primary)' }}>? Demo 6 of 6 � False Positive Proof</div>
-          <div style={{ fontSize:11, color:'var(--text-muted)' }}>Genuine Customer � Zero Friction � Score: 3/100 ? ALLOW</div>
+          <div style={{ fontSize:15, fontWeight:700, color:'var(--text-primary)' }}>? Demo 6 of 6 ? False Positive Proof</div>
+          <div style={{ fontSize:11, color:'var(--text-muted)' }}>Genuine Customer ? Zero Friction ? Score: 3/100 ? ALLOW</div>
         </div>
         {isLast && <button className="btn btn-primary" onClick={() => navigate('/dashboard')} style={{ fontSize:12 }}>Open Analyst Dashboard ?</button>}
       </div>
@@ -214,7 +214,7 @@ export default function DemoFalsePositive() {
         })}
       </div>
 
-      <div style={{ flex:1, display:'grid', gridTemplateColumns:'1fr 320px 1fr', gap:20, padding:24, overflow:'hidden' }}>
+      <div className="demo-flow-grid" style={{ flex:1, display:'grid', gridTemplateColumns:'1fr 320px 1fr', gap:20, padding:24, overflow:'hidden' }}>
 
         {/* Left */}
         <div style={{ display:'flex', flexDirection:'column', gap:14 }}>
@@ -242,7 +242,7 @@ export default function DemoFalsePositive() {
             <div style={{ fontSize:11, fontWeight:700, color:'#3FB950', marginBottom:8 }}>?? Why This Matters</div>
             <div style={{ fontSize:12, color:'var(--text-secondary)', lineHeight:1.9 }}>
               False positives destroy customer trust. A fraud solution that blocks legitimate transactions is not acceptable.<br /><br />
-              <strong style={{ color:'var(--text-primary)' }}>PayGuard is precision-tuned</strong> � it only fires when multiple high-confidence signals combine. A single large amount with a known contact and no call = pass.
+              <strong style={{ color:'var(--text-primary)' }}>PayGuard is precision-tuned</strong> ? it only fires when multiple high-confidence signals combine. A single large amount with a known contact and no call = pass.
             </div>
           </div>
         </div>
@@ -263,7 +263,7 @@ export default function DemoFalsePositive() {
 
         {/* Right */}
         <div style={{ display:'flex', flexDirection:'column', gap:14 }}>
-          {/* Risk meter � green */}
+          {/* Risk meter ? green */}
           <div style={{ background:'var(--bg-card)', border:'1px solid var(--border)', borderRadius:14, padding:20 }}>
             <div style={{ fontSize:12, fontWeight:600, color:'var(--text-secondary)', marginBottom:14 }}>REAL-TIME RISK SCORE</div>
             <div style={{ display:'flex', alignItems:'flex-end', gap:8, marginBottom:10 }}>
@@ -282,9 +282,9 @@ export default function DemoFalsePositive() {
             </div>
           </div>
 
-          {/* Rules � all not fired */}
+          {/* Rules ? all not fired */}
           <div style={{ background:'var(--bg-card)', border:'1px solid var(--border)', borderRadius:14, padding:20, flex:1 }}>
-            <div style={{ fontSize:12, fontWeight:600, color:'var(--text-secondary)', marginBottom:12 }}>RULE EVALUATION � CLEAN SESSION</div>
+            <div style={{ fontSize:12, fontWeight:600, color:'var(--text-secondary)', marginBottom:12 }}>RULE EVALUATION ? CLEAN SESSION</div>
             {CLEAN_RULES.map(r => (
               <div key={r.id} style={{ display:'flex', alignItems:'center', gap:8, padding:'6px 0', borderBottom:'1px solid var(--border-subtle)' }}>
                 <span style={{ fontSize:9, color:'#3FB950' }}>?</span>
@@ -294,7 +294,7 @@ export default function DemoFalsePositive() {
               </div>
             ))}
             <div style={{ marginTop:12, padding:'8px 12px', background:'rgba(63,185,80,0.06)', borderRadius:8, fontSize:11, color:'#3FB950', fontWeight:600, textAlign:'center' }}>
-              0 signals fired � 8 rules passed cleanly
+              0 signals fired ? 8 rules passed cleanly
             </div>
           </div>
         </div>

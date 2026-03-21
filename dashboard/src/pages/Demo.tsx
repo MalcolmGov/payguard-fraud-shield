@@ -1,4 +1,4 @@
-﻿import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const DEMOS = [
   { route:'/demo/transaction',  emoji:'💸', tag:'Demo 1', title:'Transaction Fraud',        subtitle:'Vishing · Mule Transfer',           color:'#58A6FF', persona:'👨🏾 Sipho',    steps:8, rules:['RULE_001','RULE_002','RULE_004'], description:'Scammer calls Sipho, convinces him to send a "processing fee." SDK fires on call+paste+high amount → BLOCK.', outcome:'R2,500 transfer blocked' },
@@ -13,44 +13,45 @@ const DEMOS = [
 export default function Demo() {
   const navigate = useNavigate();
   return (
-    <div style={{ minHeight:'100vh', background:'var(--bg-primary)', overflowY:'auto' }}>
-      <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', padding:'0 32px', height:56, borderBottom:'1px solid var(--border)', background:'var(--bg-secondary)', position:'sticky', top:0, zIndex:10 }}>
-        <div style={{ display:'flex', alignItems:'center', gap:12 }}>
-          <button className="btn btn-ghost" onClick={() => navigate('/')} style={{ fontSize:12 }}>← Home</button>
-          <span style={{ fontSize:15, fontWeight:700, color:'var(--text-primary)' }}>🛡️ PayGuard — Interactive Demos</span>
+    <div className="demo-page">
+      {/* Header */}
+      <div className="demo-header">
+        <div className="demo-header-left">
+          <button className="btn btn-ghost demo-home-btn" onClick={() => navigate('/')}>← Home</button>
+          <span className="demo-header-title">🛡️ PayGuard — Interactive Demos</span>
         </div>
-        <span style={{ fontSize:12, color:'var(--text-muted)' }}>7 attack scenarios · stakeholder review</span>
+        <span className="demo-header-subtitle">7 attack scenarios · stakeholder review</span>
       </div>
 
-      <div style={{ maxWidth:1100, margin:'0 auto', padding:'48px 28px' }}>
-        <h1 style={{ fontSize:34, textAlign:'center', marginBottom:6 }}>Choose a Demo Scenario</h1>
-        <p style={{ textAlign:'center', color:'var(--text-secondary)', fontSize:13, marginBottom:46, maxWidth:540, margin:'0 auto 48px' }}>
+      {/* Content */}
+      <div className="demo-content">
+        <h1 className="demo-main-heading">Choose a Demo Scenario</h1>
+        <p className="demo-main-desc">
           Seven interactive walkthroughs covering every fraud vector PayGuard protects against — from vishing and SIM swap to USSD push device authorisation.
         </p>
 
-        <div style={{ display:'grid', gridTemplateColumns:'repeat(3, 1fr)', gap:18 }}>
+        {/* Demo Grid */}
+        <div className="demo-grid">
           {DEMOS.map(demo => (
-            <div key={demo.route} onClick={() => navigate(demo.route)}
-              style={{ background:`${demo.color}06`, border:`1px solid ${demo.color}25`, borderRadius:14, padding:22, cursor:'pointer', transition:'transform 0.18s, box-shadow 0.18s', display:'flex', flexDirection:'column', gap:12 }}
-              onMouseEnter={e=>{(e.currentTarget as HTMLDivElement).style.transform='translateY(-3px)';(e.currentTarget as HTMLDivElement).style.boxShadow=`0 8px 32px ${demo.color}20`;}}
-              onMouseLeave={e=>{(e.currentTarget as HTMLDivElement).style.transform='';(e.currentTarget as HTMLDivElement).style.boxShadow='';}}>
+            <div key={demo.route} className="demo-card" onClick={() => navigate(demo.route)}
+              style={{ background:`${demo.color}06`, borderColor:`${demo.color}25` }}>
               <div>
-                <div style={{ fontSize:9, fontWeight:600, letterSpacing:'0.1em', color:demo.color, marginBottom:6 }}>{demo.tag}</div>
-                <div style={{ fontSize:32, marginBottom:5 }}>{demo.emoji}</div>
-                <h2 style={{ fontSize:16, color:'var(--text-primary)', marginBottom:2, lineHeight:1.2 }}>{demo.title}</h2>
-                <div style={{ fontSize:10, color:'var(--text-secondary)' }}>{demo.subtitle}</div>
+                <div className="demo-card-tag" style={{ color: demo.color }}>{demo.tag}</div>
+                <div className="demo-card-emoji">{demo.emoji}</div>
+                <h2 className="demo-card-title">{demo.title}</h2>
+                <div className="demo-card-subtitle">{demo.subtitle}</div>
               </div>
-              <p style={{ fontSize:11, color:'var(--text-secondary)', lineHeight:1.8 }}>{demo.description}</p>
-              <div style={{ display:'flex', flexWrap:'wrap', gap:5 }}>
-                <span style={{ fontSize:9, background:'var(--bg-card)', border:'1px solid var(--border)', borderRadius:4, padding:'2px 6px', color:'var(--text-muted)' }}>{demo.persona}</span>
-                <span style={{ fontSize:9, background:'var(--bg-card)', border:'1px solid var(--border)', borderRadius:4, padding:'2px 6px', color:'var(--text-muted)' }}>{demo.steps} steps</span>
+              <p className="demo-card-desc">{demo.description}</p>
+              <div className="demo-card-tags">
+                <span className="demo-tag-pill">{demo.persona}</span>
+                <span className="demo-tag-pill">{demo.steps} steps</span>
                 {demo.rules.map(r=>(
-                  <span key={r} style={{ fontSize:9, background:`${demo.color}15`, border:`1px solid ${demo.color}30`, borderRadius:4, padding:'2px 6px', color:demo.color, fontFamily:'JetBrains Mono, monospace' }}>{r}</span>
+                  <span key={r} className="demo-tag-rule" style={{ background:`${demo.color}15`, borderColor:`${demo.color}30`, color:demo.color }}>{r}</span>
                 ))}
               </div>
-              <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', marginTop:'auto' }}>
-                <span style={{ fontSize:11, fontWeight:600, color:'#3FB950' }}>✅ {demo.outcome}</span>
-                <button className="btn" style={{ background:demo.color, color:'#0D1117', fontWeight:700, fontSize:11, padding:'6px 14px', borderRadius:7 }}
+              <div className="demo-card-footer">
+                <span className="demo-card-outcome">✅ {demo.outcome}</span>
+                <button className="demo-launch-btn" style={{ background: demo.color }}
                   onClick={e=>{e.stopPropagation();navigate(demo.route);}}>▶ Launch</button>
               </div>
             </div>

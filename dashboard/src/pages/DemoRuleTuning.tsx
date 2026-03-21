@@ -1,4 +1,4 @@
-﻿import { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 interface Rule {
@@ -11,7 +11,7 @@ const INITIAL_RULES: Rule[] = [
   { id:'RULE_002', label:'Call + recipient not in contacts',     delta:40, originalDelta:40, enabled:true,  category:'Social Engineering', firingRate:55 },
   { id:'RULE_003', label:'Transaction < 10s of session start',   delta:30, originalDelta:30, enabled:true,  category:'Behavioral',         firingRate:42 },
   { id:'RULE_004', label:'Paste detected on recipient field',    delta:20, originalDelta:20, enabled:true,  category:'Behavioral',         firingRate:38 },
-  { id:'RULE_005', label:'New recipient + amount > 2× avg',      delta:35, originalDelta:35, enabled:true,  category:'Velocity',           firingRate:61 },
+  { id:'RULE_005', label:'New recipient + amount > 2� avg',      delta:35, originalDelta:35, enabled:true,  category:'Velocity',           firingRate:61 },
   { id:'RULE_006', label:'SIM swap detected last 48h',           delta:50, originalDelta:50, enabled:true,  category:'Device',             firingRate:12 },
   { id:'RULE_007', label:'Device on > 3 accounts',               delta:60, originalDelta:60, enabled:true,  category:'Device',             firingRate:18 },
   { id:'RULE_008', label:'Recent SMS with fraud keywords',        delta:25, originalDelta:25, enabled:true,  category:'Social Engineering', firingRate:29 },
@@ -34,19 +34,19 @@ const AFFECTED_TXS = [
 ];
 
 const STAGES = [
-  { title:'New Fraud Wave Detected',          action:'Open Rules Engine →',    color:'#F85149' },
-  { title:'Analyst Opens Rules Engine',        action:'Identify the Rule →',    color:'#D29922' },
-  { title:'RULE_003 Identified — Score Too Low',action:'Adjust Score →',        color:'#D29922' },
-  { title:'Live Score Adjustment',             action:'Deploy Change →',        color:'#58A6FF' },
-  { title:'✅ Deployed — No Code Required',    action:'Done',                   color:'#3FB950' },
+  { title:'New Fraud Wave Detected',          action:'Open Rules Engine ?',    color:'#F85149' },
+  { title:'Analyst Opens Rules Engine',        action:'Identify the Rule ?',    color:'#D29922' },
+  { title:'RULE_003 Identified � Score Too Low',action:'Adjust Score ?',        color:'#D29922' },
+  { title:'Live Score Adjustment',             action:'Deploy Change ?',        color:'#58A6FF' },
+  { title:'? Deployed � No Code Required',    action:'Done',                   color:'#3FB950' },
 ];
 
 const STAGE_DESCS = [
-  'A new scam variant is surfacing — fraudsters rush victims through the payment flow in under 10 seconds. RULE_003 is currently only worth 30 pts, not enough to reach the BLOCK threshold on its own. 14 fraudulent transactions slipped through in the last 6 hours.',
+  'A new scam variant is surfacing � fraudsters rush victims through the payment flow in under 10 seconds. RULE_003 is currently only worth 30 pts, not enough to reach the BLOCK threshold on its own. 14 fraudulent transactions slipped through in the last 6 hours.',
   'No ticket to IT. No code deployment. No waiting. The mobile operator fraud analyst opens the PayGuard Rules Engine directly. Every rule is visible, editable, and deployable in real-time.',
   '"Transaction initiated < 10s of session start" currently scores only 30 pts. Combined with other signals it reaches WARN but not BLOCK. The analyst selects RULE_003 to increase its weight.',
-  'The analyst drags the delta slider from 30 → 55. The system previews impact: 14 transactions that were WARN would now be BLOCK. No code change. No deployment window needed.',
-  'Rule takes effect instantly. Future transactions are now correctly evaluated. 14 cases now blocked. mobile operator\'s fraud team made this change themselves — no Swifter engineer involved.',
+  'The analyst drags the delta slider from 30 ? 55. The system previews impact: 14 transactions that were WARN would now be BLOCK. No code change. No deployment window needed.',
+  'Rule takes effect instantly. Future transactions are now correctly evaluated. 14 cases now blocked. mobile operator\'s fraud team made this change themselves � no Swifter engineer involved.',
 ];
 
 export default function DemoRuleTuning() {
@@ -86,12 +86,12 @@ export default function DemoRuleTuning() {
     <div style={{ height:'100vh', background:'var(--bg-primary)', display:'flex', flexDirection:'column', overflow:'hidden' }}>
       {/* Topbar */}
       <div style={{ display:'flex', alignItems:'center', gap:12, padding:'0 24px', height:56, borderBottom:'1px solid var(--border)', background:'var(--bg-secondary)', flexShrink:0 }}>
-        <button className="btn btn-ghost" onClick={() => navigate('/demo')} style={{ fontSize:12 }}>← All Demos</button>
+        <button className="btn btn-ghost" onClick={() => navigate('/demo')} style={{ fontSize:12 }}>? All Demos</button>
         <div style={{ flex:1 }}>
-          <div style={{ fontSize:15, fontWeight:700, color:'var(--text-primary)' }}>⚙️ Demo 5 of 6 — Live Rule Tuning</div>
-          <div style={{ fontSize:11, color:'var(--text-muted)' }}>Zero Code · Real-Time Deployment · mobile operator Fraud Ops Ownership</div>
+          <div style={{ fontSize:15, fontWeight:700, color:'var(--text-primary)' }}>?? Demo 5 of 6 � Live Rule Tuning</div>
+          <div style={{ fontSize:11, color:'var(--text-muted)' }}>Zero Code � Real-Time Deployment � mobile operator Fraud Ops Ownership</div>
         </div>
-        {isLast && <button className="btn btn-primary" onClick={() => navigate('/demo/falsepositive')} style={{ fontSize:12 }}>Next: False Positive Proof →</button>}
+        {isLast && <button className="btn btn-primary" onClick={() => navigate('/demo/falsepositive')} style={{ fontSize:12 }}>Next: False Positive Proof ?</button>}
       </div>
 
       {/* Stage progress bar */}
@@ -101,20 +101,20 @@ export default function DemoRuleTuning() {
           return (
             <button key={i} onClick={() => { if (i < stageIdx) { for (let j=stageIdx;j>i;j--) retreat(); } else { for (let j=stageIdx;j<i;j++) advance(); } }}
               style={{ padding:'10px 16px', border:'none', cursor:'pointer', whiteSpace:'nowrap', background:'transparent', borderBottom: isActive ? '2px solid #3FB950' : isDone ? '2px solid #3FB950' : '2px solid transparent', color: isActive ? '#3FB950' : isDone ? '#3FB950' : 'var(--text-muted)', fontSize:11, fontWeight: isActive ? 700 : 400, fontFamily:'Inter, sans-serif', transition:'all 0.2s' }}>
-              {isDone ? '✓' : `${i+1}.`} {s.title.split(' ').slice(0,3).join(' ')}
+              {isDone ? '?' : `${i+1}.`} {s.title.split(' ').slice(0,3).join(' ')}
             </button>
           );
         })}
       </div>
 
       {/* Body */}
-      <div style={{ flex:1, display:'grid', gridTemplateColumns:'320px 1fr', overflow:'hidden' }}>
+      <div className="demo-flow-grid" style={{ flex:1, display:'grid', gridTemplateColumns:'320px 1fr', overflow:'hidden' }}>
 
         {/* Left */}
         <div style={{ borderRight:'1px solid var(--border)', padding:20, display:'flex', flexDirection:'column', gap:14, overflowY:'auto' }}>
           {stageIdx === 0 && (
             <div style={{ background:'rgba(248,81,73,0.1)', border:'1px solid rgba(248,81,73,0.3)', borderRadius:10, padding:14 }}>
-              <div style={{ fontSize:10, fontWeight:700, color:'#F85149', marginBottom:6 }}>🚨 FRAUD INTELLIGENCE ALERT</div>
+              <div style={{ fontSize:10, fontWeight:700, color:'#F85149', marginBottom:6 }}>?? FRAUD INTELLIGENCE ALERT</div>
               <div style={{ fontSize:11, color:'var(--text-secondary)', lineHeight:1.8 }}>New scam variant detected. <strong style={{ color:'var(--text-primary)' }}>14 transactions</strong> missed in last 6 hours. RULE_003 delta (30 pts) insufficient to reach BLOCK threshold.</div>
             </div>
           )}
@@ -126,7 +126,7 @@ export default function DemoRuleTuning() {
           </div>
 
           <div style={{ display:'flex', gap:8 }}>
-            <button className="btn btn-ghost" onClick={retreat} disabled={stageIdx===0} style={{ flex:1, fontSize:12 }}>← Back</button>
+            <button className="btn btn-ghost" onClick={retreat} disabled={stageIdx===0} style={{ flex:1, fontSize:12 }}>? Back</button>
             <button className={`btn btn-primary`} onClick={advance} disabled={isLast} style={{ flex:2, fontSize:12, fontWeight:700, background: stageIdx===3 ? '#3FB950' : undefined, color: stageIdx===3 ? '#0D1117' : undefined }}>
               {stage.action}
             </button>
@@ -135,7 +135,7 @@ export default function DemoRuleTuning() {
           {showPreview && (
             <div style={{ background:'var(--bg-card)', border:'1px solid var(--border)', borderRadius:12, padding:16 }}>
               <div style={{ fontSize:11, fontWeight:600, color:'var(--text-secondary)', marginBottom:10 }}>
-                {deployed ? '✅ DEPLOYED — IMPACT' : '⚡ PREVIEW — IMPACT'}
+                {deployed ? '? DEPLOYED � IMPACT' : '? PREVIEW � IMPACT'}
               </div>
               {AFFECTED_TXS.map(tx => (
                 <div key={tx.id} style={{ marginBottom:8, padding:'8px 10px', background:'rgba(248,81,73,0.05)', border:'1px solid rgba(248,81,73,0.15)', borderRadius:8 }}>
@@ -145,21 +145,21 @@ export default function DemoRuleTuning() {
                   </div>
                   <div style={{ display:'flex', alignItems:'center', gap:8 }}>
                     <span style={{ fontSize:10, color:'#D29922', fontFamily:'monospace' }}>{tx.old}</span>
-                    <span style={{ fontSize:10, color:'var(--text-muted)' }}>→</span>
+                    <span style={{ fontSize:10, color:'var(--text-muted)' }}>?</span>
                     <span style={{ fontSize:10, color:'#F85149', fontWeight:700, fontFamily:'monospace' }}>{tx.next}</span>
-                    <span style={{ fontSize:9, background:'rgba(248,81,73,0.15)', color:'#F85149', borderRadius:4, padding:'1px 6px', marginLeft:'auto' }}>WARN → BLOCK</span>
+                    <span style={{ fontSize:9, background:'rgba(248,81,73,0.15)', color:'#F85149', borderRadius:4, padding:'1px 6px', marginLeft:'auto' }}>WARN ? BLOCK</span>
                   </div>
                 </div>
               ))}
               <div style={{ fontSize:11, fontWeight:600, color: deployed ? '#3FB950' : '#58A6FF', textAlign:'center', marginTop:6 }}>
-                {deployed ? '✅ 14 transactions now correctly blocked' : '⚡ 14 transactions would be reclassified'}
+                {deployed ? '? 14 transactions now correctly blocked' : '? 14 transactions would be reclassified'}
               </div>
             </div>
           )}
 
           {deployed && (
             <div style={{ background:'rgba(63,185,80,0.08)', border:'1px solid rgba(63,185,80,0.25)', borderRadius:10, padding:14 }}>
-              <div style={{ fontSize:11, fontWeight:700, color:'#3FB950', marginBottom:6 }}>🚀 Live in Production</div>
+              <div style={{ fontSize:11, fontWeight:700, color:'#3FB950', marginBottom:6 }}>?? Live in Production</div>
               <div style={{ fontSize:11, color:'var(--text-secondary)', lineHeight:1.9 }}>
                 No code merged<br />No ticket raised<br />No deployment pipeline<br />No downtime<br />
                 <strong style={{ color:'var(--text-primary)' }}>mobile operator Fraud Ops team in full control.</strong>
@@ -173,11 +173,11 @@ export default function DemoRuleTuning() {
           <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:20 }}>
             <div>
               <h2 style={{ fontSize:20, color:'var(--text-primary)', marginBottom:4 }}>Fraud Rule Engine</h2>
-              <div style={{ fontSize:12, color:'var(--text-secondary)' }}>{rules.filter(r=>r.enabled).length} active rules · Changes apply instantly · No deployment needed</div>
+              <div style={{ fontSize:12, color:'var(--text-secondary)' }}>{rules.filter(r=>r.enabled).length} active rules � Changes apply instantly � No deployment needed</div>
             </div>
             {deployed && (
               <div style={{ display:'flex', alignItems:'center', gap:8, background:'rgba(63,185,80,0.1)', border:'1px solid rgba(63,185,80,0.3)', borderRadius:8, padding:'8px 14px' }}>
-                <span style={{ color:'#3FB950' }}>✅</span>
+                <span style={{ color:'#3FB950' }}>?</span>
                 <span style={{ fontSize:12, fontWeight:600, color:'#3FB950' }}>Rule change deployed at {new Date().toLocaleTimeString()}</span>
               </div>
             )}
@@ -204,7 +204,7 @@ export default function DemoRuleTuning() {
                     <div style={{ display:'flex', alignItems:'center', gap:6, flexShrink:0 }}>
                       {isEditing ? (
                         <>
-                          <button onClick={() => updateDelta(rule.id, rule.delta-5)} style={{ width:22, height:22, borderRadius:4, background:'var(--bg-secondary)', border:'1px solid var(--border)', color:'var(--text-primary)', cursor:'pointer', fontSize:12 }}>−</button>
+                          <button onClick={() => updateDelta(rule.id, rule.delta-5)} style={{ width:22, height:22, borderRadius:4, background:'var(--bg-secondary)', border:'1px solid var(--border)', color:'var(--text-primary)', cursor:'pointer', fontSize:12 }}>-</button>
                           <span style={{ fontFamily:'JetBrains Mono, monospace', fontSize:14, fontWeight:700, color:'#58A6FF', minWidth:28, textAlign:'center' }}>{rule.delta}</span>
                           <button onClick={() => updateDelta(rule.id, rule.delta+5)} style={{ width:22, height:22, borderRadius:4, background:'var(--bg-secondary)', border:'1px solid var(--border)', color:'var(--text-primary)', cursor:'pointer', fontSize:12 }}>+</button>
                         </>

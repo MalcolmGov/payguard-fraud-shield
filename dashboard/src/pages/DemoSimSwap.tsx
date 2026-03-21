@@ -429,7 +429,7 @@ export default function DemoSimSwap() {
   );
 
   return (
-    <div style={{ minHeight: '100vh', background: 'var(--bg-primary)', display: 'flex', flexDirection: 'column' }}>
+    <div className="demo-flow-page" style={{ minHeight:'100vh', background: 'var(--bg-primary)', display: 'flex', flexDirection: 'column' }}>
       {/* Topbar */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '0 24px', height: 56, borderBottom: '1px solid var(--border)', background: 'var(--bg-secondary)', flexShrink: 0 }}>
         <button className="btn btn-ghost" onClick={() => navigate('/demo')} style={{ fontSize: 12 }}>? All Demos</button>
@@ -454,7 +454,7 @@ export default function DemoSimSwap() {
       </div>
 
       {/* Main grid */}
-      <div style={{ flex: 1, display: 'grid', gridTemplateColumns: '1fr auto 1fr', gap: 20, padding: 24 }}>
+      <div className="demo-flow-grid" style={{ flex: 1, display: 'grid', gridTemplateColumns: '1fr auto 1fr', gap: 20, padding: 24 }}>
 
         {/* Left column */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>

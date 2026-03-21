@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import TalkToSalesModal from '../components/TalkToSalesModal';
+import ThemeToggle from '../components/ThemeToggle';
 
 /* ── Animated Counter ──────────────────────────────────────────── */
 function Counter({ target, suffix = '', prefix = '', duration = 2000 }: { target: number; suffix?: string; prefix?: string; duration?: number }) {
@@ -50,45 +51,45 @@ const STATS = [
 ];
 
 const PRODUCTS = [
-  { icon: '🛡️', color: '#3B82F6', name: 'Transaction Guard', desc: 'Real-time risk scoring on every outbound payment. 35 rules evaluate simultaneously before the customer taps Confirm.' },
-  { icon: '🔐', color: '#F59E0B', name: 'OtpGuard', desc: 'Detects OTP entry during active calls. Prevents screen capture, overlays, and remote-access fraud tools.' },
-  { icon: '📡', color: '#EF4444', name: 'SIM Swap Defender', desc: 'Detects SIM change, porting events, and device takeover. Freezes high-risk transactions instantly.' },
-  { icon: '🕸️', color: '#8B5CF6', name: 'Fraud Ring Intel', desc: 'Neo4j-powered graph linking accounts, devices, wallets, and IPs. One-click mule network blocking.' },
-  { icon: '🧠', color: '#10B981', name: 'AI Anomaly Detection', desc: 'ML models trained on African payment patterns. Deepfake voice detection and synthetic identity scoring.' },
-  { icon: '📱', color: '#EC4899', name: 'Device Intelligence', desc: 'Device fingerprinting, binding, emulator/RAT detection, root/jailbreak checks. 13-signal SHA-256 fingerprint.' },
-  { icon: '⚖️', color: '#06B6D4', name: 'AML & Sanctions', desc: 'Automated screening against global watchlists, PEP databases, and sanctions. Continuous monitoring.' },
-  { icon: '📊', color: '#F43F5E', name: 'Fraud Analytics', desc: 'Real-time dashboard with drill-down reports, heatmaps, investigation tools, and AI case summaries.' },
+  { icon: '/icon-transaction-guard.png', color: '#3B82F6', name: 'Transaction Guard', desc: 'Real-time risk scoring on every outbound payment. 35 rules evaluate simultaneously before the customer taps Confirm.' },
+  { icon: '/icon-otp-guard.png', color: '#F59E0B', name: 'OtpGuard', desc: 'Detects OTP entry during active calls. Prevents screen capture, overlays, and remote-access fraud tools.' },
+  { icon: '/icon-sim-swap.png', color: '#EF4444', name: 'SIM Swap Defender', desc: 'Detects SIM change, porting events, and device takeover. Freezes high-risk transactions instantly.' },
+  { icon: '/icon-fraud-ring.png', color: '#8B5CF6', name: 'Fraud Ring Intel', desc: 'Neo4j-powered graph linking accounts, devices, wallets, and IPs. One-click mule network blocking.' },
+  { icon: '/icon-ai-anomaly.png', color: '#10B981', name: 'AI Anomaly Detection', desc: 'ML models trained on African payment patterns. Deepfake voice detection and synthetic identity scoring.' },
+  { icon: '/icon-device-intel.png', color: '#EC4899', name: 'Device Intelligence', desc: 'Device fingerprinting, binding, emulator/RAT detection, root/jailbreak checks. 13-signal SHA-256 fingerprint.' },
+  { icon: '/icon-aml-sanctions.png', color: '#06B6D4', name: 'AML & Sanctions', desc: 'Automated screening against global watchlists, PEP databases, and sanctions. Continuous monitoring.' },
+  { icon: '/icon-fraud-analytics.png', color: '#F43F5E', name: 'Fraud Analytics', desc: 'Real-time dashboard with drill-down reports, heatmaps, investigation tools, and AI case summaries.' },
 ];
 
 const HOW_WORKS = [
-  { n: '01', title: 'SDK Embedded', desc: 'Drop-in SDK for iOS, Android, USSD. Zero UI changes. 0.8 MB footprint.', color: '#3B82F6' },
-  { n: '02', title: 'Signals Collected', desc: 'Call state, device telemetry, SIM identity, behavioural biometrics — all AES-256 encrypted.', color: '#8B5CF6' },
-  { n: '03', title: '35 Rules Evaluate', desc: 'All 35 fraud rules fire in parallel across 5 intelligence layers. P99 latency < 50ms.', color: '#F59E0B' },
-  { n: '04', title: 'Decision Returned', desc: 'ALLOW, WARN, or BLOCK — before the payment leaves the account. Zero friction for legit users.', color: '#10B981' },
+  { n: '01', title: 'SDK Embedded', desc: 'Drop-in SDK for iOS, Android, USSD. Zero UI changes. 0.8 MB footprint.', color: '#3B82F6', icon: '/icon-sdk-embedded.png' },
+  { n: '02', title: 'Signals Collected', desc: 'Call state, device telemetry, SIM identity, behavioural biometrics — all AES-256 encrypted.', color: '#8B5CF6', icon: '/icon-signals.png' },
+  { n: '03', title: '35 Rules Evaluate', desc: 'All 35 fraud rules fire in parallel across 5 intelligence layers. P99 latency < 50ms.', color: '#F59E0B', icon: '/icon-rules-engine.png' },
+  { n: '04', title: 'Decision Returned', desc: 'ALLOW, WARN, or BLOCK — before the payment leaves the account. Zero friction for legit users.', color: '#10B981', icon: '/icon-decision.png' },
 ];
 
 const COMPARISONS = [
-  { title: 'Voice Phishing (Vishing)', icon: '📞', color: '#EF4444',
+  { title: 'Voice Phishing (Vishing)', icon: '/icon-vishing.png', color: '#EF4444',
     without: 'Customer is on a scam call transferring funds. Bank detects fraud after money is gone.',
     withPG: 'Active call + unknown recipient + high amount detected. Transaction blocked. Customer warned before loss.' },
-  { title: 'SIM Swap Attack', icon: '📡', color: '#F97316',
+  { title: 'SIM Swap Attack', icon: '/icon-sim-attack.png', color: '#F97316',
     without: 'Fraudster ports SIM, resets banking credentials, drains account overnight.',
     withPG: 'SIM swap detected + new device alert + rapid switching. High-risk transaction frozen automatically.' },
-  { title: 'AI Deepfake Call', icon: '🤖', color: '#8B5CF6',
+  { title: 'AI Deepfake Call', icon: '/icon-deepfake.png', color: '#8B5CF6',
     without: 'AI clones CEO voice, instructs urgent transfer. No detection possible.',
     withPG: 'Deepfake shield detects synthetic speech. AI conversation detector flags uniform timing. Transfer blocked.' },
-  { title: 'Mule Network', icon: '🕸️', color: '#3B82F6',
+  { title: 'Mule Network', icon: '/icon-mule-network.png', color: '#3B82F6',
     without: 'Stolen funds laundered through dozens of connected accounts. Investigation takes weeks.',
     withPG: 'Fraud graph links shared devices, IPs, and patterns. One-click bulk-block across entire ring.' },
 ];
 
 const WHO_FOR = [
-  { name: 'Banks', icon: '🏦', desc: 'Retail & commercial banks protecting customer deposits', tags: 'EFT · Card · RTP', color: '#3B82F6' },
-  { name: 'Telcos', icon: '📡', desc: 'Mobile operators securing airtime and mobile money', tags: 'Airtime · USSD · MoMo', color: '#8B5CF6' },
-  { name: 'Fintechs', icon: '💳', desc: 'Digital-first financial services and neobanks', tags: 'Wallets · P2P · Lending', color: '#00D4AA' },
-  { name: 'PSPs', icon: '🔄', desc: 'Payment service providers and switches', tags: 'Gateway · Switch · Acquirer', color: '#F59E0B' },
-  { name: 'Wallets', icon: '📱', desc: 'Digital wallets and mobile money platforms', tags: 'Mobile · QR · NFC', color: '#EC4899' },
-  { name: 'Insurance', icon: '🛡️', desc: 'Insurers preventing claims fraud and identity theft', tags: 'Claims · KYC · Identity', color: '#06B6D4' },
+  { name: 'Banks', icon: '/icon-banks.png', desc: 'Retail & commercial banks protecting customer deposits', tags: 'EFT · Card · RTP', color: '#3B82F6' },
+  { name: 'Telcos', icon: '/icon-telcos.png', desc: 'Mobile operators securing airtime and mobile money', tags: 'Airtime · USSD · MoMo', color: '#8B5CF6' },
+  { name: 'Fintechs', icon: '/icon-fintechs.png', desc: 'Digital-first financial services and neobanks', tags: 'Wallets · P2P · Lending', color: '#00D4AA' },
+  { name: 'PSPs', icon: '/icon-psps.png', desc: 'Payment service providers and switches', tags: 'Gateway · Switch · Acquirer', color: '#F59E0B' },
+  { name: 'Wallets', icon: '/icon-wallets.png', desc: 'Digital wallets and mobile money platforms', tags: 'Mobile · QR · NFC', color: '#EC4899' },
+  { name: 'Insurance', icon: '/icon-insurance.png', desc: 'Insurers preventing claims fraud and identity theft', tags: 'Claims · KYC · Identity', color: '#06B6D4' },
 ];
 
 /* ── Nav ───────────────────────────────────────────────────────── */
@@ -122,12 +123,13 @@ function Nav() {
           ))}
         </div>
         <div className="nav-desktop-ctas" style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <ThemeToggle />
           <button onClick={() => go('/demo')} style={{ padding: '9px 18px', fontSize: 13, fontWeight: 600, background: 'transparent', border: '1px solid rgba(59,130,246,0.3)', borderRadius: 8, cursor: 'pointer', color: '#94A3B8', transition: 'all 0.2s' }}
             onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(59,130,246,0.6)'; e.currentTarget.style.color = '#F0F6FF'; }}
             onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(59,130,246,0.3)'; e.currentTarget.style.color = '#94A3B8'; }}>Live Demo</button>
-          <button onClick={() => go('/dashboard')} style={{ padding: '9px 18px', fontSize: 13, fontWeight: 700, background: 'linear-gradient(135deg,#3B82F6,#2563EB)', color: '#fff', border: 'none', borderRadius: 8, cursor: 'pointer', boxShadow: '0 2px 16px rgba(59,130,246,0.35)', transition: 'opacity 0.2s' }}
+          <button onClick={() => go('/contact')} style={{ padding: '9px 18px', fontSize: 13, fontWeight: 700, background: 'linear-gradient(135deg,#3B82F6,#2563EB)', color: '#fff', border: 'none', borderRadius: 8, cursor: 'pointer', boxShadow: '0 2px 16px rgba(59,130,246,0.35)', transition: 'opacity 0.2s' }}
             onMouseEnter={e => (e.currentTarget.style.opacity = '0.85')}
-            onMouseLeave={e => (e.currentTarget.style.opacity = '1')}>Sign In →</button>
+            onMouseLeave={e => (e.currentTarget.style.opacity = '1')}>Talk to Sales</button>
         </div>
         <button className="hamburger-btn" onClick={() => setMenuOpen(o => !o)} aria-label="Toggle menu" style={{ display: 'none', background: 'none', border: 'none', cursor: 'pointer', padding: '8px', borderRadius: 8, zIndex: 201, color: '#F0F6FF' }}>
           <div style={{ width: 22, height: 16, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
@@ -144,7 +146,7 @@ function Nav() {
           ))}
           <div style={{ height: 1, background: 'rgba(255,255,255,0.07)', margin: '8px 0' }} />
           <button onClick={() => go('/demo')} style={{ width: '100%', padding: '12px', borderRadius: 10, cursor: 'pointer', fontWeight: 600, fontSize: 14, background: 'transparent', border: '1px solid rgba(59,130,246,0.3)', color: '#94A3B8' }}>Live Demo</button>
-          <button onClick={() => go('/dashboard')} style={{ width: '100%', padding: '13px', borderRadius: 10, cursor: 'pointer', fontWeight: 700, fontSize: 14, background: 'linear-gradient(135deg,#3B82F6,#2563EB)', color: '#fff', border: 'none' }}>Sign In →</button>
+          <button onClick={() => go('/contact')} style={{ width: '100%', padding: '13px', borderRadius: 10, cursor: 'pointer', fontWeight: 700, fontSize: 14, background: 'linear-gradient(135deg,#3B82F6,#2563EB)', color: '#fff', border: 'none' }}>Talk to Sales</button>
         </div>
       </div>
     </>
@@ -155,155 +157,81 @@ function Nav() {
 export default function Landing() {
   const navigate = useNavigate();
   const [showSales, setShowSales] = useState(false);
-  const [isMobile, setIsMobile] = useState(typeof window !== 'undefined' && window.innerWidth <= 768);
-
-  useEffect(() => {
-    const onResize = () => setIsMobile(window.innerWidth <= 768);
-    window.addEventListener('resize', onResize);
-    return () => window.removeEventListener('resize', onResize);
-  }, []);
 
   return (
-    <div style={{ minHeight: '100vh', background: '#0A1628', overflowY: 'auto', overflowX: 'hidden', fontFamily: 'Inter, sans-serif', color: '#F0F6FF' }}>
+    <div className="landing-page" style={{ minHeight: '100vh', background: '#0A1628', overflowY: 'auto', overflowX: 'hidden', fontFamily: 'Inter, sans-serif', color: '#F0F6FF' }}>
       <Nav />
 
       {/* ═══ HERO ═══ */}
-      <section className="landing-hero" style={{
-        width: '100%',
-        maxWidth: '100%',
-        boxSizing: 'border-box',
-        minHeight: isMobile ? 'auto' : '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: isMobile ? 'stretch' : 'center',
-        justifyContent: 'center',
-        padding: isMobile ? '100px 24px 48px' : '120px 48px 80px',
-        position: 'relative',
-        overflow: 'hidden',
-        background: 'linear-gradient(180deg, #0B1121 0%, #0A1628 50%, #0D1B2A 100%)',
-      }}>
-        {/* Animated gradient mesh + grid texture */}
+      <section className="landing-hero">
+        {/* Animated gradient mesh + grid texture (decorative — inline styles OK) */}
         <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
           <div style={{ position: 'absolute', top: '-20%', right: '-10%', width: 900, height: 900, borderRadius: '50%', background: 'radial-gradient(circle, rgba(59,130,246,0.15) 0%, rgba(0,212,170,0.06) 40%, transparent 70%)', filter: 'blur(60px)', animation: 'meshFloat 12s ease-in-out infinite' }} />
           <div style={{ position: 'absolute', bottom: '-15%', left: '-10%', width: 800, height: 800, borderRadius: '50%', background: 'radial-gradient(circle, rgba(139,92,246,0.1) 0%, rgba(59,130,246,0.04) 50%, transparent 70%)', filter: 'blur(60px)', animation: 'meshFloat 15s ease-in-out infinite reverse' }} />
           <div style={{ position: 'absolute', top: '20%', left: '30%', width: 500, height: 500, borderRadius: '50%', background: 'radial-gradient(circle, rgba(0,212,170,0.06) 0%, transparent 60%)', filter: 'blur(80px)', animation: 'meshFloat 20s ease-in-out infinite' }} />
           <div style={{ position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(rgba(59,130,246,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.06) 1px, transparent 1px)', backgroundSize: '48px 48px', maskImage: 'radial-gradient(ellipse 90% 70% at 50% 40%, black 20%, transparent 65%)', WebkitMaskImage: 'radial-gradient(ellipse 90% 70% at 50% 40%, black 20%, transparent 65%)' }} />
-          <div style={{ position: 'absolute', inset: 0, opacity: 0.015, backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%270 0 256 256%27 xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cfilter id=%27noise%27%3E%3CfeTurbulence type=%27fractalNoise%27 baseFrequency=%270.9%27 numOctaves=%274%27 stitchTiles=%27stitch%27/%3E%3C/filter%3E%3Crect width=%27100%25%27 height=%27100%25%27 filter=%27url(%23noise)%27/%3E%3C/svg%3E")', backgroundRepeat: 'repeat', backgroundSize: '128px 128px' }} />
+          <div style={{ position: 'absolute', inset: 0, opacity: 0.015, backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%270 0 256 256%27(xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cfilter id=%27noise%27%3E%3CfeTurbulence type=%27fractalNoise%27 baseFrequency=%270.9%27 numOctaves=%274%27 stitchTiles=%27stitch%27/%3E%3C/filter%3E%3Crect width=%27100%25%27 height=%27100%25%27 filter=%27url(%23noise)%27/%3E%3C/svg%3E")', backgroundRepeat: 'repeat', backgroundSize: '128px 128px' }} />
         </div>
 
-        {/* Hero content — flex row on desktop, column on mobile */}
-        <div className="hero-content" style={{
-          maxWidth: isMobile ? '100%' : 1200,
-          width: '100%',
-          boxSizing: 'border-box',
-          position: 'relative',
-          zIndex: 1,
-          display: 'flex',
-          flexDirection: isMobile ? 'column' : 'row',
-          alignItems: isMobile ? 'stretch' : 'center',
-          textAlign: isMobile ? 'center' : 'left',
-          gap: isMobile ? 32 : 48,
-        }}>
+        {/* Hero content — NO inline styles, CSS handles everything */}
+        <div className="hero-content">
           {/* Left side — copy */}
-          <div style={{ width: '100%', flex: isMobile ? 'none' : 1, minWidth: 0 }}>
+          <div className="hero-text">
             <Reveal>
-              <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, fontSize: 12, fontWeight: 600, letterSpacing: '0.08em', color: '#3B82F6', background: 'rgba(59,130,246,0.08)', border: '1px solid rgba(59,130,246,0.2)', borderRadius: 99, padding: '6px 18px', marginBottom: 32, ...(isMobile ? { marginLeft: 'auto', marginRight: 'auto' } : {}) }}>
-                <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#10B981', display: 'inline-block', animation: 'pulse 2s infinite' }} />
+              <div className="hero-badge">
+                <span className="hero-badge-dot" />
                 REAL-TIME FRAUD PREVENTION FOR AFRICA
               </div>
             </Reveal>
 
             <Reveal delay={100}>
-              <h1 style={{ fontFamily: "'Plus Jakarta Sans', 'Outfit', sans-serif", fontSize: isMobile ? 32 : 56, fontWeight: 800, lineHeight: 1.08, marginBottom: 24, letterSpacing: '-0.03em' }}>
+              <h1 className="hero-heading">
                 Stop Fraud Before{' '}
-                <span style={{ background: 'linear-gradient(135deg, #3B82F6, #00D4AA)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>the Money Moves.</span>
+                <span className="hero-heading-accent">the Money Moves.</span>
               </h1>
             </Reveal>
 
             <Reveal delay={200}>
-              <p style={{ fontSize: isMobile ? 15 : 17, color: '#94A3B8', lineHeight: 1.8, maxWidth: isMobile ? '100%' : 540, marginBottom: 16, fontWeight: 400 }}>
+              <p className="hero-subtitle">
                 Real-time fraud prevention for banks, telcos, fintechs, and payment providers.
                 35 rules across social engineering, device intelligence, and{' '}
-                <strong style={{ color: '#00D4AA' }}>AI-powered deepfake detection</strong> — all in under 100ms.
+                <strong className="hero-subtitle-highlight">AI-powered deepfake detection</strong> — all in under 100ms.
               </p>
             </Reveal>
 
             <Reveal delay={250}>
-              <p style={{ fontSize: 13, color: '#475569', lineHeight: 1.8, maxWidth: isMobile ? '100%' : 480, marginBottom: isMobile ? 24 : 40, fontWeight: 500, fontFamily: 'JetBrains Mono, monospace' }}>
+              <p className="hero-tagline">
                 One SDK. Any payment rail. Any app. Any market.
               </p>
             </Reveal>
 
             <Reveal delay={300}>
-              <div style={{
-                display: 'flex',
-                flexDirection: isMobile ? 'column' : 'row',
-                alignItems: isMobile ? 'center' : 'flex-start',
-                gap: isMobile ? 12 : 14,
-                width: '100%',
-              }}>
-                <button onClick={() => setShowSales(true)} style={{
-                  padding: '14px 32px', fontSize: 15, fontWeight: 700,
-                  background: 'linear-gradient(135deg,#3B82F6,#2563EB)', color: '#fff',
-                  border: 'none', borderRadius: 10, cursor: 'pointer',
-                  boxShadow: '0 4px 24px rgba(59,130,246,0.4)', transition: 'all 0.2s',
-                  width: isMobile ? '100%' : 'auto', maxWidth: isMobile ? 280 : 'none',
-                }}
-                  onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 8px 32px rgba(59,130,246,0.5)'; }}
-                  onMouseLeave={e => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = '0 4px 24px rgba(59,130,246,0.4)'; }}>Book a Demo</button>
-                <button onClick={() => navigate('/developers')} style={{
-                  padding: '14px 32px', fontSize: 15, fontWeight: 600,
-                  background: 'transparent', color: '#94A3B8',
-                  border: '1px solid rgba(148,163,184,0.2)', borderRadius: 10,
-                  cursor: 'pointer', transition: 'all 0.2s',
-                  width: isMobile ? '100%' : 'auto', maxWidth: isMobile ? 280 : 'none',
-                }}
-                  onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(59,130,246,0.4)'; e.currentTarget.style.color = '#F0F6FF'; }}
-                  onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(148,163,184,0.2)'; e.currentTarget.style.color = '#94A3B8'; }}>View SDK Docs →</button>
+              <div className="hero-cta-row">
+                <button className="hero-btn-primary" onClick={() => setShowSales(true)}>Book a Demo</button>
+                <button className="hero-btn-secondary" onClick={() => navigate('/developers')}>View SDK Docs →</button>
               </div>
             </Reveal>
           </div>
 
-          {/* Right side — Africa Shield 3D image */}
+          {/* Right side — Africa Shield image */}
           <Reveal delay={200}>
-            <div style={{ flex: isMobile ? 'none' : '1 1 400px', position: 'relative', maxWidth: isMobile ? 280 : 520, margin: '0 auto', width: '100%' }}>
-              <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', width: 400, height: 400, borderRadius: '50%', background: 'radial-gradient(circle, rgba(0,212,170,0.12) 0%, rgba(59,130,246,0.06) 40%, transparent 70%)', filter: 'blur(40px)', pointerEvents: 'none' }} />
-              <img src="/hero-africa-shield.png" alt="PayGuard protects Africa's payment infrastructure" style={{ width: '100%', maxWidth: isMobile ? 280 : 520, height: 'auto', display: 'block', position: 'relative', animation: 'heroFloat 6s ease-in-out infinite', filter: 'drop-shadow(0 20px 60px rgba(0,212,170,0.15))' }} />
+            <div className="hero-image">
+              <div className="hero-image-glow" />
+              <img src="/hero-3d.png" alt="PayGuard protects Africa's payment infrastructure" />
             </div>
           </Reveal>
         </div>
 
-        {/* Stats bar — full width below the split */}
-        <div style={{ position: 'relative', zIndex: 1, maxWidth: isMobile ? '100%' : 1200, width: '100%', marginTop: isMobile ? 32 : 64, boxSizing: 'border-box' }}>
+        {/* Stats bar */}
+        <div className="hero-stats-wrapper">
           <Reveal delay={400}>
-            <div className="stats-bar-grid" style={{
-              display: isMobile ? 'flex' : 'grid',
-              flexDirection: isMobile ? 'column' : undefined,
-              gridTemplateColumns: isMobile ? undefined : 'repeat(4, 1fr)',
-              gap: isMobile ? 0 : 2,
-              borderRadius: isMobile ? 16 : 20,
-              overflow: 'hidden',
-              border: '1px solid rgba(59,130,246,0.1)',
-              width: '100%',
-            }}>
+            <div className="stats-bar-grid">
               {STATS.map((s, i) => (
-                <div key={i} style={{
-                  background: 'rgba(255,255,255,0.03)',
-                  backdropFilter: 'blur(16px)',
-                  padding: isMobile ? '16px 20px' : '28px 16px',
-                  textAlign: isMobile ? 'left' as const : 'center' as const,
-                  borderLeft: !isMobile && i > 0 ? '1px solid rgba(255,255,255,0.04)' : 'none',
-                  borderBottom: isMobile && i < STATS.length - 1 ? '1px solid rgba(255,255,255,0.04)' : 'none',
-                  display: isMobile ? 'flex' : 'block',
-                  alignItems: isMobile ? 'center' : undefined,
-                  gap: isMobile ? 12 : undefined,
-                  width: '100%',
-                  boxSizing: 'border-box' as const,
-                }}>
-                  <div style={{ fontSize: isMobile ? 24 : 36, fontWeight: 900, fontFamily: "'Plus Jakarta Sans', 'Outfit', sans-serif", letterSpacing: '-0.04em', color: s.color, marginBottom: isMobile ? 0 : 8, flexShrink: 0, minWidth: isMobile ? 80 : undefined }}>
+                <div key={i} className="stats-bar-item" style={{ borderLeft: i > 0 ? '1px solid rgba(255,255,255,0.04)' : 'none' }}>
+                  <div className="stats-bar-value" style={{ color: s.color }}>
                     <Counter target={s.value} suffix={s.suffix} prefix={s.prefix} />
                   </div>
-                  <div style={{ fontSize: 12, color: '#64748B', lineHeight: 1.5 }}>{s.label}</div>
+                  <div className="stats-bar-label">{s.label}</div>
                 </div>
               ))}
             </div>
@@ -311,17 +239,7 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* ═══ TRUSTED BY ═══ */}
-      <section style={{ padding: '48px 48px', borderTop: '1px solid rgba(255,255,255,0.04)', borderBottom: '1px solid rgba(255,255,255,0.04)', background: 'rgba(255,255,255,0.01)' }}>
-        <div style={{ maxWidth: 1100, margin: '0 auto', textAlign: 'center' }}>
-          <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.14em', color: '#334155', marginBottom: 28 }}>TRUSTED BY LEADING AFRICAN FINANCIAL INSTITUTIONS</div>
-          <div style={{ display: 'flex', gap: 32, justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap', opacity: 0.4 }}>
-            {['Tier 1 Bank', 'Digital Wallet', 'Telco MoMo', 'PSP Partner', 'Neobank', 'Insurance'].map((name, i) => (
-              <div key={i} style={{ padding: '12px 28px', borderRadius: 10, border: '1px solid rgba(255,255,255,0.08)', fontSize: 13, fontWeight: 600, color: '#475569', fontFamily: "'Plus Jakarta Sans', sans-serif" }}>{name}</div>
-            ))}
-          </div>
-        </div>
-      </section>
+
 
       {/* ═══ PRODUCT SUITE ═══ */}
       <Reveal>
@@ -364,8 +282,8 @@ export default function Landing() {
                   {/* Corner glow */}
                   <div className="card-glow" style={{ position: 'absolute', top: -40, left: -40, width: 140, height: 140, borderRadius: '50%', background: p.color, opacity: 0.08, filter: 'blur(40px)', transition: 'opacity 0.3s', pointerEvents: 'none' }} />
                   {/* Icon wrapper with glow */}
-                  <div style={{ width: 48, height: 48, borderRadius: 12, background: `${p.color}12`, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 20, boxShadow: `0 0 24px ${p.color}15`, border: `1px solid ${p.color}20`, fontSize: 24, position: 'relative' }}>
-                    {p.icon}
+                  <div style={{ width: 72, height: 72, borderRadius: 16, background: `${p.color}12`, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 20, boxShadow: `0 0 24px ${p.color}15`, border: `1px solid ${p.color}20`, position: 'relative', overflow: 'hidden' }}>
+                    <img src={p.icon} alt={p.name} style={{ width: 52, height: 52, objectFit: 'contain' }} />
                   </div>
                   <h3 style={{ fontSize: 18, fontWeight: 600, fontFamily: "'Plus Jakarta Sans', sans-serif", color: '#F0F6FF', marginBottom: 10, position: 'relative' }}>{p.name}</h3>
                   <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.6)', lineHeight: 1.7, margin: 0, position: 'relative' }}>{p.desc}</p>
@@ -391,8 +309,8 @@ export default function Landing() {
             {HOW_WORKS.map((s, i) => (
               <Reveal key={i} delay={i * 100}>
                 <div style={{ padding: '0 16px', textAlign: 'center', position: 'relative', zIndex: 1 }}>
-                  <div style={{ width: 72, height: 72, borderRadius: '50%', background: `${s.color}12`, border: `2px solid ${s.color}30`, display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px', fontSize: 20, fontWeight: 900, fontFamily: "'Plus Jakarta Sans', monospace", color: s.color, boxShadow: `0 0 40px ${s.color}15`, transition: 'all 0.3s' }}>
-                    {s.n}
+                  <div style={{ width: 72, height: 72, borderRadius: '50%', background: `${s.color}12`, border: `2px solid ${s.color}30`, display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px', boxShadow: `0 0 40px ${s.color}15`, transition: 'all 0.3s', overflow: 'hidden' }}>
+                    <img src={s.icon} alt={s.title} style={{ width: 48, height: 48, objectFit: 'contain' }} />
                   </div>
                   <h3 style={{ fontSize: 16, fontWeight: 700, marginBottom: 10, fontFamily: "'Plus Jakarta Sans', sans-serif", color: '#F0F6FF' }}>{s.title}</h3>
                   <p style={{ fontSize: 13, color: '#64748B', lineHeight: 1.7 }}>{s.desc}</p>
@@ -481,7 +399,7 @@ when (decision.action) {
                   onMouseLeave={e => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = '0 1px 3px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.03)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)'; }}>
                   <div style={{ padding: '28px 28px 24px' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20 }}>
-                      <div style={{ width: 40, height: 40, borderRadius: 10, background: `${c.color}12`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20, boxShadow: `0 0 20px ${c.color}10` }}>{c.icon}</div>
+                      <div style={{ width: 52, height: 52, borderRadius: 12, background: `${c.color}12`, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: `0 0 20px ${c.color}10`, overflow: 'hidden' }}><img src={c.icon} alt={c.title} style={{ width: 36, height: 36, objectFit: 'contain' }} /></div>
                       <h3 style={{ fontSize: 18, fontWeight: 700, fontFamily: "'Plus Jakarta Sans', sans-serif", color: '#F0F6FF', margin: 0 }}>{c.title}</h3>
                     </div>
                     <div className="comparison-inner" style={{ display: 'grid', gridTemplateColumns: '1fr auto 1fr', gap: 0 }}>
@@ -512,17 +430,7 @@ when (decision.action) {
         </div>
       </section>
 
-      {/* ═══ TESTIMONIAL ═══ */}
-      <Reveal>
-        <section style={{ padding: '100px 48px', maxWidth: 800, margin: '0 auto', textAlign: 'center' }}>
-          <div style={{ fontSize: 64, color: 'rgba(59,130,246,0.2)', fontFamily: 'Georgia, serif', marginBottom: 24, lineHeight: 0.5 }}>"</div>
-          <blockquote style={{ fontSize: 22, fontWeight: 500, color: '#CBD5E1', lineHeight: 1.7, fontStyle: 'italic', margin: '0 auto 24px', maxWidth: 680 }}>
-            Within 90 days of deploying PayGuard, we reduced APP fraud losses by 84% and false positive rates dropped from 4.2% to under 0.3%. The on-call detection alone has saved our customers millions.
-          </blockquote>
-          <div style={{ fontSize: 14, fontWeight: 700, color: '#F0F6FF' }}>Head of Fraud Operations</div>
-          <div style={{ fontSize: 13, color: '#475569' }}>Tier 1 South African Bank</div>
-        </section>
-      </Reveal>
+
 
       {/* ═══ WHO IT'S FOR ═══ */}
       <section style={{ background: 'rgba(255,255,255,0.015)', borderTop: '1px solid rgba(255,255,255,0.04)', borderBottom: '1px solid rgba(255,255,255,0.04)', padding: '100px 48px' }}>
@@ -562,7 +470,7 @@ when (decision.action) {
                   {/* Top edge glow */}
                   <div className="top-glow" style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 2, background: `linear-gradient(90deg, ${w.color}, ${w.color}50, transparent)`, opacity: 0.4, transition: 'opacity 0.3s' }} />
                   {/* Frosted icon */}
-                  <div style={{ width: 56, height: 56, borderRadius: 14, background: `${w.color}10`, border: `1px solid ${w.color}18`, backdropFilter: 'blur(10px)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 28, flexShrink: 0, boxShadow: `0 0 20px ${w.color}10` }}>{w.icon}</div>
+                  <div style={{ width: 64, height: 64, borderRadius: 14, background: `${w.color}10`, border: `1px solid ${w.color}18`, backdropFilter: 'blur(10px)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, boxShadow: `0 0 20px ${w.color}10`, overflow: 'hidden' }}><img src={w.icon} alt={w.name} style={{ width: 44, height: 44, objectFit: 'contain' }} /></div>
                   <div style={{ flex: 1 }}>
                     <div style={{ fontSize: 17, fontWeight: 700, color: '#F0F6FF', marginBottom: 4, fontFamily: "'Plus Jakarta Sans', sans-serif" }}>{w.name}</div>
                     <div style={{ fontSize: 14, color: 'rgba(255,255,255,0.55)', lineHeight: 1.6, marginBottom: 8 }}>{w.desc}</div>
@@ -581,14 +489,14 @@ when (decision.action) {
           <div style={{ maxWidth: 1000, margin: '0 auto', background: 'rgba(255,255,255,0.02)', borderRadius: 16, border: '1px solid rgba(255,255,255,0.05)', padding: '40px 0', position: 'relative', overflow: 'hidden' }}>
             {/* Shimmer sweep animation on load */}
             <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.03), transparent)', backgroundSize: '200% 100%', animation: 'shimmerSweep 3s ease-in-out', pointerEvents: 'none' }} />
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <div className="trust-badges-container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap', gap: 0 }}>
               {[
                 { svg: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00D4AA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>', title: 'SOC 2 TYPE II', desc: 'Certified compliant' },
                 { svg: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00D4AA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>', title: 'AES-256-GCM', desc: 'Military-grade encryption' },
                 { svg: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00D4AA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>', title: '99.99% SLA', desc: 'Platform uptime guarantee' },
                 { svg: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00D4AA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>', title: 'AFRICA-FIRST', desc: 'Local infra (af-south-1)' },
               ].map((b, i) => (
-                <div key={i} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, padding: '0 40px', borderRight: i < 3 ? '1px solid rgba(255,255,255,0.06)' : 'none', position: 'relative' }}>
+                <div key={i} className="trust-badge-item" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, padding: '0 40px', borderRight: i < 3 ? '1px solid rgba(255,255,255,0.06)' : 'none', position: 'relative' }}>
                   {/* Double-ring icon container */}
                   <div style={{ width: 52, height: 52, borderRadius: '50%', border: '1.5px solid rgba(0,212,170,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
                     <div style={{ width: 40, height: 40, borderRadius: '50%', border: '1px dashed rgba(0,212,170,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -638,9 +546,8 @@ when (decision.action) {
                 <img src="/payguard-logo.png" alt="PayGuard" style={{ width: 36, height: 36, borderRadius: 10, objectFit: 'cover', boxShadow: '0 0 20px rgba(59,130,246,0.3)' }} />
                 <div style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: 15, fontWeight: 800, color: '#F0F6FF' }}>PayGuard</div>
               </div>
-              <p style={{ fontSize: 14, color: '#64748B', lineHeight: 1.8, maxWidth: 260 }}>Real-time fraud prevention for African financial infrastructure. Built by Swifter Technologies.</p>
-              <div style={{ marginTop: 16, fontSize: 12, color: '#334155' }}>malcolm@swifter.co.za</div>
-              <div style={{ marginTop: 8, fontSize: 11, color: '#1E293B', fontFamily: 'JetBrains Mono, monospace' }}>© 2026 Swifter Technologies</div>
+              <p style={{ fontSize: 14, color: '#64748B', lineHeight: 1.8, maxWidth: 260 }}>Real-time fraud prevention for African financial infrastructure.</p>
+              <div style={{ marginTop: 8, fontSize: 11, color: '#1E293B', fontFamily: 'JetBrains Mono, monospace' }}>© 2026 PayGuard</div>
             </div>
             {[
               { title: 'Product', links: [['Products', '/products'], ['Architecture', '/architecture'], ['Interactive Demo', '/demo'], ['Dashboard', '/dashboard']] },
@@ -660,12 +567,11 @@ when (decision.action) {
           </div>
           <div style={{ height: 1, background: 'linear-gradient(90deg, transparent, rgba(59,130,246,0.2), transparent)', marginBottom: 24 }} />
           <div className="footer-bottom" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 12, color: '#1E293B' }}>
-            <span>© 2026 Swifter Technologies. All rights reserved.</span>
+            <span>© 2026 PayGuard. All rights reserved.</span>
             <div style={{ display: 'flex', gap: 24, color: '#334155' }}>
               <span>🔒 SOC 2 Type II</span>
               <span>🌍 Africa-first infrastructure</span>
               <span>⚡ 99.99% SLA</span>
-              <a href="https://swifter.digital" target="_blank" rel="noopener noreferrer" style={{ color: '#334155', textDecoration: 'none' }}>swifter.digital ↗</a>
             </div>
           </div>
         </div>

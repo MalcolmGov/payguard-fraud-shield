@@ -517,8 +517,8 @@ export default function DemoTransaction() {
   }, [autoPlay, stepIdx, isLast, advanceStep]);
 
   return (
-    <div style={{ minHeight: '100vh', background: 'var(--bg-primary)', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '0 24px', height: 56, borderBottom: '1px solid var(--border)', background: 'var(--bg-secondary)', flexShrink: 0 }}>
+    <div className="demo-flow-page" style={{ minHeight: '100vh', background: 'var(--bg-primary)', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+      <div className="demo-flow-header" style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '0 24px', height: 56, borderBottom: '1px solid var(--border)', background: 'var(--bg-secondary)', flexShrink: 0 }}>
         <button className="btn btn-ghost" onClick={() => navigate('/demo')} style={{ fontSize: 12, padding: '6px 12px' }}> All Demos</button>
         <div style={{ flex: 1 }}>
           <div style={{ fontSize: 15, fontWeight: 700, color: 'var(--text-primary)' }}>Demo 1  Real-Time Transaction Fraud</div>
@@ -531,7 +531,7 @@ export default function DemoTransaction() {
         )}
       </div>
 
-      <div style={{ display: 'flex', alignItems: 'center', gap: 0, padding: '0 24px', background: 'var(--bg-secondary)', borderBottom: '1px solid var(--border)', overflowX: 'auto', flexShrink: 0 }}>
+      <div className="demo-flow-tabs" style={{ display: 'flex', alignItems: 'center', gap: 0, padding: '0 24px', background: 'var(--bg-secondary)', borderBottom: '1px solid var(--border)', overflowX: 'auto', flexShrink: 0 }}>
         {STEPS.map((s, i) => {
           const isActive = i === stepIdx;
           const isDone = i < stepIdx;
@@ -548,7 +548,7 @@ export default function DemoTransaction() {
         })}
       </div>
 
-      <div style={{ flex: 1, display: 'grid', gridTemplateColumns: '1fr 340px 1fr', gap: 20, padding: 24, overflow: 'hidden' }}>
+      <div className="demo-flow-grid" style={{ flex: 1, display: 'grid', gridTemplateColumns: '1fr 340px 1fr', gap: 20, padding: 24, overflow: 'hidden' }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 14, padding: 24 }}>
             <div style={{ fontSize: 11, fontWeight: 600, color: 'var(--accent-blue)', letterSpacing: '0.08em', marginBottom: 6 }}>STEP {stepIdx + 1} OF {STEPS.length}</div>
@@ -572,12 +572,12 @@ export default function DemoTransaction() {
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <div style={{ width: 280, height: 560, background: '#1A1A1A', borderRadius: 36, padding: 12, boxShadow: '0 0 60px rgba(0,0,0,0.8), inset 0 0 0 1px rgba(255,255,255,0.08)', position: 'relative', flexShrink: 0 }}>
+          <div className="demo-phone-frame" style={{ width: 280, height: 560, background: '#1A1A1A', borderRadius: 36, padding: 12, boxShadow: '0 0 60px rgba(0,0,0,0.8), inset 0 0 0 1px rgba(255,255,255,0.08)', position: 'relative', flexShrink: 0 }}>
             <div style={{ width: 80, height: 20, background: '#111', borderRadius: '0 0 12px 12px', margin: '0 auto 8px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}>
               <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#333' }} />
               <div style={{ width: 40, height: 6, borderRadius: 3, background: '#222' }} />
             </div>
-            <div style={{ borderRadius: 24, overflow: 'hidden', height: 470, background: '#f5f5f5' }}>
+            <div className="demo-phone-screen" style={{ borderRadius: 24, overflow: 'hidden', height: 470, background: '#f5f5f5' }}>
               <PhoneScreen screen={step.phoneScreen} callActive={step.callActive} />
             </div>
             <div style={{ width: 80, height: 4, background: '#333', borderRadius: 2, margin: '8px auto 0' }} />

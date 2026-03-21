@@ -13,5 +13,9 @@
     "build:dashboard": "npm run build --workspace=dashboard",
     "test:api": "npm run test --workspace=services/api",
     "test:dashboard": "npm run test --workspace=dashboard"
+  },
+  "devDependencies": {
+    "docx": "^9.6.1",
+    "exceljs": "^4.4.0"
   }
 }
