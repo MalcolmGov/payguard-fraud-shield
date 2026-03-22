@@ -1965,42 +1965,49 @@ input:focus, select:focus { border-color: var(--accent-blue); }
   opacity: 0.3 !important;
 }
 
-/* ── ALL inline text overrides for light mode ───────────────────── */
+/* ══════════════════════════════════════════════════════════════════
+   LIGHT MODE — LANDING PAGE INLINE STYLE OVERRIDES
+   These override inline JSX styles that use dark-theme-only colors.
+   ══════════════════════════════════════════════════════════════════ */
 
-/* Landing page root — override background & text color */
+/* ── Landing page root ──────────────────────────────────────────── */
 [data-theme="light"] .landing-page {
   background: #FAFBFE !important;
   color: #1E293B !important;
 }
 
-/* All text elements inside landing page — override the white/light text */
+/* ── All text elements — blanket override for white/transparent text ─ */
 [data-theme="light"] .landing-page div,
 [data-theme="light"] .landing-page span,
 [data-theme="light"] .landing-page p,
-[data-theme="light"] .landing-page a {
+[data-theme="light"] .landing-page a,
+[data-theme="light"] .landing-page li {
   color: #334155 !important;
 }
 
-/* Headings — darker */
+/* Headings — force dark */
 [data-theme="light"] .landing-page h1,
 [data-theme="light"] .landing-page h2,
 [data-theme="light"] .landing-page h3 {
   color: #0F172A !important;
 }
 
-/* Preserve colored accents (tags, badge colors, colored labels) */
-[data-theme="light"] .landing-page div[style*="letterSpacing: '0.14em'"],
-[data-theme="light"] .landing-page div[style*="letterSpacing: '0.1em'"] {
+/* ── Section label tags (PRODUCT SUITE, HOW IT WORKS, etc.) ─────── */
+[data-theme="light"] .landing-page div[style*="letterSpacing"],
+[data-theme="light"] .landing-page div[style*="letter-spacing"] {
   color: #3B82F6 !important;
 }
 
-/* Buttons should keep their intended colors */
-[data-theme="light"] .landing-page button {
-  color: inherit !important;
+/* ── Section backgrounds — override dark rgba(...) backgrounds ──── */
+[data-theme="light"] .landing-page section {
+  background: #FAFBFE !important;
+  border-color: #E2E8F0 !important;
 }
-[data-theme="light"] .landing-page button[style*="background: 'linear-gradient"],
-[data-theme="light"] .landing-page button[style*="background: linear-gradient"] {
-  color: #fff !important;
+
+/* ── Nav ────────────────────────────────────────────────────────── */
+[data-theme="light"] .landing-page .web-nav {
+  background: rgba(250,251,254,0.95) !important;
+  border-bottom-color: #E2E8F0 !important;
 }
 [data-theme="light"] .landing-page .nav-desktop-links button,
 [data-theme="light"] .landing-page .nav-desktop-ctas button {
@@ -2009,82 +2016,177 @@ input:focus, select:focus { border-color: var(--accent-blue); }
 [data-theme="light"] .landing-page .nav-desktop-ctas button[style*="background: linear-gradient"] {
   color: #fff !important;
 }
-[data-theme="light"] .landing-page .nav-desktop-ctas button[style*="background: 'transparent'"],
-[data-theme="light"] .landing-page .nav-desktop-ctas button[style*="background: transparent"] {
-  color: #475569 !important;
+[data-theme="light"] .landing-page .mobile-menu {
+  background: rgba(250,251,254,0.97) !important;
+}
+[data-theme="light"] .landing-page .mobile-menu button {
+  color: #334155 !important;
+}
+[data-theme="light"] .landing-page .hamburger-btn span {
+  background: #0F172A !important;
 }
 
-/* Nav logo text */
-[data-theme="light"] .landing-page .web-nav {
-  background: rgba(250,251,254,0.95) !important;
-}
-
-/* Section backgrounds */
-[data-theme="light"] .landing-page section {
-  background: #FAFBFE !important;
+/* ── Product cards — override dark gradient backgrounds ──────────── */
+[data-theme="light"] .landing-page .product-grid > div > div,
+[data-theme="light"] .landing-page .product-grid > div > div > div {
+  background: #FFFFFF !important;
   border-color: #E2E8F0 !important;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06) !important;
+}
+/* Card description text — was rgba(255,255,255,0.6), now readable */
+[data-theme="light"] .landing-page .product-grid p {
+  color: #64748B !important;
 }
 
-/* Card containers — white cards with shadow */
-[data-theme="light"] .landing-page .product-grid > div > div > div,
-[data-theme="light"] .landing-page .who-for-grid > div > div > div,
+/* ── How It Works — step descriptions ───────────────────────────── */
+[data-theme="light"] .landing-page .how-works-grid p {
+  color: #64748B !important;
+}
+/* Pipeline line */
+[data-theme="light"] .landing-page .how-works-grid > div:first-child {
+  opacity: 0.2 !important;
+}
+
+/* ── Comparison cards (Without vs With PayGuard) ────────────────── */
+[data-theme="light"] .landing-page .comparison-grid > div > div,
 [data-theme="light"] .landing-page .comparison-grid > div > div > div {
   background: #FFFFFF !important;
   border-color: #E2E8F0 !important;
   box-shadow: 0 1px 4px rgba(0,0,0,0.06) !important;
 }
+/* "WITHOUT PAYGUARD" label — keep red */
+[data-theme="light"] .landing-page .comparison-inner > div:first-child span[style*="letterSpacing"] {
+  color: #DC2626 !important;
+}
+/* "WITHOUT PAYGUARD" description — dark red readable text */
+[data-theme="light"] .landing-page .comparison-inner > div:first-child p {
+  color: #991B1B !important;
+}
+/* "WITHOUT PAYGUARD" background panel */
+[data-theme="light"] .landing-page .comparison-inner > div:first-child {
+  background: rgba(254,226,226,0.5) !important;
+}
+/* "WITH PAYGUARD" label — keep green */
+[data-theme="light"] .landing-page .comparison-inner > div:last-child span[style*="letterSpacing"] {
+  color: #059669 !important;
+}
+/* "WITH PAYGUARD" description — dark green readable text */
+[data-theme="light"] .landing-page .comparison-inner > div:last-child p {
+  color: #065F46 !important;
+}
+/* "WITH PAYGUARD" background panel */
+[data-theme="light"] .landing-page .comparison-inner > div:last-child {
+  background: rgba(209,250,229,0.5) !important;
+}
+/* Divider between Without/With — softer */
+[data-theme="light"] .landing-page .comparison-inner > div[style*="width: 1"] {
+  background: #E2E8F0 !important;
+}
 
-/* Trust badge container */
+/* ── Who It's For cards ─────────────────────────────────────────── */
+[data-theme="light"] .landing-page .who-for-grid > div > div,
+[data-theme="light"] .landing-page .who-for-grid > div > div > div {
+  background: #FFFFFF !important;
+  border-color: #E2E8F0 !important;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06) !important;
+}
+/* Description text — was rgba(255,255,255,0.55), now readable */
+[data-theme="light"] .landing-page .who-for-grid p,
+[data-theme="light"] .landing-page .who-for-grid div[style*="color: 'rgba(255"] {
+  color: #64748B !important;
+}
+/* Tags — keep their brand color (already handled by blanket, but ensure) */
+[data-theme="light"] .landing-page .who-for-grid div[style*="fontFamily"] {
+  /* Tags use inline color={w.color} which is fine, keep as-is */
+}
+
+/* ── Trust badges ───────────────────────────────────────────────── */
+[data-theme="light"] .landing-page .trust-badges-container {
+  background: #FFFFFF !important;
+}
+[data-theme="light"] .landing-page .trust-badge-item {
+  border-color: #E2E8F0 !important;
+}
 [data-theme="light"] .landing-page section > div > div[style*="background"] {
   background: #FFFFFF !important;
   border-color: #E2E8F0 !important;
   box-shadow: 0 1px 4px rgba(0,0,0,0.06) !important;
 }
 
-/* Trust badge separator lines */
-[data-theme="light"] .landing-page section div[style*="borderRight"] {
+/* ── Stats bar ──────────────────────────────────────────────────── */
+[data-theme="light"] .landing-page .stats-bar-item {
   border-color: #E2E8F0 !important;
 }
 
-/* Footer */
+/* ── Dev teaser code block — keep it dark (code editors are always dark) ── */
+[data-theme="light"] .landing-page .dev-teaser-grid > div:last-child {
+  background: #1E293B !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.15) !important;
+}
+[data-theme="light"] .landing-page .dev-teaser-grid > div:last-child pre {
+  color: #CBD5E1 !important;
+}
+[data-theme="light"] .landing-page .dev-teaser-grid > div:last-child div[style*="background"] {
+  background: #0F172A !important;
+}
+[data-theme="light"] .landing-page .dev-teaser-grid > div:last-child span {
+  color: #94A3B8 !important;
+}
+
+/* ── CTA section ────────────────────────────────────────────────── */
+/* CTA heading — "Stop Fraud?" gradient text  must keep gradient */
+[data-theme="light"] .landing-page h2 span[style*="WebkitTextFillColor"] {
+  -webkit-text-fill-color: transparent !important;
+  color: transparent !important;
+}
+/* CTA sub-text */
+[data-theme="light"] .landing-page section:last-of-type p {
+  color: #64748B !important;
+}
+/* CTA primary button — keep white text on gradient */
+[data-theme="light"] .landing-page button[style*="background: linear-gradient"] {
+  color: #fff !important;
+}
+/* CTA secondary buttons */
+[data-theme="light"] .landing-page section button[style*="background: transparent"],
+[data-theme="light"] .landing-page section button[style*="background: 'transparent'"] {
+  color: #475569 !important;
+  border-color: #CBD5E1 !important;
+}
+
+/* ── Footer — override hardcoded #080F1E background ─────────────── */
 [data-theme="light"] .landing-page footer {
   background: #F1F3F9 !important;
   border-color: #E2E8F0 !important;
 }
-
-/* Stat values — keep their colored accent */
-[data-theme="light"] .landing-page span[style*="color: '#F59E0B'"],
-[data-theme="light"] .landing-page span[style*="color: '#00D4AA'"] {
-  color: inherit !important;
+/* Footer links — were #475569 inline (too dark on dark bg, fine on light) */
+[data-theme="light"] .landing-page footer div {
+  color: #475569 !important;
+}
+[data-theme="light"] .landing-page footer p {
+  color: #64748B !important;
+}
+/* Footer headings (PRODUCT, DEVELOPERS, etc.) — keep blue */
+[data-theme="light"] .landing-page footer div[style*="letterSpacing"] {
+  color: #3B82F6 !important;
+}
+/* Footer bottom bar */
+[data-theme="light"] .landing-page .footer-bottom,
+[data-theme="light"] .landing-page .footer-bottom span,
+[data-theme="light"] .landing-page .footer-bottom div {
+  color: #64748B !important;
+}
+/* Footer separator line */
+[data-theme="light"] .landing-page footer > div > div[style*="height: 1"] {
+  background: #E2E8F0 !important;
 }
 
-/* Small colored tags (EFT · Card · RTP etc) */
-[data-theme="light"] .landing-page div[style*="fontFamily: 'JetBrains Mono"] {
-  color: inherit !important;
-}
-
-/* "Without PayGuard" red-tinted section */
-[data-theme="light"] .landing-page .comparison-inner > div:first-child p {
-  color: #DC2626 !important;
-}
-/* "With PayGuard" green-tinted section */
-[data-theme="light"] .landing-page .comparison-inner > div:last-child p {
-  color: #059669 !important;
-}
-
-/* Mobile menu */
-[data-theme="light"] .landing-page .mobile-menu {
-  background: rgba(250,251,254,0.97) !important;
-}
-[data-theme="light"] .landing-page .hamburger-btn span {
-  background: #0F172A !important;
-}
-
-/* CTA buttons — white on gradient */
-[data-theme="light"] .landing-page section > div button[style*="background: 'linear-gradient"],
-[data-theme="light"] .landing-page section button[style*="'#fff'"],
-[data-theme="light"] .landing-page section button[style*="#fff"] {
-  color: #fff !important;
+/* ── Gradient text elements — preserve gradient fill ────────────── */
+[data-theme="light"] .hero-heading-accent,
+[data-theme="light"] .grad-red,
+[data-theme="light"] .grad-white-red,
+[data-theme="light"] .grad-blue-green {
+  -webkit-text-fill-color: transparent !important;
 }
 /* ═══════════════════════════════════════════════════════════════════
    SCROLL REVEAL ANIMATIONS
