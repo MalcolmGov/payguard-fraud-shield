@@ -49,21 +49,21 @@ const STEPS = [
 const SCENARIOS = [
   {
     title: 'Social Engineering Call',
-    icon: '\uD83D\uDCDE',
+    icon: '/icon-social-engineering.png',
     color: '#3B82F6',
     without: 'Customer is manipulated into transferring funds while on a call with a scammer. Bank only discovers the fraud days later.',
     with: 'PayGuard detects the active call during payment. Transaction is blocked instantly. Customer sees a full-screen fraud warning.',
   },
   {
     title: 'SIM Swap Attack',
-    icon: '\uD83D\uDCF1',
+    icon: '/icon-sim-attack.png',
     color: '#0EA5E9',
     without: 'Fraudster ports victim\'s SIM, resets banking credentials, and drains account within hours.',
     with: 'PayGuard detects new device fingerprint within 48h of SIM change. All outbound transactions are frozen automatically.',
   },
   {
     title: 'Mule Account Network',
-    icon: '\uD83D\uDD78\uFE0F',
+    icon: '/icon-mule-network.png',
     color: '#00D4AA',
     without: 'Stolen funds are laundered through dozens of connected accounts across banks. Investigation takes weeks.',
     with: 'PayGuard\'s fraud graph links shared devices, IPs, and behavioural patterns. One-click bulk-block across the entire ring.',
@@ -197,7 +197,7 @@ export default function HowItWorksPage() {
                   display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center',
                   borderRight: '1px solid rgba(255,255,255,0.06)',
                 }}>
-                  <div style={{ fontSize: 36, marginBottom: 12 }}>{s.icon}</div>
+                  <img src={s.icon} alt={s.title} style={{ width: 56, height: 56, objectFit: 'contain', marginBottom: 12 }} />
                   <div style={{ fontSize: 15, fontWeight: 800, color: 'var(--w-text-1)', textAlign: 'center', fontFamily: 'Outfit, sans-serif' }}>{s.title}</div>
                 </div>
 
