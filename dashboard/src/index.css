@@ -50,6 +50,23 @@
   --w-glow-rose:   0 0 60px rgba(14,165,233,0.20);
 }
 
+/* ── Light Mode Design Tokens ── */
+[data-theme="light"] {
+  --w-bg:          #FAFBFE;
+  --w-bg-2:        #F1F3F9;
+  --w-card:        #FFFFFF;
+  --w-card-border: #E2E8F0;
+  --w-card-hover:  rgba(59,130,246,0.06);
+
+  --w-text-1: #0F172A;
+  --w-text-2: #475569;
+  --w-text-3: #64748B;
+
+  --w-glow-red:    0 0 60px rgba(59,130,246,0.10);
+  --w-glow-red-2:  0 0 60px rgba(0,212,170,0.08);
+  --w-glow-rose:   0 0 60px rgba(14,165,233,0.06);
+}
+
 /* ── Hero 3D Rotation ── */
 @keyframes hero3dRotate {
   0%   { transform: perspective(1000px) rotateY(0deg); }
@@ -2096,9 +2113,7 @@ input:focus, select:focus { border-color: var(--accent-blue); }
   color: #64748B !important;
 }
 /* Tags — keep their brand color (already handled by blanket, but ensure) */
-[data-theme="light"] .landing-page .who-for-grid div[style*="fontFamily"] {
-  /* Tags use inline color={w.color} which is fine, keep as-is */
-}
+/* Tags in who-for-grid use inline color={w.color} which is fine in both themes */
 
 /* ── Trust badges ───────────────────────────────────────────────── */
 [data-theme="light"] .landing-page .trust-badges-container {
@@ -2372,19 +2387,20 @@ input:focus, select:focus { border-color: var(--accent-blue); }
   border-bottom: 1px solid #CBD5E1;
 }
 [data-theme="light"] .glass-card {
-  background: linear-gradient(140deg, rgba(255,255,255,0.9) 0%, rgba(241,245,249,0.8) 100%);
-  border: 1px solid rgba(0,0,0,0.08);
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
 }
 [data-theme="light"] .glass-card::before {
-  background: linear-gradient(90deg, transparent, rgba(0,0,0,0.04), transparent);
+  background: none;
 }
 [data-theme="light"] .glass-card::after {
-  background: radial-gradient(ellipse, rgba(37,99,235,0.03) 0%, transparent 65%);
+  background: none;
 }
 [data-theme="light"] .glass-card:hover {
-  background: linear-gradient(140deg, rgba(255,255,255,1) 0%, rgba(241,245,249,0.9) 100%);
-  border-color: rgba(37,99,235,0.2);
-  box-shadow: 0 20px 60px rgba(0,0,0,0.08), 0 0 0 1px rgba(37,99,235,0.1);
+  background: #FFFFFF;
+  border-color: rgba(59,130,246,0.25);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08), 0 0 0 1px rgba(59,130,246,0.1);
 }
 
 /* ── Feature card — light version ── */
@@ -2503,6 +2519,41 @@ input:focus, select:focus { border-color: var(--accent-blue); }
 /* ── Orbs — subtle ── */
 [data-theme="light"] .orb {
   opacity: 0.3;
+}
+
+/* ── Override all hardcoded dark backgrounds (#0F1A2E) used on HowItWorks, Architecture etc. ── */
+[data-theme="light"] div[style*="background: '#0F1A2E'"],
+[data-theme="light"] div[style*='background: #0F1A2E'],
+[data-theme="light"] div[style*="background: rgb(15, 26, 46)"] {
+  background: #FFFFFF !important;
+  border-color: #E2E8F0 !important;
+}
+
+/* Override inline rgba(255,255,255,...) borders used on cards in dark mode */
+[data-theme="light"] div[style*="borderRight: '1px solid rgba(255"] {
+  border-color: #E2E8F0 !important;
+}
+
+/* ── Sandbox page — response panel, API bar ── */
+[data-theme="light"] .sandbox-response {
+  background: #F1F5F9 !important;
+  border-color: #E2E8F0 !important;
+  color: #334155 !important;
+}
+
+/* ── Architecture page — layer cards with gradient backgrounds ── */
+[data-theme="light"] div[style*="linear-gradient(135deg, rgba(15,26,46"] {
+  background: #FFFFFF !important;
+  border-color: #E2E8F0 !important;
+}
+
+/* ── Sub-feature cards (Call State Monitor, Paste Detector etc.) text ── */
+[data-theme="light"] div[style*="rgba(255,255,255,0.5)"],
+[data-theme="light"] div[style*="rgba(255,255,255,0.6)"],
+[data-theme="light"] div[style*="rgba(255,255,255,0.55)"],
+[data-theme="light"] p[style*="rgba(255,255,255,0.5)"],
+[data-theme="light"] p[style*="rgba(255,255,255,0.6)"] {
+  color: #64748B !important;
 }
 
 /* ── Search input ── */
