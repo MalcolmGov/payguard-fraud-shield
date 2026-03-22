@@ -1,8 +1,10 @@
 # PayGuard
 
-> PayGuard is Africa's purpose-built social engineering fraud prevention SDK for mobile money operators, banks, fintechs, and telcos. Built by Swifter Technologies.
+> PayGuard is Africa's purpose-built fraud prevention platform for banks, telcos, fintechs, mobile money operators, PSPs, neobanks, and digital wallets. Built by Swifter Technologies.
 
-PayGuard detects vishing, SIM swap, OTP interception, and account takeover attacks in real-time during payment flows — sub-50ms decision latency, zero UX disruption for legitimate users.
+PayGuard detects vishing, SIM swap, OTP interception, account takeover, mule networks, and payment manipulation in real-time during payment flows — sub-100ms decision latency, zero UX disruption for legitimate users.
+
+For comprehensive page-by-page content, see: https://payguard.africa/llms-full.txt
 
 ## Product Suite
 
@@ -10,6 +12,10 @@ PayGuard detects vishing, SIM swap, OTP interception, and account takeover attac
 - [OtpGuard](https://payguard.africa/products): Detects when an OTP entry screen is open during an active call — the hallmark of OTP phishing. Applies screen-recording block and fires a full-screen fraud warning. Signals: screen state, call detection, FLAG_SECURE, CXCallObserver.
 - [SIM Swap Defender](https://payguard.africa/products): Detects SIM port and account takeover events. Automatically freezes outbound transactions when a new device fingerprint appears within 48h of a SIM change — regardless of the underlying payment rail. Signals: SIM fingerprint, device hash, carrier event, geolocation delta.
 - [Fraud Ring Intel](https://payguard.africa/products): Neo4j-powered fraud graph linking accounts, devices, and wallets across your entire customer base. Detects mule networks and enables one-click bulk-block of connected entities. Works across multiple institutions via API. Signals: device graph, bullet tracing, IP clustering, behavioural similarity.
+- [AML & Sanctions Screening](https://payguard.africa/products): Automated screening against global watchlists, PEP databases, and sanctions lists. Continuous monitoring with risk-based alerts.
+- [AI Anomaly Detection](https://payguard.africa/products): ML models trained on African payment patterns. Detects anomalies in transaction behaviour, device usage, and account activity.
+- [Device Intelligence](https://payguard.africa/products): Advanced device fingerprinting and binding. Detects emulators, rooted devices, remote access tools, and spoofed environments.
+- [Fraud Analytics Dashboard](https://payguard.africa/products): Real-time fraud analytics with drill-down reports, heat maps, and trend analysis. Custom alert rules and automated workflows.
 
 ## Key Facts
 
@@ -20,6 +26,7 @@ PayGuard detects vishing, SIM swap, OTP interception, and account takeover attac
 - Integration: Native Android and iOS SDKs — 4 lines of code to full protection
 - Deployment targets: Mobile money operators, banks, telcos, fintechs, PSPs, neobanks, digital wallets
 - Geography: Africa-first — built for African mobile money and payment infrastructure
+- SOC 2 Type II Compliant · 99.99% SLA
 
 ## How It Works
 
@@ -28,14 +35,60 @@ PayGuard detects vishing, SIM swap, OTP interception, and account takeover attac
 3. Decision: Block, warn, or allow — with full audit trail
 4. Graph update: Transaction and device metadata fed into fraud graph for network detection
 
-## Pages
+## All Pages
 
-- [Home](https://payguard.africa): Overview, stats, product suite preview
-- [Products](https://payguard.africa/products): Full product suite with signal details
-- [Architecture](https://payguard.africa/architecture): Technical architecture — SDK, risk engine, fraud graph, dashboard
-- [Interactive Demo](https://payguard.africa/demo): Live simulation of 6 fraud attack vectors
-- [Sandbox](https://payguard.africa/sandbox): Test the PayGuard API with live keys
-- [Developers](https://payguard.africa/developers): SDK integration guides for Android and iOS
+### Marketing & Information
+- [Home](https://payguard.africa/): Landing page with platform overview, key stats, product suite preview, trust badges, and CTA
+- [Products](https://payguard.africa/products): Full 8-product suite with signal details, use cases, and technical specifications
+- [How It Works](https://payguard.africa/how-it-works): 4-step pipeline from SDK signal capture to risk decision to enforcement
+- [Architecture](https://payguard.africa/architecture): Technical architecture — SDK layer, risk engine, fraud graph, API gateway, dashboard
+- [Developers](https://payguard.africa/developers): SDK integration guides for Android (Kotlin) and iOS (Swift), REST API reference, sandbox docs
+- [Sandbox](https://payguard.africa/sandbox): Interactive API sandbox — test PayGuard risk scoring with live test credentials
+- [About Us](https://payguard.africa/about): Company info, team, mission, Swifter Technologies background
+- [Contact](https://payguard.africa/contact): Contact form, email, and demo booking
+- [Ecosystem](https://payguard.africa/ecosystem): Platform ecosystem and integration partners
+
+### Interactive Demos (7 fraud scenario walkthroughs)
+- [Demo Hub](https://payguard.africa/demo): Selection page for all interactive fraud demos
+- [Transaction Fraud](https://payguard.africa/demo/transaction): Simulates real-time transaction fraud detection — phone call during payment, paste events, velocity checks
+- [Account Takeover](https://payguard.africa/demo/takeover): Simulates device takeover detection — new device login, credential stuffing, session hijacking
+- [SIM Swap Attack](https://payguard.africa/demo/simswap): Simulates SIM swap defence — carrier port event, device fingerprint change, transaction freeze
+- [Fraud Ring](https://payguard.africa/demo/fraudring): Simulates fraud ring detection — linked accounts, shared devices, money mule network visualization
+- [Rule Tuning](https://payguard.africa/demo/ruletuning): Interactive fraud rule configuration — threshold adjustment, signal weight tuning
+- [False Positive Mgmt](https://payguard.africa/demo/falsepositive): False positive review queue — analyst workflow for reviewing and overriding fraud decisions
+- [USSD Push Demo](https://payguard.africa/ussd-demo): USSD-based fraud notification push — how PayGuard alerts via USSD on feature phones
+
+### Dashboard (Analyst Platform — auth-gated)
+- [Dashboard Overview](https://payguard.africa/dashboard): Real-time fraud analytics overview — KPIs, risk scores, alert volume, detection rates
+- [Case Queue](https://payguard.africa/case-queue): Analyst case management — prioritised fraud alerts, investigation workflow, case assignment
+- [Transactions](https://payguard.africa/transactions): Full transaction monitoring — search, filter, drill-down, risk score history
+- [User 360° Profile](https://payguard.africa/user-profile): Complete customer risk profile — device history, transaction patterns, risk trajectory
+- [Fraud Network Graph](https://payguard.africa/network): Neo4j-powered interactive fraud graph — entity linking, mule network visualisation
+- [Accounts](https://payguard.africa/accounts): Account management — customer accounts, risk status, freeze/unfreeze controls
+- [Device Binding](https://payguard.africa/devices): Device management — bound devices, fingerprint history, suspicious device flags
+- [Reports](https://payguard.africa/reports): Automated fraud reporting — regulatory reports, trend analysis, export capabilities
+- [Rules Engine](https://payguard.africa/rules): Configurable fraud rules — threshold tuning, signal weights, custom rule creation
+- [Geo Intelligence](https://payguard.africa/geo): Geographic fraud mapping — IP intelligence, location anomalies, travel impossibility detection
+- [Attack Simulator](https://payguard.africa/simulator): Red-team attack simulation — test detection capabilities against known attack patterns
+- [Pre-crime Scores](https://payguard.africa/precrime): AI-driven pre-crime risk scoring — predictive fraud identification before transaction attempt
+- [Fraud Clusters](https://payguard.africa/clusters): AI cluster analysis — behavioural clustering, anomaly detection, group risk assessment
+- [Trajectory Forecast](https://payguard.africa/trajectory): Risk trajectory forecasting — trend prediction, emerging threat identification
+- [Audit Log](https://payguard.africa/audit): Complete audit trail — every action logged, SOC 2 compliance, exportable evidence
+- [API Clients](https://payguard.africa/clients): API client management — API keys, usage tracking, rate limits, client onboarding
+- [Invoices](https://payguard.africa/invoices): Billing and invoicing — usage-based billing, invoice history, payment tracking
+- [Settings](https://payguard.africa/settings): Platform settings — notification preferences, team management, integration config
+
+### Legal
+- [Privacy Policy](https://payguard.africa/legal/privacy)
+- [Terms of Service](https://payguard.africa/legal/terms)
+
+## Technical Stack
+
+- Frontend: React + TypeScript + Vite, deployed on Vercel
+- Backend: NestJS + Prisma + PostgreSQL, deployed on Railway
+- Fraud Graph: Neo4j graph database
+- SDKs: Native Android (Kotlin) + iOS (Swift)
+- Infrastructure: AES-256 payload encryption, HMAC request signing, TLS 1.3
 
 ## Company
 
@@ -43,3 +96,4 @@ PayGuard is a product of Swifter Technologies. Swifter is Africa's financial ope
 
 - Main platform: https://swifter.digital
 - Contact: https://payguard.africa/contact
+- Email: malcolm@swifter.co.za

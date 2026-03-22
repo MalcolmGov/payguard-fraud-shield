@@ -113,10 +113,10 @@
   <body>
     <div id="root">
       <!-- ══════════════════════════════════════════════════════════════
-           STATIC HTML FALLBACK — Hidden from users via CSS above.
+           STATIC HTML FALLBACK — Hidden from browser users via CSS.
            Visible to non-JS crawlers (Google, Bing, Claude, GPTBot)
-           that don't execute CSS. React's createRoot() replaces this
-           content on hydration.
+           React's createRoot() replaces this content on hydration.
+           For comprehensive AI/LLM content see /llms-full.txt
            ══════════════════════════════════════════════════════════════ -->
       <article itemscope itemtype="https://schema.org/SoftwareApplication">
         <header>
@@ -128,18 +128,59 @@
             networks. One SDK. Any payment rail. Any app. Any market.
           </p>
           <p>Built by <a href="https://swifter.digital" itemprop="author">Swifter Technologies</a> · Deployed by banks, telcos, fintechs, neobanks, PSPs, and digital wallets across Africa.</p>
+          <p><strong>AI/LLM agents:</strong> For comprehensive page-by-page content, see <a href="/llms-full.txt">llms-full.txt</a> or <a href="/llms.txt">llms.txt</a> (concise).</p>
         </header>
 
         <nav aria-label="Main Navigation">
+          <h2>Site Navigation — All Pages</h2>
+          <h3>Marketing &amp; Information</h3>
           <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/products">Products</a></li>
-            <li><a href="/how-it-works">How It Works</a></li>
-            <li><a href="/architecture">Architecture</a></li>
-            <li><a href="/developers">Developers &amp; SDK Docs</a></li>
-            <li><a href="/sandbox">Sandbox</a></li>
-            <li><a href="/about">About Us</a></li>
-            <li><a href="/demo">Interactive Demo</a></li>
+            <li><a href="/">Home</a> — Platform overview, key stats, product suite preview</li>
+            <li><a href="/products">Products</a> — Full 8-product suite with signal details and specifications</li>
+            <li><a href="/how-it-works">How It Works</a> — 4-step pipeline from SDK signal capture to risk decision</li>
+            <li><a href="/architecture">Architecture</a> — Technical system architecture — SDK, risk engine, graph DB, dashboard</li>
+            <li><a href="/developers">Developers &amp; SDK Docs</a> — Android (Kotlin) and iOS (Swift) integration guides, REST API reference</li>
+            <li><a href="/sandbox">Sandbox</a> — Interactive API testing environment with live test credentials</li>
+            <li><a href="/about">About Us</a> — Company info, mission, team, Swifter Technologies background</li>
+            <li><a href="/contact">Contact</a> — Contact form, demo booking, email</li>
+            <li><a href="/ecosystem">Ecosystem</a> — Platform ecosystem and integration partners</li>
+          </ul>
+          <h3>Interactive Demos (7 Fraud Scenarios)</h3>
+          <ul>
+            <li><a href="/demo">Demo Hub</a> — Selection page for all interactive fraud scenario walkthroughs</li>
+            <li><a href="/demo/transaction">Transaction Fraud</a> — Real-time transaction fraud detection with phone call correlation</li>
+            <li><a href="/demo/takeover">Account Takeover</a> — Device takeover and credential compromise detection</li>
+            <li><a href="/demo/simswap">SIM Swap Attack</a> — SIM port defence with automatic transaction freeze</li>
+            <li><a href="/demo/fraudring">Fraud Ring</a> — Neo4j graph-based mule network detection and bulk-block</li>
+            <li><a href="/demo/ruletuning">Rule Tuning</a> — Interactive fraud rule configuration and threshold adjustment</li>
+            <li><a href="/demo/falsepositive">False Positive Mgmt</a> — Analyst review queue for overriding fraud decisions</li>
+            <li><a href="/ussd-demo">USSD Push Demo</a> — USSD-based fraud alerts for feature phones</li>
+          </ul>
+          <h3>Analyst Dashboard (Auth-Gated)</h3>
+          <ul>
+            <li><a href="/dashboard">Overview</a> — Real-time fraud analytics, KPIs, detection rates, alert volume</li>
+            <li><a href="/case-queue">Case Queue</a> — Prioritised fraud alerts, investigation workflow, case assignment</li>
+            <li><a href="/transactions">Transactions</a> — Full transaction monitoring with search, filter, drill-down</li>
+            <li><a href="/user-profile">User 360°</a> — Complete customer risk profile, device history, risk trajectory</li>
+            <li><a href="/network">Fraud Network</a> — Neo4j interactive fraud graph, entity linking, mule visualisation</li>
+            <li><a href="/accounts">Accounts</a> — Account management, risk status, freeze/unfreeze controls</li>
+            <li><a href="/devices">Device Binding</a> — Bound devices, fingerprint history, trust scores</li>
+            <li><a href="/reports">Reports</a> — Automated fraud reporting, regulatory exports, trend analysis</li>
+            <li><a href="/rules">Rules Engine</a> — Configurable fraud rules, threshold tuning, signal weights</li>
+            <li><a href="/geo">Geo Intelligence</a> — IP intelligence, location anomalies, travel impossibility</li>
+            <li><a href="/simulator">Attack Simulator</a> — Red-team attack simulation, detection testing</li>
+            <li><a href="/precrime">Pre-crime Scores</a> — AI predictive risk scoring before attack attempt</li>
+            <li><a href="/clusters">Fraud Clusters</a> — AI behavioural clustering, anomaly detection</li>
+            <li><a href="/trajectory">Trajectory Forecast</a> — Risk trend prediction, emerging threat identification</li>
+            <li><a href="/audit">Audit Log</a> — SOC 2 compliant audit trail, exportable evidence</li>
+            <li><a href="/clients">API Clients</a> — API key management, usage tracking, rate limits</li>
+            <li><a href="/invoices">Invoices</a> — Usage-based billing, invoice history, payment tracking</li>
+            <li><a href="/settings">Settings</a> — Notifications, team management, integration config</li>
+          </ul>
+          <h3>Legal</h3>
+          <ul>
+            <li><a href="/legal/privacy">Privacy Policy</a></li>
+            <li><a href="/legal/terms">Terms of Service</a></li>
           </ul>
         </nav>
 
@@ -156,14 +197,14 @@
         <section>
           <h2>Product Suite — One Platform, Every Fraud Vector</h2>
           <ul>
-            <li><strong>Transaction Guard</strong> — Real-time risk scoring on every outbound payment. Blocks transactions during active calls, paste events, and rushed sessions.</li>
-            <li><strong>OtpGuard</strong> — Detects OTP entry during active calls — the hallmark of real-time OTP phishing. Blocks screen capture and fires fraud warnings.</li>
-            <li><strong>SIM Swap Defender</strong> — Detects SIM port and account takeover events. Freezes transactions when a new device appears within 48h of a SIM change.</li>
-            <li><strong>Fraud Ring Intel</strong> — Neo4j-powered fraud graph linking accounts, devices, and wallets. Detects mule networks with one-click bulk-block.</li>
-            <li><strong>AML &amp; Sanctions Screening</strong> — Automated screening against global watchlists, PEP databases, and sanctions lists. Continuous monitoring with risk-based alerts.</li>
-            <li><strong>Fraud Analytics Dashboard</strong> — Real-time fraud analytics with drill-down reports, heat maps, and trend analysis. Custom alert rules and automated workflows.</li>
-            <li><strong>AI Anomaly Detection</strong> — ML models trained on African payment patterns. Detects anomalies in transaction behaviour, device usage, and account activity.</li>
-            <li><strong>Device Intelligence</strong> — Advanced device fingerprinting and binding. Detects emulators, rooted devices, remote access tools, and spoofed environments.</li>
+            <li><strong>Transaction Guard</strong> — Real-time risk scoring on every outbound payment — mobile money, bank transfers, wallet disbursements, and PSP rails. Sub-50ms decision. Blocks transactions during active calls, paste events, and rushed sessions. Signals: call state, paste detection, keystroke cadence, velocity, recipient graph, amount anomaly.</li>
+            <li><strong>OtpGuard</strong> — Detects OTP entry during active calls — the hallmark of real-time OTP phishing. Applies FLAG_SECURE to block screen recording/capture and fires a full-screen "SCAM ALERT" fraud warning. Signals: screen state, call detection, OTP field focus, clipboard activity.</li>
+            <li><strong>SIM Swap Defender</strong> — Detects SIM port and account takeover events. Freezes outbound transactions when a new device fingerprint appears within 48h of a SIM change — regardless of payment rail. Signals: SIM serial (ICCID), device hardware hash, carrier event, geolocation delta, IMEI change.</li>
+            <li><strong>Fraud Ring Intel</strong> — Neo4j-powered fraud graph linking accounts, devices, and wallets across entire customer base. Detects mule networks through entity linking and enables one-click bulk-block of connected entities. Cross-institutional via API federation. Signals: device graph, IP clustering, behavioural similarity, transaction bullet tracing.</li>
+            <li><strong>AML &amp; Sanctions Screening</strong> — Automated screening against UN sanctions, EU consolidated list, OFAC SDN, PEP databases, and local watchlists. Real-time and batch modes. Continuous monitoring with risk-based alerts. Configurable fuzzy matching thresholds.</li>
+            <li><strong>AI Anomaly Detection</strong> — ML models trained specifically on African payment patterns. Detects anomalies in transaction behaviour, device usage, account activity, and login patterns. Explainable AI — every decision has human-readable reasoning.</li>
+            <li><strong>Device Intelligence</strong> — Advanced device fingerprinting combining 40+ signals. Detects emulators, rooted/jailbroken devices, remote access tools (TeamViewer, AnyDesk), app cloning, GPS spoofing, VPN/proxy. Hardware-backed binding via Android Keystore / iOS Secure Enclave.</li>
+            <li><strong>Fraud Analytics Dashboard</strong> — Real-time fraud analytics with drill-down reports, heat maps, trend charts, geographic distribution. Custom alert rules with automated workflows. Exportable reports for regulators and auditors.</li>
           </ul>
           <p><a href="/products">Explore all products →</a></p>
         </section>
@@ -171,24 +212,26 @@
         <section>
           <h2>How It Works — From Signal to Decision in &lt;100ms</h2>
           <ol>
-            <li><strong>SDK Embeds in 4 Lines</strong> — Drop into any iOS or Android payment app. Kotlin &amp; Swift native. Zero UX impact.</li>
-            <li><strong>Signals Stream in Real-Time</strong> — Call state, paste events, keystroke cadence, device telemetry, and SIM identity are AES-256 encrypted and dispatched in under 10ms.</li>
-            <li><strong>Risk Engine Decides in 50ms</strong> — 14 fraud rules evaluate in parallel. The enforcement action — ALLOW, WARN, or BLOCK — is returned before the customer taps Confirm.</li>
-            <li><strong>Customer &amp; Institution Protected</strong> — BLOCK → payment halted, scam warning shown. WARN → friction layer added. ALLOW → completely invisible. Full audit trail.</li>
+            <li><strong>SDK Embeds in 4 Lines</strong> — Drop into any iOS or Android payment app. Kotlin &amp; Swift native. Zero UX impact. Captures signals passively during payment flows.</li>
+            <li><strong>Signals Stream in Real-Time</strong> — 40+ device and behavioural signals: call state, paste events, keystroke cadence, device telemetry, SIM identity. AES-256 encrypted and dispatched in under 10ms with offline queue fallback.</li>
+            <li><strong>Risk Engine Decides in &lt;100ms</strong> — 14 fraud rules evaluate in parallel across 5 categories (velocity, device, behavioural, network, geographic). Risk score 0-100 with configurable thresholds. ALLOW, WARN, or BLOCK returned before customer taps Confirm.</li>
+            <li><strong>Customer &amp; Institution Protected</strong> — BLOCK → payment halted, scam warning shown. WARN → friction layer added. ALLOW → completely invisible. Full audit trail. Transaction and device metadata fed into fraud graph for network detection.</li>
           </ol>
-          <p><a href="/how-it-works">Learn more about how it works →</a></p>
+          <p><a href="/how-it-works">Learn more →</a></p>
         </section>
 
         <section>
-          <h2>Interactive Demos</h2>
+          <h2>Technical Architecture</h2>
           <ul>
-            <li><a href="/demo">Interactive Demo Hub</a></li>
-            <li><a href="/demo/transaction">Transaction Fraud Detection</a></li>
-            <li><a href="/demo/takeover">Account Takeover Detection</a></li>
-            <li><a href="/demo/simswap">SIM Swap Attack Defence</a></li>
-            <li><a href="/demo/fraudring">Fraud Ring Intelligence</a></li>
-            <li><a href="/ussd-demo">USSD Push Demo</a></li>
+            <li><strong>SDK Layer</strong> — Native Kotlin/Swift libraries embedded in client banking apps. Signal collection, encryption, dispatch.</li>
+            <li><strong>API Gateway</strong> — NestJS service: API key auth, rate limiting, payload decryption, request routing.</li>
+            <li><strong>Risk Engine</strong> — Signal processing, rule evaluation, scoring, decision making. 14 fraud rules across 5 categories.</li>
+            <li><strong>Device Binding Service</strong> — Device registration, fingerprint management, challenge-response authentication.</li>
+            <li><strong>Graph Engine</strong> — Neo4j-powered fraud network analysis, entity linking, cluster detection.</li>
+            <li><strong>Dashboard</strong> — React/TypeScript SPA for fraud analysts: real-time monitoring, case management, reporting.</li>
+            <li><strong>Data Layer</strong> — PostgreSQL (OLTP), Neo4j (graph), Redis (caching/queues).</li>
           </ul>
+          <p><a href="/architecture">View full architecture →</a></p>
         </section>
 
         <section>
@@ -199,6 +242,11 @@
             <li><a href="/sandbox">Sandbox Environment</a></li>
             <li><a href="/architecture">System Architecture</a></li>
           </ul>
+        </section>
+
+        <section>
+          <h2>Company</h2>
+          <p>PayGuard is a product of Swifter Technologies. Swifter is Africa's financial operating system, delivering cross-border payments (Swifter Send), enterprise ERP (Swifter ERP), fraud prevention (PayGuard), and digital identity (Swifter ID) under one platform. SOC 2 Type II Compliant. 99.99% SLA. Africa-first infrastructure.</p>
         </section>
 
         <footer>
