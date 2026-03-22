@@ -2,6 +2,9 @@
 
 > PayGuard is Africa's purpose-built fraud prevention platform for banks, telcos, fintechs, mobile money operators, PSPs, neobanks, and digital wallets. Built by Swifter Technologies.
 
+For comprehensive page-by-page content, see: https://payguard.africa/llms-full.txt
+For raw source code (CSS, JSX, routes), see: https://payguard.africa/llms-source.txt
+
 PayGuard detects vishing, SIM swap, OTP interception, account takeover, mule networks, and payment manipulation in real-time during payment flows — sub-100ms decision latency, zero UX disruption for legitimate users.
 
 For comprehensive page-by-page content, see: https://payguard.africa/llms-full.txt

@@ -1,0 +1,49 @@
+# PayGuard Source Code — For AI/LLM Analysis
+
+> These files contain the raw source code of payguard.africa for AI tools to analyze the website's CSS, layout, components, and architecture.
+
+## Available Source Files
+
+| File | Description | Size |
+|------|-------------|------|
+| [llms-source-css.txt](https://payguard.africa/llms-source-css.txt) | Complete CSS (index.css) — design tokens, glassmorphism, responsive breakpoints, light/dark mode | 2782 lines, 80KB |
+| [llms-source-landing.txt](https://payguard.africa/llms-source-landing.txt) | Landing page component (Landing.tsx) — hero, product suite, how-it-works, comparison, CTA | ~47KB |
+| [llms-source-webnav.txt](https://payguard.africa/llms-source-webnav.txt) | Navigation component (WebNav.tsx) — responsive nav, hamburger menu, mobile overlay | ~12KB |
+| [llms-source-app.txt](https://payguard.africa/llms-source-app.txt) | App router (App.tsx) — all route definitions, SEO meta, layout components | ~16KB |
+
+## CSS Architecture Summary
+
+### Design Tokens (lines 29-51, 388-415)
+- Two `:root` blocks: website tokens (`--w-*`) and dashboard tokens (`--bg-*`, `--text-*`, `--accent-*`)
+- Dark mode is default
+
+### Light Mode (lines 1848-2782)
+- Activated via `[data-theme="light"]` on `<html>`
+- Overrides all CSS custom properties + additional selectors to override inline styles in JSX
+- Currently forced to dark mode by default (light mode WIP — see git log)
+
+### Responsive Breakpoints
+- **1024px** (tablet): Nav padding, 4→2 col grids, stats sizing (line 832)
+- **768px** (mobile): Full mobile layout — nav hamburger, 1-col grids, section padding, dashboard sidebar collapse, code block overflow (line 1183)
+- **480px** (small mobile): Heading size caps, full-width buttons, 1-col everything, trust badge stacking (line 1458)
+- **Hero section**: Mobile-first (base = mobile, min-width 768px = desktop) (line 866)
+
+### Key CSS Classes
+- `.landing-hero`, `.hero-content`, `.hero-heading`, `.hero-btn-primary` — Hero section
+- `.glass-card`, `.premium-card`, `.feature-card` — Card components
+- `.web-nav`, `.hamburger-btn`, `.mobile-menu-overlay` — Navigation
+- `.product-grid`, `.how-works-grid`, `.who-for-grid`, `.comparison-grid` — Page section grids
+- `.stats-bar-grid`, `.stats-bar-item` — Stats bar
+- `.demo-page`, `.demo-card`, `.demo-grid` — Demo page
+- `.app-layout`, `.sidebar`, `.main-content` — Dashboard layout
+- `.w-btn-primary`, `.w-btn-secondary` — Website buttons
+- `.grad-red`, `.grad-white-red`, `.grad-blue-green` — Gradient text
+- `.mesh-bg`, `.orb` — Background effects
+
+## How AI Tools Should Use These Files
+
+1. **Contrast analysis**: Fetch `llms-source-css.txt` and compare light mode token values against background colors
+2. **Responsive audit**: Search for `@media` blocks and check grid-template-columns breakpoints
+3. **Component analysis**: Fetch `llms-source-landing.txt` to see the actual JSX structure and inline styles
+4. **Navigation audit**: Fetch `llms-source-webnav.txt` for the responsive nav implementation
+5. **Route structure**: Fetch `llms-source-app.txt` for all routes and page metadata
